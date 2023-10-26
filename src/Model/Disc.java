@@ -1,4 +1,4 @@
-package Board;
+package Model;
 
 public enum Disc {
   BLACK, WHITE, EMPTY

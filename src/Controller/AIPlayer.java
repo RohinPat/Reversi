@@ -1,8 +1,8 @@
-package Player;
+package Controller;
 
-import Player.Player;
-import Board.Board;
-import Board.Disc;
+import Controller.Player;
+import Model.Board;
+import Model.Disc;
 
 public class AIPlayer implements Player {
   private Disc discColor;

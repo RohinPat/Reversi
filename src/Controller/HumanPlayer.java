@@ -1,8 +1,8 @@
-package Player;
+package Controller;
 
-import Board.Board;
-import Player.Player;
-import Board.Disc;
+import Controller.Player;
+import Model.Board;
+import Model.Disc;
 
 public class HumanPlayer implements Player {
   private Disc discColor;

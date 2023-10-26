@@ -1,7 +1,7 @@
-package Player;
+package Controller;
 
-import Board.Disc;
-import Board.Board;
+import Model.Board;
+import Model.Disc;
 
 public interface Player {
   Disc getDiscColor();

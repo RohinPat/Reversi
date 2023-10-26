@@ -1,4 +1,4 @@
-package Board;
+package Model;
 
 public class Cell {
   private Disc disc;
