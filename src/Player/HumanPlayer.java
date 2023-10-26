@@ -9,11 +9,11 @@ public class HumanPlayer implements Player {
 
   @Override
   public Disc getDiscColor() {
-    return null;
+    return discColor;
   }
 
   @Override
   public void makeMove(Board board) {
-
+    
   }
 }
