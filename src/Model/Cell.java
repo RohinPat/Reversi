@@ -1,62 +1,25 @@
 package Model;
 
 class Cell {
-    private Disc content;      
+    private Disc content;
+    private final Coordinate cord;
 
-    public Cell(Disc content, ) {
-        this.content = "";
+    public Cell(Disc content, Coordinate cord) {
+        this.content = content;
+        this.cord = cord;
     }
 
-    // Constructor to initialize the cell with specific content
-    public Cell(String content) {
-        this.isOccupied = true;
+    public Disc getContent() {
+        return this.content;
+    }
+
+    public Coordinate getCordinates() {
+        return this.cord;
+    }
+
+    public void setContent(Disc content) {
         this.content = content;
     }
 
-    // Getter for isOccupied
-    public boolean isOccupied() {
-        return isOccupied;
-    }
-
-    // Getter for content
-    public String getContent() {
-        return content;
-    }
-
-    // Setter for content
-    public void setContent(String content) {
-        this.content = content;
-        if (content != null && !content.isEmpty()) {
-            this.isOccupied = true;
-        } else {
-            this.isOccupied = false;
-        }
-    }
-
-    // Clear the content of the cell
-    public void clear() {
-        this.content = "";
-        this.isOccupied = false;
-    }
-
-    @Override
-    public String toString() {
-        return isOccupied ? content : "Empty";
-    }
 }
 
-public class Cell {
-  private Disc disc;
-
-  public Cell(Disc disc) {
-    this.disc = disc;
-  }
-
-  public Disc getDisc() {
-    return disc;
-  }
-
-  public void setDisc(Disc disc) {
-    this.disc = disc;
-  }
-}

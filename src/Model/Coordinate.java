@@ -10,12 +10,16 @@ public class Coordinate {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null || getClass() != that.getClass()){
+            return false;
+        } 
 
-        Coordinate that = (Coordinate) o;
-        return row == that.row && col == that.col;
+        Coordinate thatCord = (Coordinate) that;
+        return row == thatCord.row && col == thatCord.col;
     }
 
     @Override
