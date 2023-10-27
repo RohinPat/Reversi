@@ -1,9 +1,7 @@
 package Model;
 
 public class Reversi {
-    void startGame(int size) {
-       
+  void startGame(int size) {
     
-      }
-
+  }
 }
