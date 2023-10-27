@@ -9,13 +9,17 @@ public class Board {
 
   public Board(int size) {
     this.size = size;
-    this.grid = new Cell[size][size];
-
-    
-
-    for (int q = 0; q < size; q++) {
-      for (int r = 0; r < size; r++) {
-        grid[q][r] = new Cell(Disc.EMPTY);
+    int rowSize = (size * 2) - 1;
+    int colSize = size - 1;
+    for (int row = 0; row < rowSize; row++) {
+      if (row + 1 < rowSize / 2) {
+        colSize++;
+      }
+      else {
+        colSize--;
+      }
+      for (int col = 0; col < colSize; col++) {
+        grid.put(new Coordinate(row, col), new Cell(Disc.EMPTY));
       }
     }
   }
@@ -23,13 +27,14 @@ public class Board {
   
 
 
-  public void placeDisc(int q, int r, Disc disc) {
-    grid[q][r].setDisc(disc);
+  public void placeDisc(int row, int col, Disc disc) {
+    Cell c = grid.get(new Coordinate(row, col));
+    
   }
 
   
   public Disc getDiscAt(int q, int r) {
-    return grid[q][r].getDisc();
+    
   }
 
   
