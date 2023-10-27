@@ -9,9 +9,13 @@ public class Board {
 
   public Board(int size) {
     this.size = size;
-
+    int rowSize = (size * 2) - 1;
+    int colSize = (size * 2) - 1;
     for (int row = 0; row < size; row++) {
       for (int col = 0; col < size; col++) {
+        if (row > this.size) {
+          
+        }
         grid.put(new Coordinate(row, col), new Cell(Disc.EMPTY));
       }
     }
