@@ -27,7 +27,13 @@ public class Board {
     }
 
     //i'm thinking of adding the starting pieces in the constructor as well but this should be easily moveable
-
+    grid.put(new Coordinate(1, 0), new Cell(Disc.BLACK));
+    grid.put(new Coordinate(1, -1), new Cell(Disc.WHITE));
+    grid.put(new Coordinate(0, -1), new Cell(Disc.BLACK));
+    grid.put(new Coordinate(-1, 0), new Cell(Disc.WHITE));
+    grid.put(new Coordinate(-1, 1), new Cell(Disc.BLACK));
+    grid.put(new Coordinate(0, 1), new Cell(Disc.WHITE));
+    
     
     
   }
