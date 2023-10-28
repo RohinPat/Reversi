@@ -1,12 +1,14 @@
 package Model;
 
 public class Coordinate {
-    private int row;
-    private int col;
+    private int r;
+    private int q;
+    private int s;
 
-    public Coordinate(int row, int col) {
-        this.row = row;
-        this.col = col;
+    public Coordinate(int r, int q, int s) {
+        this.r = r;
+        this.q = q;
+        this.s = s;
     }
 
     @Override
@@ -19,13 +21,11 @@ public class Coordinate {
         } 
 
         Coordinate thatCord = (Coordinate) that;
-        return row == thatCord.row && col == thatCord.col;
+        return r == thatCord.r && q == thatCord.q && s == thatCord.s;
     }
 
     @Override
     public int hashCode() {
-        int result = row;
-        result = 31 * result + col;
-        return result;
+        return r * 31 + q * 261 + s * 15;
     }
 }
