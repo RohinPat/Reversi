@@ -29,17 +29,17 @@ public class Board {
     
   }
 
-  public void placeDisc(int row, int col, Disc disc) {
-    grid.get(new Coordinate(row, col)).setContent(disc);
+  public void placeDisc(int q, int r, int s, Disc disc) {
+    grid.get(new Coordinate(q, r, s)).setContent(disc);
   }
 
-  public Disc getDiscAt(int row, int col) {
-    return grid.get(new Coordinate(row, col)).getContent();
+  public Disc getDiscAt(int q, int r, int s) {
+    return grid.get(new Coordinate(q, r, s)).getContent();
   }
 
 
-  public boolean isCellEmpty(int row, int col) {
-    return grid.get(new Coordinate(row, col)).getContent() == Disc.EMPTY;
+  public boolean isCellEmpty(int q, int r, int s) {
+    return grid.get(new Coordinate(q, r, s)).getContent() == Disc.EMPTY;
   }
 
   

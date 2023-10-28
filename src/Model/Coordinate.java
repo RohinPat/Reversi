@@ -1,13 +1,13 @@
 package Model;
 
 public class Coordinate {
-    private int r;
     private int q;
+    private int r;
     private int s;
 
-    public Coordinate(int r, int q, int s) {
-        this.r = r;
+    public Coordinate(int q, int r, int s) {
         this.q = q;
+        this.r = r;
         this.s = s;
     }
 
