@@ -5,10 +5,10 @@ public class Coordinate {
     private int r;
     private int s;
 
-    public Coordinate(int q, int r, int s) {
+    public Coordinate(int q, int r) {
         this.q = q;
         this.r = r;
-        this.s = s;
+        this.s = -q-r;
     }
 
     @Override
