@@ -29,6 +29,14 @@ public class Board {
     
   }
 
+  // make a playGame method - in that add the board setup kinda like startGame
+
+  // maybe create a list of players that is initialized at the start, and create a switch helper that keeps track of whose move it is and it should update after each person's move - this could just be the pass method because we need a method to just pass to the other player
+
+  // make a move method - should do all the checks to make sure a certain move is legal + take in target place to move + who's move it is?
+
+  // make a game over method
+
   public void placeDisc(int q, int r, int s, Disc disc) {
     grid.get(new Coordinate(q, r, s)).setContent(disc);
   }
