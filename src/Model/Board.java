@@ -5,10 +5,12 @@ import java.util.Map;
 public class Board {
   private Map<Coordinate, Cell> grid;
   private final int size;
+  private Turn whoseTurn;
 
 
   public Board(int size) {
     this.size = size;
+    this.whoseTurn = Turn.BLACK;
 
     // this first loop sets up the first half of rows not including the middle row
     for (int i = 0; i < size - 1; i++) {
@@ -36,6 +38,17 @@ public class Board {
   // make a move method - should do all the checks to make sure a certain move is legal + take in target place to move + who's move it is?
 
   // make a game over method
+
+
+  // used to swap turns either when a player passes their turn or at the end of their move
+  public void passTurn(){
+    if (this.whoseTurn == Turn.BLACK){
+      this.whoseTurn = Turn.WHITE;
+    }
+    else{
+      this.whoseTurn = Turn.BLACK;
+    }
+  }
 
   public void placeDisc(int q, int r, int s, Disc disc) {
     grid.get(new Coordinate(q, r, s)).setContent(disc);
