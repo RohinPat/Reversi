@@ -378,6 +378,9 @@ public class Board {
     return size;
   }
 
+  public Cell getGridCell(Coordinate coord) {
+    return grid.get(coord);
+  }
 
 
 }
