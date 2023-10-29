@@ -79,7 +79,7 @@ public class Board {
     }
   }
 
-  private void horizontalLeftMoveCheck(Coordinate dest){
+  private ArrayList<Coordinate> horizontalLeftMoveCheck(Coordinate dest){
     // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
     // add each visited and valid one to an array list
 
@@ -98,9 +98,6 @@ public class Board {
           else if (grid.get(nextLeft).getContent() == this.currentColor()){
             captured.add(nextLeft);
             keepGoing = false;
-            for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
-            }
           }
           else{
             keepGoing = false;
@@ -112,12 +109,10 @@ public class Board {
       throw new IllegalArgumentException("Invalid thing on left");
     }
 
-    if (captured.size() == 0){
-      throw new IllegalArgumentException("Nothing to the left");
-    }
+    return captured;
   }
 
-  private void horizontalRightMoveCheck(Coordinate dest){
+  private ArrayList<Coordinate> horizontalRightMoveCheck(Coordinate dest){
     // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
     // add each visited and valid one to an array list
 
@@ -136,9 +131,6 @@ public class Board {
           else if (grid.get(nextLeft).getContent() == this.currentColor()){
             captured.add(nextLeft);
             keepGoing = false;
-            for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
-            }
           }
           else{
             keepGoing = false;
@@ -150,12 +142,10 @@ public class Board {
       throw new IllegalArgumentException("Invalid thing on left");
     }
 
-    if (captured.size() == 0){
-      throw new IllegalArgumentException("Nothing to the left");
-    }
+    return captured;
   }
 
-  private void forwardSlashUpMoveCheck(Coordinate dest){
+  private ArrayList<Coordinate> forwardSlashUpMoveCheck(Coordinate dest){
     // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
     // add each visited and valid one to an array list
 
@@ -174,9 +164,6 @@ public class Board {
           else if (grid.get(nextLeft).getContent() == this.currentColor()){
             captured.add(nextLeft);
             keepGoing = false;
-            for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
-            }
           }
           else{
             keepGoing = false;
@@ -188,12 +175,10 @@ public class Board {
       throw new IllegalArgumentException("Invalid thing on left");
     }
 
-    if (captured.size() == 0){
-      throw new IllegalArgumentException("Nothing to the left");
-    }
+    return captured;
   }
 
-  private void forwardSlashDownMoveCheck(Coordinate dest){
+  private ArrayList<Coordinate> forwardSlashDownMoveCheck(Coordinate dest){
     // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
     // add each visited and valid one to an array list
 
@@ -212,9 +197,6 @@ public class Board {
           else if (grid.get(nextLeft).getContent() == this.currentColor()){
             captured.add(nextLeft);
             keepGoing = false;
-            for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
-            }
           }
           else{
             keepGoing = false;
@@ -226,12 +208,10 @@ public class Board {
       throw new IllegalArgumentException("Invalid thing on left");
     }
 
-    if (captured.size() == 0){
-      throw new IllegalArgumentException("Nothing to the left");
-    }
+    return captured;
   }
 
-  private void backwardSlashUpMoveCheck(Coordinate dest){
+  private ArrayList<Coordinate> backwardSlashUpMoveCheck(Coordinate dest){
     // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
     // add each visited and valid one to an array list
 
@@ -250,9 +230,6 @@ public class Board {
           else if (grid.get(nextLeft).getContent() == this.currentColor()){
             captured.add(nextLeft);
             keepGoing = false;
-            for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
-            }
           }
           else{
             keepGoing = false;
@@ -264,12 +241,10 @@ public class Board {
       throw new IllegalArgumentException("Invalid thing on left");
     }
 
-    if (captured.size() == 0){
-      throw new IllegalArgumentException("Nothing to the left");
-    }
+    return captured;
   }
 
-  private void backwardSlashDownMoveCheck(Coordinate dest){
+  private ArrayList<Coordinate> backwardSlashDownMoveCheck(Coordinate dest){
     // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
     // add each visited and valid one to an array list
 
@@ -288,9 +263,6 @@ public class Board {
           else if (grid.get(nextLeft).getContent() == this.currentColor()){
             captured.add(nextLeft);
             keepGoing = false;
-            for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
-            }
           }
           else{
             keepGoing = false;
@@ -302,53 +274,59 @@ public class Board {
       throw new IllegalArgumentException("Invalid thing on left");
     }
 
-    if (captured.size() == 0){
-      throw new IllegalArgumentException("Nothing to the left");
-    }
+    return captured;
   }
 
   public void makeMove(Coordinate dest){
 
     boolean validMove = false;
     ArrayList<String> errors = new ArrayList<>();
+    ArrayList<Coordinate> allcaptured = new ArrayList<>();
 
     try {
-      this.horizontalLeftMoveCheck(dest);
+      ArrayList<Coordinate> caught = this.horizontalLeftMoveCheck(dest);
+      allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
       errors.add(e.getMessage());
     }
 
     try {
-      this.horizontalRightMoveCheck(dest);
+      ArrayList<Coordinate> caught = this.horizontalRightMoveCheck(dest);
+      allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
       errors.add(e.getMessage());
     }
 
     try {
-      this.forwardSlashUpMoveCheck(dest);
+      ArrayList<Coordinate> caught = this.forwardSlashUpMoveCheck(dest);
+      allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
       errors.add(e.getMessage());
     }
 
     try {
-      this.forwardSlashDownMoveCheck(dest);
+      ArrayList<Coordinate> caught = this.forwardSlashDownMoveCheck(dest);
+      allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
       errors.add(e.getMessage());
     }
 
     try {
-      this.backwardSlashUpMoveCheck(dest);
+      ArrayList<Coordinate> caught = this.backwardSlashUpMoveCheck(dest);
+      allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
       errors.add(e.getMessage());
     }
 
     try {
-      this.backwardSlashDownMoveCheck(dest);
+
+      ArrayList<Coordinate> caught = this.backwardSlashDownMoveCheck(dest);
+      allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
       errors.add(e.getMessage());
@@ -356,6 +334,10 @@ public class Board {
 
     if (!validMove) {
       throw new IllegalArgumentException("Invalid move. Reasons: " + String.join(", ", errors));
+    }
+
+    for (Coordinate coor : allcaptured){
+      grid.put(coor, new Cell(this.currentColor()));
     }
   }
 
