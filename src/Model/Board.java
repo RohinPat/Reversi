@@ -99,7 +99,7 @@ public class Board {
             captured.add(nextLeft);
             keepGoing = false;
             for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
+              grid.put(coor, new Cell(this.currentColor()));
             }
           }
           else{
@@ -137,7 +137,7 @@ public class Board {
             captured.add(nextLeft);
             keepGoing = false;
             for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
+              grid.put(coor, new Cell(this.currentColor()));
             }
           }
           else{
@@ -175,7 +175,7 @@ public class Board {
             captured.add(nextLeft);
             keepGoing = false;
             for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
+              grid.put(coor, new Cell(this.currentColor()));
             }
           }
           else{
@@ -213,7 +213,7 @@ public class Board {
             captured.add(nextLeft);
             keepGoing = false;
             for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
+              grid.put(coor, new Cell(this.currentColor()));
             }
           }
           else{
@@ -251,7 +251,7 @@ public class Board {
             captured.add(nextLeft);
             keepGoing = false;
             for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
+              grid.put(coor, new Cell(this.currentColor()));
             }
           }
           else{
@@ -289,7 +289,7 @@ public class Board {
             captured.add(nextLeft);
             keepGoing = false;
             for (Coordinate coor : captured){
-              grid.get(coor).setContent(this.currentColor());
+              grid.put(coor, new Cell(this.currentColor()));
             }
           }
           else{

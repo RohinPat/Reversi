@@ -24,7 +24,7 @@ public class ReversiTests {
   @Test
   public void testMoveWorks(){
     Board newBoard = new Board(4);
-
+    newBoard.playGame();
   }
 
 }

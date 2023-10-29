@@ -33,7 +33,8 @@ public class BoardRenderer {
           for (int s = 0; s < indent; s++) {
               ap.append(" ");
           }
-  
+
+          /*
           // Loop through each column
           for (int j = -(boardSize - 1); j < boardSize - 1; j++) {
               Coordinate coord = new Coordinate(j, i);
@@ -41,6 +42,8 @@ public class BoardRenderer {
               String cellSymbol = cell.getDisc().toString();  
               ap.append(" ").append(cellSymbol);
           }
+
+           */
   
           ap.append("\n");
       }
