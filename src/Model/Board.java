@@ -276,8 +276,7 @@ public class Board {
 
     return captured;
   }
-
-  public void makeMove(Coordinate dest){
+  public ArrayList<Coordinate> makeMove(Coordinate dest){
 
     boolean validMove = false;
     ArrayList<String> errors = new ArrayList<>();
@@ -336,11 +335,12 @@ public class Board {
       throw new IllegalArgumentException("Invalid move. Reasons: " + String.join(", ", errors));
     }
 
-    for (Coordinate coor : allcaptured){
-      grid.put(coor, new Cell(this.currentColor()));
+    if (allcaptured.isEmpty()){
+      throw new IllegalArgumentException("Invalid move.");
     }
-  }
 
+    return allcaptured;
+  }
 
   public void placeDisc(int q, int r, Disc disc) {
     grid.get(new Coordinate(q, r)).setContent(disc);
