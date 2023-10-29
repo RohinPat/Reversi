@@ -37,8 +37,8 @@ public class BoardRenderer {
           // Loop through each column
           for (int j = -(boardSize - 1); j < boardSize - 1; j++) {
               Coordinate coord = new Coordinate(j, i);
-              Cell cell = board.getGrid.getCell(coord);  // Assuming a getter method named getCell
-              String cellSymbol = cell.getDisc().toString();  // Assuming a getter method named getDisc and a toString method for Disc
+              Cell cell = board.getGrid.getCell(coord);  
+              String cellSymbol = cell.getDisc().toString();  
               ap.append(" ").append(cellSymbol);
           }
   
