@@ -78,216 +78,306 @@ public class Board {
       this.whoseTurn = Turn.BLACK;
     }
   }
-
-  private ArrayList<Integer> horizontalLeftMoveCheck(Coordinate dest){
-    // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
-    // add each visited and valid one to an array list
-
+  private ArrayList<Integer> horizontalLeftMoveCheck1(Coordinate dest){
     ArrayList<Integer> captured = new ArrayList<>();
-    boolean keepGoing = true;
+    boolean validMove = true;
+    boolean endFound = false;
+    Coordinate nextPiece = new Coordinate(dest.getQ() - 1, dest.getR());
 
-    if (grid.containsKey(new Coordinate(dest.getQ()-1, dest.getR()))){
-      if (grid.get(new Coordinate(dest.getQ()-1, dest.getR())).getContent() == this.oppositeColor()){
-        Coordinate current = new Coordinate(dest.getQ()-1, dest.getR());
-        while (grid.containsKey(new Coordinate(current.getQ() - 1, current.getR())) && keepGoing){
-          Coordinate nextLeft = new Coordinate(current.getQ() - 1, current.getR());
-          if (grid.get(nextLeft).getContent() == this.oppositeColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            current = nextLeft;
-          }
-          else if (grid.get(nextLeft).getContent() == this.currentColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            keepGoing = false;
-          }
-          else{
-            keepGoing = false;
-          }
+    if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor() ){
+      while (grid.containsKey(nextPiece) && !endFound) {
+      if (grid.get(nextPiece).getContent() == this.currentColor()){
+        endFound = true;
+      }
+      else{
+        captured.add(nextPiece.getQ());
+        captured.add(nextPiece.getR());
+        nextPiece = new Coordinate(nextPiece.getQ() - 1, nextPiece.getR());
+      }
+      }
+      ArrayList<Integer> capturedCopy = new ArrayList<>();
+
+      for (Integer element : captured){
+        capturedCopy.add(element);
+      }
+
+
+      while (!capturedCopy.isEmpty()){
+        int q = capturedCopy.get(0);
+        int r = capturedCopy.get(1);
+        if (!grid.get(new Coordinate(q, r)).getContent().equals(this.oppositeColor())){
+          validMove = false;
         }
+        capturedCopy.remove(0);
+        capturedCopy.remove(0);
+      }
+
+      if (validMove){
+        captured.add(dest.getQ());
+        captured.add(dest.getR());
+        return captured;
+      }
+      else{
+        captured.clear();
+        return captured;
       }
     }
     else{
-      throw new IllegalArgumentException("Invalid thing on left");
+      captured.clear();
+      return captured;
     }
-
-    return captured;
   }
 
-  private ArrayList<Integer> horizontalRightMoveCheck(Coordinate dest){
-    // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
-    // add each visited and valid one to an array list
-
+  private ArrayList<Integer> horizontalRightMoveCheck1(Coordinate dest){
     ArrayList<Integer> captured = new ArrayList<>();
-    boolean keepGoing = true;
+    boolean validMove = true;
+    boolean endFound = false;
+    Coordinate nextPiece = new Coordinate(dest.getQ() + 1, dest.getR());
 
-    if (grid.containsKey(new Coordinate(dest.getQ()+1, dest.getR()))){
-      if (grid.get(new Coordinate(dest.getQ()+1, dest.getR())).getContent() == this.oppositeColor()){
-        Coordinate current = new Coordinate(dest.getQ()+1, dest.getR());
-        while (grid.containsKey(new Coordinate(current.getQ() + 1, current.getR())) && keepGoing){
-          Coordinate nextLeft = new Coordinate(current.getQ() + 1, current.getR());
-          if (grid.get(nextLeft).getContent() == this.oppositeColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            current = nextLeft;
-          }
-          else if (grid.get(nextLeft).getContent() == this.currentColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            keepGoing = false;
-          }
-          else{
-            keepGoing = false;
-          }
+    if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor() ){
+      while (grid.containsKey(nextPiece) && !endFound) {
+      if (grid.get(nextPiece).getContent() == this.currentColor()){
+        endFound = true;
+      }
+      else{
+        captured.add(nextPiece.getQ());
+        captured.add(nextPiece.getR());
+        nextPiece = new Coordinate(nextPiece.getQ() + 1, nextPiece.getR());
+      }
+      }
+      ArrayList<Integer> capturedCopy = new ArrayList<>();
+
+      for (Integer element : captured){
+        capturedCopy.add(element);
+      }
+
+
+      while (!capturedCopy.isEmpty()){
+        int q = capturedCopy.get(0);
+        int r = capturedCopy.get(1);
+        if (!grid.get(new Coordinate(q, r)).getContent().equals(this.oppositeColor())){
+          validMove = false;
         }
+        capturedCopy.remove(0);
+        capturedCopy.remove(0);
+      }
+
+      if (validMove){
+        captured.add(dest.getQ());
+        captured.add(dest.getR());
+        return captured;
+      }
+      else{
+        captured.clear();
+        return captured;
       }
     }
     else{
-      throw new IllegalArgumentException("Invalid thing on left");
+      captured.clear();
+      return captured;
     }
-
-    return captured;
   }
 
-  private ArrayList<Integer> forwardSlashUpMoveCheck(Coordinate dest){
-    // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
-    // add each visited and valid one to an array list
-
+  private ArrayList<Integer> forwardSlashUpMoveCheck1(Coordinate dest){
     ArrayList<Integer> captured = new ArrayList<>();
-    boolean keepGoing = true;
+    boolean validMove = true;
+    boolean endFound = false;
+    Coordinate nextPiece = new Coordinate(dest.getQ() + 1, dest.getR() - 1);
 
-    if (grid.containsKey(new Coordinate(dest.getQ()+1, dest.getR() - 1))){
-      if (grid.get(new Coordinate(dest.getQ()+1, dest.getR()-1)).getContent() == this.oppositeColor()){
-        Coordinate current = new Coordinate(dest.getQ()+1, dest.getR()-1);
-        while (grid.containsKey(new Coordinate(current.getQ() + 1, current.getR()-1)) && keepGoing){
-          Coordinate nextLeft = new Coordinate(current.getQ() + 1, current.getR()-1);
-          if (grid.get(nextLeft).getContent() == this.oppositeColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            current = nextLeft;
-          }
-          else if (grid.get(nextLeft).getContent() == this.currentColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            keepGoing = false;
-          }
-          else{
-            keepGoing = false;
-          }
+    if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor() ){
+      while (grid.containsKey(nextPiece) && !endFound) {
+      if (grid.get(nextPiece).getContent() == this.currentColor()){
+        endFound = true;
+      }
+      else{
+        captured.add(nextPiece.getQ());
+        captured.add(nextPiece.getR());
+        nextPiece = new Coordinate(nextPiece.getQ() + 1, nextPiece.getR() - 1);
+      }
+      }
+      ArrayList<Integer> capturedCopy = new ArrayList<>();
+
+      for (Integer element : captured){
+        capturedCopy.add(element);
+      }
+
+
+      while (!capturedCopy.isEmpty()){
+        int q = capturedCopy.get(0);
+        int r = capturedCopy.get(1);
+        if (!grid.get(new Coordinate(q, r)).getContent().equals(this.oppositeColor())){
+          validMove = false;
         }
+        capturedCopy.remove(0);
+        capturedCopy.remove(0);
+      }
+
+      if (validMove){
+        captured.add(dest.getQ());
+        captured.add(dest.getR());
+        return captured;
+      }
+      else{
+        captured.clear();
+        return captured;
       }
     }
     else{
-      throw new IllegalArgumentException("Invalid thing on left");
+      captured.clear();
+      return captured;
     }
-
-    return captured;
   }
 
-  private ArrayList<Integer> forwardSlashDownMoveCheck(Coordinate dest){
-    // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
-    // add each visited and valid one to an array list
-
+  private ArrayList<Integer> forwardSlashDownMoveCheck1(Coordinate dest){
     ArrayList<Integer> captured = new ArrayList<>();
-    boolean keepGoing = true;
+    boolean validMove = true;
+    boolean endFound = false;
+    Coordinate nextPiece = new Coordinate(dest.getQ() - 1, dest.getR() + 1);
 
-    if (grid.containsKey(new Coordinate(dest.getQ()-1, dest.getR() + 1))){
-      if (grid.get(new Coordinate(dest.getQ()-1, dest.getR()+1)).getContent() == this.oppositeColor()){
-        Coordinate current = new Coordinate(dest.getQ()-1, dest.getR()+1);
-        while (grid.containsKey(new Coordinate(current.getQ() - 1, current.getR()+1)) && keepGoing){
-          Coordinate nextLeft = new Coordinate(current.getQ() - 1, current.getR()+1);
-          if (grid.get(nextLeft).getContent() == this.oppositeColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            current = nextLeft;
-          }
-          else if (grid.get(nextLeft).getContent() == this.currentColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            keepGoing = false;
-          }
-          else{
-            keepGoing = false;
-          }
+    if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor() ){
+      while (grid.containsKey(nextPiece) && !endFound) {
+      if (grid.get(nextPiece).getContent() == this.currentColor()){
+        endFound = true;
+      }
+      else{
+        captured.add(nextPiece.getQ());
+        captured.add(nextPiece.getR());
+        nextPiece = new Coordinate(nextPiece.getQ() - 1, nextPiece.getR() + 1);
+      }
+      }
+      ArrayList<Integer> capturedCopy = new ArrayList<>();
+
+      for (Integer element : captured){
+        capturedCopy.add(element);
+      }
+
+
+      while (!capturedCopy.isEmpty()){
+        int q = capturedCopy.get(0);
+        int r = capturedCopy.get(1);
+        if (!grid.get(new Coordinate(q, r)).getContent().equals(this.oppositeColor())){
+          validMove = false;
         }
+        capturedCopy.remove(0);
+        capturedCopy.remove(0);
+      }
+
+      if (validMove){
+        captured.add(dest.getQ());
+        captured.add(dest.getR());
+        return captured;
+      }
+      else{
+        captured.clear();
+        return captured;
       }
     }
     else{
-      throw new IllegalArgumentException("Invalid thing on left");
+      captured.clear();
+      return captured;
     }
-
-    return captured;
   }
 
-  private ArrayList<Integer> backwardSlashUpMoveCheck(Coordinate dest){
-    // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
-    // add each visited and valid one to an array list
-
+  private ArrayList<Integer> backwardSlashUpMoveCheck1(Coordinate dest){
     ArrayList<Integer> captured = new ArrayList<>();
-    boolean keepGoing = true;
+    boolean validMove = true;
+    boolean endFound = false;
+    Coordinate nextPiece = new Coordinate(dest.getQ(), dest.getR() - 1);
 
-    if (grid.containsKey(new Coordinate(dest.getQ(), dest.getR() - 1))){
-      if (grid.get(new Coordinate(dest.getQ(), dest.getR()-1)).getContent() == this.oppositeColor()){
-        Coordinate current = new Coordinate(dest.getQ(), dest.getR()-1);
-        while (grid.containsKey(new Coordinate(current.getQ(), current.getR()-1)) && keepGoing){
-          Coordinate nextLeft = new Coordinate(current.getQ(), current.getR()-1);
-          if (grid.get(nextLeft).getContent() == this.oppositeColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            current = nextLeft;
-          }
-          else if (grid.get(nextLeft).getContent() == this.currentColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
-            keepGoing = false;
-          }
-          else{
-            keepGoing = false;
-          }
+    if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor() ){
+      while (grid.containsKey(nextPiece) && !endFound) {
+      if (grid.get(nextPiece).getContent() == this.currentColor()){
+        endFound = true;
+      }
+      else{
+        captured.add(nextPiece.getQ());
+        captured.add(nextPiece.getR());
+        nextPiece = new Coordinate(nextPiece.getQ(), nextPiece.getR() - 1);
+      }
+      }
+      ArrayList<Integer> capturedCopy = new ArrayList<>();
+
+      for (Integer element : captured){
+        capturedCopy.add(element);
+      }
+
+
+      while (!capturedCopy.isEmpty()){
+        int q = capturedCopy.get(0);
+        int r = capturedCopy.get(1);
+        if (!grid.get(new Coordinate(q, r)).getContent().equals(this.oppositeColor())){
+          validMove = false;
         }
+        capturedCopy.remove(0);
+        capturedCopy.remove(0);
+      }
+
+      if (validMove){
+        captured.add(dest.getQ());
+        captured.add(dest.getR());
+        return captured;
+      }
+      else{
+        captured.clear();
+        return captured;
       }
     }
     else{
-      throw new IllegalArgumentException("Invalid thing on left");
+      captured.clear();
+      return captured;
     }
-
-    return captured;
   }
 
-  private ArrayList<Integer> backwardSlashDownMoveCheck(Coordinate dest){
-    // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
-    // add each visited and valid one to an array list
-
+  private ArrayList<Integer> backwardSlashDownMoveCheck1(Coordinate dest){
     ArrayList<Integer> captured = new ArrayList<>();
-    boolean keepGoing = true;
+    boolean validMove = true;
+    boolean endFound = false;
+    Coordinate nextPiece = new Coordinate(dest.getQ(), dest.getR() + 1);
 
-    if (grid.containsKey(new Coordinate(dest.getQ(), dest.getR() + 1))){
-      if (grid.get(new Coordinate(dest.getQ(), dest.getR()+1)).getContent() == this.oppositeColor()){
-        Coordinate current = new Coordinate(dest.getQ(), dest.getR()+1);
-        while (grid.containsKey(new Coordinate(current.getQ(), current.getR()+1)) && keepGoing){
-          Coordinate nextLeft = new Coordinate(current.getQ(), current.getR()+1);
-          if (grid.get(nextLeft).getContent() == this.oppositeColor()){
-            captured.add(current.getQ());
-            captured.add(current.getR());
-            current = nextLeft;
-          }
-          else if (grid.get(nextLeft).getContent() == this.currentColor()){
-            captured.add(current.getQ());
-            captured.add(current.getR());
-            keepGoing = false;
-          }
-          else{
-            keepGoing = false;
-          }
+    if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor() ){
+      while (grid.containsKey(nextPiece) && !endFound) {
+      if (grid.get(nextPiece).getContent() == this.currentColor()){
+        endFound = true;
+      }
+      else{
+        captured.add(nextPiece.getQ());
+        captured.add(nextPiece.getR());
+        nextPiece = new Coordinate(nextPiece.getQ(), nextPiece.getR() + 1);
+      }
+      }
+      ArrayList<Integer> capturedCopy = new ArrayList<>();
+
+      for (Integer element : captured){
+        capturedCopy.add(element);
+      }
+
+
+      while (!capturedCopy.isEmpty()){
+        int q = capturedCopy.get(0);
+        int r = capturedCopy.get(1);
+        if (!grid.get(new Coordinate(q, r)).getContent().equals(this.oppositeColor())){
+          validMove = false;
         }
+        capturedCopy.remove(0);
+        capturedCopy.remove(0);
+      }
+
+      if (validMove){
+        captured.add(dest.getQ());
+        captured.add(dest.getR());
+        return captured;
+      }
+      else{
+        captured.clear();
+        return captured;
       }
     }
     else{
-      throw new IllegalArgumentException("Invalid thing on left");
+      captured.clear();
+      return captured;
     }
-
-    return captured;
   }
+
   public void makeMove(Coordinate dest){
 
     boolean validMove = false;
@@ -295,7 +385,7 @@ public class Board {
     ArrayList<Integer> allcaptured = new ArrayList<>();
 
     try {
-      ArrayList<Integer> caught = this.horizontalLeftMoveCheck(dest);
+      ArrayList<Integer> caught = this.horizontalLeftMoveCheck1(dest);
       allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
@@ -303,7 +393,7 @@ public class Board {
     }
 
     try {
-      ArrayList<Integer> caught = this.horizontalRightMoveCheck(dest);
+      ArrayList<Integer> caught = this.horizontalRightMoveCheck1(dest);
       allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
@@ -311,7 +401,7 @@ public class Board {
     }
 
     try {
-      ArrayList<Integer> caught = this.forwardSlashUpMoveCheck(dest);
+      ArrayList<Integer> caught = this.forwardSlashUpMoveCheck1(dest);
       allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
@@ -319,7 +409,7 @@ public class Board {
     }
 
     try {
-      ArrayList<Integer> caught = this.forwardSlashDownMoveCheck(dest);
+      ArrayList<Integer> caught = this.forwardSlashDownMoveCheck1(dest);
       allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
@@ -327,7 +417,7 @@ public class Board {
     }
 
     try {
-      ArrayList<Integer> caught = this.backwardSlashUpMoveCheck(dest);
+      ArrayList<Integer> caught = this.backwardSlashUpMoveCheck1(dest);
       allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
@@ -336,7 +426,7 @@ public class Board {
 
     try {
 
-      ArrayList<Integer> caught = this.backwardSlashDownMoveCheck(dest);
+      ArrayList<Integer> caught = this.backwardSlashDownMoveCheck1(dest);
       allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
