@@ -26,7 +26,7 @@ public class ReversiTests {
     Board newBoard = new Board(4);
     newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
-    assertEquals(Disc.BLACK);
+    assertEquals(Disc.BLACK, newBoard.getDiscAt(1, -1));
   }
 
 }

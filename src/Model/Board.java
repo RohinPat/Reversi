@@ -267,13 +267,13 @@ public class Board {
         while (grid.containsKey(new Coordinate(current.getQ(), current.getR()+1)) && keepGoing){
           Coordinate nextLeft = new Coordinate(current.getQ(), current.getR()+1);
           if (grid.get(nextLeft).getContent() == this.oppositeColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
+            captured.add(current.getQ());
+            captured.add(current.getR());
             current = nextLeft;
           }
           else if (grid.get(nextLeft).getContent() == this.currentColor()){
-            captured.add(nextLeft.getQ());
-            captured.add(nextLeft.getR());
+            captured.add(current.getQ());
+            captured.add(current.getR());
             keepGoing = false;
           }
           else{
