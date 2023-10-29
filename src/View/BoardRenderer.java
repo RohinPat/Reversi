@@ -34,7 +34,7 @@ public class BoardRenderer {
               ap.append(" ");
           }
 
-          /*
+          
           // Loop through each column
           for (int j = -(boardSize - 1); j < boardSize - 1; j++) {
               Coordinate coord = new Coordinate(j, i);
@@ -52,8 +52,6 @@ public class BoardRenderer {
               }
               ap.append(" ").append(content);
           }
-
-           */
   
           ap.append("\n");
       }
