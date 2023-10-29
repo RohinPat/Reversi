@@ -1,6 +1,6 @@
 package Model;
 
-class Cell {
+public class Cell {
     private Disc content;
 
     public Cell(Disc content) {
