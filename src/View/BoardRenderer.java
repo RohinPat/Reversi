@@ -29,9 +29,10 @@ public String toString() {
     // Loop through each row
     for (int i = 0; i < (boardSize * 2) - 1; i++) {
         // Determine the indentation for the current row
-        int indent = boardSize - 1 - Math.abs(boardSize / 2 - i);
+        int indt = boardSize - 1 - Math.abs(boardSize / 2 - i);
+        int indent = boardSize - indt;
         for (int s = 0; s < indent; s++) {
-            ap.append(" ");
+            ap.append("  ");
         }
 
         // Loop through each column
@@ -44,6 +45,7 @@ public String toString() {
                 Disc cellSymbol = cell.getContent();
                 String content = (cellSymbol == Disc.BLACK) ? "X" :
                                  (cellSymbol == Disc.WHITE) ? "O" : "_";
+                //content = "_";
                 ap.append(content).append(" ");
             }
         }

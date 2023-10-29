@@ -24,7 +24,7 @@ import View.BoardRenderer;
 public class TextualViewTests {
   @Test
   public void test(){
-    Board newBoard = new Board(4);
+    Board newBoard = new Board(6);
     newBoard.playGame();
     BoardRenderer br = new BoardRenderer(newBoard);
     System.out.println(br.toString());
