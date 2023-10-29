@@ -339,7 +339,7 @@ public class Board {
       throw new IllegalArgumentException("Invalid move.");
     }
 
-    return allCaptured;
+    return allcaptured;
   }
 
   public void placeDisc(int q, int r, Disc disc) {
