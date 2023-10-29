@@ -37,7 +37,7 @@ public class BoardRenderer {
           // Loop through each column
           for (int j = -(boardSize - 1); j < boardSize - 1; j++) {
               Coordinate coord = new Coordinate(j, i);
-              Cell cell = board.getGrid.getCell(coord);  
+              Cell cell = model.getGridCell(coord);  
               String cellSymbol = cell.getDisc().toString();  
               ap.append(" ").append(cellSymbol);
           }
@@ -49,3 +49,15 @@ public class BoardRenderer {
   }
   
 }
+for (int i = 0; i < board.size - 1; i++) {
+        for (int j = -i; j < board.size; j++) {
+            grid.put(new Coordinate(j, -(board.size - 1 - i)), new Cell(Disc.EMPTY));
+        }
+    }
+
+    // this second loop sets up the rest of the rows INCLUDING the middle row - intializes every cell to be empty at first
+    for (int i = 0; i < board.size; i ++){
+      for (int j = -(board.size - 1); j < board.size - 1; j++){
+        grid.put(new Coordinate(j, i), new Cell(Disc.EMPTY));
+      }
+    }
