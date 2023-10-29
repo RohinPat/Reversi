@@ -296,6 +296,7 @@ public class Board {
 
     try {
       ArrayList<Integer> caught = this.horizontalLeftMoveCheck(dest);
+      allcaptured.addAll(caught);
       validMove = true;
     } catch (IllegalArgumentException e) {
       errors.add(e.getMessage());
@@ -350,11 +351,14 @@ public class Board {
       throw new IllegalArgumentException("Invalid move.");
     }
 
+    
     while (!allcaptured.isEmpty()){
-      int r = allcaptured.remove(0);
       int q = allcaptured.remove(0);
+      int r = allcaptured.remove(0);
       grid.put(new Coordinate(q, r), new Cell(this.currentColor()));
     }
+
+    this.passTurn();
   }
 
   public void placeDisc(int q, int r, Disc disc) {
