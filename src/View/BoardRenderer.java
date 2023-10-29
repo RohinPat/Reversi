@@ -52,6 +52,7 @@ public class BoardRenderer {
   }
   
 }
+/* 
 for (int i = 0; i < board.size - 1; i++) {
         for (int j = -i; j < board.size; j++) {
             grid.put(new Coordinate(j, -(board.size - 1 - i)), new Cell(Disc.EMPTY));
@@ -64,3 +65,5 @@ for (int i = 0; i < board.size - 1; i++) {
         grid.put(new Coordinate(j, i), new Cell(Disc.EMPTY));
       }
     }
+
+    */
