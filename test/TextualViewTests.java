@@ -28,6 +28,8 @@ public class TextualViewTests {
     newBoard.playGame();
     BoardRenderer br = new BoardRenderer(newBoard);
     System.out.println(br.toString());
+    System.out.println("hi");
+
   }
 
 }

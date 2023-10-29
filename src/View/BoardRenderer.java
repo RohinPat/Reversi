@@ -22,42 +22,37 @@ public class BoardRenderer {
   }
 
   @Override
-  public String toString() {
-      StringBuilder ap = new StringBuilder();
-      int boardSize = model.getSize();
-  
-      // Loop through each row
-      for (int i = 0; i < boardSize; i++) {
-          // Determine the indentation for the current row
-          int indent = Math.abs(boardSize / 2 - i);
-          for (int s = 0; s < indent; s++) {
-              ap.append(" ");
-          }
+public String toString() {
+    StringBuilder ap = new StringBuilder();
+    int boardSize = model.getSize();
 
-          
-          // Loop through each column
-          for (int j = -(boardSize - 1); j < boardSize - 1; j++) {
-              Coordinate coord = new Coordinate(j, i);
-              Cell cell = model.getGridCell(coord);  
-              Disc cellSymbol = cell.getContent();  
-              String content = "";
-              if (cellSymbol == Disc.BLACK) {
-                content = "X";
-              }
-              else if (cellSymbol == Disc.BLACK) {
-                content = "O";
-              }
-              else {
-                content = "_";
-              }
-              ap.append(" ").append(content);
-          }
-  
-          ap.append("\n");
-      }
-  
-      return ap.toString();
-  }
+    // Loop through each row
+    for (int i = 0; i < (boardSize * 2) - 1; i++) {
+        // Determine the indentation for the current row
+        int indent = boardSize - 1 - Math.abs(boardSize / 2 - i);
+        for (int s = 0; s < indent; s++) {
+            ap.append(" ");
+        }
+
+        // Loop through each column
+        int minCol = -(boardSize / 2) + Math.abs(boardSize / 2 - i);
+        int maxCol = (boardSize / 2) - Math.abs(boardSize / 2 - i);
+        for (int j = minCol; j <= maxCol; j++) {
+            Coordinate coord = new Coordinate(j, i - (boardSize / 2));
+            Cell cell = model.getGridCell(coord);
+            if (cell != null) {  
+                Disc cellSymbol = cell.getContent();
+                String content = (cellSymbol == Disc.BLACK) ? "X" :
+                                 (cellSymbol == Disc.WHITE) ? "O" : "_";
+                ap.append(content).append(" ");
+            }
+        }
+
+        ap.append("\n");
+    }
+
+    return ap.toString();
+}
 }
 /* 
 for (int i = 0; i < board.size - 1; i++) {
