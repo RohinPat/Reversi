@@ -24,6 +24,22 @@ public class Coordinate {
         return r == thatCord.r && q == thatCord.q && s == thatCord.s;
     }
 
+    public int getQ(){
+        int q = this.q;
+        return q;
+    }
+
+    public int getR(){
+        int r = this.r;
+        return r;
+    }
+
+    public int getS(){
+        int s = this.s;
+        return s;
+    }
+
+
     @Override
     public int hashCode() {
         return r * 31 + q * 261 + s * 15;

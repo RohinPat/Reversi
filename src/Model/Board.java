@@ -2,6 +2,7 @@ package Model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class Board {
   private Map<Coordinate, Cell> grid;
@@ -48,6 +49,16 @@ public class Board {
   // make a game over method
 
 
+  private Disc oppositeColor(){
+    if (this.whoseTurn == Turn.BLACK){
+      return Disc.WHITE;
+    }
+    else{
+      return Disc.BLACK;
+    }
+  }
+  
+
   // used to swap turns either when a player passes their turn or at the end of their move
   public void passTurn(){
     if (this.whoseTurn == Turn.BLACK){
@@ -56,6 +67,26 @@ public class Board {
     else{
       this.whoseTurn = Turn.BLACK;
     }
+  }
+
+  private void horizontalLeftMoveCheck(Coordinate dest){
+    // first check left - check if the first one is opposite, and if so keep going until you find a piece of the same color
+    // then check right - check if the first one is opposite, and if so keep going until you find a piece of the same color
+    // add each visited and valid one to an array list
+
+    ArrayList<Coordinate> captured = new ArrayList<>();
+
+    if (grid.get(new Coordinate(dest.getQ() - 1, dest.getR())).getContent() == this.oppositeColor()){
+      captured.add(new Coordinate(dest.getQ() - 1, dest.getR()));
+    }
+  }
+
+  public void makeMove(Coordinate dest){
+    // check if its legal in both horizontal directions
+    // check if its legal in both sides on /
+    // check if its legal in both sides on \
+
+    // if even one of these is valid, then go into that one - maybe use helpers for checking each direction
   }
 
 
