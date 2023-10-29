@@ -288,7 +288,7 @@ public class Board {
 
     return captured;
   }
-  public ArrayList<Integer> makeMove(Coordinate dest){
+  public void makeMove(Coordinate dest){
 
     boolean validMove = false;
     ArrayList<String> errors = new ArrayList<>();
@@ -350,7 +350,11 @@ public class Board {
       throw new IllegalArgumentException("Invalid move.");
     }
 
-    return allcaptured;
+    while (!allcaptured.isEmpty()){
+      int r = allcaptured.remove(0);
+      int q = allcaptured.remove(0);
+      grid.put(new Coordinate(q, r), new Cell(this.currentColor()));
+    }
   }
 
   public void placeDisc(int q, int r, Disc disc) {
