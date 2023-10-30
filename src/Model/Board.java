@@ -26,7 +26,7 @@ public class Board {
 
     // this second loop sets up the rest of the rows INCLUDING the middle row - intializes every cell to be empty at first
     for (int i = 0; i < size; i ++){
-      for (int j = -(size - 1); j < size - 1; j++){
+      for (int j = -(size - 1); j < size - i; j++){
         grid.put(new Coordinate(j, i), new Cell(Disc.EMPTY));
       }
     }
@@ -375,6 +375,14 @@ public class Board {
     else{
       captured.clear();
       return captured;
+    }
+  }
+
+  public void tester(){
+    System.out.println(grid.size());
+    for (Coordinate coor : this.grid.keySet()){
+      System.out.println(coor.getQ());
+
     }
   }
 

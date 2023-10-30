@@ -33,9 +33,14 @@ public class ReversiTests {
     assertEquals(Disc.WHITE, newBoard.getDiscAt(1, -2));
     assertEquals(Disc.WHITE, newBoard.getDiscAt(2, -3));
 
+    
+  }
 
-
-
+  @Test 
+  public void testBoardInit(){
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    newBoard.tester();
   }
 
 }
