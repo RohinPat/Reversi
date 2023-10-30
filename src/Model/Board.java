@@ -10,9 +10,11 @@ public class Board {
   private Turn whoseTurn;
   private HashMap<String, Integer> compassQ = new HashMap<>();
   private HashMap<String, Integer> compassR = new HashMap<>();
+  private int consecPasses;
 
 
   public Board(int size) {
+    this.consecPasses = 0;
     this.size = size;
     this.grid = new HashMap<>();
     this.whoseTurn = Turn.BLACK;
@@ -88,6 +90,8 @@ public class Board {
     } else {
       this.whoseTurn = Turn.BLACK;
     }
+
+    consecPasses += 1;
   }
 
   private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
@@ -127,7 +131,8 @@ public class Board {
         captured.add(dest.getQ());
         captured.add(dest.getR());
         return captured;
-      } else {
+      } 
+      else {
         captured.clear();
         return captured;
       }
@@ -168,6 +173,7 @@ public class Board {
     }
 
     this.passTurn();
+    consecPasses = 0;
   }
 
   public void placeDisc(int q, int r, Disc disc) {
@@ -190,6 +196,32 @@ public class Board {
 
   public Cell getGridCell(Coordinate coord) {
     return grid.get(coord);
+  }
+
+  public boolean isGameOver(){
+    if (consecPasses == 2){
+      return true;
+    }
+
+    if (!grid.values().contains(Disc.EMPTY)){
+      return true;
+    }
+
+    for (Coordinate coor : grid.keySet()){
+      Board dupe = new Board(size);
+      for (Coordinate coor1 : this.grid.keySet()){
+        dupe.grid.put(coor1, this.grid.get(coor1));
+      }
+      try{
+        dupe.makeMove(coor);
+        return false;
+      }
+      catch (IllegalArgumentException e){
+        // catches illegalargument here
+      }
+    }
+
+    return true;
   }
 
 
