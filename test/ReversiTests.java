@@ -28,6 +28,12 @@ public class ReversiTests {
     newBoard.makeMove(new Coordinate(1, -2));
     assertEquals(Disc.BLACK, newBoard.getDiscAt(1, -1));
     assertEquals(Disc.BLACK, newBoard.getDiscAt(1, -2));
+    newBoard.makeMove(new Coordinate(2, -3));
+    assertEquals(Disc.WHITE, newBoard.getDiscAt(0, -1));
+    assertEquals(Disc.WHITE, newBoard.getDiscAt(1, -2));
+    assertEquals(Disc.WHITE, newBoard.getDiscAt(2, -3));
+
+
 
 
   }
