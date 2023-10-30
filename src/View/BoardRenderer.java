@@ -22,18 +22,59 @@ public class BoardRenderer {
   }
 
   @Override
-public String toString() {
+  public String toString() {
     StringBuilder ap = new StringBuilder();
-    int boardSize = model.getSize();
-
-    // Loop through each row
-    for (int i = 0; i < (boardSize * 2) - 1; i++) {
-        // Determine the indentation for the current row
-        int indt = boardSize - 1 - Math.abs(boardSize / 2 - i);
-        int indent = boardSize - indt;
-        for (int s = 0; s < indent; s++) {
-            ap.append("  ");
+    int numRows = model.getSize() - 1;
+    int diameter = (model.getSize() * 2) - 1; 
+    int startCol = 1;
+    int endCol = model.getSize() - 1;
+    for (int row = 0 - numRows; row < numRows; row++) {
+      int numElem = ((model.getSize() - Math.abs(row) - 1) + model.getSize());
+      for (int space = diameter - numElem; space > 0; space--) {
+        ap.append(" ");
+      }
+      
+      if (row <= 0) {
+        startCol = startCol - 1;
+        
+      }
+      if (row > 0) {
+        endCol = endCol - 1;
+        
+      }
+      System.out.println("startCol: " + startCol);
+      System.out.println("endCol: " + endCol);
+      for (int col = startCol; col <= endCol; col++) {
+                System.out.println("col : " + col);
+                System.out.println("row : " + row);
+        Disc print = model.getDiscAt(col, row);
+        if (print == Disc.BLACK) {
+          ap.append("X ");
         }
+        else if (print == Disc.WHITE) {
+          ap.append("O ");
+        }
+        else {
+          ap.append("_ ");
+        }
+      }
+      ap.append("\n");
+
+    }
+    return ap.toString();
+  }
+}
+  
+/*
+  // Loop through each row
+  for (int i = 0; i < (boardSize * 2) - 1; i++) {
+    // Determine the indentation for the current row
+    int indt = boardSize - 1 - Math.abs(boardSize / 2 - i);
+    int indent = boardSize - indt;
+    for (int s = 0; s < indent; s++) {
+      ap.append("  ");
+    }
+        
 
         // Loop through each column
         int minCol = -(boardSize / 2) + Math.abs(boardSize / 2 - i);
