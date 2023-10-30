@@ -143,6 +143,7 @@ public class Board {
   }
 
   public void makeMove(Coordinate dest) {
+    // add an exception that checks to make sure the space is empty first - if not it should throw an exception
     boolean validMove = false;
     ArrayList<String> errors = new ArrayList<>();
     ArrayList<Integer> allcaptured = new ArrayList<>();

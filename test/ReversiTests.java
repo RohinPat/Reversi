@@ -32,8 +32,6 @@ public class ReversiTests {
     assertEquals(Disc.WHITE, newBoard.getDiscAt(0, -1));
     assertEquals(Disc.WHITE, newBoard.getDiscAt(1, -2));
     assertEquals(Disc.WHITE, newBoard.getDiscAt(2, -3));
-
-
   }
 
 }

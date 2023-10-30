@@ -33,4 +33,14 @@ public class TextualViewTests {
     System.out.println(br.toString());
   }
 
+  @Test 
+  public void testGameOver(){
+    Board newBoard = new Board(2);
+    newBoard.playGame();
+    BoardRenderer br = new BoardRenderer(newBoard);
+    System.out.println(br.toString());
+    assertTrue(newBoard.isGameOver());
+
+  }
+
 }
