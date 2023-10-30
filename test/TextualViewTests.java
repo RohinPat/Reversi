@@ -23,7 +23,7 @@ import View.BoardRenderer;
 
 public class TextualViewTests {
   @Test
-  public void test(){
+  public void test() {
     Board newBoard = new Board(4);
     newBoard.playGame();
     newBoard.makeMove2(new Coordinate(1, -2));

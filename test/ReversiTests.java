@@ -22,7 +22,7 @@ import Model.Turn;
 
 public class ReversiTests {
   @Test
-  public void testMoveWorks(){
+  public void testMoveWorks() {
     Board newBoard = new Board(4);
     newBoard.playGame();
     newBoard.makeMove2(new Coordinate(1, -2));
@@ -34,7 +34,6 @@ public class ReversiTests {
     assertEquals(Disc.WHITE, newBoard.getDiscAt(2, -3));
 
 
-    
   }
 
 }

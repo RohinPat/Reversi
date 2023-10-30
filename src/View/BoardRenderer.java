@@ -25,7 +25,7 @@ public class BoardRenderer {
   public String toString() {
     StringBuilder ap = new StringBuilder();
     int numRows = model.getSize() - 1;
-    int diameter = (model.getSize() * 2) - 1; 
+    int diameter = (model.getSize() * 2) - 1;
     int startCol = 1;
     int endCol = model.getSize() - 1;
     for (int row = 0 - numRows; row <= numRows; row++) {
@@ -33,7 +33,7 @@ public class BoardRenderer {
       for (int space = diameter - numElem; space > 0; space--) {
         ap.append(" ");
       }
-      
+
       if (row <= 0) {
         startCol = startCol - 1;
       }
@@ -45,11 +45,9 @@ public class BoardRenderer {
         Disc print = model.getDiscAt(col, row);
         if (print == Disc.BLACK) {
           ap.append("X ");
-        }
-        else if (print == Disc.WHITE) {
+        } else if (print == Disc.WHITE) {
           ap.append("O ");
-        }
-        else {
+        } else {
           ap.append("_ ");
         }
       }
