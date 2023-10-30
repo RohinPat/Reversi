@@ -25,22 +25,16 @@ public class ReversiTests {
   public void testMoveWorks(){
     Board newBoard = new Board(4);
     newBoard.playGame();
-    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.makeMove2(new Coordinate(1, -2));
     assertEquals(Disc.BLACK, newBoard.getDiscAt(1, -1));
     assertEquals(Disc.BLACK, newBoard.getDiscAt(1, -2));
-    newBoard.makeMove(new Coordinate(2, -3));
+    newBoard.makeMove2(new Coordinate(2, -3));
     assertEquals(Disc.WHITE, newBoard.getDiscAt(0, -1));
     assertEquals(Disc.WHITE, newBoard.getDiscAt(1, -2));
     assertEquals(Disc.WHITE, newBoard.getDiscAt(2, -3));
 
-    
-  }
 
-  @Test 
-  public void testBoardInit(){
-    Board newBoard = new Board(4);
-    newBoard.playGame();
-    newBoard.tester();
+    
   }
 
 }
