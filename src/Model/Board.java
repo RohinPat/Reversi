@@ -207,7 +207,7 @@ public class Board {
       return true;
     }
 
-    for (Coordinate coor : grid.keySet()){
+    for (Coordinate coor : this.grid.keySet()){
       Board dupe = new Board(size);
       for (Coordinate coor1 : this.grid.keySet()){
         dupe.grid.put(coor1, this.grid.get(coor1));
