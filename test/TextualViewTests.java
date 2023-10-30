@@ -26,8 +26,8 @@ public class TextualViewTests {
   public void test() {
     Board newBoard = new Board(4);
     newBoard.playGame();
-    newBoard.makeMove2(new Coordinate(1, -2));
-    newBoard.makeMove2(new Coordinate(2, -3));
+    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.makeMove(new Coordinate(2, -3));
 
     BoardRenderer br = new BoardRenderer(newBoard);
     System.out.println(br.toString());

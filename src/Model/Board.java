@@ -8,8 +8,8 @@ public class Board {
   private Map<Coordinate, Cell> grid;
   private final int size;
   private Turn whoseTurn;
-  HashMap<String, Integer> compassQ = new HashMap<>();
-  HashMap<String, Integer> compassR = new HashMap<>();
+  private HashMap<String, Integer> compassQ = new HashMap<>();
+  private HashMap<String, Integer> compassR = new HashMap<>();
 
 
   public Board(int size) {
@@ -137,7 +137,7 @@ public class Board {
     }
   }
 
-  public void makeMove2(Coordinate dest) {
+  public void makeMove(Coordinate dest) {
     boolean validMove = false;
     ArrayList<String> errors = new ArrayList<>();
     ArrayList<Integer> allcaptured = new ArrayList<>();
