@@ -381,8 +381,7 @@ public class Board {
   public void tester(){
     System.out.println(grid.size());
     for (Coordinate coor : this.grid.keySet()){
-      System.out.println(coor.getQ());
-
+      System.out.print("(" + coor.getQ() + ", " + coor.getR() + ")");
     }
   }
 
