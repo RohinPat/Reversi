@@ -143,7 +143,10 @@ public class Board {
   }
 
   public void makeMove(Coordinate dest) {
-    // add an exception that checks to make sure the space is empty first - if not it should throw an exception
+    if (!(grid.get(dest).getContent() == Disc.EMPTY)){
+      throw new IllegalArgumentException("This space is already occupied");
+    }
+    
     boolean validMove = false;
     ArrayList<String> errors = new ArrayList<>();
     ArrayList<Integer> allcaptured = new ArrayList<>();
