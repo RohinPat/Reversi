@@ -57,4 +57,8 @@ public class TextualViewTests {
     System.out.println(br.toString());
   }
 
+  @Test
+  public void testEmptyCellBetweenNoCaptureAndLegalMove(){
+    
+  }
 }
