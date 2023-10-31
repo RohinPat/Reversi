@@ -17,7 +17,6 @@ import Model.Board;
 import Model.Coordinate;
 import Model.Cell;
 import Model.Disc;
-import Model.Reversi;
 import Model.Turn;
 import View.BoardRenderer;
 

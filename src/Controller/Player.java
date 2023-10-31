@@ -1,3 +1,5 @@
+// Skeleton implementation of Player.java for future homework assignments:
+/*
 package Controller;
 
 import Model.Board;
@@ -8,3 +10,4 @@ public interface Player {
 
   void makeMove(Board board);
 }
+*/

@@ -1,3 +1,5 @@
+// Skeleton implementation of AIPlayer.java for future homework assignments:
+/*
 package Controller;
 
 import Controller.Player;
@@ -19,3 +21,4 @@ public class AIPlayer implements Player {
     throw new UnsupportedOperationException("Unimplemented method 'makeMove'");
   }
 }
+*/

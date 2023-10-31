@@ -1,3 +1,5 @@
+// Skeleton implementation of HumanPlayer.java for future homework assignments:
+/*
 package Controller;
 
 import Controller.Player;
@@ -17,3 +19,4 @@ public class HumanPlayer implements Player {
 
   }
 }
+*/
