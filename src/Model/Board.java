@@ -273,16 +273,6 @@ public class Board {
   }
 
   /**
-   * Retrieves the cell at the given coordinates.
-   *
-   * @param coord The coordinates of the cell.
-   * @return The cell at the specified coordinates.
-   */
-  public Cell getGridCell(Coordinate coord) {
-    return grid.get(coord);
-  }
-
-  /**
    * Checks if the game is over.
    *
    * @return True if the game is over, otherwise false.
@@ -304,7 +294,7 @@ public class Board {
     }
 
     for (Disc playerDisc : Disc.values()) {
-      if (playerDisc != Disc.EMPTY) { // Assuming Disc.EMPTY is the state for an empty cell
+      if (playerDisc != Disc.EMPTY) {
         for (Coordinate coord : grid.keySet()) {
           Board dupe = new Board(size);
           for (Coordinate coor1 : this.grid.keySet()) {
@@ -312,13 +302,13 @@ public class Board {
           }
           try {
             dupe.makeMove(coord);
-            return false; // A valid move was found
+            return false;
           } catch (IllegalArgumentException e) {
             // Illegal move, try the next one
           }
         }
       }
     }
-    return true; // No valid moves found
+    return true;
   }
 }
