@@ -1,16 +1,16 @@
 package model;
 
-/*
+/**
  * Represents the game board for a hexagonal grid-based game.
  */
 public interface Reversi {
 
-  /*
+  /**
    * Sets up the game board, initializes the grid, and places the starting pieces.
    */
   void playGame();
 
-  /*
+  /**
    * Passes the turn to the next player.
    */
   void passTurn();
@@ -28,12 +28,12 @@ public interface Reversi {
    */
   void makeMove(Coordinate dest);
 
-  /*
+  /**
    * Places a disc at the specified cell coordinates.
    *
-   * @param q    The q-coordinate of the cell.
-   * @param r    The r-coordinate of the cell.
-   * @param disc The disc to be placed.
+   * @param q The q-coordinate of the cell.
+   * @param r The r-coordinate of the cell.
+   * @param d The disc to be placed.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
   void placeDisc(int q, int r, Disc d);

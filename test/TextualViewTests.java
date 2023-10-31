@@ -210,14 +210,6 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testBoardRendererWithNullAppendable() {
-    Board newBoard = new Board(4);
-    newBoard.playGame();
-    assertThrows(IllegalArgumentException.class, () ->
-            new BoardRenderer(newBoard, null));
-  }
-
-  @Test
   public void testHashCodeConsistencyWithCoordiate() {
     Coordinate c1 = new Coordinate(1, 2);
     Coordinate c2 = new Coordinate(1, 2);
@@ -273,6 +265,6 @@ public class TextualViewTests {
     newBoard.makeMove(new Coordinate(-1, -1));
     newBoard.makeMove(new Coordinate(2, -1));
     assertTrue(newBoard.isGameOver());
-  }   
+  }
 
 }

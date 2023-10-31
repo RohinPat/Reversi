@@ -7,12 +7,12 @@ import java.util.ArrayList;
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
-public class Board implements Reversi{
-  private Map<Coordinate, Cell> grid;
+public class Board implements Reversi {
+  private final Map<Coordinate, Cell> grid;
   private final int size;
   private Turn whoseTurn;
-  private HashMap<String, Integer> compassQ = new HashMap<>();
-  private HashMap<String, Integer> compassR = new HashMap<>();
+  private final HashMap<String, Integer> compassQ = new HashMap<>();
+  private final HashMap<String, Integer> compassR = new HashMap<>();
   private int consecPasses;
 
   /**

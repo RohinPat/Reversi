@@ -1,7 +1,5 @@
 package view;
 
-import java.io.IOException;
-
 import model.Board;
 import model.Disc;
 
@@ -12,7 +10,6 @@ import model.Disc;
  */
 public class BoardRenderer {
   private final Board model;
-  private Appendable ap;
 
   /**
    * Constructs a new board renderer with the specified game board model.
@@ -24,21 +21,6 @@ public class BoardRenderer {
       throw new IllegalArgumentException("Model must not be null");
     }
     this.model = model;
-  }
-
-  /**
-   * Constructs a new board renderer with the specified game board model
-   * and an appendable output target.
-   *
-   * @param model The game board model to be rendered.
-   * @param ap    The output target to which the rendered board will be appended.
-   */
-  public BoardRenderer(Board model, Appendable ap) {
-    if (model == null || ap == null) {
-      throw new IllegalArgumentException("Model and Appendable must not be null");
-    }
-    this.model = model;
-    this.ap = ap;
   }
 
   /**
@@ -81,14 +63,5 @@ public class BoardRenderer {
 
     }
     return ap.toString();
-  }
-
-  /**
-   * Renders the game board to the specified appendable output target.
-   *
-   * @throws IOException If an error occurs while appending to the output target.
-   */
-  public void render() throws IOException {
-    ap.append(toString());
   }
 }
