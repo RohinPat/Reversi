@@ -275,5 +275,4 @@ public class TextualViewTests {
     assertTrue(newBoard.isGameOver());
   }   
 
-  
 }
