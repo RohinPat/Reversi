@@ -155,8 +155,7 @@ public class Board {
         captured.add(dest.getQ());
         captured.add(dest.getR());
         return captured;
-      } 
-      else {
+      } else {
         captured.clear();
         return captured;
       }
@@ -167,24 +166,24 @@ public class Board {
   }
 
   /**
- * Attempts to make a move on the board by placing the current 
- * player's disc at the specified coordinate. 
- * The method validates the move, flips any captured opponent discs,
- * and switches the turn to the next player.
- * 
- * @param dest The target coordinate where the current player's disc should be placed.
- * @throws IllegalArgumentException If the move is invalid, such as when the target 
- * cell is already occupied or doesn't result in any opponent disc captures.
- */
+   * Attempts to make a move on the board by placing the current
+   * player's disc at the specified coordinate.
+   * The method validates the move, flips any captured opponent discs,
+   * and switches the turn to the next player.
+   *
+   * @param dest The target coordinate where the current player's disc should be placed.
+   * @throws IllegalArgumentException If the move is invalid, such as when the target
+   *                                  cell is already occupied or doesn't result in any opponent disc captures.
+   */
   public void makeMove(Coordinate dest) {
-    if (!grid.keySet().contains(new Coordinate(dest.getQ(), dest.getR()))){
+    if (!grid.keySet().contains(new Coordinate(dest.getQ(), dest.getR()))) {
       throw new IllegalArgumentException("This space does not exist on the board");
     }
 
     if (grid.get(dest).getContent() != Disc.EMPTY) {
       throw new IllegalArgumentException("This space is already occupied");
     }
-    
+
     boolean validMove = false;
     ArrayList<String> errors = new ArrayList<>();
     ArrayList<Integer> allcaptured = new ArrayList<>();
@@ -221,8 +220,8 @@ public class Board {
   /**
    * Places a disc at the specified cell coordinates.
    *
-   * @param q The q-coordinate of the cell.
-   * @param r The r-coordinate of the cell.
+   * @param q    The q-coordinate of the cell.
+   * @param r    The r-coordinate of the cell.
    * @param disc The disc to be placed.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */

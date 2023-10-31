@@ -7,7 +7,7 @@ import model.Disc;
 
 /**
  * Represents a visual renderer for the game board.
- * This class is responsible for converting the game's board state into a visual representation 
+ * This class is responsible for converting the game's board state into a visual representation
  * using characters to depict empty spaces, black discs, and white discs.
  */
 public class BoardRenderer {
@@ -27,11 +27,11 @@ public class BoardRenderer {
   }
 
   /**
-   * Constructs a new board renderer with the specified game board model 
+   * Constructs a new board renderer with the specified game board model
    * and an appendable output target.
    *
    * @param model The game board model to be rendered.
-   * @param ap The output target to which the rendered board will be appended.
+   * @param ap    The output target to which the rendered board will be appended.
    */
   public BoardRenderer(Board model, Appendable ap) {
     if (model == null || ap == null) {

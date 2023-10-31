@@ -1,6 +1,7 @@
 
 //import org.junit.Assert;
 //import org.junit.Before;
+
 import org.junit.Test;
 
 //import java.util.ArrayList;
@@ -21,7 +22,7 @@ import model.Turn;
 import view.BoardRenderer;
 
 /**
- * Contains unit tests for validating the functionality of the game's textual 
+ * Contains unit tests for validating the functionality of the game's textual
  * view and related operations.
  */
 public class TextualViewTests {
@@ -32,16 +33,16 @@ public class TextualViewTests {
 
     BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
-                "   _ _ _ _ \n" + //
-                "  _ _ _ _ _ \n" + //
-                " _ _ X O _ _ \n" + //
-                "_ _ O _ X _ _ \n" + //
-                " _ _ X O _ _ \n" + //
-                "  _ _ _ _ _ \n" + //
-                "   _ _ _ _ \n", br.toString());
+            "   _ _ _ _ \n" + //
+                    "  _ _ _ _ _ \n" + //
+                    " _ _ X O _ _ \n" + //
+                    "_ _ O _ X _ _ \n" + //
+                    " _ _ X O _ _ \n" + //
+                    "  _ _ _ _ _ \n" + //
+                    "   _ _ _ _ \n", br.toString());
   }
 
-  @Test 
+  @Test
   public void testGameOverWithBoardOfSize2() {
     Board newBoard = new Board(2);
     newBoard.playGame();
@@ -50,7 +51,7 @@ public class TextualViewTests {
     assertTrue(newBoard.isGameOver());
   }
 
-  @Test 
+  @Test
   public void testGameOverWithBoardOfSize3() {
     Board newBoard = new Board(3);
     newBoard.playGame();
@@ -64,10 +65,10 @@ public class TextualViewTests {
     BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
             "  _ X _ \n" + //
-            " O O O O \n" + //
-            "_ X _ O _ \n" + //
-            " X X O _ \n" + //
-            "  _ _ _ \n", br.toString());
+                    " O O O O \n" + //
+                    "_ X _ O _ \n" + //
+                    " X X O _ \n" + //
+                    "  _ _ _ \n", br.toString());
   }
 
   @Test
@@ -87,11 +88,11 @@ public class TextualViewTests {
     newBoard.makeMove(new Coordinate(-1, 0));
     BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
-        "  _ X _ \n" + //
-        " O X O O \n" + //
-        "_ X _ O _ \n" + //
-        " O X O _ \n" + //
-        "  _ _ _ \n", br.toString());
+            "  _ X _ \n" + //
+                    " O X O O \n" + //
+                    "_ X _ O _ \n" + //
+                    " O X O _ \n" + //
+                    "  _ _ _ \n", br.toString());
   }
 
   @Test
@@ -144,7 +145,7 @@ public class TextualViewTests {
   }
 
 
-  //This is co-pilot cooking 
+  //This is co-pilot cooking
   @Test
   public void testIsCellEmpty() {
     Board newBoard = new Board(4);
@@ -176,12 +177,13 @@ public class TextualViewTests {
     c.setContent(Disc.EMPTY);
     assertEquals(c.getContent(), Disc.EMPTY);
   }
-  
+
   @Test
   public void testCreateBoardWithNegativeSizeThrowsError() {
     assertThrows(IllegalArgumentException.class, () ->
             new Board(-1));
   }
+
   @Test
   public void testCreateBoardWithZeroSizeThrowsError() {
     assertThrows(IllegalArgumentException.class, () ->

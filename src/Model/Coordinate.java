@@ -2,13 +2,13 @@ package model;
 
 /**
  * Represents a coordinate in a hexagonal grid system.
- * In a hexagonal coordinate system, three axes are used: q, r, and s. 
+ * In a hexagonal coordinate system, three axes are used: q, r, and s.
  * These axes are constrained such that q + r + s = 0.
  */
 public class Coordinate {
-  private int q;
-  private int r;
-  private int s;
+  private final int q;
+  private final int r;
+  private final int s;
 
   /**
    * Constructs a new Coordinate with the given q and r values.
