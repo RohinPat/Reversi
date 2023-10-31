@@ -275,7 +275,5 @@ public class TextualViewTests {
     assertTrue(newBoard.isGameOver());
   }   
 
-  //test edge cases
-  @Test
   
 }
