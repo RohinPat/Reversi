@@ -20,6 +20,9 @@ public class BoardRenderer {
    * @param model The game board model to be rendered.
    */
   public BoardRenderer(Board model) {
+    if (model == null) {
+      throw new IllegalArgumentException("Model must not be null");
+    }
     this.model = model;
   }
 
@@ -31,6 +34,9 @@ public class BoardRenderer {
    * @param ap The output target to which the rendered board will be appended.
    */
   public BoardRenderer(Board model, Appendable ap) {
+    if (model == null || ap == null) {
+      throw new IllegalArgumentException("Model and Appendable must not be null");
+    }
     this.model = model;
     this.ap = ap;
   }

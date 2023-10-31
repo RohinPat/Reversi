@@ -178,52 +178,88 @@ public class TextualViewTests {
     assertEquals(c.getContent(), Disc.EMPTY);
   }
   
-  /*
-   * Board Initialization:
+  @Test
+  public void testCreateBoardWithNegativeSizeThrowsError() {
+    assertThrows(IllegalArgumentException.class, () ->
+            new Board(-1));
+  }
+  @Test
+  public void testCreateBoardWithZeroSizeThrowsError() {
+    assertThrows(IllegalArgumentException.class, () ->
+            new Board(0));
+  }
 
-Test creating a board with negative or zero size. It should probably throw an exception.
-Test the state of the board right after initialization without calling playGame.
-Move Validations:
+  @Test
+  public void testStateOfBoardBeforeInitialization() {
+    Board newBoard = new Board(4);
+    assertThrows(IllegalArgumentException.class, () ->
+            newBoard.getDiscAt(3, -2));
+  }
 
-Test making a move to an already occupied cell.
-Test making a move that doesn't result in capturing any opponent discs.
-Test making moves on the boundaries of the board.
-Test making a move outside the boundaries of the board.
-Game Progression:
+  @Test
+  public void moveOnOccupiedCellThrowsError() {
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    newBoard.placeDisc(3, -2, Disc.BLACK);
+    assertThrows(IllegalArgumentException.class, () ->
+            newBoard.makeMove(new Coordinate(3, -2)));
+  }
 
-Simulate a complete game with alternating valid moves between players and verify the final state.
-Test the scenario where a player has no valid moves and is forced to pass.
-Renderer:
+  @Test
+  public void testMakeMoveOnBoundary() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    assertThrows(IllegalArgumentException.class, () ->
+            newBoard.makeMove(new Coordinate(4, -2)));
+  }
 
-Test BoardRenderer with a null board or appendable. It should handle or throw appropriate exceptions.
-If you plan on adding more rendering features (e.g., highlighting possible moves, showing scores), ensure you have tests for those.
-Coordinate:
+  @Test
+  public void testMakeMoveOutsideBoundary() {
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertThrows(IllegalArgumentException.class, () ->
+            newBoard.makeMove(new Coordinate(5, -2)));
+  }
 
-Test the equals method with non-Coordinate objects.
-Test the hashCode method's consistency. Given the same coordinate values, the hash code should be the same.
-Cell:
+  @Test
+  public void testBoardRendererWithNullBoard() {
+    assertThrows(IllegalArgumentException.class, () ->
+            new BoardRenderer(null));
+  }
 
-Test changing the content of a cell multiple times.
-Test getting the content of a cell after various changes.
-Consecutive Passes:
+  @Test
+  public void testBoardRendererWithNullAppendable() {
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertThrows(IllegalArgumentException.class, () ->
+            new BoardRenderer(newBoard, null));
+  }
 
-Test scenarios where players pass turns consecutively, but not enough to end the game.
-Capture Mechanics:
+  @Test
+  public void testHashCodeConsistencyWithCoordiate() {
+    Coordinate c1 = new Coordinate(1, 2);
+    Coordinate c2 = new Coordinate(1, 2);
+    assertEquals(c1.hashCode(), c2.hashCode());
+  }
 
-Test the capturing mechanics in all possible directions (not just a straight line).
-Edge Cases:
+  @Test
+  public void testChangingContentOfCellMultipleTimes() {
+    Cell c = new Cell(Disc.BLACK);
+    assertEquals(c.getContent(), Disc.BLACK);
+    c.setContent(Disc.EMPTY);
+    assertEquals(c.getContent(), Disc.EMPTY);
+    c.setContent(Disc.WHITE);
+    assertEquals(c.getContent(), Disc.WHITE);
+  }
 
-For methods that accept arguments, consider edge cases (e.g., null values, extreme values).
-Error Handling:
-
-Ensure that your methods throw the expected exceptions under erroneous conditions.
-Test how the classes handle unexpected states or inputs.
-Performance:
-
-While this isn't a unit test per se, consider performance tests especially if the board size can be large. This will help you ensure the game remains performable under larger scenarios.
-Integration Tests:
-
-While the provided tests are more unit-test in nature (testing individual components), consider writing tests that cover the interaction of multiple components. This can help catch issues that might not surface when components are tested in isolation.
-   */
-
+  @Test
+  public void testPlayersPassWithoutEndGame() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(-2, 1));
+    newBoard.passTurn();
+    assertFalse(newBoard.isGameOver());
+  }
 }

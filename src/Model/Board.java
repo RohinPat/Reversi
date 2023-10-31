@@ -22,6 +22,9 @@ public class Board {
    */
   public Board(int size) {
     this.consecPasses = 0;
+    if (size <= 0) {
+      throw new IllegalArgumentException("Size must be positive");
+    }
     this.size = size;
     this.grid = new HashMap<>();
     this.whoseTurn = Turn.BLACK;
