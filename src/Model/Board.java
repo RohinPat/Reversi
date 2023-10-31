@@ -211,7 +211,7 @@ public class Board {
     while (!allcaptured.isEmpty()) {
       int q = allcaptured.remove(0);
       int r = allcaptured.remove(0);
-      grid.put(new Coordinate(q, r), new Cell(this.currentColor()));
+      this.placeDisc(q, r, this.currentColor());
     }
 
     this.passTurn();
