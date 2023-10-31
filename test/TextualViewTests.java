@@ -4,6 +4,8 @@
 
 import org.junit.Test;
 
+import junit.framework.Assert;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
@@ -253,6 +255,7 @@ public class TextualViewTests {
   public void testCreateBoardWithSize5() {
     Board newBoard = new Board(5);
     newBoard.playGame();
+    BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
             "    _ _ _ _ _ \n" + //
                     "   _ _ _ _ _ _ \n" + //
@@ -262,7 +265,20 @@ public class TextualViewTests {
                     " _ _ _ X O _ _ _ \n" + //
                     "  _ _ _ _ _ _ _ \n" + //
                     "   _ _ _ _ _ _ \n" + //
-                    "    _ _ _ _ _ \n", newBoard.toString());
+                    "    _ _ _ _ _ \n", br.toString());
   }
+
+  @Test
+  public void testFullGameWithMakeMove() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.makeMove(new Coordinate(-2, 1));
+    newBoard.makeMove(new Coordinate(-1, 2));
+    newBoard.makeMove(new Coordinate(1, 1));
+    newBoard.makeMove(new Coordinate(-1, -1));
+    newBoard.makeMove(new Coordinate(2, -1));
+    assertTrue(newBoard.isGameOver());
+  }   
 
 }
