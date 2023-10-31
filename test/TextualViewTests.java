@@ -23,14 +23,19 @@ import View.BoardRenderer;
 
 public class TextualViewTests {
   @Test
-  public void test() {
+  public void testBoardIsCreatedCorrectly() {
     Board newBoard = new Board(4);
     newBoard.playGame();
-    newBoard.makeMove(new Coordinate(1, -2));
-    newBoard.makeMove(new Coordinate(2, -3));
 
     BoardRenderer br = new BoardRenderer(newBoard);
-    System.out.println(br.toString());
+    assertEquals(
+                "   _ _ _ _ \n" + //
+                "  _ _ _ _ _ \n" + //
+                " _ _ X O _ _ \n" + //
+                "_ _ O _ X _ _ \n" + //
+                " _ _ X O _ _ \n" + //
+                "  _ _ _ _ _ \n" + //
+                "   _ _ _ _ \n", br.toString());
   }
 
   @Test 
@@ -54,7 +59,13 @@ public class TextualViewTests {
     newBoard.makeMove(new Coordinate(-1, -1));
     newBoard.passTurn();
     BoardRenderer br = new BoardRenderer(newBoard);
-    System.out.println(br.toString());
+    assertEquals(
+            "  _ X _ \n" + //
+            " O O O O \n" + //
+            "_ X _ O _ \n" + //
+            " X X O _ \n" + //
+            "  _ _ _ \n" + //
+            "", br.toString());
   }
 
   @Test
@@ -73,6 +84,45 @@ public class TextualViewTests {
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-1, 0));
     BoardRenderer br = new BoardRenderer(newBoard);
-    System.out.println(br.toString());
+    assertEquals(
+        "  _ X _ \n" + //
+        " O X O O \n" + //
+        "_ X _ O _ \n" + //
+        " O X O _ \n" + //
+        "  _ _ _ \n" + //
+        "", br.toString());
+  }
+
+  @Test
+  public void testPlaceDiscAt(){
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertEquals(Disc.EMPTY, newBoard.getDiscAt(3, -2));
+    newBoard.placeDisc(3, -2, Disc.BLACK);
+    assertEquals(Disc.BLACK, newBoard.getDiscAt(3, -2));
+  }
+
+  @Test
+  public void testGetDiscAt(){
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    newBoard.placeDisc(3, -2, Disc.BLACK);
+    assertEquals(Disc.BLACK, newBoard.getDiscAt(3, -2));
+  }
+
+  @Test
+  public void testGetDiscAtWithOutOfBoardArgumentThrowsError(){
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertThrows(IllegalArgumentException.class, () ->
+            newBoard.getDiscAt(10, 10));
+  }
+
+  @Test
+  public void testGetPlaceDiscAtOutOfBoardArgumentThrowsError(){
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertThrows(IllegalArgumentException.class, () ->
+            newBoard.placeDisc(10, 10, Disc.EMPTY));
   }
 }

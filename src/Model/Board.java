@@ -186,15 +186,24 @@ public class Board {
   }
 
   public void placeDisc(int q, int r, Disc disc) {
+    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    }
     grid.get(new Coordinate(q, r)).setContent(disc);
   }
 
   public Disc getDiscAt(int q, int r) {
+    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    }
     return grid.get(new Coordinate(q, r)).getContent();
   }
 
 
   public boolean isCellEmpty(int q, int r) {
+    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    }
     return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
   }
 
