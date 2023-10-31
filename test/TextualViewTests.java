@@ -59,6 +59,20 @@ public class TextualViewTests {
 
   @Test
   public void testEmptyCellBetweenNoCaptureAndLegalMove(){
-    
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(-2, 1));
+    newBoard.makeMove(new Coordinate(2, -1));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(-1, -1));
+    newBoard.passTurn();
+    newBoard.placeDisc(-2, 1, Disc.WHITE);
+    newBoard.placeDisc(-1, 0, Disc.EMPTY);
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(-1, 0));
+    BoardRenderer br = new BoardRenderer(newBoard);
+    System.out.println(br.toString());
   }
 }
