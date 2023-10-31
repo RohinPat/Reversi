@@ -17,6 +17,7 @@ import model.Board;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
+import model.Turn;
 import view.BoardRenderer;
 
 /**
@@ -66,8 +67,7 @@ public class TextualViewTests {
             " O O O O \n" + //
             "_ X _ O _ \n" + //
             " X X O _ \n" + //
-            "  _ _ _ \n" + //
-            "", br.toString());
+            "  _ _ _ \n", br.toString());
   }
 
   @Test
@@ -91,8 +91,7 @@ public class TextualViewTests {
         " O X O O \n" + //
         "_ X _ O _ \n" + //
         " O X O _ \n" + //
-        "  _ _ _ \n" + //
-        "", br.toString());
+        "  _ _ _ \n", br.toString());
   }
 
   @Test
@@ -145,7 +144,7 @@ public class TextualViewTests {
   }
 
 
-  //This is co pilot cooking 
+  //This is co-pilot cooking 
   @Test
   public void testIsCellEmpty() {
     Board newBoard = new Board(4);

@@ -177,6 +177,10 @@ public class Board {
  * cell is already occupied or doesn't result in any opponent disc captures.
  */
   public void makeMove(Coordinate dest) {
+    if (!grid.keySet().contains(new Coordinate(dest.getQ(), dest.getR()))){
+      throw new IllegalArgumentException("This space does not exist on the board");
+    }
+
     if (grid.get(dest).getContent() != Disc.EMPTY) {
       throw new IllegalArgumentException("This space is already occupied");
     }
