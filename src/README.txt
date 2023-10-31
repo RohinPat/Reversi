@@ -14,7 +14,7 @@
 Board gameBoard = new Board(8); // Initialize a board with 8 hexagonal rows
 Cell cell = new Cell(Disc.EMPTY); // Create an empty cell
 Coordinate coord = new Coordinate(4, 4); // Define a coordinate for the center of the board
-gameBoard.setCell(coord, cell); // Place the cell on the board
+gameBoard.setCell(coord, cell); // Place the initial cells on the board
 BoardRenderer renderer = new BoardRenderer(gameBoard); // Create a renderer for the board
 System.out.println(renderer.toString()); // Display the board
 
@@ -55,3 +55,14 @@ System.out.println(renderer.toString()); // Display the board
 
 - **View Package:**
   - `BoardRenderer.java`: Responsible for visually rendering the game board, providing users with a view of the current game state.
+
+- **Controller Package:**
+  - `HumanPlayer.java`: Used to represent a human player for when interacting the game which will allow for manual inputs to the game
+  - `AIPlayer.java`: Used to represent an AI player that is interacting the game which will be further implemented with logic to help it decide what move to execute
+
+- **Player Interface:**
+  - This codebase is structured to support both human and AI players in the game of Reversi through a Player interface.
+  - This interface mandates the implementation of two key methods: makeMove(ReversiModel model) for executing a game move, and
+  - getPlayerType() for identifying the player's type. Human players will interactively provide input for their moves,
+  - while AI players will implement a strategy to determine and execute the best possible move.
+  - This also opens the possibility for seamlessly adding new AI difficulties and profiles to play against.

@@ -3,6 +3,7 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
+import model.GameState;
 
 /**
  * Represents the game board for a hexagonal grid-based game.
@@ -14,6 +15,7 @@ public class Board implements Reversi {
   private final HashMap<String, Integer> compassQ = new HashMap<>();
   private final HashMap<String, Integer> compassR = new HashMap<>();
   private int consecPasses;
+  private GameState gameState;
 
   /**
    * Initializes a new game board of the specified size.
@@ -40,6 +42,7 @@ public class Board implements Reversi {
     compassR.put("nw", -1);
     compassR.put("se", 1);
     compassR.put("sw", 1);
+    this.gameState = GameState.PRE;
   }
 
   /**
@@ -66,6 +69,8 @@ public class Board implements Reversi {
     grid.put(new Coordinate(-1, 0), new Cell(Disc.WHITE));
     grid.put(new Coordinate(-1, 1), new Cell(Disc.BLACK));
     grid.put(new Coordinate(0, 1), new Cell(Disc.WHITE));
+
+    gameState = GameState.INPROGRESS;
   }
 
   /**
@@ -74,10 +79,15 @@ public class Board implements Reversi {
    * @return The disc color of the current player.
    */
   private Disc currentColor() {
-    if (this.whoseTurn == Turn.BLACK) {
-      return Disc.BLACK;
-    } else {
-      return Disc.WHITE;
+    if (gameState == GameState.INPROGRESS) {
+      if (this.whoseTurn == Turn.BLACK) {
+        return Disc.BLACK;
+      } else {
+        return Disc.WHITE;
+      }
+    }
+    else{
+      throw new IllegalStateException("The this cannot be checked yet");
     }
   }
 

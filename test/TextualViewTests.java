@@ -172,10 +172,17 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testStateOfBoardBeforeInitialization() {
+  public void testCantAccessGetDiscBeforeGameStarts() {
     Board newBoard = new Board(4);
     assertThrows(IllegalArgumentException.class, () ->
             newBoard.getDiscAt(3, -2));
+  }
+
+  @Test
+  public void testCantAccessPlaceDiscBeforeGameStarts() {
+    Board newBoard = new Board(4);
+    assertThrows(IllegalArgumentException.class, () ->
+            newBoard.placeDisc(3, -2, Disc.BLACK));
   }
 
   @Test
