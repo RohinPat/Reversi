@@ -173,7 +173,8 @@ public class Board {
    *
    * @param dest The target coordinate where the current player's disc should be placed.
    * @throws IllegalArgumentException If the move is invalid, such as when the target
-   *                                  cell is already occupied or doesn't result in any opponent disc captures.
+   *                                  cell is already occupied or doesn't result in any opponent
+   *                                  disc captures.
    */
   public void makeMove(Coordinate dest) {
     if (!grid.keySet().contains(new Coordinate(dest.getQ(), dest.getR()))) {
