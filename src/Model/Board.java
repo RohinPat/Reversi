@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 
+/**
+ * Represents the game board for a hexagonal grid-based game.
+ */
 public class Board {
   private Map<Coordinate, Cell> grid;
   private final int size;
@@ -12,7 +15,11 @@ public class Board {
   private HashMap<String, Integer> compassR = new HashMap<>();
   private int consecPasses;
 
-
+  /**
+   * Initializes a new game board of the specified size.
+   *
+   * @param size The size of the board.
+   */
   public Board(int size) {
     this.consecPasses = 0;
     this.size = size;
@@ -32,6 +39,9 @@ public class Board {
     compassR.put("sw", 1);
   }
 
+  /**
+   * Sets up the game board, initializes the grid, and places the starting pieces.
+   */
   public void playGame() {
     // this first loop sets up the first half of rows not including the middle row
     for (int i = 0; i < size - 1; i++) {
@@ -58,18 +68,11 @@ public class Board {
     grid.put(new Coordinate(0, 1), new Cell(Disc.WHITE));
   }
 
-  // make a playGame method - in that add the board setup kinda like startGame
-
-  // maybe create a list of players that is initialized at the start, and create a switch helper
-  // that keeps track of whose move it is and it should update after each person's move - this could
-  // just be the pass method because we need a method to just pass to the other player
-
-  // make a move method - should do all the checks to make sure a certain move is legal + take in
-  // target place to move + who's move it is?
-
-  // make a game over method
-
-
+  /**
+   * Returns the color of the disc of the current player.
+   *
+   * @return The disc color of the current player.
+   */
   private Disc currentColor() {
     if (this.whoseTurn == Turn.BLACK) {
       return Disc.BLACK;
@@ -78,7 +81,11 @@ public class Board {
     }
   }
 
-
+  /**
+   * Returns the color of the disc of the opponent player.
+   *
+   * @return The disc color of the opponent.
+   */
   private Disc oppositeColor() {
     if (this.whoseTurn == Turn.BLACK) {
       return Disc.WHITE;
@@ -87,8 +94,10 @@ public class Board {
     }
   }
 
-
-  // used to swap turns either when a player passes their turn or at the end of their move
+  /**
+   * Passes the turn to the next player.
+   * used to swap turns either when a player passes their turn or at the end of their move
+   */
   public void passTurn() {
     if (this.whoseTurn == Turn.BLACK) {
       this.whoseTurn = Turn.WHITE;
@@ -154,6 +163,13 @@ public class Board {
     }
   }
 
+  /**
+ * Attempts to make a move on the board by placing the current player's disc at the specified coordinate. 
+ * The method validates the move, flips any captured opponent discs, and switches the turn to the next player.
+ * 
+ * @param dest The target coordinate where the current player's disc should be placed.
+ * @throws IllegalArgumentException If the move is invalid, such as when the target cell is already occupied or doesn't result in any opponent disc captures.
+ */
   public void makeMove(Coordinate dest) {
     if (grid.get(dest).getContent() != Disc.EMPTY) {
       throw new IllegalArgumentException("This space is already occupied");
@@ -182,7 +198,6 @@ public class Board {
       throw new IllegalArgumentException("Invalid move.");
     }
 
-
     while (!allcaptured.isEmpty()) {
       int q = allcaptured.remove(0);
       int r = allcaptured.remove(0);
@@ -193,6 +208,14 @@ public class Board {
     consecPasses = 0;
   }
 
+  /**
+   * Places a disc at the specified cell coordinates.
+   *
+   * @param q The q-coordinate of the cell.
+   * @param r The r-coordinate of the cell.
+   * @param disc The disc to be placed.
+   * @throws IllegalArgumentException If the cell doesn't exist in the grid.
+   */
   public void placeDisc(int q, int r, Disc disc) {
     if (!(grid.keySet().contains(new Coordinate(q, r)))) {
       throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
@@ -200,6 +223,14 @@ public class Board {
     grid.get(new Coordinate(q, r)).setContent(disc);
   }
 
+  /**
+   * Retrieves the disc at the specified cell coordinates.
+   *
+   * @param q The q-coordinate of the cell.
+   * @param r The r-coordinate of the cell.
+   * @return The disc present at the specified coordinates.
+   * @throws IllegalArgumentException If the cell doesn't exist in the grid.
+   */
   public Disc getDiscAt(int q, int r) {
     if (!(grid.keySet().contains(new Coordinate(q, r)))) {
       throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
@@ -207,7 +238,14 @@ public class Board {
     return grid.get(new Coordinate(q, r)).getContent();
   }
 
-
+  /**
+   * Checks if the cell at the specified coordinates is empty.
+   *
+   * @param q The q-coordinate of the cell.
+   * @param r The r-coordinate of the cell.
+   * @return True if the cell is empty, otherwise false.
+   * @throws IllegalArgumentException If the cell doesn't exist in the grid.
+   */
   public boolean isCellEmpty(int q, int r) {
     if (!(grid.keySet().contains(new Coordinate(q, r)))) {
       throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
@@ -215,15 +253,30 @@ public class Board {
     return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
   }
 
-
+  /**
+   * Retrieves the size of the game board.
+   *
+   * @return The size of the board.
+   */
   public int getSize() {
     return size;
   }
 
+  /**
+   * Retrieves the cell at the given coordinates.
+   *
+   * @param coord The coordinates of the cell.
+   * @return The cell at the specified coordinates.
+   */
   public Cell getGridCell(Coordinate coord) {
     return grid.get(coord);
   }
 
+  /**
+   * Checks if the game is over.
+   *
+   * @return True if the game is over, otherwise false.
+   */
   public boolean isGameOver() {
     if (consecPasses == 2) {
       return true;
@@ -258,6 +311,4 @@ public class Board {
     }
     return true; // No valid moves found
   }
-
-
 }
