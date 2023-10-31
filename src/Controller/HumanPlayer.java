@@ -1,6 +1,6 @@
+package controller;
 // Skeleton implementation of HumanPlayer.java for future homework assignments:
 /*
-package Controller;
 
 import Controller.Player;
 import Model.Board;

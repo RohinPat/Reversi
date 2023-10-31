@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,14 +40,16 @@ public class Board {
       }
     }
 
-    // this second loop sets up the rest of the rows INCLUDING the middle row - intializes every cell to be empty at first
+    // this second loop sets up the rest of the rows INCLUDING the middle row - intializes every
+    // cell to be empty at first
     for (int i = 0; i < size; i++) {
       for (int j = -(size - 1); j < size - i; j++) {
         grid.put(new Coordinate(j, i), new Cell(Disc.EMPTY));
       }
     }
 
-    //i'm thinking of adding the starting pieces in the constructor as well but this should be easily moveable
+    //i'm thinking of adding the starting pieces in the constructor as well but this should be
+    // easily moveable
     grid.put(new Coordinate(1, 0), new Cell(Disc.BLACK));
     grid.put(new Coordinate(1, -1), new Cell(Disc.WHITE));
     grid.put(new Coordinate(0, -1), new Cell(Disc.BLACK));
@@ -58,9 +60,12 @@ public class Board {
 
   // make a playGame method - in that add the board setup kinda like startGame
 
-  // maybe create a list of players that is initialized at the start, and create a switch helper that keeps track of whose move it is and it should update after each person's move - this could just be the pass method because we need a method to just pass to the other player
+  // maybe create a list of players that is initialized at the start, and create a switch helper
+  // that keeps track of whose move it is and it should update after each person's move - this could
+  // just be the pass method because we need a method to just pass to the other player
 
-  // make a move method - should do all the checks to make sure a certain move is legal + take in target place to move + who's move it is?
+  // make a move method - should do all the checks to make sure a certain move is legal + take in
+  // target place to move + who's move it is?
 
   // make a game over method
 
@@ -98,7 +103,8 @@ public class Board {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
-    Coordinate nextPiece = new Coordinate((dest.getQ() + compassQ.get(dir)), (dest.getR() + compassR.get(dir)));
+    Coordinate nextPiece = new Coordinate((dest.getQ() + compassQ.get(dir)), (dest.getR()
+            + compassR.get(dir)));
 
     if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor()) {
       while (grid.containsKey(nextPiece) && !endFound) {
@@ -107,11 +113,12 @@ public class Board {
         } else {
           captured.add(nextPiece.getQ());
           captured.add(nextPiece.getR());
-          nextPiece = new Coordinate((nextPiece.getQ() + compassQ.get(dir)), (nextPiece.getR() + compassR.get(dir)));
+          nextPiece = new Coordinate((nextPiece.getQ() + compassQ.get(dir)), (nextPiece.getR()
+                  + compassR.get(dir)));
         }
       }
 
-      if (!endFound){
+      if (!endFound) {
         captured.clear();
         return captured;
       }
@@ -148,7 +155,7 @@ public class Board {
   }
 
   public void makeMove(Coordinate dest) {
-    if (!(grid.get(dest).getContent() == Disc.EMPTY)){
+    if (grid.get(dest).getContent() != Disc.EMPTY) {
       throw new IllegalArgumentException("This space is already occupied");
     }
     
@@ -167,7 +174,8 @@ public class Board {
     }
 
     if (!validMove) {
-      throw new IllegalArgumentException("Invalid move. Reasons: " + String.join(", ", errors));
+      throw new IllegalArgumentException("Invalid move. Reasons: "
+              + String.join(", ", errors));
     }
 
     if (allcaptured.isEmpty()) {
@@ -186,14 +194,14 @@ public class Board {
   }
 
   public void placeDisc(int q, int r, Disc disc) {
-    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+    if (!(grid.keySet().contains(new Coordinate(q, r)))) {
       throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
     }
     grid.get(new Coordinate(q, r)).setContent(disc);
   }
 
   public Disc getDiscAt(int q, int r) {
-    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+    if (!(grid.keySet().contains(new Coordinate(q, r)))) {
       throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
     }
     return grid.get(new Coordinate(q, r)).getContent();
@@ -201,7 +209,7 @@ public class Board {
 
 
   public boolean isCellEmpty(int q, int r) {
-    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+    if (!(grid.keySet().contains(new Coordinate(q, r)))) {
       throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
     }
     return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
@@ -236,7 +244,7 @@ public class Board {
       if (playerDisc != Disc.EMPTY) { // Assuming Disc.EMPTY is the state for an empty cell
         for (Coordinate coord : grid.keySet()) {
           Board dupe = new Board(size);
-          for (Coordinate coor1 : this.grid.keySet()){
+          for (Coordinate coor1 : this.grid.keySet()) {
             dupe.grid.put(coor1, this.grid.get(coor1));
           }
           try {

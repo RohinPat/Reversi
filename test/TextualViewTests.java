@@ -13,12 +13,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import Model.Board;
-import Model.Coordinate;
-import Model.Cell;
-import Model.Disc;
-import Model.Turn;
-import View.BoardRenderer;
+import model.Board;
+import model.Cell;
+import model.Coordinate;
+import model.Disc;
+import model.Turn;
+import view.BoardRenderer;
 
 public class TextualViewTests {
   @Test
@@ -38,7 +38,7 @@ public class TextualViewTests {
   }
 
   @Test 
-  public void testGameOverWithBoardOfSize2(){
+  public void testGameOverWithBoardOfSize2() {
     Board newBoard = new Board(2);
     newBoard.playGame();
     BoardRenderer br = new BoardRenderer(newBoard);
@@ -47,7 +47,7 @@ public class TextualViewTests {
   }
 
   @Test 
-  public void testGameOverWithBoardOfSize3(){
+  public void testGameOverWithBoardOfSize3() {
     Board newBoard = new Board(3);
     newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
@@ -68,7 +68,7 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testEmptyCellBetweenNoCaptureAndLegalMove(){
+  public void testEmptyCellBetweenNoCaptureAndLegalMove() {
     Board newBoard = new Board(3);
     newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
@@ -93,7 +93,7 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testPlaceDiscAt(){
+  public void testPlaceDiscAt() {
     Board newBoard = new Board(4);
     newBoard.playGame();
     assertEquals(Disc.EMPTY, newBoard.getDiscAt(3, -2));
@@ -102,7 +102,7 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testGetDiscAt(){
+  public void testGetDiscAt() {
     Board newBoard = new Board(4);
     newBoard.playGame();
     newBoard.placeDisc(3, -2, Disc.BLACK);
@@ -110,7 +110,7 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testGetDiscAtWithOutOfBoardArgumentThrowsError(){
+  public void testGetDiscAtWithOutOfBoardArgumentThrowsError() {
     Board newBoard = new Board(4);
     newBoard.playGame();
     assertThrows(IllegalArgumentException.class, () ->
@@ -118,7 +118,7 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testGetPlaceDiscAtOutOfBoardArgumentThrowsError(){
+  public void testGetPlaceDiscAtOutOfBoardArgumentThrowsError() {
     Board newBoard = new Board(4);
     newBoard.playGame();
     assertThrows(IllegalArgumentException.class, () ->
@@ -126,7 +126,7 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testTwoConsecutivePassesEndsGame(){
+  public void testTwoConsecutivePassesEndsGame() {
     Board newBoard = new Board(4);
     newBoard.playGame();
     newBoard.passTurn();
@@ -135,7 +135,7 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testValidMoveResetsTheConsecutivePassCounter(){
+  public void testValidMoveResetsTheConsecutivePassCounter() {
     Board newBoard = new Board(4);
     newBoard.playGame();
     assertFalse(newBoard.isGameOver());

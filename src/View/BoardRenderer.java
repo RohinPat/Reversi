@@ -1,7 +1,8 @@
-package View;
+package view;
 
-import Model.Board;
-import Model.Disc;
+import model.Board;
+import model.Disc;
+
 
 public class BoardRenderer {
   private final Board model;
