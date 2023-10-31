@@ -1,10 +1,4 @@
-
-//import org.junit.Assert;
-//import org.junit.Before;
-
 import org.junit.Test;
-
-import junit.framework.Assert;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -281,4 +275,5 @@ public class TextualViewTests {
     assertTrue(newBoard.isGameOver());
   }   
 
+  
 }
