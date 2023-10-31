@@ -94,7 +94,7 @@ public class Board {
     consecPasses += 1;
   }
 
-  public ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
+  private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
@@ -216,30 +216,39 @@ public class Board {
     return grid.get(coord);
   }
 
-  public boolean isGameOver(){
-    if (consecPasses == 2){
+  public boolean isGameOver() {
+    if (consecPasses == 2) {
       return true;
     }
 
-    if (!grid.values().contains(Disc.EMPTY)){
+    boolean allCellsFilled = true;
+    for (Cell cell : grid.values()) {
+      if (cell.getContent() == Disc.EMPTY) {
+        allCellsFilled = false;
+        break;
+      }
+    }
+    if (allCellsFilled) {
       return true;
     }
 
-    for (Coordinate coor : this.grid.keySet()){
-      Board dupe = new Board(size);
-      for (Coordinate coor1 : this.grid.keySet()){
-        dupe.grid.put(coor1, this.grid.get(coor1));
-      }
-      try{
-        dupe.makeMove(coor);
-        return false;
-      }
-      catch (IllegalArgumentException e){
-        // catches illegalargument here
+    for (Disc playerDisc : Disc.values()) {
+      if (playerDisc != Disc.EMPTY) { // Assuming Disc.EMPTY is the state for an empty cell
+        for (Coordinate coord : grid.keySet()) {
+          Board dupe = new Board(size);
+          for (Coordinate coor1 : this.grid.keySet()){
+            dupe.grid.put(coor1, this.grid.get(coor1));
+          }
+          try {
+            dupe.makeMove(coord);
+            return false; // A valid move was found
+          } catch (IllegalArgumentException e) {
+            // Illegal move, try the next one
+          }
+        }
       }
     }
-
-    return true;
+    return true; // No valid moves found
   }
 
 

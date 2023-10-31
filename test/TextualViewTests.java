@@ -125,4 +125,20 @@ public class TextualViewTests {
     assertThrows(IllegalArgumentException.class, () ->
             newBoard.placeDisc(10, 10, Disc.EMPTY));
   }
+
+  @Test
+  public void testTwoConsecutivePassesEndsGame(){
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    newBoard.passTurn();
+    newBoard.passTurn();
+    assertTrue(newBoard.isGameOver());
+  }
+
+  @Test
+  public void testValidMoveResetsTheConsecutivePassCounter(){
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertFalse(newBoard.isGameOver());
+  }
 }
