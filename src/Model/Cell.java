@@ -4,7 +4,7 @@ package model;
  * Represents a cell on the game board which can hold a disc.
  */
 
-public class Cell {
+public class Cell implements CellInterface{
   private Disc content;
 
   /**
