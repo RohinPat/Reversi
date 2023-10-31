@@ -27,7 +27,8 @@ public class Coordinate {
    * Checks if this coordinate is equal to another object.
    *
    * @param that The object to be compared with.
-   * @return True if the object is a Coordinate and has the same q, r, and s values. Otherwise, false.
+   * @return True if the object is a Coordinate and has the same
+   * q, r, and s values. Otherwise, false.
    */
   @Override
   public boolean equals(Object that) {

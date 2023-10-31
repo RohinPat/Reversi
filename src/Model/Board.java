@@ -164,11 +164,14 @@ public class Board {
   }
 
   /**
- * Attempts to make a move on the board by placing the current player's disc at the specified coordinate. 
- * The method validates the move, flips any captured opponent discs, and switches the turn to the next player.
+ * Attempts to make a move on the board by placing the current 
+ * player's disc at the specified coordinate. 
+ * The method validates the move, flips any captured opponent discs,
+ * and switches the turn to the next player.
  * 
  * @param dest The target coordinate where the current player's disc should be placed.
- * @throws IllegalArgumentException If the move is invalid, such as when the target cell is already occupied or doesn't result in any opponent disc captures.
+ * @throws IllegalArgumentException If the move is invalid, such as when the target 
+ * cell is already occupied or doesn't result in any opponent disc captures.
  */
   public void makeMove(Coordinate dest) {
     if (grid.get(dest).getContent() != Disc.EMPTY) {
