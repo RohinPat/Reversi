@@ -47,22 +47,19 @@ public class Board {
    */
   public void playGame() {
     // this first loop sets up the first half of rows not including the middle row
-    for (int i = 0; i < size - 1; i++) {
-      for (int j = -i; j < size; j++) {
-        grid.put(new Coordinate(j, -(size - 1 - i)), new Cell(Disc.EMPTY));
+    for (int upperRow = 0; upperRow < size - 1; upperRow++) {
+      for (int index = -upperRow; index < size; index++) {
+        grid.put(new Coordinate(index, -(size - 1 - upperRow)), new Cell(Disc.EMPTY));
       }
     }
-
     // this second loop sets up the rest of the rows INCLUDING the middle row - intializes every
     // cell to be empty at first
-    for (int i = 0; i < size; i++) {
-      for (int j = -(size - 1); j < size - i; j++) {
-        grid.put(new Coordinate(j, i), new Cell(Disc.EMPTY));
+    for (int lowerRow = 0; lowerRow < size; lowerRow++) {
+      for (int index = -(size - 1); index < size - lowerRow; index++) {
+        grid.put(new Coordinate(index, lowerRow), new Cell(Disc.EMPTY));
       }
     }
 
-    //i'm thinking of adding the starting pieces in the constructor as well but this should be
-    // easily moveable
     grid.put(new Coordinate(1, 0), new Cell(Disc.BLACK));
     grid.put(new Coordinate(1, -1), new Cell(Disc.WHITE));
     grid.put(new Coordinate(0, -1), new Cell(Disc.BLACK));
@@ -211,7 +208,7 @@ public class Board {
     while (!allcaptured.isEmpty()) {
       int q = allcaptured.remove(0);
       int r = allcaptured.remove(0);
-      grid.put(new Coordinate(q, r), new Cell(this.currentColor()));
+      this.placeDisc(q, r, this.currentColor());
     }
 
     this.passTurn();
