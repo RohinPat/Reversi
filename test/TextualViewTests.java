@@ -17,7 +17,6 @@ import model.Board;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
-import model.Turn;
 import view.BoardRenderer;
 
 public class TextualViewTests {
@@ -140,4 +139,41 @@ public class TextualViewTests {
     newBoard.playGame();
     assertFalse(newBoard.isGameOver());
   }
+
+
+  //This is co pilot cooking 
+  @Test
+  public void testIsCellEmpty() {
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertTrue(newBoard.isCellEmpty(3, -2));
+    newBoard.placeDisc(3, -2, Disc.BLACK);
+    assertFalse(newBoard.isCellEmpty(3, -2));
+  }
+
+  @Test
+  public void testIsCellEmptyWithOutOfBoardArgumentThrowsError() {
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertThrows(IllegalArgumentException.class, () ->
+            newBoard.isCellEmpty(10, 10));
+  }
+
+  @Test
+  public void testGetBoardSize() {
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    assertEquals(4, newBoard.getSize());
+  }
+
+  @Test
+  public void testSetContentChangesCellContent() {
+    Cell c = new Cell(Disc.BLACK);
+    assertEquals(c.getContent(), Disc.BLACK);
+    c.setContent(Disc.EMPTY);
+    assertEquals(c.getContent(), Disc.EMPTY);
+  }
+  
+  @Test
+  
 }
