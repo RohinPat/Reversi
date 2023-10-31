@@ -94,7 +94,7 @@ public class Board {
     consecPasses += 1;
   }
 
-  private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
+  public ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
@@ -109,6 +109,11 @@ public class Board {
           captured.add(nextPiece.getR());
           nextPiece = new Coordinate((nextPiece.getQ() + compassQ.get(dir)), (nextPiece.getR() + compassR.get(dir)));
         }
+      }
+
+      if (!endFound){
+        captured.clear();
+        return captured;
       }
       ArrayList<Integer> capturedCopy = new ArrayList<>();
 
@@ -181,15 +186,24 @@ public class Board {
   }
 
   public void placeDisc(int q, int r, Disc disc) {
+    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    }
     grid.get(new Coordinate(q, r)).setContent(disc);
   }
 
   public Disc getDiscAt(int q, int r) {
+    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    }
     return grid.get(new Coordinate(q, r)).getContent();
   }
 
 
   public boolean isCellEmpty(int q, int r) {
+    if (!(grid.keySet().contains(new Coordinate(q, r)))){
+      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    }
     return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
   }
 

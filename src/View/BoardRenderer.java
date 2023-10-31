@@ -1,12 +1,7 @@
 package View;
 
-import java.io.IOException;
-import java.util.Objects;
-
 import Model.Board;
-import Model.Coordinate;
 import Model.Disc;
-import Model.Cell;
 
 public class BoardRenderer {
   private final Board model;
