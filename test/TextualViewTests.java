@@ -132,15 +132,6 @@ public class TextualViewTests {
   }
 
   @Test
-  public void testValidMoveResetsTheConsecutivePassCounter() {
-    Board newBoard = new Board(4);
-    newBoard.playGame();
-    assertFalse(newBoard.isGameOver());
-  }
-
-
-  //This is co-pilot cooking
-  @Test
   public void testIsCellEmpty() {
     Board newBoard = new Board(4);
     newBoard.playGame();
@@ -257,4 +248,21 @@ public class TextualViewTests {
     newBoard.passTurn();
     assertFalse(newBoard.isGameOver());
   }
+
+  @Test
+  public void testCreateBoardWithSize5() {
+    Board newBoard = new Board(5);
+    newBoard.playGame();
+    assertEquals(
+            "    _ _ _ _ _ \n" + //
+                    "   _ _ _ _ _ _ \n" + //
+                    "  _ _ _ _ _ _ _ \n" + //
+                    " _ _ _ X O _ _ _ \n" + //
+                    "_ _ _ O _ X _ _ _ \n" + //
+                    " _ _ _ X O _ _ _ \n" + //
+                    "  _ _ _ _ _ _ _ \n" + //
+                    "   _ _ _ _ _ _ \n" + //
+                    "    _ _ _ _ _ \n", newBoard.toString());
+  }
+
 }
