@@ -25,6 +25,7 @@ System.out.println(renderer.toString()); // Display the board
 - **Coordinate:** Manages hexagonal positioning on the board using a unique triple-coordinate system.
 - **Disc:** Enumerated type representing the possible states of a cell: black, white, or empty.
 - **Turn:** Enumerated type indicating whose turn it is, either black or white.
+- **GameState:** Enumerated type indicating the state of the game.
 - **BoardRenderer:** Handles the visual representation of the board, allowing users to view the current state of the game.
 
 ## Key Subcomponents
@@ -52,6 +53,8 @@ System.out.println(renderer.toString()); // Display the board
   - `Coordinate.java`: Contains the logic for the hexagonal coordinate system, allowing for unique cell identification and navigation.
   - `Disc.java`: Defines the possible states a cell can hold: black, white, or empty.
   - `Turn.java`: Dictates player turns, ensuring the game flows smoothly between black and white players.
+  - `GameState.java`: Keeps track of the current state of the game - will also be implemented to determine the score based on the ending number of pieces on the board
+
 
 - **View Package:**
   - `BoardRenderer.java`: Responsible for visually rendering the game board, providing users with a view of the current game state.

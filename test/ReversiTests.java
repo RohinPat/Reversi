@@ -9,13 +9,42 @@ import model.Board;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
+import model.GameState;
+import model.Turn;
 import view.BoardRenderer;
 
 /**
  * Contains unit tests for validating the functionality of the game's textual
  * view and related operations.
  */
-public class TextualViewTests {
+public class ReversiTests {
+
+  /**
+   * Houses example constructions of various objects used in our model.
+   */
+  private void initExamples() {
+    Board board1 = new Board(3);
+    Board board2 = new Board(4);
+    Board board3 = new Board(10);
+
+    Cell blackCell = new Cell(Disc.BLACK);
+    Cell whiteCell = new Cell(Disc.WHITE);
+    Cell emptyCell = new Cell(Disc.EMPTY);
+
+    Coordinate c1 = new Coordinate(1, 1);
+    Coordinate c2 = new Coordinate(-1, -1);
+    Coordinate c3 = new Coordinate(2, -3);
+
+    Turn whiteTurn = Turn.WHITE;
+    Turn blackTurn = Turn.BLACK;
+
+    GameState preGame = GameState.PRE;
+    GameState blackWinGame = GameState.BLACKWIN;
+    GameState whiteWinGame = GameState.WHITEWIN;
+    GameState tieGame = GameState.TIE;
+
+  }
+
   @Test
   public void testBoardIsCreatedCorrectly() {
     Board newBoard = new Board(4);
@@ -30,15 +59,6 @@ public class TextualViewTests {
                     " _ _ X O _ _ \n" + //
                     "  _ _ _ _ _ \n" + //
                     "   _ _ _ _ \n", br.toString());
-  }
-
-  @Test
-  public void testGameOverWithBoardOfSize2() {
-    Board newBoard = new Board(2);
-    newBoard.playGame();
-    BoardRenderer br = new BoardRenderer(newBoard);
-    System.out.println(br.toString());
-    assertTrue(newBoard.isGameOver());
   }
 
   @Test
@@ -59,6 +79,22 @@ public class TextualViewTests {
                     "_ X _ O _ \n" + //
                     " X X O _ \n" + //
                     "  _ _ _ \n", br.toString());
+  }
+
+  @Test
+  public void testPassMoveSwitchesTurn() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(-2, 1));
+    BoardRenderer br = new BoardRenderer(newBoard);
+    assertEquals(
+            "  _ _ _ \n" +
+                    " _ X O _ \n" +
+                    "_ O _ X _ \n" +
+                    " O O O _ \n" +
+                    "  _ _ _ \n", br.toString());
+
   }
 
   @Test
@@ -174,14 +210,14 @@ public class TextualViewTests {
   @Test
   public void testCantAccessGetDiscBeforeGameStarts() {
     Board newBoard = new Board(4);
-    assertThrows(IllegalArgumentException.class, () ->
+    assertThrows(IllegalStateException.class, () ->
             newBoard.getDiscAt(3, -2));
   }
 
   @Test
   public void testCantAccessPlaceDiscBeforeGameStarts() {
     Board newBoard = new Board(4);
-    assertThrows(IllegalArgumentException.class, () ->
+    assertThrows(IllegalStateException.class, () ->
             newBoard.placeDisc(3, -2, Disc.BLACK));
   }
 
@@ -241,7 +277,7 @@ public class TextualViewTests {
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-2, 1));
     newBoard.passTurn();
-    assertFalse(newBoard.isGameOver());
+    assertTrue(newBoard.isGameOver());
   }
 
   @Test
@@ -273,5 +309,127 @@ public class TextualViewTests {
     newBoard.makeMove(new Coordinate(2, -1));
     assertTrue(newBoard.isGameOver());
   }
+
+  @Test
+  public void testCannotStartAGameWhileAnotherIsInProgress() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    assertThrows(IllegalStateException.class, () ->
+            newBoard.playGame());
+  }
+
+  @Test
+  public void scoresAtGameInitAre3and3BecauseofStartingPieces() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    assertEquals(3, newBoard.getScore(Disc.BLACK));
+    assertEquals(3, newBoard.getScore(Disc.WHITE));
+  }
+
+  @Test
+  public void testTieSituation() {
+    Board newBoard = new Board(2);
+    newBoard.playGame();
+    newBoard.isGameOver();
+    assertEquals(GameState.TIE, newBoard.getState());
+  }
+
+  @Test
+  public void testWhiteWinSituation() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(-2, 1));
+    newBoard.makeMove(new Coordinate(2, -1));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(-1, -1));
+    newBoard.passTurn();
+    newBoard.isGameOver();
+    assertEquals(GameState.WHITEWIN, newBoard.getState());
+  }
+
+  @Test
+  public void testBlackWinSituation() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.makeMove(new Coordinate(-1, 2));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(-1, -1));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(2, -1));
+    newBoard.isGameOver();
+    assertEquals(GameState.BLACKWIN, newBoard.getState());
+
+  }
+
+  @Test
+  public void testBlackWinsAfter2Passes() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.passTurn();
+    newBoard.passTurn();
+    newBoard.isGameOver();
+    assertEquals(GameState.BLACKWIN, newBoard.getState());
+  }
+
+  @Test
+  public void testWhiteWinsAfter2Passes() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(1, 1));
+    newBoard.passTurn();
+    newBoard.passTurn();
+    newBoard.isGameOver();
+    assertEquals(GameState.WHITEWIN, newBoard.getState());
+  }
+
+  @Test
+  public void testTieSituationaftertwopasses() {
+    Board newBoard = new Board(3);
+    newBoard.playGame();
+    newBoard.passTurn();
+    newBoard.passTurn();
+    newBoard.isGameOver();
+    assertEquals(GameState.TIE, newBoard.getState());
+  }
+
+  @Test
+  public void testSingleMoveIsReflectedCorrectly() {
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    newBoard.makeMove(new Coordinate(1, -2));
+    BoardRenderer br = new BoardRenderer(newBoard);
+    assertEquals(
+            "   _ _ _ _ \n" +
+                    "  _ _ X _ _ \n" +
+                    " _ _ X X _ _ \n" +
+                    "_ _ O _ X _ _ \n" +
+                    " _ _ X O _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    "   _ _ _ _ \n", br.toString());
+  }
+
+  @Test
+  public void testMultipleMoveIsReflectedCorrectly() {
+    Board newBoard = new Board(4);
+    newBoard.playGame();
+    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.makeMove(new Coordinate(-2, 1));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(2, -3));
+    BoardRenderer br = new BoardRenderer(newBoard);
+    assertEquals(
+            "   _ _ O _ \n" +
+                    "  _ _ O _ _ \n" +
+                    " _ _ O X _ _ \n" +
+                    "_ _ O _ X _ _ \n" +
+                    " _ O O O _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    "   _ _ _ _ \n", br.toString());
+  }
+
 
 }

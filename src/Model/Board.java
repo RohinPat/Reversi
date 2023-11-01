@@ -3,17 +3,20 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
-import model.GameState;
 
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
 public class Board implements Reversi {
   private final Map<Coordinate, Cell> grid;
+
+  //INVARIANT: should always be positive
   private final int size;
   private Turn whoseTurn;
   private final HashMap<String, Integer> compassQ = new HashMap<>();
   private final HashMap<String, Integer> compassR = new HashMap<>();
+
+  //INVARIANT: should always be positive (never subtracted from, initialized at 0)
   private int consecPasses;
   private GameState gameState;
 
@@ -49,28 +52,32 @@ public class Board implements Reversi {
    * Sets up the game board, initializes the grid, and places the starting pieces.
    */
   public void playGame() {
-    // this first loop sets up the first half of rows not including the middle row
-    for (int upperRow = 0; upperRow < size - 1; upperRow++) {
-      for (int index = -upperRow; index < size; index++) {
-        grid.put(new Coordinate(index, -(size - 1 - upperRow)), new Cell(Disc.EMPTY));
-      }
-    }
-    // this second loop sets up the rest of the rows INCLUDING the middle row - intializes every
-    // cell to be empty at first
-    for (int lowerRow = 0; lowerRow < size; lowerRow++) {
-      for (int index = -(size - 1); index < size - lowerRow; index++) {
-        grid.put(new Coordinate(index, lowerRow), new Cell(Disc.EMPTY));
-      }
-    }
+    if (gameState == GameState.PRE) {
+      gameState = GameState.INPROGRESS;
 
-    grid.put(new Coordinate(1, 0), new Cell(Disc.BLACK));
-    grid.put(new Coordinate(1, -1), new Cell(Disc.WHITE));
-    grid.put(new Coordinate(0, -1), new Cell(Disc.BLACK));
-    grid.put(new Coordinate(-1, 0), new Cell(Disc.WHITE));
-    grid.put(new Coordinate(-1, 1), new Cell(Disc.BLACK));
-    grid.put(new Coordinate(0, 1), new Cell(Disc.WHITE));
+      // this first loop sets up the first half of rows not including the middle row
+      for (int upperRow = 0; upperRow < size - 1; upperRow++) {
+        for (int index = -upperRow; index < size; index++) {
+          grid.put(new Coordinate(index, -(size - 1 - upperRow)), new Cell(Disc.EMPTY));
+        }
+      }
+      // this second loop sets up the rest of the rows INCLUDING the middle row - intializes every
+      // cell to be empty at first
+      for (int lowerRow = 0; lowerRow < size; lowerRow++) {
+        for (int index = -(size - 1); index < size - lowerRow; index++) {
+          grid.put(new Coordinate(index, lowerRow), new Cell(Disc.EMPTY));
+        }
+      }
 
-    gameState = GameState.INPROGRESS;
+      grid.put(new Coordinate(1, 0), new Cell(Disc.BLACK));
+      grid.put(new Coordinate(1, -1), new Cell(Disc.WHITE));
+      grid.put(new Coordinate(0, -1), new Cell(Disc.BLACK));
+      grid.put(new Coordinate(-1, 0), new Cell(Disc.WHITE));
+      grid.put(new Coordinate(-1, 1), new Cell(Disc.BLACK));
+      grid.put(new Coordinate(0, 1), new Cell(Disc.WHITE));
+    } else {
+      throw new IllegalStateException("A game has already been started");
+    }
   }
 
   /**
@@ -85,9 +92,8 @@ public class Board implements Reversi {
       } else {
         return Disc.WHITE;
       }
-    }
-    else{
-      throw new IllegalStateException("The this cannot be checked yet");
+    } else {
+      throw new IllegalStateException("This cannot be checked yet");
     }
   }
 
@@ -97,10 +103,14 @@ public class Board implements Reversi {
    * @return The disc color of the opponent.
    */
   private Disc oppositeColor() {
-    if (this.whoseTurn == Turn.BLACK) {
-      return Disc.WHITE;
+    if (gameState == GameState.INPROGRESS) {
+      if (this.whoseTurn == Turn.BLACK) {
+        return Disc.WHITE;
+      } else {
+        return Disc.BLACK;
+      }
     } else {
-      return Disc.BLACK;
+      throw new IllegalStateException("This cannot be checked yet");
     }
   }
 
@@ -109,13 +119,16 @@ public class Board implements Reversi {
    * used to swap turns either when a player passes their turn or at the end of their move
    */
   public void passTurn() {
-    if (this.whoseTurn == Turn.BLACK) {
-      this.whoseTurn = Turn.WHITE;
+    if (gameState == GameState.INPROGRESS) {
+      if (this.whoseTurn == Turn.BLACK) {
+        this.whoseTurn = Turn.WHITE;
+      } else {
+        this.whoseTurn = Turn.BLACK;
+      }
+      consecPasses += 1;
     } else {
-      this.whoseTurn = Turn.BLACK;
+      throw new IllegalStateException("The game has not been started yet no move can be made");
     }
-
-    consecPasses += 1;
   }
 
   private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
@@ -184,45 +197,49 @@ public class Board implements Reversi {
    *                                  disc captures.
    */
   public void makeMove(Coordinate dest) {
-    if (!grid.keySet().contains(new Coordinate(dest.getQ(), dest.getR()))) {
-      throw new IllegalArgumentException("This space does not exist on the board");
-    }
-
-    if (grid.get(dest).getContent() != Disc.EMPTY) {
-      throw new IllegalArgumentException("This space is already occupied");
-    }
-
-    boolean validMove = false;
-    ArrayList<String> errors = new ArrayList<>();
-    ArrayList<Integer> allcaptured = new ArrayList<>();
-
-    for (String direction : compassQ.keySet()) {
-      try {
-        ArrayList<Integer> caught = this.moveHelper(dest, direction);
-        allcaptured.addAll(caught);
-        validMove = true;
-      } catch (IllegalArgumentException e) {
-        errors.add(e.getMessage());
+    if (gameState == GameState.INPROGRESS) {
+      if (!grid.keySet().contains(new Coordinate(dest.getQ(), dest.getR()))) {
+        throw new IllegalArgumentException("This space does not exist on the board");
       }
-    }
 
-    if (!validMove) {
-      throw new IllegalArgumentException("Invalid move. Reasons: "
-              + String.join(", ", errors));
-    }
+      if (grid.get(dest).getContent() != Disc.EMPTY) {
+        throw new IllegalArgumentException("This space is already occupied");
+      }
 
-    if (allcaptured.isEmpty()) {
-      throw new IllegalArgumentException("Invalid move.");
-    }
+      boolean validMove = false;
+      ArrayList<String> errors = new ArrayList<>();
+      ArrayList<Integer> allcaptured = new ArrayList<>();
 
-    while (!allcaptured.isEmpty()) {
-      int q = allcaptured.remove(0);
-      int r = allcaptured.remove(0);
-      this.placeDisc(q, r, this.currentColor());
-    }
+      for (String direction : compassQ.keySet()) {
+        try {
+          ArrayList<Integer> caught = this.moveHelper(dest, direction);
+          allcaptured.addAll(caught);
+          validMove = true;
+        } catch (IllegalArgumentException e) {
+          errors.add(e.getMessage());
+        }
+      }
 
-    this.passTurn();
-    consecPasses = 0;
+      if (!validMove) {
+        throw new IllegalArgumentException("Invalid move. Reasons: "
+                + String.join(", ", errors));
+      }
+
+      if (allcaptured.isEmpty()) {
+        throw new IllegalArgumentException("Invalid move.");
+      }
+
+      while (!allcaptured.isEmpty()) {
+        int q = allcaptured.remove(0);
+        int r = allcaptured.remove(0);
+        this.placeDisc(q, r, this.currentColor());
+      }
+
+      this.passTurn();
+      consecPasses = 0;
+    } else {
+      throw new IllegalStateException("The game has not been started yet no move can be made");
+    }
   }
 
   /**
@@ -234,10 +251,14 @@ public class Board implements Reversi {
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
   public void placeDisc(int q, int r, Disc disc) {
-    if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    if (gameState == GameState.INPROGRESS) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      grid.get(new Coordinate(q, r)).setContent(disc);
+    } else {
+      throw new IllegalStateException("The game has not been started yet this cannot be done");
     }
-    grid.get(new Coordinate(q, r)).setContent(disc);
   }
 
   /**
@@ -249,10 +270,15 @@ public class Board implements Reversi {
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
   public Disc getDiscAt(int q, int r) {
-    if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    if (gameState == GameState.INPROGRESS) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      return grid.get(new Coordinate(q, r)).getContent();
+    } else {
+      throw new IllegalStateException("The game has not been started yet this cannot be done");
     }
-    return grid.get(new Coordinate(q, r)).getContent();
+
   }
 
   /**
@@ -264,10 +290,14 @@ public class Board implements Reversi {
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
   public boolean isCellEmpty(int q, int r) {
-    if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-      throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+    if (gameState == GameState.INPROGRESS) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
+    } else {
+      throw new IllegalStateException("The game has not been started this cannot be checked");
     }
-    return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
   }
 
   /**
@@ -280,42 +310,91 @@ public class Board implements Reversi {
   }
 
   /**
-   * Checks if the game is over.
+   * Retrieves the state of the game.
+   *
+   * @return The state of the board.
+   */
+  public GameState getState() {
+    return this.gameState;
+  }
+
+  /**
+   * Retrieves the score for the inputted player by checking through how many pieces are placed.
+   *
+   * @return The number of pieces (score) of a certain player.
+   */
+  public int getScore(Disc player) {
+    int scoreCounter = 0;
+    for (Cell cell : grid.values()) {
+      if (cell.getContent().equals(player)) {
+        scoreCounter += 1;
+      }
+    }
+    return scoreCounter;
+  }
+
+  /**
+   * A helper method to check who wins based on who has more pieces on the board at the end of game.
+   * Changes the state of the game to reflect and is only called in a situation where.
+   * IsGameOver would indicate the game is over (returns true).
+   */
+  private void whoWins() {
+    int blackScore = this.getScore(Disc.BLACK);
+    int whiteScore = this.getScore(Disc.WHITE);
+
+    if (blackScore > whiteScore) {
+      gameState = GameState.BLACKWIN;
+    } else if (blackScore == whiteScore) {
+      gameState = GameState.TIE;
+    } else {
+      gameState = GameState.WHITEWIN;
+    }
+  }
+
+  /**
+   * Checks if the game is over. Adjusts the gameState enum to reflect who wins.
    *
    * @return True if the game is over, otherwise false.
    */
   public boolean isGameOver() {
-    if (consecPasses == 2) {
-      return true;
-    }
-
-    boolean allCellsFilled = true;
-    for (Cell cell : grid.values()) {
-      if (cell.getContent() == Disc.EMPTY) {
-        allCellsFilled = false;
-        break;
+    if (gameState == GameState.INPROGRESS) {
+      if (consecPasses == 2) {
+        this.whoWins();
+        return true;
       }
-    }
-    if (allCellsFilled) {
-      return true;
-    }
 
-    for (Disc playerDisc : Disc.values()) {
-      if (playerDisc != Disc.EMPTY) {
-        for (Coordinate coord : grid.keySet()) {
-          Board dupe = new Board(size);
-          for (Coordinate coor1 : this.grid.keySet()) {
-            dupe.grid.put(coor1, this.grid.get(coor1));
-          }
-          try {
-            dupe.makeMove(coord);
-            return false;
-          } catch (IllegalArgumentException e) {
-            // Illegal move, try the next one
+      boolean allCellsFilled = true;
+      for (Cell cell : grid.values()) {
+        if (cell.getContent() == Disc.EMPTY) {
+          allCellsFilled = false;
+          break;
+        }
+      }
+      if (allCellsFilled) {
+        this.whoWins();
+        return true;
+      }
+
+      for (Disc playerDisc : Disc.values()) {
+        if (playerDisc != Disc.EMPTY) {
+          for (Coordinate coord : grid.keySet()) {
+            Board dupe = new Board(size);
+            for (Coordinate coor1 : this.grid.keySet()) {
+              dupe.grid.put(coor1, this.grid.get(coor1));
+            }
+            try {
+              dupe.makeMove(coord);
+              return false;
+            } catch (IllegalStateException e) {
+              // Illegal move, try the next one
+            }
           }
         }
       }
+      this.whoWins();
+      return true;
+    } else {
+      throw new IllegalStateException("The game has not been started this cannot be checked");
     }
-    return true;
   }
 }
