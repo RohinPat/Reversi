@@ -1,1 +1,1 @@
-# Reversi
+# ReversiMain

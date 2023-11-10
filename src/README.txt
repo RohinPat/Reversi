@@ -1,13 +1,13 @@
-# README for Hexagonal Reversi Game Model
+# README for Hexagonal ReversiMain Game Model
 
 ## Overview
 
-**Problem Addressed:** This codebase offers a model representation for Reversi, but with a unique twist: the board is hexagonal. This design allows users to manage game states, player turns, and board configurations in a hexagonal grid system.
+**Problem Addressed:** This codebase offers a model representation for ReversiMain, but with a unique twist: the board is hexagonal. This design allows users to manage game states, player turns, and board configurations in a hexagonal grid system.
 
 **Assumptions:**
 - The game operates on a hexagonal grid system.
 - Players use discs (black or white) to play.
-- Users possess a basic understanding of the Reversi game.
+- Users possess a basic understanding of the ReversiMain game.
 
 ## Quick Start
 
@@ -64,7 +64,7 @@ System.out.println(renderer.toString()); // Display the board
   - `AIPlayer.java`: Used to represent an AI player that is interacting the game which will be further implemented with logic to help it decide what move to execute
 
 - **Player Interface:**
-  - This codebase is structured to support both human and AI players in the game of Reversi through a Player interface.
+  - This codebase is structured to support both human and AI players in the game of ReversiMain through a Player interface.
   - This interface mandates the implementation of two key methods: makeMove(ReversiModel model) for executing a game move, and
   - getPlayerType() for identifying the player's type. Human players will interactively provide input for their moves,
   - while AI players will implement a strategy to determine and execute the best possible move.
