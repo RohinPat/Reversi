@@ -397,4 +397,20 @@ public class Board implements Reversi {
       throw new IllegalStateException("The game has not been started this cannot be checked");
     }
   }
+
+  /*
+   * Creates a copy of the board.
+   * 
+   * @return A copy of the board.
+   */
+  public Board createCopyOfBoard() {
+    Board copy = new Board(this.size);
+    for (Coordinate coord : this.grid.keySet()) {
+      copy.grid.put(coord, this.grid.get(coord));
+    }
+    if(this.whoseTurn == Turn.WHITE) {
+      copy.passTurn();
+    }
+    return copy;
+  }
 }
