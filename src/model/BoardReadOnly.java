@@ -1,6 +1,6 @@
 package model;
 
-public class BoardReadOnly implements ReadOnlyReversi {
+public class BoardReadOnly implements ReversiReadOnly {
 
   private Board board;
 

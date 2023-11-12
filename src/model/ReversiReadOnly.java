@@ -1,6 +1,6 @@
 package model;
 
-public interface ReadOnlyReversi {
+public interface ReversiReadOnly {
 
   /**
    * Retrieves the disc at the specified cell coordinates.
