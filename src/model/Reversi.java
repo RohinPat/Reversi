@@ -3,7 +3,7 @@ package model;
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
-public interface Reversi {
+public interface Reversi extends ReadOnlyReversi {
 
   /**
    * Sets up the game board, initializes the grid, and places the starting pieces.
