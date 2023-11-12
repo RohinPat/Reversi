@@ -9,10 +9,14 @@ public class Hexagon extends Path2D.Double {
   Disc color;
   double x;
   double y;
+  int q;
+  int r;
   double size;
-  public Hexagon(double x, double y, double size, Disc color) {
+  public Hexagon(double x, double y, double size, Disc color, int q, int r) {
     // Start with an angle that points upwards
     this.color = color;
+    this.q = q;
+    this.r = r;
     this.x = x;
     this.y = y;
     this.size = size;
