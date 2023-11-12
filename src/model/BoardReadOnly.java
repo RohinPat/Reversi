@@ -4,8 +4,8 @@ public class BoardReadOnly implements ReadOnlyReversi {
 
   private Board board;
 
-    public BoardReadOnly(int size) {
-        this.board = new Board(size);
+    public BoardReadOnly(Board board) {
+        this.board = board;
     }
 
     @Override
@@ -27,5 +27,4 @@ public class BoardReadOnly implements ReadOnlyReversi {
     public boolean isGameOver() {
         return board.isGameOver();
     }
-    
 }
