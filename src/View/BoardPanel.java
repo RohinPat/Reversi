@@ -1,10 +1,10 @@
 package view;
 
 import javax.swing.JPanel;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Color;
+
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import model.Board;
@@ -16,10 +16,23 @@ public class BoardPanel extends JPanel {
   private ArrayList<Hexagon> hexagons;
   private final double hexSize = 30; // Assuming a fixed hexagon size for simplicity
 
+  public BoardPanel(LayoutManager layout, boolean isDoubleBuffered, ArrayList<Hexagon> hexagons) {
+    super(layout, isDoubleBuffered);
+    this.hexagons = hexagons;
+  }
+
   public BoardPanel(Board board) {
     hexagons = new ArrayList<>();
-    this.setBackground(Color.WHITE);
+    this.setBackground(Color.DARK_GRAY);
     initializeHexagons(board);
+
+    addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+        handleHexagonClick(e.getX(), e.getY());
+      }
+    });
   }
 
   private int calculateTotalHexagons(int size) {
@@ -32,6 +45,30 @@ public class BoardPanel extends JPanel {
     }
     return total;
   }
+
+  private void handleHexagonClick(int mouseX, int mouseY) {
+    for (Hexagon hex : hexagons) {
+      if (hex.contains(mouseX, mouseY)) {
+        // Check if the hexagon is already SELECTED
+        if (hex.color.equals(Disc.SELECTED)) {
+          // If it is, then set the color to EMPTY (unfilled)
+          hex.color = Disc.EMPTY;
+        } else {
+          for (Hexagon hex1 : hexagons) {
+            if (hex1.color.equals(Disc.SELECTED)) {
+              hex1.color = Disc.EMPTY;
+            }
+          }
+          hex.color = Disc.SELECTED;
+        }
+        repaint(); // Request a repaint so the color change is displayed
+        break; // Exit the loop once we've found our hexagon
+      }
+    }
+  }
+
+
+
 
   private void initializeHexagons(Board board) {
     double y = 100; // Start position for y
@@ -73,11 +110,15 @@ public class BoardPanel extends JPanel {
 
     // Draw hexagons
     for (Hexagon hex : hexagons) {
-      if (hex.color.equals(Disc.EMPTY)) {
-        g2d.setColor(Color.BLACK);
-      }else {
-        g2d.setColor(Color.RED);
+      if (hex.color.equals(Disc.SELECTED)) {
+        g2d.setColor(Color.CYAN);
+        g2d.fill(hex);
       }
+      else{
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fill(hex);
+      }
+      g2d.setColor(Color.BLACK);
       g2d.draw(hex); // Draw the hexagon border
 
       int circleDiameter = (int) (hexSize * 1.25); // Set the circle diameter to be smaller than the hexagon size
@@ -94,7 +135,7 @@ public class BoardPanel extends JPanel {
         g2d.setColor(Color.BLACK);
         g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter); // Draw the black filled circle
       } else if (hex.color.equals(Disc.WHITE)) {
-        g2d.setColor(Color.RED);
+        g2d.setColor(Color.WHITE);
         g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter); // Draw the white filled circle
       }
       // If hex.color is Disc.EMPTY, we don't add anything inside, just the hexagon border is drawn
