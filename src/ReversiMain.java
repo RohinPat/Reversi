@@ -1,8 +1,11 @@
+import model.Board;
 import view.ReversiFrame;
 
 public final class ReversiMain {
   public static void main(String[] args) {
-    ReversiFrame view = new ReversiFrame(6);
+    Board b1 = new Board(6);
+    b1.playGame();
+    ReversiFrame view = new ReversiFrame(b1);
     view.setVisible(true);
   }
 }
