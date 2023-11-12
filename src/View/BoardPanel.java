@@ -14,6 +14,7 @@ import model.Disc;
 
 public class BoardPanel extends JPanel {
   private ArrayList<Hexagon> hexagons;
+  private Hexagon selected;
   private final double hexSize = 30; // Assuming a fixed hexagon size for simplicity
 
   public BoardPanel(LayoutManager layout, boolean isDoubleBuffered, ArrayList<Hexagon> hexagons) {
@@ -49,22 +50,17 @@ public class BoardPanel extends JPanel {
   private void handleHexagonClick(int mouseX, int mouseY) {
     for (Hexagon hex : hexagons) {
       if (hex.contains(mouseX, mouseY)) {
-        // Check if the hexagon is already SELECTED
-        if (hex.color.equals(Disc.SELECTED)) {
-          // If it is, then set the color to EMPTY (unfilled)
-          hex.color = Disc.EMPTY;
-        } else {
-          for (Hexagon hex1 : hexagons) {
-            if (hex1.color.equals(Disc.SELECTED)) {
-              hex1.color = Disc.EMPTY;
-            }
-          }
-          hex.color = Disc.SELECTED;
+        if (!hex.equals(selected)){
+          selected = hex;
+        }
+        else{
+          selected = null;
         }
         repaint(); // Request a repaint so the color change is displayed
         break; // Exit the loop once we've found our hexagon
       }
     }
+
   }
 
 
@@ -110,7 +106,7 @@ public class BoardPanel extends JPanel {
 
     // Draw hexagons
     for (Hexagon hex : hexagons) {
-      if (hex.color.equals(Disc.SELECTED)) {
+      if (hex.equals(selected)) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hex);
       }

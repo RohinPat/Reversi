@@ -5,5 +5,5 @@ package model;
  * Each cell on the board can either contain a BLACK disc, a WHITE disc, or be EMPTY.
  */
 public enum Disc {
-  BLACK, WHITE, EMPTY, SELECTED
+  BLACK, WHITE, EMPTY
 }
