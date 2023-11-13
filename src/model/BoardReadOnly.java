@@ -27,4 +27,12 @@ public class BoardReadOnly implements ReversiReadOnly {
     public boolean isGameOver() {
         return board.isGameOver();
     }
+
+    @Override
+    public void update(Board board) {
+        if (board == null) {
+            throw new IllegalArgumentException("Board must not be null");
+        }
+        this.board = board;
+    }
 }
