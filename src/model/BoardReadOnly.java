@@ -6,7 +6,6 @@ public class BoardReadOnly implements ReversiReadOnly {
 
     public BoardReadOnly(Board board) {
         this.board = board;
-        board.playGame();
     }
 
     @Override

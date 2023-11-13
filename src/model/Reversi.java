@@ -6,11 +6,6 @@ package model;
 public interface Reversi extends ReversiReadOnly {
 
   /**
-   * Sets up the game board, initializes the grid, and places the starting pieces.
-   */
-  void playGame();
-
-  /**
    * Passes the turn to the next player.
    */
   void passTurn();

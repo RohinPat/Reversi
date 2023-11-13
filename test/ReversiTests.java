@@ -48,7 +48,6 @@ public class ReversiTests {
   @Test
   public void testBoardIsCreatedCorrectly() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
 
     BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
@@ -64,7 +63,6 @@ public class ReversiTests {
   @Test
   public void testGameOverWithBoardOfSize3() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-2, 1));
@@ -84,7 +82,6 @@ public class ReversiTests {
   @Test
   public void testPassMoveSwitchesTurn() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-2, 1));
     BoardRenderer br = new BoardRenderer(newBoard);
@@ -97,30 +94,9 @@ public class ReversiTests {
 
   }
 
-
-  /*
-  @Test
-  public void testAutoMove(){
-    Board newBoard = new Board(4);
-    newBoard.makeMove(new Coordinate(-1, 2));
-    newBoard.autoMoveStrategy1();
-    BoardRenderer br = new BoardRenderer(newBoard);
-    assertEquals(
-            "   _ _ _ _ \n" +
-                    "  _ _ _ _ _ \n" +
-                    " _ _ X O _ _ \n" +
-                    "_ _ O _ X _ _ \n" +
-                    " _ _ X X _ _ \n" +
-                    "  _ _ X _ _ \n" +
-                    "   _ _ _ _ ", br.toString());
-  }
-  
-   */
-
   @Test
   public void testEmptyCellBetweenNoCaptureAndLegalMove() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-2, 1));
@@ -144,7 +120,6 @@ public class ReversiTests {
   @Test
   public void testPlaceDiscAt() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     assertEquals(Disc.EMPTY, newBoard.getDiscAt(3, -2));
     newBoard.placeDisc(3, -2, Disc.BLACK);
     assertEquals(Disc.BLACK, newBoard.getDiscAt(3, -2));
@@ -153,7 +128,6 @@ public class ReversiTests {
   @Test
   public void testGetDiscAt() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     newBoard.placeDisc(3, -2, Disc.BLACK);
     assertEquals(Disc.BLACK, newBoard.getDiscAt(3, -2));
   }
@@ -161,7 +135,6 @@ public class ReversiTests {
   @Test
   public void testGetDiscAtWithOutOfBoardArgumentThrowsError() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     assertThrows(IllegalArgumentException.class, () ->
             newBoard.getDiscAt(10, 10));
   }
@@ -169,7 +142,6 @@ public class ReversiTests {
   @Test
   public void testGetPlaceDiscAtOutOfBoardArgumentThrowsError() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     assertThrows(IllegalArgumentException.class, () ->
             newBoard.placeDisc(10, 10, Disc.EMPTY));
   }
@@ -177,7 +149,6 @@ public class ReversiTests {
   @Test
   public void testTwoConsecutivePassesEndsGame() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     newBoard.passTurn();
     newBoard.passTurn();
     assertTrue(newBoard.isGameOver());
@@ -186,7 +157,6 @@ public class ReversiTests {
   @Test
   public void testIsCellEmpty() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     assertTrue(newBoard.isCellEmpty(3, -2));
     newBoard.placeDisc(3, -2, Disc.BLACK);
     assertFalse(newBoard.isCellEmpty(3, -2));
@@ -195,7 +165,6 @@ public class ReversiTests {
   @Test
   public void testIsCellEmptyWithOutOfBoardArgumentThrowsError() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     assertThrows(IllegalArgumentException.class, () ->
             newBoard.isCellEmpty(10, 10));
   }
@@ -203,7 +172,6 @@ public class ReversiTests {
   @Test
   public void testGetBoardSize() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     assertEquals(4, newBoard.getSize());
   }
 
@@ -228,23 +196,8 @@ public class ReversiTests {
   }
 
   @Test
-  public void testCantAccessGetDiscBeforeGameStarts() {
-    Board newBoard = new Board(4);
-    assertThrows(IllegalStateException.class, () ->
-            newBoard.getDiscAt(3, -2));
-  }
-
-  @Test
-  public void testCantAccessPlaceDiscBeforeGameStarts() {
-    Board newBoard = new Board(4);
-    assertThrows(IllegalStateException.class, () ->
-            newBoard.placeDisc(3, -2, Disc.BLACK));
-  }
-
-  @Test
   public void moveOnOccupiedCellThrowsError() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     newBoard.placeDisc(3, -2, Disc.BLACK);
     assertThrows(IllegalArgumentException.class, () ->
             newBoard.makeMove(new Coordinate(3, -2)));
@@ -253,7 +206,6 @@ public class ReversiTests {
   @Test
   public void testMakeMoveOnBoundary() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     assertThrows(IllegalArgumentException.class, () ->
             newBoard.makeMove(new Coordinate(4, -2)));
   }
@@ -261,7 +213,6 @@ public class ReversiTests {
   @Test
   public void testMakeMoveOutsideBoundary() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     assertThrows(IllegalArgumentException.class, () ->
             newBoard.makeMove(new Coordinate(5, -2)));
   }
@@ -292,18 +243,16 @@ public class ReversiTests {
   @Test
   public void testPlayersPassWithoutEndGame() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-2, 1));
     newBoard.passTurn();
-    assertTrue(newBoard.isGameOver());
+    assertFalse(newBoard.isGameOver());
   }
 
   @Test
   public void testCreateBoardWithSize5() {
     Board newBoard = new Board(5);
-    newBoard.playGame();
     BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
             "    _ _ _ _ _ \n" + //
@@ -320,7 +269,6 @@ public class ReversiTests {
   @Test
   public void testFullGameWithMakeMove() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
     newBoard.makeMove(new Coordinate(-2, 1));
     newBoard.makeMove(new Coordinate(-1, 2));
@@ -331,17 +279,8 @@ public class ReversiTests {
   }
 
   @Test
-  public void testCannotStartAGameWhileAnotherIsInProgress() {
-    Board newBoard = new Board(3);
-    newBoard.playGame();
-    assertThrows(IllegalStateException.class, () ->
-            newBoard.playGame());
-  }
-
-  @Test
   public void scoresAtGameInitAre3and3BecauseofStartingPieces() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     assertEquals(3, newBoard.getScore(Disc.BLACK));
     assertEquals(3, newBoard.getScore(Disc.WHITE));
   }
@@ -349,7 +288,6 @@ public class ReversiTests {
   @Test
   public void testTieSituation() {
     Board newBoard = new Board(2);
-    newBoard.playGame();
     newBoard.isGameOver();
     assertEquals(GameState.TIE, newBoard.getState());
   }
@@ -357,7 +295,6 @@ public class ReversiTests {
   @Test
   public void testWhiteWinSituation() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-2, 1));
@@ -365,14 +302,16 @@ public class ReversiTests {
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-1, -1));
     newBoard.passTurn();
+    newBoard.passTurn();
     newBoard.isGameOver();
     assertEquals(GameState.WHITEWIN, newBoard.getState());
   }
 
+
+
   @Test
   public void testBlackWinSituation() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(-1, 2));
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(-1, -1));
@@ -386,7 +325,6 @@ public class ReversiTests {
   @Test
   public void testBlackWinsAfter2Passes() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
     newBoard.passTurn();
     newBoard.passTurn();
@@ -397,7 +335,6 @@ public class ReversiTests {
   @Test
   public void testWhiteWinsAfter2Passes() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.passTurn();
     newBoard.makeMove(new Coordinate(1, 1));
     newBoard.passTurn();
@@ -409,7 +346,6 @@ public class ReversiTests {
   @Test
   public void testTieSituationaftertwopasses() {
     Board newBoard = new Board(3);
-    newBoard.playGame();
     newBoard.passTurn();
     newBoard.passTurn();
     newBoard.isGameOver();
@@ -419,7 +355,6 @@ public class ReversiTests {
   @Test
   public void testSingleMoveIsReflectedCorrectly() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
     BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
@@ -435,7 +370,6 @@ public class ReversiTests {
   @Test
   public void testMultipleMoveIsReflectedCorrectly() {
     Board newBoard = new Board(4);
-    newBoard.playGame();
     newBoard.makeMove(new Coordinate(1, -2));
     newBoard.makeMove(new Coordinate(-2, 1));
     newBoard.passTurn();

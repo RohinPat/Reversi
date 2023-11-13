@@ -1,12 +1,12 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.geom.Path2D;
 
 import model.Disc;
 
 public class Hexagon extends Path2D.Double {
-  Disc color;
+  Color color;
   double x;
   double y;
   int q;
@@ -14,7 +14,15 @@ public class Hexagon extends Path2D.Double {
   double size;
   public Hexagon(double x, double y, double size, Disc color, int q, int r) {
     // Start with an angle that points upwards
-    this.color = color;
+    if (color == Disc.BLACK){
+      this.color = Color.BLACK;
+    }
+    else if (color == Disc.WHITE){
+      this.color = Color.WHITE;
+    }
+    else if (color == Disc.EMPTY){
+      this.color = null;
+    }
     this.q = q;
     this.r = r;
     this.x = x;

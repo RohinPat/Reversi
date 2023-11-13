@@ -2,12 +2,13 @@ package view;
 
 import javax.swing.JPanel;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
-import model.Disc;
 import model.ReversiReadOnly;
 
 public class BoardPanel extends JPanel {
@@ -126,17 +127,12 @@ public class BoardPanel extends JPanel {
       // Calculate the top-left corner of the circle by subtracting the radius from the hexagon's center
       int circleX = centerX - circleDiameter / 2;
       int circleY = centerY - circleDiameter / 2;
-
-      if (hex.color.equals(Disc.BLACK)) {
-        g2d.setColor(Color.BLACK);
-        g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter); // Draw the black filled circle
-      } else if (hex.color.equals(Disc.WHITE)) {
-        g2d.setColor(Color.WHITE);
+      if (!(hex.color == null)) {
+        g2d.setColor(hex.color);
         g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter); // Draw the white filled circle
+      }
       }
       // If hex.color is Disc.EMPTY, we don't add anything inside, just the hexagon border is drawn
     }
   }
 
-
-}

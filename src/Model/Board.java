@@ -52,7 +52,7 @@ public class Board implements Reversi{
   /**
    * Sets up the game board, initializes the grid, and places the starting pieces.
    */
-  public void playGame() {
+  private void playGame() {
     if (gameState == GameState.PRE) {
       gameState = GameState.INPROGRESS;
 
@@ -207,6 +207,10 @@ public class Board implements Reversi{
         throw new IllegalArgumentException("This space is already occupied");
       }
 
+      if (dest == null) {
+        throw new IllegalArgumentException("Can't pass in a null coordinate");
+      }
+
       boolean validMove = false;
       ArrayList<String> errors = new ArrayList<>();
       ArrayList<Integer> allcaptured = new ArrayList<>();
@@ -319,33 +323,6 @@ public class Board implements Reversi{
     return this.gameState;
   }
 
-  /*
-  public void autoMoveStrategy1(){
-    Coordinate finalMove = null;
-    int score = 0;
-    for (Coordinate coord : grid.keySet()) {
-      if (this.getDiscAt(coord.getQ(), coord.getR()).equals(Disc.EMPTY)) {
-        Board dupe = new Board(size);
-        for (Coordinate coor1 : this.grid.keySet()) {
-          dupe.grid.put(coor1, this.grid.get(coor1));
-        }
-        try {
-          dupe.makeMove(coord);
-          int moveResult = getScore(this.currentColor());
-          if (moveResult > score) {
-            score = moveResult;
-            finalMove = coord;
-          }
-
-        } catch (Exception e) {
-          // Illegal move, try the next one
-        }
-      }
-    }
-    makeMove(finalMove);
-  }
-   */
-
 
 
   /**
@@ -387,46 +364,61 @@ public class Board implements Reversi{
    * @return True if the game is over, otherwise false.
    */
   public boolean isGameOver() {
-    if (gameState == GameState.INPROGRESS) {
-      if (consecPasses == 2) {
-        this.whoWins();
-        return true;
-      }
-
-      boolean allCellsFilled = true;
-      for (Cell cell : grid.values()) {
-        if (cell.getContent() == Disc.EMPTY) {
-          allCellsFilled = false;
-          break;
-        }
-      }
-      if (allCellsFilled) {
-        this.whoWins();
-        return true;
-      }
-
-      for (Disc playerDisc : Disc.values()) {
-        if (playerDisc != Disc.EMPTY) {
-          for (Coordinate coord : grid.keySet()) {
-            Board dupe = new Board(size);
-            for (Coordinate coor1 : this.grid.keySet()) {
-              dupe.grid.put(coor1, this.grid.get(coor1));
-            }
-            try {
-              dupe.makeMove(coord);
-              return false;
-            } catch (IllegalStateException e) {
-              // Illegal move, try the next one
-            }
-          }
-        }
-      }
-      this.whoWins();
-      return true;
-    } else {
+    if (gameState != GameState.INPROGRESS) {
       throw new IllegalStateException("The game has not been started this cannot be checked");
     }
+
+    // Check for consecutive passes
+    if (consecPasses == 2) {
+      this.whoWins();
+      return true;
+    }
+
+    // Check if all cells are filled
+    boolean allCellsFilled = true;
+    for (Cell cell : grid.values()) {
+      if (cell.getContent() == Disc.EMPTY) {
+        allCellsFilled = false;
+        break;
+      }
+    }
+    if (allCellsFilled) {
+      this.whoWins();
+      return true;
+    }
+
+    // Check for available moves for each player
+    boolean blackHasMoves = hasValidMoves(Disc.BLACK);
+    boolean whiteHasMoves = hasValidMoves(Disc.WHITE);
+
+    if (!blackHasMoves && !whiteHasMoves) {
+      this.whoWins();
+      return true;
+    }
+
+    return false;
   }
+
+  private boolean hasValidMoves(Disc playerDisc) {
+    Board dupe = new Board(size);
+    for (Coordinate coord : grid.keySet()) {
+      dupe.grid.put(coord, new Cell(grid.get(coord).getContent()));
+    }
+    dupe.whoseTurn = playerDisc == Disc.BLACK ? Turn.BLACK : Turn.WHITE;
+
+    for (Coordinate coord : grid.keySet()) {
+      if (dupe.grid.get(coord).getContent().equals(Disc.EMPTY)) {
+        try {
+          dupe.makeMove(coord);
+          return true;
+        } catch (IllegalArgumentException e) {
+          // Ignore and continue checking other moves
+        }
+      }
+    }
+    return false;
+  }
+
 
   /*
    * Creates a copy of the board.
