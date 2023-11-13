@@ -3,16 +3,12 @@ package view;
 import javax.swing.JPanel;
 
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import model.Board;
-import model.Cell;
-import model.Coordinate;
 import model.Disc;
+import model.ReversiReadOnly;
 
 public class BoardPanel extends JPanel {
   private ArrayList<Hexagon> hexagons;
@@ -20,7 +16,7 @@ public class BoardPanel extends JPanel {
   private final double hexSize = 30; // Assuming a fixed hexagon size for simplicity
   private int maxLength;
 
-  public BoardPanel(Board board) {
+  public BoardPanel(ReversiReadOnly board) {
     hexagons = new ArrayList<>();
     this.setBackground(Color.DARK_GRAY);
     maxLength = (board.getSize() * 2) - 1;
@@ -52,7 +48,7 @@ public class BoardPanel extends JPanel {
       if (hex.contains(mouseX, mouseY)) {
         if (!hex.equals(selected)){
           selected = hex;
-          System.out.println("(" + hex.q + ", " + hex.r + ")");
+          System.out.println("(q : " + hex.q + ", r: " + hex.r + ")");
         }
         else{
           selected = null;
@@ -72,7 +68,7 @@ public class BoardPanel extends JPanel {
 
 
 
-  private void initializeHexagons(Board board) {
+  private void initializeHexagons(ReversiReadOnly board) {
     double y = 100; // Start position for y
     double startX = 300; // Start position for x
     double hexWidth = hexSize * Math.sqrt(3);
@@ -121,7 +117,7 @@ public class BoardPanel extends JPanel {
       g2d.setColor(Color.BLACK);
       g2d.draw(hex); // Draw the hexagon border
 
-      int circleDiameter = (int) (hexSize * 1.25); // Set the circle diameter to be smaller than the hexagon size
+      int circleDiameter = (int) (hexSize); // Set the circle diameter to be smaller than the hexagon size
 
       // Calculate the center of the hexagon
       int centerX = (int) (hex.x);

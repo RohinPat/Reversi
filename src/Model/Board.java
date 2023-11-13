@@ -46,6 +46,7 @@ public class Board implements Reversi {
     compassR.put("se", 1);
     compassR.put("sw", 1);
     this.gameState = GameState.PRE;
+    playGame();
   }
 
   /**
