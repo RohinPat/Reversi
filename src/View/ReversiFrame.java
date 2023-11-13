@@ -1,11 +1,10 @@
 package view;
 
 import javax.swing.JFrame;
-import model.Board;
 import model.ReversiReadOnly;
 
 public class ReversiFrame extends JFrame {
-  private BoardPanel boardPanel;
+  private final BoardPanel boardPanel;
 
   public ReversiFrame(ReversiReadOnly board) {
     boardPanel = new BoardPanel(board);

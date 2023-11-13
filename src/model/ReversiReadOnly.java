@@ -36,11 +36,15 @@ public interface ReversiReadOnly {
    */
   boolean isGameOver();
 
+
   /*
    * Updates the board.
    * 
    * @param board The board to be updated.
    * @throws IllegalArgumentException If the board is null.
    */
+  /*
   void update(Board board);
+   */
+
 } 

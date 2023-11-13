@@ -29,6 +29,7 @@ public class BoardReadOnly implements ReversiReadOnly {
         return board.isGameOver();
     }
 
+    /*
     @Override
     public void update(Board board) {
         if (board == null) {
@@ -36,4 +37,6 @@ public class BoardReadOnly implements ReversiReadOnly {
         }
         this.board = board;
     }
+
+     */
 }

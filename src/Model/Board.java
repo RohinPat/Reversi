@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
-public class Board implements Reversi {
+public class Board implements Reversi{
   private final Map<Coordinate, Cell> grid;
 
   //INVARIANT: should always be positive
