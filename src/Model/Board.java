@@ -319,6 +319,35 @@ public class Board implements Reversi{
     return this.gameState;
   }
 
+  /*
+  public void autoMoveStrategy1(){
+    Coordinate finalMove = null;
+    int score = 0;
+    for (Coordinate coord : grid.keySet()) {
+      if (this.getDiscAt(coord.getQ(), coord.getR()).equals(Disc.EMPTY)) {
+        Board dupe = new Board(size);
+        for (Coordinate coor1 : this.grid.keySet()) {
+          dupe.grid.put(coor1, this.grid.get(coor1));
+        }
+        try {
+          dupe.makeMove(coord);
+          int moveResult = getScore(this.currentColor());
+          if (moveResult > score) {
+            score = moveResult;
+            finalMove = coord;
+          }
+
+        } catch (Exception e) {
+          // Illegal move, try the next one
+        }
+      }
+    }
+    makeMove(finalMove);
+  }
+   */
+
+
+
   /**
    * Retrieves the score for the inputted player by checking through how many pieces are placed.
    *

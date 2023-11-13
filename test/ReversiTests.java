@@ -97,6 +97,26 @@ public class ReversiTests {
 
   }
 
+
+  /*
+  @Test
+  public void testAutoMove(){
+    Board newBoard = new Board(4);
+    newBoard.makeMove(new Coordinate(-1, 2));
+    newBoard.autoMoveStrategy1();
+    BoardRenderer br = new BoardRenderer(newBoard);
+    assertEquals(
+            "   _ _ _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    " _ _ X O _ _ \n" +
+                    "_ _ O _ X _ _ \n" +
+                    " _ _ X X _ _ \n" +
+                    "  _ _ X _ _ \n" +
+                    "   _ _ _ _ ", br.toString());
+  }
+  
+   */
+
   @Test
   public void testEmptyCellBetweenNoCaptureAndLegalMove() {
     Board newBoard = new Board(3);
