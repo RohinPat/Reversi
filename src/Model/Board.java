@@ -436,7 +436,7 @@ public class Board implements Reversi{
     return copy;
   }
 
-  
+
   public ArrayList<Cell> getPossibleMoves() {
     ArrayList<Cell> possibleMoves = new ArrayList<>();
     for (Coordinate coord : grid.keySet()) {

@@ -11,5 +11,8 @@ public class AICalculator {
     this.possibleMoves = this.model.getPossibleMoves();
   }
 
-  public 
+  public Coordinate captureMost() {
+    for (Cell cell : possibleMoves) {
+      
+  }
 }
