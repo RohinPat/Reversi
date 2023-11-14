@@ -1,4 +1,4 @@
-package model.AIStrat;
+package controller.AIStrat;
 
 import java.util.ArrayList;
 

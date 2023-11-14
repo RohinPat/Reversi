@@ -1,13 +1,14 @@
-package model.AIStrat;
+package controller.AIStrat;
 
 import java.util.ArrayList;
 
+import controller.AIStrat.ReversiStratagy;
 import model.Board;
 import model.Coordinate;
 import model.Turn;
 import model.Disc;
 
-public class CaptureMost implements ReversiStratagy{
+public class CaptureMost implements ReversiStratagy {
 
     @Override
     public Coordinate chooseMove(Board model, Turn turn) {
