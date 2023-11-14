@@ -436,7 +436,11 @@ public class Board implements Reversi{
     return copy;
   }
 
-
+  /*
+   * Returns a list of all possible moves for the current player.
+   * 
+   * @return A list of all possible moves for the current player.
+   */
   public ArrayList<Coordinate> getPossibleMoves() {
     ArrayList<Coordinate> possibleMoves = new ArrayList<>();
     for (Coordinate coord : grid.keySet()) {
