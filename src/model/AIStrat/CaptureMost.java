@@ -35,7 +35,6 @@ public class CaptureMost implements ReversiStratagy{
 
     @Override
       public Coordinate chooseMove(Board model, Turn turn, ArrayList<Coordinate> possibleMoves) {
-        Board copy = model.createCopyOfBoard();
         int max = 0;
         Coordinate maxMove = null;
         Disc d = null;
@@ -45,9 +44,9 @@ public class CaptureMost implements ReversiStratagy{
           d = Disc.WHITE;
         }
         for(Coordinate move : possibleMoves) {
-          Board copy2 = model.createCopyOfBoard();
-          copy2.makeMove(move);
-          int score = copy2.getScore(d);
+          Board copy = model.createCopyOfBoard();
+          copy.makeMove(move);
+          int score = copy.getScore(d);
           if(score > max) {
             max = score;
             maxMove = move;
