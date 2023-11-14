@@ -435,4 +435,20 @@ public class Board implements Reversi{
     }
     return copy;
   }
+
+  
+  public ArrayList<Cell> getPossibleMoves() {
+    ArrayList<Cell> possibleMoves = new ArrayList<>();
+    for (Coordinate coord : grid.keySet()) {
+      if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
+        try {
+          this.makeMove(coord);
+          possibleMoves.add(grid.get(coord));
+        } catch (IllegalArgumentException e) {
+          // Ignore and continue checking other moves
+        }
+      }
+    }
+    return possibleMoves;
+  }
 }
