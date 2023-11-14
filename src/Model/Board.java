@@ -444,9 +444,10 @@ public class Board implements Reversi{
   public ArrayList<Coordinate> getPossibleMoves() {
     ArrayList<Coordinate> possibleMoves = new ArrayList<>();
     for (Coordinate coord : grid.keySet()) {
+      Board copy = this.createCopyOfBoard();
       if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
         try {
-          this.makeMove(coord);
+          copy.makeMove(coord);
           possibleMoves.add(coord);
         } catch (IllegalArgumentException e) {
           // Ignore and continue checking other moves
