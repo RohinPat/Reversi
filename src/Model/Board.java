@@ -437,13 +437,13 @@ public class Board implements Reversi{
   }
 
 
-  public ArrayList<Cell> getPossibleMoves() {
-    ArrayList<Cell> possibleMoves = new ArrayList<>();
+  public ArrayList<Coordinate> getPossibleMoves() {
+    ArrayList<Coordinate> possibleMoves = new ArrayList<>();
     for (Coordinate coord : grid.keySet()) {
       if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
         try {
           this.makeMove(coord);
-          possibleMoves.add(grid.get(coord));
+          possibleMoves.add(coord);
         } catch (IllegalArgumentException e) {
           // Ignore and continue checking other moves
         }
