@@ -388,10 +388,10 @@ public class Board implements Reversi{
     }
 
     // Check for available moves for each player
-    boolean blackHasMoves = hasValidMoves(Disc.BLACK);
-    boolean whiteHasMoves = hasValidMoves(Disc.WHITE);
+    boolean player1 = hasValidMoves(Disc.BLACK);
+    boolean player2 = hasValidMoves(Disc.WHITE);
 
-    if (!blackHasMoves && !whiteHasMoves) {
+    if (!player1 && !player2) {
       this.whoWins();
       return true;
     }
