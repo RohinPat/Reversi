@@ -44,10 +44,26 @@ public class BoardPanel extends JPanel {
     this.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
+        // Store the coordinates of the selected hexagon (if any)
+        int selectedQ = selected != null ? selected.q : -1;
+        int selectedR = selected != null ? selected.r : -1;
+
+        // Adjust hexagon size and reinitialize hexagons
         adjustHexagonSize(board);
         boardWidth = getWidth();
         boardHeight = getHeight();
         initializeHexagons(board);
+
+        // Reselect the previously selected hexagon
+        if (selectedQ != -1 && selectedR != -1) {
+          for (Hexagon hex : hexagons) {
+            if (hex.q == selectedQ && hex.r == selectedR) {
+              selected = hex;
+              break;
+            }
+          }
+        }
+
         repaint();
       }
     });
