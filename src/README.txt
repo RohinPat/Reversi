@@ -1,13 +1,14 @@
-# README for Hexagonal ReversiMain Game Model
+# README for Hexagonal Reversi Game Model
 
 ## Overview
 
-**Problem Addressed:** This codebase offers a model representation for ReversiMain, but with a unique twist: the board is hexagonal. This design allows users to manage game states, player turns, and board configurations in a hexagonal grid system.
+**Problem Addressed:** This codebase offers a model representation for Reversi, but with a unique twist: the board is hexagonal. This design allows users to manage game states, player turns, and board configurations in a hexagonal grid system.
 
 **Assumptions:**
+
 - The game operates on a hexagonal grid system.
 - Players use discs (black or white) to play.
-- Users possess a basic understanding of the ReversiMain game.
+- Users possess a basic understanding of the Reversi game.
 
 ## Quick Start
 
@@ -20,6 +21,8 @@ System.out.println(renderer.toString()); // Display the board
 
 ## Key Components
 
+### Model Package
+
 - **Board:** The heart of the game, representing the hexagonal game board. It manages the hexagonal grid, keeps track of turns, and orchestrates game progression.
 - **Cell:** Represents an individual hexagonal slot on the board, which can hold a disc.
 - **Coordinate:** Manages hexagonal positioning on the board using a unique triple-coordinate system.
@@ -28,44 +31,21 @@ System.out.println(renderer.toString()); // Display the board
 - **GameState:** Enumerated type indicating the state of the game.
 - **BoardRenderer:** Handles the visual representation of the board, allowing users to view the current state of the game.
 
-## Key Subcomponents
+### View Package
 
-- **Board:**
-  - `grid`: A mapping that connects hexagonal coordinates to cells, effectively representing the game board.
-  - `whoseTurn`: Specifies which player's turn it is, either black or white.
-  - `compassQ`, `compassR`: These directional mappings are essential for navigating the hexagonal grid and identifying neighbors.
-  
-- **Cell:** 
-  - `content`: The disc present in the cell, which can be one of three states: black, white, or empty.
-  
-- **Coordinate:** 
-  - `q`, `r`, `s`: The three integers that form the custom hexagonal coordinate system. These are designed to uniquely identify positions on the hexagonal board.
+- **BoardRenderer:** Renders the game board visually.
+- **BoardPanel:** Handles the graphical representation of the board in the UI.
+- **Hexagon:** Represents hexagonal shapes on the game board.
+- **ReversiFrame:** Main frame of the game's user interface.
 
-- **BoardRenderer:**
-  - `model`: An instance of the `Board` class, representing the game state to be rendered.
-  - `ap`: An `Appendable` object used for constructing the visual representation.
+### Controller Package
 
-## Source Organization
+- **HumanPlayer, AIPlayer:** Represent human and AI players.
+- **Player Interface:** Supports human and AI players through makeMove() and getPlayerType() methods.
+- **AI Strategies (aistrat Directory):** Implementations of various AI strategies like AvoidCorners, CaptureCorners, CaptureMost, ReversiStratagy, and TryTwo.
 
-- **Model Package:**
-  - `Board.java`: Central to the game's logic, this file describes the hexagonal board and the interactions possible on it.
-  - `Cell.java`: Details the structure and behavior of individual hexagonal slots on the board.
-  - `Coordinate.java`: Contains the logic for the hexagonal coordinate system, allowing for unique cell identification and navigation.
-  - `Disc.java`: Defines the possible states a cell can hold: black, white, or empty.
-  - `Turn.java`: Dictates player turns, ensuring the game flows smoothly between black and white players.
-  - `GameState.java`: Keeps track of the current state of the game - will also be implemented to determine the score based on the ending number of pieces on the board
+### Source Organization
 
-
-- **View Package:**
-  - `BoardRenderer.java`: Responsible for visually rendering the game board, providing users with a view of the current game state.
-
-- **Controller Package:**
-  - `HumanPlayer.java`: Used to represent a human player for when interacting the game which will allow for manual inputs to the game
-  - `AIPlayer.java`: Used to represent an AI player that is interacting the game which will be further implemented with logic to help it decide what move to execute
-
-- **Player Interface:**
-  - This codebase is structured to support both human and AI players in the game of ReversiMain through a Player interface.
-  - This interface mandates the implementation of two key methods: makeMove(ReversiModel model) for executing a game move, and
-  - getPlayerType() for identifying the player's type. Human players will interactively provide input for their moves,
-  - while AI players will implement a strategy to determine and execute the best possible move.
-  - This also opens the possibility for seamlessly adding new AI difficulties and profiles to play against.
+- **Model Package:** Contains logic for the game's model, including board, cells, coordinates, and game states.
+- **View Package:** Manages the user interface, rendering the game board and handling user interactions.
+- **Controller Package:** Implements player functionalities and AI strategies, orchestrating the game play.
