@@ -21,7 +21,7 @@ public class AvoidCorners implements ReversiStratagy{
         possibleMoves.remove(c);
       }
     }
-    return cm.chooseMove(model, turn, possibleMoves);
+    return cm.chooseMoveHelper(model, turn, possibleMoves);
   }
 
   private ArrayList<Coordinate> getSpotsToAvoid(int size) {
@@ -53,10 +53,5 @@ public class AvoidCorners implements ReversiStratagy{
     return notCorners;
   }
 
-    @Override
-    public Coordinate chooseMove(Board model, Disc turn, ArrayList<Coordinate> possibleMoves) {
-        CaptureMost cm = new CaptureMost();
-        return cm.chooseMove(model, turn, possibleMoves);
-    }
     
 }

@@ -36,10 +36,6 @@ public class CaptureCorners implements ReversiStratagy {
         return corners;
     }
 
-    @Override
-    public Coordinate chooseMove(Board model, Disc turn, ArrayList<Coordinate> possibleMoves) {
-        CaptureMost cm = new CaptureMost();
-        return cm.chooseMove(model, turn, possibleMoves);
-    }
+
     
 }

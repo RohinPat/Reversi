@@ -29,8 +29,7 @@ public class CaptureMost implements ReversiStratagy {
       return maxMove;
     }
 
-    @Override
-      public Coordinate chooseMove(Board model, Disc turn, ArrayList<Coordinate> possibleMoves) {
+      protected Coordinate chooseMoveHelper(Board model, Disc turn, ArrayList<Coordinate> possibleMoves) {
         int max = 0;
         Coordinate maxMove = null;
         for(Coordinate move : possibleMoves) {
