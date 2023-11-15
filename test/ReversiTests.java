@@ -1,8 +1,8 @@
 import org.junit.Test;
 
-import controller.AIStrat.AvoidCorners;
-import controller.AIStrat.CaptureCorners;
-import controller.AIStrat.CaptureMost;
+import controller.aistrat.AvoidCorners;
+import controller.aistrat.CaptureCorners;
+import controller.aistrat.CaptureMost;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -312,7 +312,6 @@ public class ReversiTests {
   }
 
 
-
   @Test
   public void testBlackWinSituation() {
     Board newBoard = new Board(3);
@@ -398,14 +397,14 @@ public class ReversiTests {
     newBoard.makeMove(new Coordinate(2, -3));
     BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
-                    "   _ _ O _ \n" +
+            "   _ _ O _ \n" +
                     "  _ _ O _ _ \n" +
                     " _ _ O X _ _ \n" +
                     "_ _ O _ X _ _ \n" +
                     " _ O O O _ _ \n" +
                     "  _ _ _ _ _ \n" +
                     "   _ _ _ _ \n", br.toString());
-    
+
     CaptureMost cm = new CaptureMost();
     AvoidCorners ac = new AvoidCorners();
     CaptureCorners cc = new CaptureCorners();

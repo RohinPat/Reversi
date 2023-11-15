@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JFrame;
+
 import model.ReversiReadOnly;
 
 public class ReversiFrame extends JFrame {

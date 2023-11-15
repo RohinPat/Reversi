@@ -9,7 +9,7 @@ public interface ReversiReadOnly {
    * @param r The r-coordinate of the cell.
    * @return The disc present at the specified coordinates.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
-   */  
+   */
   Disc getDiscAt(int q, int r);
 
   /**
@@ -39,7 +39,7 @@ public interface ReversiReadOnly {
 
   /*
    * Updates the board.
-   * 
+   *
    * @param board The board to be updated.
    * @throws IllegalArgumentException If the board is null.
    */
