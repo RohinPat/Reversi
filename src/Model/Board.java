@@ -2,6 +2,9 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import view.BoardRenderer;
+
 import java.util.ArrayList;
 
 /**
@@ -443,12 +446,16 @@ public class Board implements Reversi{
    */
   public ArrayList<Coordinate> getPossibleMoves() {
     ArrayList<Coordinate> possibleMoves = new ArrayList<>();
+    Board originalCopy = this.createCopyOfBoard();
     for (Coordinate coord : grid.keySet()) {
-      Board copy = this.createCopyOfBoard();
       if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
         try {
+          Board copy = originalCopy.createCopyOfBoard();
           copy.makeMove(coord);
           possibleMoves.add(coord);
+          System.out.println(coord);
+          BoardRenderer br = new BoardRenderer(copy);
+          System.out.println(br.toString());
         } catch (IllegalArgumentException e) {
           // Ignore and continue checking other moves
         }

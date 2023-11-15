@@ -6,6 +6,7 @@ import controller.AIStrat.ReversiStratagy;
 import model.Board;
 import model.Coordinate;
 import model.Turn;
+import view.BoardRenderer;
 import model.Disc;
 
 public class CaptureMost implements ReversiStratagy {

@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import controller.AIStrat.CaptureMost;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
@@ -383,6 +385,27 @@ public class ReversiTests {
                     " _ O O O _ _ \n" +
                     "  _ _ _ _ _ \n" +
                     "   _ _ _ _ \n", br.toString());
+  }
+
+  @Test
+  public void testBestMove() {
+    Board newBoard = new Board(4);
+    newBoard.makeMove(new Coordinate(1, -2));
+    newBoard.makeMove(new Coordinate(-2, 1));
+    newBoard.passTurn();
+    newBoard.makeMove(new Coordinate(2, -3));
+    BoardRenderer br = new BoardRenderer(newBoard);
+    assertEquals(
+            "   _ _ O _ \n" +
+                    "  _ _ O _ _ \n" +
+                    " _ _ O X _ _ \n" +
+                    "_ _ O _ X _ _ \n" +
+                    " _ O O O _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    "   _ _ _ _ \n", br.toString());
+    CaptureMost cm = new CaptureMost();
+    Coordinate bestMove = cm.chooseMove(newBoard, Turn.WHITE);
+    System.out.println(bestMove);
   }
 
 
