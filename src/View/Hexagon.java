@@ -12,15 +12,14 @@ public class Hexagon extends Path2D.Double {
   int q;
   int r;
   double size;
+
   public Hexagon(double x, double y, double size, Disc color, int q, int r) {
     // Start with an angle that points upwards
-    if (color == Disc.BLACK){
+    if (color == Disc.BLACK) {
       this.color = Color.BLACK;
-    }
-    else if (color == Disc.WHITE){
+    } else if (color == Disc.WHITE) {
       this.color = Color.WHITE;
-    }
-    else if (color == Disc.EMPTY){
+    } else if (color == Disc.EMPTY) {
       this.color = null;
     }
     this.q = q;

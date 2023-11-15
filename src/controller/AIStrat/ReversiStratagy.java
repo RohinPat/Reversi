@@ -9,7 +9,7 @@ import model.Disc;
 public interface ReversiStratagy {
 
   Coordinate chooseMove(Board model, Disc turn);
-  
+
   Coordinate chooseMove(Board model, Disc turn, ArrayList<Coordinate> possibleMoves);
 
 }

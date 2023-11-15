@@ -94,11 +94,10 @@ public class BoardPanel extends JPanel {
     boolean inBounds = false;
     for (Hexagon hex : hexagons) {
       if (hex.contains(mouseX, mouseY)) {
-        if (!hex.equals(selected)){
+        if (!hex.equals(selected)) {
           selected = hex;
           System.out.println("(q : " + hex.q + ", r: " + hex.r + ")");
-        }
-        else{
+        } else {
           selected = null;
         }
         inBounds = true;
@@ -106,14 +105,12 @@ public class BoardPanel extends JPanel {
         break; // Exit the loop once we've found our hexagon
       }
     }
-    if (!inBounds){
+    if (!inBounds) {
       selected = null;
       repaint();
     }
 
   }
-
-
 
 
   private void initializeHexagons(ReversiReadOnly board) {
@@ -164,8 +161,7 @@ public class BoardPanel extends JPanel {
       if (hex.equals(selected)) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hex);
-      }
-      else{
+      } else {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fill(hex);
       }
@@ -185,8 +181,8 @@ public class BoardPanel extends JPanel {
         g2d.setColor(hex.color);
         g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter); // Draw the white filled circle
       }
-      }
-      // If hex.color is Disc.EMPTY, we don't add anything inside, just the hexagon border is drawn
     }
+    // If hex.color is Disc.EMPTY, we don't add anything inside, just the hexagon border is drawn
   }
+}
 
