@@ -431,9 +431,12 @@ public class Board implements Reversi{
   public Board createCopyOfBoard() {
     Board copy = new Board(this.size);
     for (Coordinate coord : this.grid.keySet()) {
-      copy.grid.put(coord, this.grid.get(coord));
+      Cell originalCell = this.grid.get(coord);
+      // Create a new Cell instance with the same content as the original cell
+      Cell newCell = new Cell(originalCell.getContent());
+      copy.grid.put(coord, newCell);
     }
-    if(this.whoseTurn == Turn.WHITE) {
+    if (this.whoseTurn == Turn.WHITE) {
       copy.passTurn();
     }
     return copy;
