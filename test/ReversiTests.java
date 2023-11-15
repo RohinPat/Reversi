@@ -1,8 +1,8 @@
 import org.junit.Test;
 
-import controller.AIStrat.AvoidCorners;
-import controller.AIStrat.CaptureCorners;
-import controller.AIStrat.CaptureMost;
+import controller.aistrat.AvoidCorners;
+import controller.aistrat.CaptureCorners;
+import controller.aistrat.CaptureMost;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
