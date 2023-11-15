@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import controller.AIStrat.AvoidCorners;
 import controller.AIStrat.CaptureMost;
 
 import static org.junit.Assert.assertEquals;
@@ -396,16 +397,32 @@ public class ReversiTests {
     newBoard.makeMove(new Coordinate(2, -3));
     BoardRenderer br = new BoardRenderer(newBoard);
     assertEquals(
-            "   _ _ O _ \n" +
+                    "   _ _ O _ \n" +
                     "  _ _ O _ _ \n" +
                     " _ _ O X _ _ \n" +
                     "_ _ O _ X _ _ \n" +
                     " _ O O O _ _ \n" +
                     "  _ _ _ _ _ \n" +
                     "   _ _ _ _ \n", br.toString());
+    
     CaptureMost cm = new CaptureMost();
-    Coordinate bestMove = cm.chooseMove(newBoard, Turn.WHITE);
-    System.out.println(bestMove);
+    AvoidCorners ac = new AvoidCorners();
+
+    Coordinate bestMove = cm.chooseMove(newBoard, Disc.BLACK);
+    newBoard.makeMove(bestMove);
+    BoardRenderer br1 = new BoardRenderer(newBoard);
+    System.out.println(br1.toString());
+
+    
+    Coordinate bestMove1 = cm.chooseMove(newBoard, Disc.WHITE);
+    newBoard.makeMove(bestMove1);
+    BoardRenderer br2 = new BoardRenderer(newBoard);
+    System.out.println(br2.toString());
+
+    Coordinate bestMove2 = ac.chooseMove(newBoard, Disc.BLACK);
+    newBoard.makeMove(bestMove2);
+    BoardRenderer br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
   }
 
 

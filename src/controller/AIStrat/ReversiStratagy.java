@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import model.Board;
 import model.Coordinate;
-import model.Turn;
+import model.Disc;
 
 public interface ReversiStratagy {
 
-  Coordinate chooseMove(Board model, Turn turn);
+  Coordinate chooseMove(Board model, Disc turn);
   
-  Coordinate chooseMove(Board model, Turn turn, ArrayList<Coordinate> possibleMoves);
+  Coordinate chooseMove(Board model, Disc turn, ArrayList<Coordinate> possibleMoves);
 
 }

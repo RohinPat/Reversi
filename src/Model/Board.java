@@ -456,9 +456,6 @@ public class Board implements Reversi{
           Board copy = originalCopy.createCopyOfBoard();
           copy.makeMove(coord);
           possibleMoves.add(coord);
-          System.out.println(coord);
-          BoardRenderer br = new BoardRenderer(copy);
-          System.out.println(br.toString());
         } catch (IllegalArgumentException e) {
           // Ignore and continue checking other moves
         }

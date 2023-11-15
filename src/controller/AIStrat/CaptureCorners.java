@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import model.Board;
 import model.Coordinate;
+import model.Disc;
 import model.Turn;
 
 public class CaptureCorners implements ReversiStratagy {
 
     @Override
-    public Coordinate chooseMove(Board model, Turn turn) {
+    public Coordinate chooseMove(Board model, Disc turn) {
         Board copy = model.createCopyOfBoard();
         ArrayList<Coordinate> moves = copy.getPossibleMoves();
         int size = model.getSize();
@@ -36,7 +37,7 @@ public class CaptureCorners implements ReversiStratagy {
     }
 
     @Override
-    public Coordinate chooseMove(Board model, Turn turn, ArrayList<Coordinate> possibleMoves) {
+    public Coordinate chooseMove(Board model, Disc turn, ArrayList<Coordinate> possibleMoves) {
         CaptureMost cm = new CaptureMost();
         return cm.chooseMove(model, turn, possibleMoves);
     }
