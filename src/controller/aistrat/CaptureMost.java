@@ -11,18 +11,7 @@ public class CaptureMost implements ReversiStratagy {
  public Coordinate chooseMove(Board model, Disc turn) {
    Board copy = model.createCopyOfBoard();
    ArrayList<Coordinate> moves = copy.getPossibleMoves();
-   int max = 0;
-   Coordinate maxMove = null;
-   for (Coordinate move : moves) {
-     Board copy2 = model.createCopyOfBoard();
-     copy2.makeMove(move);
-     int score = copy2.getScore(turn);
-     if (score > max) {
-       max = score;
-       maxMove = move;
-     }
-   }
-   return maxMove;
+   return chooseMoveHelper(model, turn, moves);
  }
 
  protected Coordinate chooseMoveHelper(Board model, Disc turn, ArrayList<Coordinate> possibleMoves) {
@@ -36,9 +25,6 @@ public class CaptureMost implements ReversiStratagy {
        max = score;
        maxMove = move;
      }
-   }
-   if (max == 0) {
-     return this.chooseMove(model, turn);
    }
    return maxMove;
  } 

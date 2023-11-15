@@ -1,16 +1,12 @@
 package controller.aistrat;
 
-
 import java.util.ArrayList;
-
 
 import model.Board;
 import model.Coordinate;
 import model.Disc;
 
-
 public class CaptureCorners implements ReversiStratagy {
-
 
   @Override
   public Coordinate chooseMove(Board model, Disc turn) {
@@ -22,10 +18,8 @@ public class CaptureCorners implements ReversiStratagy {
         return move;
       }
     }
-    ReversiStratagy ac = new AvoidCorners();
-    return ac.chooseMove(model, turn);
+    return new Coordinate(size, size);
   }
-
 
   private ArrayList<Coordinate> getCorners(int size) {
     ArrayList<Coordinate> corners = new ArrayList<Coordinate>();
