@@ -43,7 +43,7 @@ public class CaptureMost implements ReversiStratagy {
           }
         }
         if (max == 0) {
-          this.chooseMove(model, turn);
+          return this.chooseMove(model, turn);
         }
         return maxMove;
       }

@@ -27,12 +27,12 @@ public class CaptureCorners implements ReversiStratagy {
     
     private ArrayList<Coordinate> getCorners(int size) {
         ArrayList<Coordinate> corners = new ArrayList<Coordinate>();
-        corners.add(new Coordinate(0, 0 - size));
-        corners.add(new Coordinate(0 - size, 0));
-        corners.add(new Coordinate(0 - size, size));
-        corners.add(new Coordinate(size, 0 - size));
-        corners.add(new Coordinate(size, 0));
-        corners.add(new Coordinate(0, size));
+        corners.add(new Coordinate(0, 1 - size));
+        corners.add(new Coordinate(1 - size, 0));
+        corners.add(new Coordinate(1 - size, size - 1));
+        corners.add(new Coordinate(size - 1, 1 - size));
+        corners.add(new Coordinate(size - 1, 0));
+        corners.add(new Coordinate(0, size - 1));
         return corners;
     }
 

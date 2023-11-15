@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import controller.AIStrat.AvoidCorners;
+import controller.AIStrat.CaptureCorners;
 import controller.AIStrat.CaptureMost;
 
 import static org.junit.Assert.assertEquals;
@@ -407,13 +408,13 @@ public class ReversiTests {
     
     CaptureMost cm = new CaptureMost();
     AvoidCorners ac = new AvoidCorners();
+    CaptureCorners cc = new CaptureCorners();
 
     Coordinate bestMove = cm.chooseMove(newBoard, Disc.BLACK);
     newBoard.makeMove(bestMove);
     BoardRenderer br1 = new BoardRenderer(newBoard);
     System.out.println(br1.toString());
 
-    
     Coordinate bestMove1 = cm.chooseMove(newBoard, Disc.WHITE);
     newBoard.makeMove(bestMove1);
     BoardRenderer br2 = new BoardRenderer(newBoard);
@@ -423,7 +424,70 @@ public class ReversiTests {
     newBoard.makeMove(bestMove2);
     BoardRenderer br3 = new BoardRenderer(newBoard);
     System.out.println(br3.toString());
+
+    bestMove2 = ac.chooseMove(newBoard, Disc.WHITE);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.BLACK);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.WHITE);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.BLACK);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.WHITE);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.BLACK);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.WHITE);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.BLACK);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.WHITE);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.BLACK);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.WHITE);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.BLACK);
+    newBoard.makeMove(bestMove2);
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
+
+    bestMove2 = cc.chooseMove(newBoard, Disc.WHITE);
+    newBoard.passTurn();
+    br3 = new BoardRenderer(newBoard);
+    System.out.println(br3.toString());
   }
-
-
 }
