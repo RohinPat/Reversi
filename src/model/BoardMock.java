@@ -11,9 +11,6 @@ import java.util.ArrayList;
  * Represents the game board for a hexagonal grid-based game.
  */
 public class BoardMock implements Reversi {
-
-  StringBuilder log = new StringBuilder();  
-
   private final Map<Coordinate, Cell> grid;
 
   //INVARIANT: should always be positive
@@ -39,6 +36,35 @@ public class BoardMock implements Reversi {
     this.size = size;
     this.grid = new HashMap<>();
     this.whoseTurn = Turn.BLACK;
+    compassQ.put("east", 1);
+    compassQ.put("west", -1);
+    compassQ.put("ne", 1);
+    compassQ.put("nw", 0);
+    compassQ.put("se", 0);
+    compassQ.put("sw", -1);
+    compassR.put("east", 0);
+    compassR.put("west", 0);
+    compassR.put("ne", -1);
+    compassR.put("nw", -1);
+    compassR.put("se", 1);
+    compassR.put("sw", 1);
+    this.gameState = GameState.PRE;
+    playGame();
+  }
+
+  public BoardMock(int size, HashMap<Coordinate, Cell> grid, Turn whoseTuren) {
+    this.consecPasses = 0;
+    if (size <= 0) {
+      throw new IllegalArgumentException("Size must be positive");
+    }
+    this.size = size;
+    this.grid = new HashMap<>();
+    for (Coordinate coord : grid.keySet()) {
+      Cell originalCell = grid.get(coord);
+      Cell newCell = new Cell(originalCell.getContent());
+      this.grid.put(coord, newCell);
+    }
+    this.whoseTurn = whoseTuren;
     compassQ.put("east", 1);
     compassQ.put("west", -1);
     compassQ.put("ne", 1);
@@ -342,7 +368,6 @@ public class BoardMock implements Reversi {
         scoreCounter += 1;
       }
     }
-    log.append("Got the score: " + scoreCounter);
     return scoreCounter;
   }
 
@@ -406,14 +431,10 @@ public class BoardMock implements Reversi {
   }
 
   private boolean hasValidMoves(Disc playerDisc) {
-    Board dupe = new Board(size);
-    for (Coordinate coord : grid.keySet()) {
-      dupe.grid.put(coord, new Cell(grid.get(coord).getContent()));
-    }
-    dupe.whoseTurn = playerDisc == Disc.BLACK ? Turn.BLACK : Turn.WHITE;
+    Board dupe = new Board(size, this.createCopyOfBoard(), this.whoseTurn);
 
     for (Coordinate coord : grid.keySet()) {
-      if (dupe.grid.get(coord).getContent().equals(Disc.EMPTY)) {
+      if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
         try {
           dupe.makeMove(coord);
           return true;
@@ -431,16 +452,12 @@ public class BoardMock implements Reversi {
    *
    * @return A copy of the board.
    */
-  public Board createCopyOfBoard() {
-    Board copy = new Board(this.size);
+  public HashMap<Coordinate, Cell> createCopyOfBoard() {
+    HashMap<Coordinate, Cell> copy = new HashMap<Coordinate, Cell>();
     for (Coordinate coord : this.grid.keySet()) {
       Cell originalCell = this.grid.get(coord);
-      // Create a new Cell instance with the same content as the original cell
       Cell newCell = new Cell(originalCell.getContent());
-      copy.grid.put(coord, newCell);
-    }
-    if (this.whoseTurn == Turn.WHITE) {
-      copy.passTurn();
+      copy.put(coord, newCell);
     }
     return copy;
   }
@@ -451,26 +468,19 @@ public class BoardMock implements Reversi {
    * @return A list of all possible moves for the current player.
    */
   public ArrayList<Coordinate> getPossibleMoves() {
-    
     ArrayList<Coordinate> possibleMoves = new ArrayList<>();
-    log.append("Finds the Possible moves: ");
-    Board originalCopy = this.createCopyOfBoard();
+    Board og = new Board(size, this.createCopyOfBoard(), this.whoseTurn);
     for (Coordinate coord : grid.keySet()) {
       if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
         try {
-          Board copy = originalCopy.createCopyOfBoard();
-          copy.makeMove(coord);
+          Board og1 = new Board(size, og.createCopyOfBoard(), this.whoseTurn);
+          og1.makeMove(coord);
           possibleMoves.add(coord);
-          log.append("q " + coord.getQ() + " r " + coord.getR());
         } catch (IllegalArgumentException e) {
           // Ignore and continue checking other moves
         }
       }
     }
     return possibleMoves;
-  }
-
-  public StringBuilder getLog() {
-    return log;
   }
 }
