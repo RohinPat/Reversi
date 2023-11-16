@@ -463,7 +463,7 @@ public class Board implements Reversi {
   }
 
 
-  /*
+  /**
    * Creates a copy of the board.
    *
    * @return A copy of the board.
@@ -478,7 +478,7 @@ public class Board implements Reversi {
     return copy;
   }
 
-  /*
+  /**
    * Returns a list of all possible moves for the current player.
    *
    * @return A list of all possible moves for the current player.

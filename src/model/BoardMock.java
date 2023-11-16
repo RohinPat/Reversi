@@ -3,8 +3,6 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.BoardRenderer;
-
 import java.util.ArrayList;
 
 /**

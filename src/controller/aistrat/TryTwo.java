@@ -12,7 +12,8 @@ import model.Reversi;
  * tries the second strategy.
  */
 public class TryTwo implements ReversiStratagy{
-  ReversiStratagy first, second;  
+  ReversiStratagy first;
+  ReversiStratagy second;
 
   /**
    * Constructs a strategy with two specified strategies.

@@ -11,8 +11,10 @@ import java.util.ArrayList;
 
 /**
  * The CaptureMost strategy for playing Reversi.
- * This strategy aims to choose a move that maximizes the player's score by capturing the most discs.
- * It evaluates all possible moves and selects the one that results in the highest score for the current player.
+ * This strategy aims to choose a move that maximizes the player's score by capturing the most.
+ * discs.
+ * It evaluates all possible moves and selects the one that results in the highest score for.
+ * the current player.
  */
 public class CaptureMost implements ReversiStratagy {
 
@@ -37,7 +39,8 @@ public class CaptureMost implements ReversiStratagy {
    * @param possibleMoves A list of possible moves to consider.
    * @return The of the move that results in the highest score.
    */
-  protected Coordinate chooseMoveHelper(Reversi model, Disc turn, ArrayList<Coordinate> possibleMoves) {
+  protected Coordinate chooseMoveHelper(Reversi model, Disc turn,
+                                        ArrayList<Coordinate> possibleMoves) {
     int max = 0;
     Coordinate maxMove = null;
     Turn t = null;

@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * Creates an instance of a Readonly board in which you can only call observer methods.
+ * On the board to prevent mutation when interacting with GUI.
+ */
 public class BoardReadOnly implements ReversiReadOnly {
 
   private Board board;
