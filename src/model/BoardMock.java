@@ -55,6 +55,14 @@ public class BoardMock implements Reversi {
     playGame();
   }
 
+  /**
+   * Initializes a new game board of the specified size, and overwrites the board using a.
+   * Given map of disc placements.
+   *
+   * @param size The size of the board.
+   * @param grid1 The hashmap of discs to be overwritten onto the old grid.
+   * @param whoseTuren The turn that's to be instantiated in the new game.
+   */
   public BoardMock(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
     this.consecPasses = 0;
     if (size <= 0) {
@@ -463,7 +471,7 @@ public class BoardMock implements Reversi {
   }
 
 
-  /*
+  /**
    * Creates a copy of the board.
    *
    * @return A copy of the board.
@@ -478,7 +486,7 @@ public class BoardMock implements Reversi {
     return copy;
   }
 
-  /*
+  /**
    * Returns a list of all possible moves for the current player.
    *
    * @return A list of all possible moves for the current player.
@@ -494,7 +502,6 @@ public class BoardMock implements Reversi {
           og1.makeMove(coord);
           possibleMoves.add(coord);
         } catch (IllegalArgumentException e) {
-          // Ignore and continue checking other moves
         }
       }
     }
