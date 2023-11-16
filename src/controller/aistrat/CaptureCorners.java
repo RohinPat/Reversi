@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import model.Board;
 import model.Coordinate;
 import model.Disc;
+import model.Reversi;
 import model.Turn;
 
 public class CaptureCorners implements ReversiStratagy {
 
   @Override
-  public Coordinate chooseMove(Board model, Disc turn) {
+  public Coordinate chooseMove(Reversi model, Disc turn) {
     Turn t = null;
     if (turn == Disc.BLACK) {
       t = Turn.BLACK;

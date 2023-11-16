@@ -2,6 +2,7 @@ package controller.aistrat;
 
 import model.Board;
 import model.Disc;
+import model.Reversi;
 import model.Turn;
 import model.Coordinate;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class CaptureMost implements ReversiStratagy {
 
  @Override
- public Coordinate chooseMove(Board model, Disc turn) {
+ public Coordinate chooseMove(Reversi model, Disc turn) {
    Turn t = null;
     if (turn == Disc.BLACK) {
       t = Turn.BLACK;
@@ -22,7 +23,7 @@ public class CaptureMost implements ReversiStratagy {
    return chooseMoveHelper(model, turn, moves);
  }
 
- protected Coordinate chooseMoveHelper(Board model, Disc turn, ArrayList<Coordinate> possibleMoves) {
+ protected Coordinate chooseMoveHelper(Reversi model, Disc turn, ArrayList<Coordinate> possibleMoves) {
    int max = 0;
    Coordinate maxMove = null;
    Turn t = null;

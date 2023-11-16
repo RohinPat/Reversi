@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 
 import model.Board;
+import model.BoardMock;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
@@ -392,6 +393,9 @@ public class ReversiTests {
 
   @Test
   public void testAICaptureMost() {
-    BoardMo
+    BoardMock board = new BoardMock(4);
+    CaptureMost cm = new CaptureMost();
+    
+    Coordinate c = cm.chooseMove(board, Disc.BLACK);
   }
 }
