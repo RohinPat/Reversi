@@ -73,14 +73,16 @@ public interface Reversi extends ReversiReadOnly {
   /**
    * Creates a deep copy of the current game board.
    *
-   * @return A {@link HashMap} representing a copy of the board. Each {@link Coordinate} key is mapped to a {@link Cell} value.
+   * @return A {@link HashMap} representing a copy of the board. Each {@link Coordinate}.
+   *     key is mapped to a {@link Cell} value.
    */
   HashMap<Coordinate, Cell> createCopyOfBoard();
 
   /**
    * Calculates and returns a list of all possible moves for the current player.
    *
-   * @return An {@link ArrayList} of {@link Coordinate} objects representing all possible moves that the current player can make.
+   * @return An {@link ArrayList} of {@link Coordinate} objects representing all possible moves.
+   *     that the current player can make.
    */
   ArrayList<Coordinate> getPossibleMoves();
 

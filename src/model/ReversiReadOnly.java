@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * An interface to create a version of Board in which you can only call observer.
+ * Methods upon it to prevent any mutation.
+ */
 public interface ReversiReadOnly {
 
   /**

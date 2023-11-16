@@ -14,22 +14,32 @@ import java.util.ArrayList;
 
 import model.ReversiReadOnly;
 
+/**
+ * Used for our panel which contains our hexagons to display in the GUI.
+ * Starts by taking in a preset size, but allows for resizability with dynamic hexagon.
+ * Sizing.
+ */
 public class BoardPanel extends JPanel {
   private ArrayList<Hexagon> hexagons;
   private Hexagon selected;
   private double hexSize = 30;
-  private int maxLength;
   private int boardWidth;
   private int boardHeight;
 
 
+  /**
+   * Instantiates the panel and also opens listeners to ensure functionality for mouse input.
+   * And also for resizing of the board.
+   * @param board the board to be displayed.
+   * @param width the width of the current window.
+   * @param height the height of the current window.
+   */
   public BoardPanel(ReversiReadOnly board, int width, int height) {
     hexagons = new ArrayList<>();
     this.setBackground(Color.DARK_GRAY);
     this.setPreferredSize(new Dimension(width, height));
     this.boardWidth = width;
     this.boardHeight = height;
-    maxLength = (board.getSize() * 2) - 1;
     initializeHexagons(board);
 
     addMouseListener(new MouseAdapter() {
@@ -43,17 +53,14 @@ public class BoardPanel extends JPanel {
     this.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
-        // Store the coordinates of the selected hexagon (if any)
         int selectedQ = selected != null ? selected.q : -1;
         int selectedR = selected != null ? selected.r : -1;
 
-        // Adjust hexagon size and reinitialize hexagons
         adjustHexagonSize(board);
         boardWidth = getWidth();
         boardHeight = getHeight();
         initializeHexagons(board);
 
-        // Reselect the previously selected hexagon
         if (selectedQ != -1 && selectedR != -1) {
           for (Hexagon hex : hexagons) {
             if (hex.q == selectedQ && hex.r == selectedR) {
@@ -71,20 +78,13 @@ public class BoardPanel extends JPanel {
   }
 
   private void adjustHexagonSize(ReversiReadOnly board) {
-
-    // Calculate board dimensions in terms of hexagons
     int boardSize = board.getSize();
     int longestRowHexCount = (2 * boardSize) - 1; // Number of hexagons in the longest row
 
-    // Horizontal space calculation
-    // The length of the longest row of hexagons cannot exceed the panel width
     double maxHexWidth = (double) boardWidth / (longestRowHexCount + 1);
 
-    // Vertical space calculation
-    // The total height of all hexagon rows cannot exceed the panel height
     double maxHexHeight = (double) boardHeight / ((boardSize * 2 - 1) + 1);
 
-    // Set hexSize to the smaller of maxHexWidth and maxHexHeight calculations
     hexSize = Math.min(maxHexWidth / Math.sqrt(3), maxHexHeight / 1.5);
   }
 
@@ -100,8 +100,8 @@ public class BoardPanel extends JPanel {
           selected = null;
         }
         inBounds = true;
-        repaint(); // Request a repaint so the color change is displayed
-        break; // Exit the loop once we've found our hexagon
+        repaint();
+        break;
       }
     }
     if (!inBounds) {
@@ -118,24 +118,23 @@ public class BoardPanel extends JPanel {
     double hexHeight = hexSize * 1.5;
     int boardSize = board.getSize();
 
-    // Calculate the total width and height needed for the hexagon grid
     double totalWidth = ((boardSize * 2 - 1) * hexWidth) - hexWidth;
     double totalHeight = ((boardSize * 2 - 1) * hexHeight) - hexHeight;
 
-    // Calculate the starting X and Y positions to center the grid
     double startX = (boardWidth - totalWidth) / 2;
     double startY = (boardHeight - totalHeight) / 2;
 
-    double y = startY; // Initialize y with startY
+    double y = startY;
 
     // Loop for upper part of the grid
     for (int upperRow = 0; upperRow < boardSize - 1; upperRow++) {
       double x = startX + (hexWidth / 2) * (boardSize - 1 - upperRow);
       for (int index = -upperRow; index < boardSize; index++) {
-        hexagons.add(new Hexagon(x, y, hexSize, board.getDiscAt(index, -(boardSize - 1 - upperRow)), index, -(boardSize - 1 - upperRow)));
+        hexagons.add(new Hexagon(x, y, hexSize, board.getDiscAt(index, -(boardSize - 1 - upperRow)),
+                index, -(boardSize - 1 - upperRow)));
         x += hexSize * Math.sqrt(3); // Positioning for the next hexagon in the row
       }
-      y += hexSize * 3 / 2; // Move down to the next row
+      y += hexSize * 3 / 2;
     }
 
     // Loop for lower part of the grid including the middle row
@@ -145,7 +144,7 @@ public class BoardPanel extends JPanel {
         hexagons.add(new Hexagon(x, y, hexSize, board.getDiscAt(index, lowerRow), index, lowerRow));
         x += hexSize * Math.sqrt(3); // Positioning for the next hexagon in the row
       }
-      y += hexSize * 3 / 2; // Move down to the next row
+      y += hexSize * 3 / 2;
     }
   }
 
@@ -167,18 +166,16 @@ public class BoardPanel extends JPanel {
       g2d.setColor(Color.BLACK);
       g2d.draw(hex); // Draw the hexagon border
 
-      int circleDiameter = (int) (hexSize); // Set the circle diameter to be smaller than the hexagon size
+      int circleDiameter = (int) (hexSize);
 
-      // Calculate the center of the hexagon
       int centerX = (int) (hex.x);
       int centerY = (int) (hex.y);
 
-      // Calculate the top-left corner of the circle by subtracting the radius from the hexagon's center
       int circleX = centerX - circleDiameter / 2;
       int circleY = centerY - circleDiameter / 2;
-      if (!(hex.color == null)) {
+      if (hex.color != null) {
         g2d.setColor(hex.color);
-        g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter); // Draw the white filled circle
+        g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter); 
       }
     }
     // If hex.color is Disc.EMPTY, we don't add anything inside, just the hexagon border is drawn
