@@ -29,8 +29,7 @@ public class CaptureCorners implements ReversiStratagy {
     Turn t = null;
     if (turn == Disc.BLACK) {
       t = Turn.BLACK;
-    }
-    else {
+    } else {
       t = Turn.WHITE;
     }
     Board copy = new Board(model.getSize(), model.createCopyOfBoard(), t);

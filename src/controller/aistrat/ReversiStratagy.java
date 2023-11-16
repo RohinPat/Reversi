@@ -12,7 +12,7 @@ import model.Reversi;
  */
 public interface ReversiStratagy {
 
-    /**
+  /**
    * Determines the next move in a Reversi game based on the implemented strategy.
    * This method is meant to be implemented by different strategy classes, each providing
    * its own approach to selecting a move.

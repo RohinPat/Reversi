@@ -59,8 +59,8 @@ public class BoardMock implements Reversi {
    * Initializes a new game board of the specified size, and overwrites the board using a.
    * Given map of disc placements.
    *
-   * @param size The size of the board.
-   * @param grid1 The hashmap of discs to be overwritten onto the old grid.
+   * @param size       The size of the board.
+   * @param grid1      The hashmap of discs to be overwritten onto the old grid.
    * @param whoseTuren The turn that's to be instantiated in the new game.
    */
   public BoardMock(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
@@ -70,7 +70,7 @@ public class BoardMock implements Reversi {
     }
     this.size = size;
     this.grid = new HashMap<>();
-    
+
     this.whoseTurn = whoseTuren;
     compassQ.put("east", 1);
     compassQ.put("west", -1);
@@ -449,10 +449,9 @@ public class BoardMock implements Reversi {
 
   private boolean hasValidMoves(Disc playerDisc) {
     Turn current = null;
-    if (playerDisc.equals(Disc.BLACK)){
+    if (playerDisc.equals(Disc.BLACK)) {
       current = Turn.BLACK;
-    }
-    else{
+    } else {
       current = Turn.WHITE;
     }
     Board dupe = new Board(size, this.createCopyOfBoard(), current);
@@ -505,7 +504,7 @@ public class BoardMock implements Reversi {
         }
       }
     }
-    for(Coordinate c : possibleMoves) {
+    for (Coordinate c : possibleMoves) {
       log.append("q: " + c.getQ() + " r: " + c.getR() + " s: " + c.getS() + "\n");
     }
     return possibleMoves;

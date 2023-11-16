@@ -54,8 +54,8 @@ public class Board implements Reversi {
    * Initializes a new game board of the specified size, and overwrites the board using a.
    * Given map of disc placements.
    *
-   * @param size The size of the board.
-   * @param grid1 The hashmap of discs to be overwritten onto the old grid.
+   * @param size       The size of the board.
+   * @param grid1      The hashmap of discs to be overwritten onto the old grid.
    * @param whoseTuren The turn that's to be instantiated in the new game.
    */
   public Board(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
@@ -442,10 +442,9 @@ public class Board implements Reversi {
 
   private boolean hasValidMoves(Disc playerDisc) {
     Turn current = null;
-    if (playerDisc.equals(Disc.BLACK)){
+    if (playerDisc.equals(Disc.BLACK)) {
       current = Turn.BLACK;
-    }
-    else{
+    } else {
       current = Turn.WHITE;
     }
     Board dupe = new Board(size, this.createCopyOfBoard(), current);

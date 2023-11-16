@@ -10,8 +10,8 @@ import model.Reversi;
 /**
  * The avoid corner strategy for playing Reversi.
  * This strategy focuses on avoiding corner spots on the Reversi board.
- * It modifies the list of potential moves by removing those that are 
- * considered to be near the corners, as these positions are generally 
+ * It modifies the list of potential moves by removing those that are
+ * considered to be near the corners, as these positions are generally
  * less advantageous.
  */
 public class AvoidCorners implements ReversiStratagy {
