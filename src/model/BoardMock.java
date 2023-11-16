@@ -431,7 +431,14 @@ public class BoardMock implements Reversi {
   }
 
   private boolean hasValidMoves(Disc playerDisc) {
-    Board dupe = new Board(size, this.createCopyOfBoard(), this.whoseTurn);
+    Turn current = null;
+    if (playerDisc.equals(Disc.BLACK)){
+      current = Turn.BLACK;
+    }
+    else{
+      current = Turn.WHITE;
+    }
+    Board dupe = new Board(size, this.createCopyOfBoard(), current);
 
     for (Coordinate coord : grid.keySet()) {
       if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
