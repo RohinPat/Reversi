@@ -8,8 +8,22 @@ import model.Disc;
 import model.Reversi;
 import model.Turn;
 
+/**
+ * The CaptureCorners strategy for playing Reversi.
+ * This strategy prioritizes capturing corner positions on the Reversi board,
+ * as owning corners can be a significant advantage in the game. The strategy
+ * identifies possible moves that capture a corner and selects one of them if available.
+ */
 public class CaptureCorners implements ReversiStratagy {
 
+  /**
+   * Chooses a move for the given turn in a Reversi game using the Capture Corners strategy.
+   * It prioritizes moves that allow capturing a corner position on the board.
+   *
+   * @param model The Reversi game model representing the current state of the game.
+   * @param turn  The object representing the current player's turn.
+   * @return The selected for the next move, prioritizing corners.
+   */
   @Override
   public Coordinate chooseMove(Reversi model, Disc turn) {
     Turn t = null;
@@ -30,6 +44,13 @@ public class CaptureCorners implements ReversiStratagy {
     return new Coordinate(size, size);
   }
 
+
+  /**
+   * Generates a list of coordinates that represent the corners of the board.
+   *
+   * @param size The size of the Reversi board.
+   * @return An ArrayList of objects representing the corners of the board.
+   */
   private ArrayList<Coordinate> getCorners(int size) {
     ArrayList<Coordinate> corners = new ArrayList<Coordinate>();
     corners.add(new Coordinate(0, 1 - size));
