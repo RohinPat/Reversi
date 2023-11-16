@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import controller.aistrat.AvoidCorners;
@@ -397,5 +398,40 @@ public class ReversiTests {
     CaptureMost cm = new CaptureMost();
     
     Coordinate c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    BoardRenderer br = new BoardRenderer(board);
+    System.out.println(br.toString());
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    Assert.assertEquals(board.getLog(), "");
   }
 }
