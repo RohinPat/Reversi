@@ -389,4 +389,9 @@ public class ReversiTests {
                     "  _ _ _ _ _ \n" +
                     "   _ _ _ _ \n", br.toString());
   }
+
+  @Test
+  public void testAICaptureMost() {
+    BoardMo
+  }
 }

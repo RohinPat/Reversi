@@ -11,6 +11,9 @@ import java.util.ArrayList;
  * Represents the game board for a hexagonal grid-based game.
  */
 public class BoardMock implements Reversi {
+
+  private StringBuilder log = new StringBuilder();
+
   private final Map<Coordinate, Cell> grid;
 
   //INVARIANT: should always be positive
@@ -368,6 +371,7 @@ public class BoardMock implements Reversi {
         scoreCounter += 1;
       }
     }
+    log.append("Got score: " + scoreCounter + "\n");
     return scoreCounter;
   }
 
@@ -403,6 +407,10 @@ public class BoardMock implements Reversi {
     if (consecPasses == 2) {
       this.whoWins();
       return true;
+    }
+
+    if (this.getScore(Disc.WHITE) == 0 || this.getScore(Disc.BLACK) == 0) {
+      this.whoWins();
     }
 
     // Check if all cells are filled
@@ -475,6 +483,7 @@ public class BoardMock implements Reversi {
    * @return A list of all possible moves for the current player.
    */
   public ArrayList<Coordinate> getPossibleMoves() {
+    log.append("getting possible moves and found:");
     ArrayList<Coordinate> possibleMoves = new ArrayList<>();
     Board og = new Board(size, this.createCopyOfBoard(), this.whoseTurn);
     for (Coordinate coord : grid.keySet()) {
@@ -488,6 +497,13 @@ public class BoardMock implements Reversi {
         }
       }
     }
+    for(Coordinate c : possibleMoves) {
+      log.append("q: " + c.getQ() + " r: " + c.getR() + " s: " + c.getS() + "\n");
+    }
     return possibleMoves;
+  }
+
+  public StringBuilder getLog() {
+    return log;
   }
 }
