@@ -1,5 +1,12 @@
+import java.util.HashMap;
+
 import model.Board;
+import model.Cell;
+import model.Coordinate;
+import model.Disc;
 import model.ReversiReadOnly;
+import model.Turn;
+import view.BoardRenderer;
 import view.ReversiFrame;
 
 public final class ReversiMain {
