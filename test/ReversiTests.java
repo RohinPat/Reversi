@@ -401,9 +401,6 @@ public class ReversiTests {
     board.makeMove(c);
 
     c = cm.chooseMove(board, Disc.WHITE);
-    BoardRenderer br = new BoardRenderer(board);
-    System.out.println(br.toString());
-    System.out.println(c.getQ() + c.getR());
     board.makeMove(c);
 
     c = cm.chooseMove(board, Disc.BLACK);
@@ -433,6 +430,44 @@ public class ReversiTests {
     c = cm.chooseMove(board, Disc.BLACK);
     board.makeMove(c);
 
-    Assert.assertEquals(board.getLog(), "");
+    Assert.assertEquals(board.getLog().toString(), "getting possible moves and found:q: -1 r: -1 s: 2
+    q: 1 r: 1 s: -2
+    q: -1 r: 2 s: -1
+    q: 1 r: -2 s: 1
+    q: -2 r: 1 s: 1
+    q: 2 r: -1 s: -1
+    getting possible moves and found:q: 1 r: 1 s: -2
+    q: -2 r: 1 s: 1
+    q: 2 r: -1 s: -1
+    q: -2 r: -1 s: 3
+    getting possible moves and found:q: 1 r: 1 s: -2
+    q: -1 r: -2 s: 3
+    q: -1 r: 2 s: -1
+    q: 1 r: -2 s: 1
+    getting possible moves and found:q: -1 r: 2 s: -1
+    q: -2 r: 1 s: 1
+    q: 2 r: -1 s: -1
+    getting possible moves and found:q: 1 r: 1 s: -2
+    q: -1 r: -2 s: 3
+    getting possible moves and found:q: -1 r: 2 s: -1
+    q: -2 r: 1 s: 1
+    q: 2 r: -3 s: 1
+    getting possible moves and found:q: 3 r: -1 s: -2
+    q: -2 r: 1 s: 1
+    getting possible moves and found:q: 1 r: -3 s: 2
+    q: 1 r: 2 s: -3
+    getting possible moves and found:q: 3 r: -2 s: -1
+    q: -1 r: 3 s: -2
+    q: 3 r: -1 s: -2
+    q: -1 r: -2 s: 3
+    q: -2 r: 3 s: -1
+    q: 2 r: -3 s: 1
+    getting possible moves and found:q: -3 r: 2 s: 1
+    q: 3 r: -1 s: -2
+    q: 1 r: 2 s: -3
+    getting possible moves and found:q: -1 r: 3 s: -2
+    q: -3 r: 1 s: 2
+    q: -1 r: -2 s: 3
+    q: -2 r: 3 s: -1"
   }
 }

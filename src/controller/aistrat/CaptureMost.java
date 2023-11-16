@@ -11,15 +11,7 @@ public class CaptureMost implements ReversiStratagy {
 
  @Override
  public Coordinate chooseMove(Reversi model, Disc turn) {
-   Turn t = null;
-    if (turn == Disc.BLACK) {
-      t = Turn.BLACK;
-    }
-    else {
-      t = Turn.WHITE;
-    }
-    Board copy = new Board(model.getSize(), model.createCopyOfBoard(), t);
-   ArrayList<Coordinate> moves = copy.getPossibleMoves();
+   ArrayList<Coordinate> moves = model.getPossibleMoves();
    return chooseMoveHelper(model, turn, moves);
  }
 
