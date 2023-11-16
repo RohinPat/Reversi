@@ -470,4 +470,63 @@ public class ReversiTests {
             "q: -1 r: -2 s: 3\n" +
             "q: -2 r: 3 s: -1\n");
   }
+
+  @Test
+  public void testNoCornersToCapture() {
+    BoardMock board = new BoardMock(4);
+    CaptureCorners cm = new CaptureCorners(); 
+    Assert.assertEquals(new Coordinate(4, 4), cm.chooseMove(board, Disc.BLACK));
+  }
+
+  @Test 
+  public void testAvoidCorners() {
+    BoardMock board = new BoardMock(4);
+    AvoidCorners cm = new AvoidCorners();
+    
+    Coordinate c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    Assert.assertEquals(c, new Coordinate(4, 4));
+    Assert.assertEquals(board.getLog().toString(), "getting possible moves and found:q: -1 r: -1 s: 2\n" + 
+        "q: 1 r: 1 s: -2\n" + //
+        "q: -1 r: 2 s: -1\n" + //
+        "q: 1 r: -2 s: 1\n" + //
+        "q: -2 r: 1 s: 1\n" + //
+        "q: 2 r: -1 s: -1\n" + //
+        "getting possible moves and found:q: 1 r: 1 s: -2\n" + //
+        "q: -2 r: 1 s: 1\n" + //
+        "q: 2 r: -1 s: -1\n" + //
+        "q: -2 r: -1 s: 3\n" + //
+        "getting possible moves and found:q: 2 r: -1 s: -1\n" + //
+        "q: 2 r: 1 s: -3\n" + //
+        "getting possible moves and found:q: 3 r: -2 s: -1\n" + //
+        "q: 1 r: -2 s: 1\n" + //
+        "q: -2 r: 1 s: 1\n" + //
+        "getting possible moves and found:q: -1 r: 2 s: -1\n" + //
+        "q: 2 r: -3 s: 1\n" + //
+        "q: 2 r: 1 s: -3\n" + //
+        "getting possible moves and found:q: 3 r: -1 s: -2\n" + //
+        "q: -2 r: 1 s: 1\n" + //
+        "q: -2 r: -1 s: 3\n" + //
+        "getting possible moves and found:q: 1 r: -3 s: 2\n" + //
+        "q: 1 r: 2 s: -3\n" + //
+        "");
+
+  }
 }
