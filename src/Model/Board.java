@@ -502,9 +502,3 @@ public class Board implements Reversi {
   }
 }
 
-/*
-    Board newBoard = new Board(3);
-    HashMap<Coordinate, Cell> new1 = newBoard.createCopyOfBoard();
-    new1.put(new Coordinate(0,0), new Cell(Disc.BLACK));
-    Board newBoard1 = new Board(3, new1, Turn.BLACK);
- */
