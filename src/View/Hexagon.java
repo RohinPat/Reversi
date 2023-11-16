@@ -5,6 +5,10 @@ import java.awt.geom.Path2D;
 
 import model.Disc;
 
+/**
+ * The {@code Hexagon} class extends {@link Path2D.Double} and represents a hexagonal shape.
+ * It is used to render a hexagon for a grid-based board game, such as Reversi.
+ */
 public class Hexagon extends Path2D.Double {
   Color color;
   double x;
@@ -13,6 +17,15 @@ public class Hexagon extends Path2D.Double {
   int r;
   double size;
 
+  /**
+   * A constructor to create a hexagon shape using the Path2D class.
+   * @param x x coordinate of the hexagon.
+   * @param y y coordinate of the hexagon.
+   * @param size the size of the hexagon.
+   * @param color the color of the disc to be placed in the hexagon.
+   * @param q the q coordinate of the hexagon.
+   * @param r the r coordinate of the hexagon.
+   */
   public Hexagon(double x, double y, double size, Disc color, int q, int r) {
     // Start with an angle that points upwards
     if (color == Disc.BLACK) {
@@ -30,14 +43,11 @@ public class Hexagon extends Path2D.Double {
     double startAngle = Math.PI / 6;
     moveTo(x + size * Math.cos(startAngle), y + size * Math.sin(startAngle));
     for (int i = 0; i < 6; i++) {
-      // Increment the angle by 60 degrees in radians to get the next point
       double angle = startAngle + i * Math.PI / 3;
       lineTo(x + size * Math.cos(angle), y + size * Math.sin(angle));
     }
     closePath();
   }
-
-
 }
 
 

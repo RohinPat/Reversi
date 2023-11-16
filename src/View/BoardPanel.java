@@ -12,7 +12,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import model.Board;
 import model.ReversiReadOnly;
 
 public class BoardPanel extends JPanel {
