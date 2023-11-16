@@ -405,6 +405,10 @@ public class Board implements Reversi {
       return true;
     }
 
+    if (this.getScore(Disc.WHITE) == 0 || this.getScore(Disc.BLACK) == 0) {
+      this.whoWins();
+    }
+
     // Check if all cells are filled
     boolean allCellsFilled = true;
     for (Cell cell : grid.values()) {
