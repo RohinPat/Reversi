@@ -403,6 +403,7 @@ public class ReversiTests {
     c = cm.chooseMove(board, Disc.WHITE);
     BoardRenderer br = new BoardRenderer(board);
     System.out.println(br.toString());
+    System.out.println(c.getQ() + c.getR());
     board.makeMove(c);
 
     c = cm.chooseMove(board, Disc.BLACK);

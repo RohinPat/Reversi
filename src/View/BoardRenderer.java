@@ -1,7 +1,7 @@
 package view;
 
-import model.Board;
 import model.Disc;
+import model.Reversi;
 
 /**
  * Represents a visual renderer for the game board.
@@ -9,14 +9,14 @@ import model.Disc;
  * using characters to depict empty spaces, black discs, and white discs.
  */
 public class BoardRenderer {
-  private final Board model;
+  private final Reversi model;
 
   /**
    * Constructs a new board renderer with the specified game board model.
    *
    * @param model The game board model to be rendered.
    */
-  public BoardRenderer(Board model) {
+  public BoardRenderer(Reversi model) {
     if (model == null) {
       throw new IllegalArgumentException("Model must not be null");
     }
