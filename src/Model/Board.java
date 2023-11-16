@@ -3,8 +3,6 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.BoardRenderer;
-
 import java.util.ArrayList;
 
 /**
@@ -52,6 +50,14 @@ public class Board implements Reversi {
     playGame();
   }
 
+  /**
+   * Initializes a new game board of the specified size, and overwrites the board using a.
+   * Given map of disc placements.
+   *
+   * @param size The size of the board.
+   * @param grid1 The hashmap of discs to be overwritten onto the old grid.
+   * @param whoseTuren The turn that's to be instantiated in the new game.
+   */
   public Board(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
     this.consecPasses = 0;
     if (size <= 0) {
@@ -495,3 +501,10 @@ public class Board implements Reversi {
     return possibleMoves;
   }
 }
+
+/*
+    Board newBoard = new Board(3);
+    HashMap<Coordinate, Cell> new1 = newBoard.createCopyOfBoard();
+    new1.put(new Coordinate(0,0), new Cell(Disc.BLACK));
+    Board newBoard1 = new Board(3, new1, Turn.BLACK);
+ */
