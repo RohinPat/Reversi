@@ -2,14 +2,14 @@ package controller.aistrat;
 
 import java.util.ArrayList;
 
-import model.Board;
 import model.Coordinate;
 import model.Disc;
+import model.Reversi;
 
 public class AvoidCorners implements ReversiStratagy {
 
   @Override
-  public Coordinate chooseMove(Board model, Disc turn) {
+  public Coordinate chooseMove(Reversi model, Disc turn) {
     CaptureMost cm = new CaptureMost();
     int size = model.getSize();
     ArrayList<Coordinate> notCorners = getSpotsToAvoid(size);

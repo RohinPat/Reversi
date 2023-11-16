@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import controller.aistrat.AvoidCorners;
@@ -12,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 
 import model.Board;
+import model.BoardMock;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
@@ -388,5 +390,48 @@ public class ReversiTests {
                     " _ O O O _ _ \n" +
                     "  _ _ _ _ _ \n" +
                     "   _ _ _ _ \n", br.toString());
+  }
+
+  @Test
+  public void testAICaptureMost() {
+    BoardMock board = new BoardMock(4);
+    CaptureMost cm = new CaptureMost();
+    
+    Coordinate c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    BoardRenderer br = new BoardRenderer(board);
+    System.out.println(br.toString());
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    Assert.assertEquals(board.getLog(), "");
   }
 }

@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
@@ -66,4 +69,9 @@ public interface Reversi extends ReversiReadOnly {
    * @return True if the game is over, otherwise false.
    */
   boolean isGameOver();
+
+  HashMap<Coordinate, Cell> createCopyOfBoard();
+
+  ArrayList<Coordinate> getPossibleMoves();
+
 }
