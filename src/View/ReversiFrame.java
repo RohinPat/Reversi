@@ -10,7 +10,6 @@ import model.ReversiReadOnly;
  * displays the game board.
  */
 public class ReversiFrame extends JFrame {
-  private final BoardPanel boardPanel;
 
   /**
    * Constructs a {@code ReversiFrame} with the specified {@link ReversiReadOnly} board.
@@ -22,7 +21,7 @@ public class ReversiFrame extends JFrame {
    *              including the positions of all pieces on the board.
    */
   public ReversiFrame(ReversiReadOnly board) {
-    boardPanel = new BoardPanel(board, 600, 600);
+    BoardPanel boardPanel = new BoardPanel(board, 600, 600);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.add(boardPanel);
     this.pack();
