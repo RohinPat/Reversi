@@ -2,7 +2,6 @@ package controller.aistrat;
 
 import java.util.ArrayList;
 
-import model.Board;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
