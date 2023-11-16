@@ -175,7 +175,7 @@ public class BoardPanel extends JPanel {
       int circleY = centerY - circleDiameter / 2;
       if (hex.color != null) {
         g2d.setColor(hex.color);
-        g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter); 
+        g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter);
       }
     }
     // If hex.color is Disc.EMPTY, we don't add anything inside, just the hexagon border is drawn
