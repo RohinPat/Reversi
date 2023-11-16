@@ -37,9 +37,11 @@ public class TryTwo implements ReversiStratagy{
    */
   public Coordinate chooseMove(Reversi model, Disc turn) {
     Coordinate ans = this.first.chooseMove(model, turn);
-    if (ans == new Coordinate(model.getSize(), model.getSize())) {
+    System.out.println(model.getSize());
+    if (ans.equals(new Coordinate(model.getSize(), model.getSize()))) {
       ans = this.second.chooseMove(model, turn);
     }
+    System.out.println(ans.getQ() + " " + ans.getR());
     return ans;
   }
 }

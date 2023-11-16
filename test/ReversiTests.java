@@ -585,7 +585,99 @@ public class ReversiTests {
     c = tt1.chooseMove(board, Disc.BLACK);
     board.makeMove(c);
 
-    
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
 
+    c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = tt1.chooseMove(board, Disc.BLACK);
+    Assert.assertEquals(c, new Coordinate(4, 4));
+    Assert.assertEquals(board.getLog().toString(), "getting possible moves and found:q: -1 r: -1 s: 2
+    q: 1 r: 1 s: -2
+    q: -1 r: 2 s: -1
+    q: 1 r: -2 s: 1
+    q: -2 r: 1 s: 1
+    q: 2 r: -1 s: -1
+    getting possible moves and found:q: 1 r: 1 s: -2
+    q: -2 r: 1 s: 1
+    q: 2 r: -1 s: -1
+    q: -2 r: -1 s: 3
+    getting possible moves and found:q: 2 r: -1 s: -1
+    q: 2 r: 1 s: -3
+    getting possible moves and found:q: -1 r: 2 s: -1
+    q: 1 r: 2 s: -3
+    q: -2 r: -1 s: 3
+    getting possible moves and found:q: -1 r: 3 s: -2
+    q: 1 r: -2 s: 1
+    q: 2 r: -1 s: -1
+    getting possible moves and found:q: -1 r: -2 s: 3
+    q: -2 r: 1 s: 1
+    q: 2 r: -1 s: -1
+    getting possible moves and found:q: -3 r: 2 s: 1
+    q: -1 r: 3 s: -2
+    q: -3 r: 1 s: 2
+    q: -2 r: 3 s: -1
+    getting possible moves and found:q: -1 r: -2 s: 3
+    q: 2 r: -1 s: -1
+    getting possible moves and found:q: -1 r: 3 s: -2
+    q: 3 r: -1 s: -2
+    getting possible moves and found:q: 1 r: -3 s: 2
+    q: 1 r: 2 s: -3
+    q: -2 r: -1 s: 3
+    q: -2 r: 3 s: -1
+    getting possible moves and found:q: 1 r: -3 s: 2
+    q: 1 r: 2 s: -3
+    q: -2 r: -1 s: 3
+    q: -2 r: 3 s: -1
+    getting possible moves and found:q: 3 r: -2 s: -1
+    q: -1 r: -2 s: 3
+    getting possible moves and found:q: -3 r: 2 s: 1
+    q: 1 r: -3 s: 2
+    q: 3 r: -1 s: -2
+    q: 1 r: 2 s: -3
+    q: 2 r: -3 s: 1
+    getting possible moves and found:q: -3 r: 2 s: 1
+    q: 1 r: -3 s: 2
+    q: 3 r: -1 s: -2
+    q: 1 r: 2 s: -3
+    q: 2 r: -3 s: 1
+    getting possible moves and found:q: 1 r: -3 s: 2
+    q: 3 r: -1 s: -2
+    q: 1 r: 2 s: -3
+    q: 2 r: -3 s: 1
+    getting possible moves and found:q: 1 r: -3 s: 2
+    q: 3 r: -1 s: -2
+    q: 1 r: 2 s: -3
+    q: 2 r: -3 s: 1
+    getting possible moves and found:q: 1 r: -3 s: 2
+    q: 3 r: -1 s: -2
+    q: -2 r: 3 s: -1
+    q: 2 r: -3 s: 1
+    getting possible moves and found:q: 1 r: -3 s: 2
+    q: 3 r: -1 s: -2
+    q: -2 r: 3 s: -1
+    q: 2 r: -3 s: 1
+    getting possible moves and found:q: -1 r: -2 s: 3
+    getting possible moves and found:q: 1 r: -3 s: 2
+    q: 3 r: -1 s: -2
+    q: 0 r: -3 s: 3
+    q: 2 r: -3 s: 1
+    getting possible moves and found:");
   }
 }
