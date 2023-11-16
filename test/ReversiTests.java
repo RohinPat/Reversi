@@ -4,6 +4,8 @@ import org.junit.Test;
 import controller.aistrat.AvoidCorners;
 import controller.aistrat.CaptureCorners;
 import controller.aistrat.CaptureMost;
+import controller.aistrat.ReversiStratagy;
+import controller.aistrat.TryTwo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -532,12 +534,58 @@ public class ReversiTests {
 
   @Test
   public void testCaptureCornerWorks() {
-    
     BoardMock newBoard = new BoardMock(3);
     HashMap<Coordinate, Cell> new1 = newBoard.createCopyOfBoard();
     new1.put(new Coordinate(0,0), new Cell(Disc.BLACK));
     BoardMock newBoard1 = new BoardMock(3, new1, Turn.BLACK);
     CaptureCorners cm = new CaptureCorners();
     Assert.assertEquals(new Coordinate(-2, 2), cm.chooseMove(newBoard1, Disc.WHITE));
+  }
+
+  @Test
+  public void tryTwoAgainstEachother() {
+    ReversiStratagy cm = new CaptureMost();
+    ReversiStratagy cc = new CaptureCorners();
+    ReversiStratagy ac = new AvoidCorners();
+    TryTwo tt1 = new TryTwo(cc, cm);
+    TryTwo tt2 = new TryTwo(ac, cm);
+
+    BoardMock board = new BoardMock(4);
+
+    Coordinate c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = tt2.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = tt1.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    
+
   }
 }

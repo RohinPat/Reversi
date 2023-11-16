@@ -15,6 +15,17 @@ public class TryTwo implements ReversiStratagy{
   ReversiStratagy first, second;  
 
   /**
+   * Constructs a strategy with two specified strategies.
+   *
+   * @param first  The primary strategy to try.
+   * @param second The secondary strategy to use if the first one fails to find a move.
+   */
+  public TryTwo(ReversiStratagy first, ReversiStratagy second) {
+    this.first = first;
+    this.second = second;
+  }
+
+  /**
    * Chooses a move in the Reversi game by first trying the primary strategy.
    * If the primary strategy returns null (indicating no move found),
    * it then tries the secondary strategy.
@@ -25,7 +36,7 @@ public class TryTwo implements ReversiStratagy{
    */
   public Coordinate chooseMove(Reversi model, Disc turn) {
     Coordinate ans = this.first.chooseMove(model, turn);
-    if (ans == null) {
+    if (ans == new Coordinate(model.getSize(), model.getSize())) {
       ans = this.second.chooseMove(model, turn);
     }
     return ans;
