@@ -52,18 +52,13 @@ public class Board implements Reversi {
     playGame();
   }
 
-  public Board(int size, HashMap<Coordinate, Cell> grid, Turn whoseTuren) {
+  public Board(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
     this.consecPasses = 0;
     if (size <= 0) {
       throw new IllegalArgumentException("Size must be positive");
     }
     this.size = size;
     this.grid = new HashMap<>();
-    for (Coordinate coord : grid.keySet()) {
-      Cell originalCell = grid.get(coord);
-      Cell newCell = new Cell(originalCell.getContent());
-      this.grid.put(coord, newCell);
-    }
     this.whoseTurn = whoseTuren;
     compassQ.put("east", 1);
     compassQ.put("west", -1);
@@ -79,6 +74,11 @@ public class Board implements Reversi {
     compassR.put("sw", 1);
     this.gameState = GameState.PRE;
     playGame();
+    for (Coordinate coord : grid1.keySet()) {
+      Cell originalCell = grid1.get(coord);
+      Cell newCell = new Cell(originalCell.getContent());
+      this.grid.put(coord, newCell);
+    }
   }
 
   /**
