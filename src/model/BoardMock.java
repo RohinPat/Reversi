@@ -499,6 +499,7 @@ public class BoardMock implements Reversi {
           og1.makeMove(coord);
           possibleMoves.add(coord);
         } catch (IllegalArgumentException e) {
+          // will move to the next move
         }
       }
     }
