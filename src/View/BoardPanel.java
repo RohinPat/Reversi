@@ -8,8 +8,12 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import model.ReversiReadOnly;
@@ -25,6 +29,9 @@ public class BoardPanel extends JPanel {
   private double hexSize = 30;
   private int boardWidth;
   private int boardHeight;
+  private MouseListener hexagonSelect;
+  private ComponentListener resize;
+  private KeyListener keyInputListener;
 
 
   /**
@@ -40,41 +47,111 @@ public class BoardPanel extends JPanel {
     this.setPreferredSize(new Dimension(width, height));
     this.boardWidth = width;
     this.boardHeight = height;
+    this.hexagonSelect = new hexagonMouseListener();
+    this.resize = new resizeListener(board);
+    this.addMouseListener(this.hexagonSelect);
+    this.addComponentListener(this.resize);
+    this.keyInputListener = new KeyInputListener();
+    this.addKeyListener(this.keyInputListener);
+    this.setFocusable(true);
+    this.requestFocusInWindow();
+
     initializeHexagons(board);
+  }
 
-    addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        super.mouseClicked(e);
-        handleHexagonClick(e.getX(), e.getY());
-      }
-    });
+  private class hexagonMouseListener implements MouseListener {
 
-    this.addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentResized(ComponentEvent e) {
-        int selectedQ = selected != null ? selected.q : -1;
-        int selectedR = selected != null ? selected.r : -1;
+    @Override
+    public void mouseClicked(MouseEvent e) {
+      handleHexagonClick(e.getX(), e.getY());
+    }
 
-        adjustHexagonSize(board);
-        boardWidth = getWidth();
-        boardHeight = getHeight();
-        initializeHexagons(board);
+    @Override
+    public void mousePressed(MouseEvent e) {
+      // blank
+    }
 
-        if (selectedQ != -1 && selectedR != -1) {
-          for (Hexagon hex : hexagons) {
-            if (hex.q == selectedQ && hex.r == selectedR) {
-              selected = hex;
-              break;
-            }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+      // blank
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+      // blank
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+      // blank
+    }
+  }
+
+  private class resizeListener implements ComponentListener{
+    private ReversiReadOnly board;
+
+    public resizeListener(ReversiReadOnly board) {
+      this.board = board;
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+      int selectedQ = selected != null ? selected.q : -1;
+      int selectedR = selected != null ? selected.r : -1;
+
+      adjustHexagonSize(this.board);
+      boardWidth = getWidth();
+      boardHeight = getHeight();
+      initializeHexagons(this.board);
+
+      if (selectedQ != -1 && selectedR != -1) {
+        for (Hexagon hex : hexagons) {
+          if (hex.q == selectedQ && hex.r == selectedR) {
+            selected = hex;
+            break;
           }
         }
-
-        repaint();
       }
-    });
 
+      repaint();
+    }
 
+    @Override
+    public void componentMoved(ComponentEvent e) {
+      //blank
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+      //blank
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+      //blank
+    }
+  }
+
+  private class KeyInputListener implements KeyListener {
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+      // blank
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+      if (e.getKeyCode() == KeyEvent.VK_M) {
+        System.out.println("move selected");
+      } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        System.out.println("pass selected");
+      }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+      //blank
+    }
   }
 
   private void adjustHexagonSize(ReversiReadOnly board) {
