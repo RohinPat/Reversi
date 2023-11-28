@@ -1,5 +1,7 @@
 package controller;
 
+import controller.aistrat.ReversiStratagy;
+
 /**
  * A class used to represent an AI player profile in which the moves to be executed are determined.
  * By a defined logic.

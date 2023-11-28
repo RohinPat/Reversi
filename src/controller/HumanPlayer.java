@@ -1,5 +1,7 @@
 package controller;
 
+import model.Coordinate;
+
 /**
  * A class used to represent a human player profile in which the user controllers inputs.
  * Manually.
