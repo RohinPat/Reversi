@@ -1,6 +1,7 @@
 package controller;
 
 import model.Coordinate;
+import model.Disc;
 import model.Reversi;
 
 /**
@@ -13,6 +14,8 @@ public interface Player {
   void makeAMove(Reversi model, Coordinate move);
 
   boolean isPlayerTurn(Reversi model);
+
+  Disc getDisc();
 
   void passTurn();
 

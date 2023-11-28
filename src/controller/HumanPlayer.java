@@ -24,6 +24,11 @@ public class HumanPlayer implements Player{
   }
 
   @Override
+  public Disc getDisc() {
+    return playerDisc;
+  }
+
+  @Override
   public void passTurn() {
     //
   }

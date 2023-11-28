@@ -2,6 +2,7 @@ import controller.AIPlayer;
 import controller.Player;
 import controller.ReversiController;
 import controller.aistrat.AvoidCorners;
+import controller.aistrat.CaptureMost;
 import model.Board;
 import model.Disc;
 import model.ReversiReadOnly;
@@ -20,7 +21,7 @@ public final class ReversiMain {
     Board b1 = new Board(6);
 
     Player p1 = new HumanPlayer(Disc.BLACK);
-    Player p2 = new HumanPlayer(Disc.WHITE);
+    Player p2 = new AIPlayer(Disc.WHITE, new CaptureMost());
 
     ReversiFrame viewPlayer1 = new ReversiFrame(b1);
     BoardPanel viewPanel1 = viewPlayer1.getBoardPanel();

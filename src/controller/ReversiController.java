@@ -54,6 +54,16 @@ public class ReversiController implements ControllerFeatures {
 
   public void updateView(){
     view.initializeHexagons(model);
+
+    if (model.currentColor() == player.getDisc()) {
+      if (player instanceof AIPlayer) {
+        // AI makes a move automatically
+        player.makeAMove(model, null); // AI strategy chooses the move
+      } else {
+        // Human player - wait for user input
+        // Maybe highlight possible moves or indicate it's the player's turn
+      }
+    }
   }
 
 
