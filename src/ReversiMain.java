@@ -1,5 +1,7 @@
+import controller.ReversiController;
 import model.Board;
 import model.ReversiReadOnly;
+import view.BoardPanel;
 import view.ReversiFrame;
 
 /**
@@ -10,8 +12,10 @@ public final class ReversiMain {
    * Used to initialize the frame based on the given board.
    */
   public static void main(String[] args) {
-    ReversiReadOnly b1 = new Board(6);
+    Board b1 = new Board(6);
     ReversiFrame view = new ReversiFrame(b1);
+    BoardPanel viewPanel = view.getBoardPanel();
+    ReversiController controller = new ReversiController(b1, viewPanel);
     view.setVisible(true);
   }
 }

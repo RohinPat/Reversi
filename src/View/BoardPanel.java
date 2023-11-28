@@ -16,6 +16,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import controller.ControllerFeatures;
+import model.Coordinate;
 import model.ReversiReadOnly;
 
 /**
@@ -32,6 +34,11 @@ public class BoardPanel extends JPanel {
   private MouseListener hexagonSelect;
   private ComponentListener resize;
   private KeyListener keyInputListener;
+  private ControllerFeatures controller;
+
+  public void setController(ControllerFeatures cont){
+    this.controller = cont;
+  }
 
 
   /**
@@ -142,8 +149,10 @@ public class BoardPanel extends JPanel {
     @Override
     public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_M) {
+        controller.confirmMove();
         System.out.println("move selected");
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        controller.passTurn();
         System.out.println("pass selected");
       }
     }
@@ -186,10 +195,19 @@ public class BoardPanel extends JPanel {
       repaint();
     }
 
+    if (controller != null && selected != null) {
+      controller.selectHexagon(selected.q, selected.r);
+    }
+
+
+  }
+
+  public Coordinate getSelectedHexagon(){
+    return new Coordinate(selected.q, selected.r);
   }
 
 
-  private void initializeHexagons(ReversiReadOnly board) {
+  public void initializeHexagons(ReversiReadOnly board) {
     hexagons.clear();
     double hexWidth = hexSize * Math.sqrt(3);
     double hexHeight = hexSize * 1.5;
@@ -223,6 +241,8 @@ public class BoardPanel extends JPanel {
       }
       y += hexSize * 3 / 2;
     }
+
+    repaint();
   }
 
 
