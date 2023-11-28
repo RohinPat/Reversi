@@ -132,6 +132,8 @@ public class Board implements Reversi {
     } else {
       throw new IllegalStateException("A game has already been started");
     }
+
+    notifyObservers();
   }
 
   /**
