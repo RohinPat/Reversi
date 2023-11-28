@@ -6,5 +6,9 @@ package controller;
  * Players with varying strategies.
  */
 public interface Player {
-  // To be implemented to have a getPlayerType() method and a method to execute a move
+  
+  void makeAMove();
+
+  void passTurn();
+
 }

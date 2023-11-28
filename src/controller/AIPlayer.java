@@ -5,5 +5,15 @@ package controller;
  * By a defined logic.
  */
 public class AIPlayer implements Player {
-  // To be implemented to have a getPlayerType() method and a method to execute a move
+
+  @Override
+  public void makeAMove() {
+    
+  }
+
+  @Override
+  public void passTurn() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'passTurn'");
+  }
 }

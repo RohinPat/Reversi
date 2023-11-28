@@ -5,5 +5,15 @@ package controller;
  * Manually.
  */
 public class HumanPlayer implements Player {
-  // To be implemented to have a getPlayerType() method and a method to execute a move
+
+  @Override
+  public void makeAMove() {
+    // Defering to the view to handle the input.
+  }
+
+  @Override
+  public void passTurn() {
+    // Defering to the view to handle the input.
+  }
+  
 }
