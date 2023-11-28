@@ -6,12 +6,12 @@ import model.Reversi;
 
 
 /**
- * The  class implements the interface 
- * and encapsulates two different strategies. It attempts to choose a move 
- * using the first strategy and, if unsuccessful (returns null), it then 
+ * The  class implements the interface
+ * and encapsulates two different strategies. It attempts to choose a move
+ * using the first strategy and, if unsuccessful (returns null), it then
  * tries the second strategy.
  */
-public class TryTwo implements ReversiStratagy{
+public class TryTwo implements ReversiStratagy {
   ReversiStratagy first;
   ReversiStratagy second;
 

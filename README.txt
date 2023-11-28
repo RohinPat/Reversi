@@ -4,6 +4,9 @@
 
 **Problem Addressed:** This codebase offers a model representation for Reversi, but with a unique twist: the board is hexagonal. This design allows users to manage game states, player turns, and board configurations in a hexagonal grid system.
 
+**Extra Credit:**
+- AI 2 and 3 are implemented in the controller folder under the astral folder.  The file name for the code that ignores spaces near corners is AvoidCorners.java and the AI that try to capture corners is CaptureCorner.java.  We also implemented the multiple strategies under TryTwo.java in the same folder.
+
 **Assumptions:**
 
 - The game operates on a hexagonal grid system.

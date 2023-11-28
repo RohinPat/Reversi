@@ -12,7 +12,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.Board;
@@ -433,7 +432,8 @@ public class ReversiTests {
     c = cm.chooseMove(board, Disc.BLACK);
     board.makeMove(c);
 
-    Assert.assertEquals(board.getLog().toString(), "getting possible moves and found:q: -1 r: -1 s: 2\n" +
+    Assert.assertEquals(board.getLog().toString(),
+            "getting possible moves and found:q: -1 r: -1 s: 2\n" +
             "q: 1 r: 1 s: -2\n" +
             "q: -1 r: 2 s: -1\n" +
             "q: 1 r: -2 s: 1\n" +
@@ -506,7 +506,8 @@ public class ReversiTests {
 
     c = cm.chooseMove(board, Disc.BLACK);
     Assert.assertEquals(c, new Coordinate(4, 4));
-    Assert.assertEquals(board.getLog().toString(), "getting possible moves and found:q: -1 r: -1 s: 2\n" + 
+    Assert.assertEquals(board.getLog().toString(),
+            "getting possible moves and found:q: -1 r: -1 s: 2\n" +
         "q: 1 r: 1 s: -2\n" + //
         "q: -1 r: 2 s: -1\n" + //
         "q: 1 r: -2 s: 1\n" + //
@@ -608,7 +609,8 @@ public class ReversiTests {
 
     c = tt1.chooseMove(board, Disc.BLACK);
     Assert.assertEquals(c, new Coordinate(4, 4));
-    Assert.assertEquals(board.getLog().toString(), "getting possible moves and found:q: -1 r: -1 s: 2\n" +
+    Assert.assertEquals(board.getLog().toString(),
+            "getting possible moves and found:q: -1 r: -1 s: 2\n" +
             "q: 1 r: 1 s: -2\n" +
             "q: -1 r: 2 s: -1\n" +
             "q: 1 r: -2 s: 1\n" +
