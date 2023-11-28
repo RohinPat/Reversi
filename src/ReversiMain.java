@@ -13,9 +13,15 @@ public final class ReversiMain {
    */
   public static void main(String[] args) {
     Board b1 = new Board(6);
-    ReversiFrame view = new ReversiFrame(b1);
-    BoardPanel viewPanel = view.getBoardPanel();
-    ReversiController controller = new ReversiController(b1, viewPanel);
-    view.setVisible(true);
+    ReversiFrame viewPlayer1 = new ReversiFrame(b1);
+    BoardPanel viewPanel1 = viewPlayer1.getBoardPanel();
+    ReversiController controller = new ReversiController(b1, viewPanel1);
+    b1.addObserver(controller);
+    ReversiFrame viewPlayer2 = new ReversiFrame(b1);
+    BoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
+    ReversiController controller2 = new ReversiController(b1, viewPanel2);
+    b1.addObserver(controller2);
+    viewPlayer1.setVisible(true);
+    viewPlayer2.setVisible(true);
   }
 }

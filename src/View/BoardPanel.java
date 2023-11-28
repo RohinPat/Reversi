@@ -1,6 +1,6 @@
 package view;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -245,6 +245,9 @@ public class BoardPanel extends JPanel {
     repaint();
   }
 
+  public void showInvalidMoveDialog(String message) {
+    JOptionPane.showMessageDialog(this, message, "Invalid Move", JOptionPane.ERROR_MESSAGE);
+  }
 
   @Override
   protected void paintComponent(Graphics g) {

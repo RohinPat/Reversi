@@ -33,8 +33,7 @@ public class ReversiController implements ControllerFeatures {
         view.initializeHexagons(model); // Update the view to reflect the new board state
         System.out.println("Move made to (" + selectedHex.getQ() + ", " + selectedHex.getR() + ")");
       } catch (IllegalArgumentException e) {
-        System.out.println("Invalid move: " + e.getMessage());
-        // Handle invalid move, perhaps by displaying an error message in the view
+        view.showInvalidMoveDialog(e.getMessage());
       }
     }
   }
@@ -46,6 +45,11 @@ public class ReversiController implements ControllerFeatures {
     view.initializeHexagons(model); // Update the view if necessary
     System.out.println("Turn passed");
   }
+
+  public void updateView(){
+    view.initializeHexagons(model);
+  }
+
 
   // Additional methods for future functionalities can be added here
 }
