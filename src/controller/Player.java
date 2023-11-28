@@ -1,5 +1,8 @@
 package controller;
 
+import model.Coordinate;
+import model.Reversi;
+
 /**
  * This is an interface that implements all the basic functionality that each.
  * Player type/ profile could have. These can include a human player, or AI.
@@ -7,7 +10,9 @@ package controller;
  */
 public interface Player {
   
-  void makeAMove();
+  void makeAMove(Reversi model, Coordinate move);
+
+  boolean isPlayerTurn(Reversi model);
 
   void passTurn();
 

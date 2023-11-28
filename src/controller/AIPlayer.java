@@ -1,21 +1,32 @@
 package controller;
 
+import model.Reversi;
+import model.Disc;
+import model.Coordinate;
 import controller.aistrat.ReversiStratagy;
 
-/**
- * A class used to represent an AI player profile in which the moves to be executed are determined.
- * By a defined logic.
- */
 public class AIPlayer implements Player {
+  private Disc playerDisc;
+  private ReversiStratagy strategy;
+
+  public AIPlayer(Disc playerDisc, ReversiStratagy strategy) {
+    this.playerDisc = playerDisc;
+    this.strategy = strategy;
+  }
 
   @Override
-  public void makeAMove() {
-    
+  public void makeAMove(Reversi model, Coordinate coordinate) {
+    Coordinate c1 =  strategy.chooseMove(model, playerDisc);
+    model.makeMove(c1);
+  }
+
+  @Override
+  public boolean isPlayerTurn(Reversi model) {
+    return false;
   }
 
   @Override
   public void passTurn() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'passTurn'");
+
   }
 }

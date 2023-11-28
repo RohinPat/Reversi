@@ -1,9 +1,12 @@
 package model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import java.util.ArrayList;
+
+import controller.ReversiController;
 
 /**
  * Represents the game board for a hexagonal grid-based game.
@@ -20,6 +23,18 @@ public class Board implements Reversi {
   //INVARIANT: should always be positive (never subtracted from, initialized at 0)
   private int consecPasses;
   private GameState gameState;
+
+  private List<ReversiController> observers = new ArrayList<>();
+
+  public void addObserver(ReversiController controller) {
+    observers.add(controller);
+  }
+
+  public void notifyObservers() {
+    for (ReversiController controller : observers) {
+      controller.updateView();
+    }
+  }
 
   /**
    * Initializes a new game board of the specified size.
@@ -124,7 +139,7 @@ public class Board implements Reversi {
    *
    * @return The disc color of the current player.
    */
-  private Disc currentColor() {
+  public Disc currentColor() {
     if (gameState == GameState.INPROGRESS) {
       if (this.whoseTurn == Turn.BLACK) {
         return Disc.BLACK;
@@ -168,6 +183,8 @@ public class Board implements Reversi {
     } else {
       throw new IllegalStateException("The game has not been started yet no move can be made");
     }
+
+    notifyObservers();
   }
 
   private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
@@ -283,6 +300,8 @@ public class Board implements Reversi {
     } else {
       throw new IllegalStateException("The game has not been started yet no move can be made");
     }
+
+    notifyObservers();
   }
 
   /**
