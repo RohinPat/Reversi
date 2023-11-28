@@ -8,11 +8,14 @@ import model.Disc;
 public class ReversiController implements ControllerFeatures {
   private Board model;
   private BoardPanel view;
+  private Player player;
 
-  public ReversiController(Board model, BoardPanel view) {
+  public ReversiController(Board model, BoardPanel view, Player player) {
     this.model = model;
     this.view = view;
+    this.player = player;
     this.view.setController(this);
+
   }
 
   @Override
@@ -24,17 +27,20 @@ public class ReversiController implements ControllerFeatures {
 
   @Override
   public void confirmMove() {
-    // Logic for confirming a move
-    // Assuming you have a way to track the currently selected hexagon
-    Coordinate selectedHex = view.getSelectedHexagon();
-    if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
-      try {
-        model.makeMove(selectedHex);
-        view.initializeHexagons(model); // Update the view to reflect the new board state
-        System.out.println("Move made to (" + selectedHex.getQ() + ", " + selectedHex.getR() + ")");
-      } catch (IllegalArgumentException e) {
-        view.showInvalidMoveDialog(e.getMessage());
+    if (player.isPlayerTurn(model)) {
+      Coordinate selectedHex = view.getSelectedHexagon();
+      if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
+        try {
+          player.makeAMove(model, selectedHex);
+          view.initializeHexagons(model); // Update the view to reflect the new board state
+          System.out.println("Move made to (" + selectedHex.getQ() + ", " + selectedHex.getR() + ")");
+        } catch (IllegalArgumentException e) {
+          view.showInvalidMoveDialog(e.getMessage());
+        }
       }
+    }
+    else{
+      view.showInvalidMoveDialog("Not your turn right now");
     }
   }
 

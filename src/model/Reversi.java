@@ -9,6 +9,11 @@ import java.util.HashMap;
 public interface Reversi extends ReversiReadOnly {
 
   /**
+   * Returns current color.
+   */
+  Disc currentColor();
+
+  /**
    * Passes the turn to the next player.
    */
   void passTurn();

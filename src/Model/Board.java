@@ -139,7 +139,7 @@ public class Board implements Reversi {
    *
    * @return The disc color of the current player.
    */
-  private Disc currentColor() {
+  public Disc currentColor() {
     if (gameState == GameState.INPROGRESS) {
       if (this.whoseTurn == Turn.BLACK) {
         return Disc.BLACK;

@@ -1,19 +1,32 @@
 package controller;
 
-/**
- * A class used to represent a human player profile in which the user controllers inputs.
- * Manually.
- */
-public class HumanPlayer implements Player {
+import model.Reversi;
+import model.Disc;
+import model.Coordinate;
 
-  @Override
-  public void makeAMove() {
-    // Defering to the view to handle the input.
+public class HumanPlayer implements Player{
+  private Disc playerDisc; // The disc type this player controls (BLACK or WHITE)
+
+  public HumanPlayer(Disc playerDisc) {
+    this.playerDisc = playerDisc;
+  }
+
+  // Method to check if it's this player's turn
+  public boolean isPlayerTurn(Reversi model) {
+    return model.currentColor() == this.playerDisc;
+  }
+
+  // Method to initiate a move
+  public void makeAMove(Reversi model, Coordinate move) {
+    if (isPlayerTurn(model)) {
+      model.makeMove(move);
+    }
   }
 
   @Override
   public void passTurn() {
-    // Defering to the view to handle the input.
+    //
   }
-  
+
+  // Getters, setters, and other relevant methods...
 }
