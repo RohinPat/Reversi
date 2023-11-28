@@ -462,7 +462,7 @@ public class Board implements Reversi {
   }
 
   private boolean hasValidMoves(Disc playerDisc) {
-    Turn current = null;
+    Turn current;
     if (playerDisc.equals(Disc.BLACK)) {
       current = Turn.BLACK;
     } else {

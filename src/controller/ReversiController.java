@@ -58,19 +58,21 @@ public class ReversiController implements ControllerFeatures {
 
   public void updateView(){
     view.initializeHexagons(model);
+    if (!model.isGameOver()) {
       if (model.currentColor() == player.getDisc()) {
         if (player instanceof AIPlayer) {
           player.makeAMove(model, null); // AI strategy chooses the move
-          try{
-            Thread.sleep(1000);
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-          }
+
         } else {
           // Human player - wait for user input
           // Maybe highlight possible moves or indicate it's the player's turn
         }
       }
+    }
+    else{
+      System.out.println("game over");
+      System.exit(0);
+    }
   }
 
 
