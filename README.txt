@@ -1,4 +1,4 @@
-# README for Hexagonal Reversi Game Model
+# README for Hexagonal Reversi Game model
 
 ## Overview
 
@@ -24,7 +24,7 @@ System.out.println(renderer.toString()); // Display the board
 
 ## Key Components
 
-### Model Package
+### model Package
 
 - **Board:** The heart of the game, representing the hexagonal game board. It manages the hexagonal grid, keeps track of turns, and orchestrates game progression.
 - **Cell:** Represents an individual hexagonal slot on the board, which can hold a disc.
@@ -34,7 +34,7 @@ System.out.println(renderer.toString()); // Display the board
 - **GameState:** Enumerated type indicating the state of the game.
 - **BoardRenderer:** Handles the visual representation of the board, allowing users to view the current state of the game.
 
-### View Package
+### view Package
 
 - **BoardRenderer:** Renders the game board visually.
 - **BoardPanel:** Handles the graphical representation of the board in the UI.
@@ -49,6 +49,6 @@ System.out.println(renderer.toString()); // Display the board
 
 ### Source Organization
 
-- **Model Package:** Contains logic for the game's model, including board, cells, coordinates, and game states.
-- **View Package:** Manages the user interface, rendering the game board and handling user interactions.
+- **model Package:** Contains logic for the game's model, including board, cells, coordinates, and game states.
+- **view Package:** Manages the user interface, rendering the game board and handling user interactions.
 - **Controller Package:** Implements player functionalities and AI strategies, orchestrating the game play.
