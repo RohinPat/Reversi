@@ -14,7 +14,7 @@ public interface ReversiReadOnly {
    * @return The disc present at the specified coordinates.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
-  Disc getDiscAt(int q, int r);
+  model.Disc getDiscAt(int q, int r);
 
   /**
    * Checks if the cell at the specified coordinates is empty.
