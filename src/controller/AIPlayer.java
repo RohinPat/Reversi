@@ -16,11 +16,14 @@ public class AIPlayer implements Player {
 
   @Override
   public void makeAMove(Reversi model, Coordinate coordinate) {
+    System.out.println(model.getConsecPasses() + "tism1");
     Coordinate c1 =  strategy.chooseMove(model, playerDisc);
     if (c1.equals(new Coordinate(model.getSize(), model.getSize()))){
+      System.out.println("AI passed turn");
       model.passTurn();
     }
     model.makeMove(c1);
+    System.out.println(model.getConsecPasses() + "tism2");
   }
 
   @Override

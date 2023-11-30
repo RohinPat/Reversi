@@ -22,7 +22,7 @@ public final class ReversiMain {
   public static void main(String[] args) {
     Board b1 = new Board(4);
 
-    Player p1 = new HumanPlayer(Disc.BLACK);
+    Player p1 = new AIPlayer(Disc.BLACK, new CaptureMost());
     Player p2 = new AIPlayer(Disc.WHITE, new CaptureMost());
 
     ReversiFrame viewPlayer1 = new ReversiFrame(b1);

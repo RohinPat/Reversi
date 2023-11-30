@@ -18,6 +18,7 @@ public class ReversiController implements ControllerFeatures {
 
     // Check if the AI player should make a move immediately
     if (model.currentColor() == player.getDisc() && player instanceof AIPlayer) {
+      System.out.println("AI player's turn" + model.getConsecPasses());
       player.makeAMove(model, null);
     }
   }
@@ -35,6 +36,7 @@ public class ReversiController implements ControllerFeatures {
       Coordinate selectedHex = view.getSelectedHexagon();
       if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
         try {
+          System.out.println("Move confirmed to (" + selectedHex.getQ() + ", " + selectedHex.getR() + ")");
           player.makeAMove(model, selectedHex);
           view.initializeHexagons(model); // Update the view to reflect the new board state
           System.out.println("Move made to (" + selectedHex.getQ() + ", " + selectedHex.getR() + ")");
@@ -52,6 +54,7 @@ public class ReversiController implements ControllerFeatures {
   public void passTurn() {
     // Logic for passing a turn
     model.passTurn();
+    System.out.println("Turn passed by controller");
     view.initializeHexagons(model); // Update the view if necessary
     System.out.println("Turn passed");
   }
@@ -61,9 +64,12 @@ public class ReversiController implements ControllerFeatures {
     System.out.println(model.isGameOver());
     if (!model.isGameOver()) {
       if (model.currentColor() == player.getDisc()) {
+        System.out.println(model.getConsecPasses() + "before instanceof");
         if (player instanceof AIPlayer) {
+          System.out.println(model.getConsecPasses() + "after instanceof");
+          System.out.println("AI player's turn");
           player.makeAMove(model, null); // AI strategy chooses the move
-
+          System.out.println(model.getConsecPasses() + "after makeAMove");
         } else {
           // Human player - wait for user input
           // Maybe highlight possible moves or indicate it's the player's turn

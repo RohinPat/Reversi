@@ -91,4 +91,5 @@ public interface Reversi extends ReversiReadOnly {
    */
   ArrayList<Coordinate> getPossibleMoves();
 
+  int getConsecPasses();
 }
