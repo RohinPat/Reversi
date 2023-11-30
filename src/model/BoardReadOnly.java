@@ -31,4 +31,9 @@ public class BoardReadOnly implements ReversiReadOnly {
   public boolean isGameOver() {
     return board.isGameOver();
   }
+
+  @Override
+  public int getScore(Disc player) {
+    return board.getScore(player);
+  }
 }

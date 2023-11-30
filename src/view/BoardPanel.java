@@ -2,10 +2,7 @@ package view;
 
 import javax.swing.*;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Dimension;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -17,10 +14,11 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.awt.BorderLayout;
 
 import controller.ControllerFeatures;
+import model.Board;
 import model.Coordinate;
+import model.Disc;
 import model.ReversiReadOnly;
 
 /**
@@ -38,7 +36,9 @@ public class BoardPanel extends JPanel {
   private ComponentListener resize;
   private KeyListener keyInputListener;
   private ControllerFeatures controller;
-  private JLabel playerLabel;
+  private JLabel helloLabel;
+  private JLabel scoreLabel;
+  private ReversiReadOnly board;
 
   public void setController(ControllerFeatures cont){
     this.controller = cont;
@@ -48,16 +48,32 @@ public class BoardPanel extends JPanel {
   /**
    * Instantiates the panel and also opens listeners to ensure functionality for mouse input.
    * And also for resizing of the board.
-   * @param board the board to be displayed.
+   * @param board1 the board to be displayed.
    * @param width the width of the current window.
    * @param height the height of the current window.
    */
-  public BoardPanel(ReversiReadOnly board, int width, int height) {
+  public BoardPanel(ReversiReadOnly board1, int width, int height) {
 
+    board = board1;
     // Set layout to null for absolute positioning
     this.setLayout(null);
 
-    hexagons = new ConcurrentHashMap<Hexagon, Coordinate>();
+    // Initialize the hello label
+    helloLabel = new JLabel();
+    helloLabel.setForeground(Color.WHITE); // Set text color to white
+    helloLabel.setBounds(10, 10, width/2, 20); // Set position (x, y) and size (width, height)
+    helloLabel.setFont(new Font(helloLabel.getFont().getName(), Font.PLAIN, 5));
+    this.add(helloLabel);
+
+    scoreLabel = new JLabel();
+    scoreLabel.setForeground(Color.WHITE); // Set text color to white
+    scoreLabel.setBounds(width/2 + 1, 10, width/2 - 1, 20); // Set position (x, y) and size (width, height)
+    scoreLabel.setHorizontalAlignment(JLabel.RIGHT);
+    scoreLabel.setFont(new Font(helloLabel.getFont().getName(), Font.PLAIN, 5));
+    this.add(scoreLabel);
+
+    hexagons = new ConcurrentHashMap<>();
+
     this.setBackground(Color.DARK_GRAY);
     this.setPreferredSize(new Dimension(width, height));
     this.boardWidth = width;
@@ -76,9 +92,47 @@ public class BoardPanel extends JPanel {
 
   private void updatePlayerLabel() {
     if (controller != null) {
-      String playerText = "Player: " + controller.getPlayer();
-      playerLabel.setText(playerText);
+      String playerName;
+      Disc playerIdentity = controller.getPlayer();
+
+      if (playerIdentity.equals(Disc.BLACK)){
+        playerName = "Black"; // Replace with actual method name
+      }
+      else{
+        playerName = "White"; // Replace with actual method name
+      }
+
+      helloLabel.setText("Player: " + playerName);
     }
+  }
+
+  private void updateScoreLabel(ReversiReadOnly board) {
+    if (controller != null) {
+      int score;
+      Disc playerIdentity = controller.getPlayer();
+
+      if (playerIdentity.equals(Disc.BLACK)){
+        score = board.getScore(Disc.BLACK);
+      }
+      else{
+        score = board.getScore(Disc.WHITE);
+      }
+
+      scoreLabel.setText("Score: " + score);
+    }
+  }
+
+  private void adjustLabelSizeAndFont() {
+    // Calculate the new font size (for example, based on the height of the panel)
+    int newFontSize = Math.max(5, getHeight() / 20); // Adjust this calculation as needed
+
+    // Update the label's font size
+    helloLabel.setFont(new Font(helloLabel.getFont().getName(), Font.PLAIN, newFontSize));
+    scoreLabel.setFont(new Font(helloLabel.getFont().getName(), Font.PLAIN, newFontSize));
+
+    // Update the label's position and size if necessary
+    helloLabel.setBounds(10, 10, getWidth()/2, newFontSize + 10);
+    scoreLabel.setBounds(boardWidth/2 + 1, 10, boardWidth/2 - 1, newFontSize + 10); // Set position (x, y) and size (width, height)
   }
 
   private class hexagonMouseListener implements MouseListener {
@@ -134,6 +188,8 @@ public class BoardPanel extends JPanel {
           }
         }
       }
+
+      adjustLabelSizeAndFont();
 
       repaint();
     }
@@ -267,6 +323,9 @@ public class BoardPanel extends JPanel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
+
+    updatePlayerLabel();
+    updateScoreLabel(board);
 
     Graphics2D g2d = (Graphics2D) g;
 
