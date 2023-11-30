@@ -26,10 +26,23 @@ public class Board implements Reversi {
 
   private List<ReversiController> observers = new ArrayList<>();
 
+  /**
+   * Adds a {@link ReversiController} observer to the list of observers.
+   * This method is used to register a controller as an observer that should be notified
+   * of changes to the state of this object.
+   *
+   * @param controller The {@link ReversiController} instance to be added as an observer.
+   */
   public void addObserver(ReversiController controller) {
     observers.add(controller);
   }
 
+  /**
+   * Notifies all registered observers of a change in the object's state.
+   * This method is typically called to inform the observers about an update or change in the state
+   * that requires their attention, usually resulting in a change or refresh of their view or data.
+   * Each observer's `updateView` method is called to perform these updates.
+   */
   public void notifyObservers() {
     for (ReversiController controller : observers) {
       controller.updateView();
