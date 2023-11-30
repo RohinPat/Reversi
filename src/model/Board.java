@@ -175,7 +175,6 @@ public class Board implements Reversi {
    * used to swap turns either when a player passes their turn or at the end of their move
    */
   public void passTurn() {
-    System.out.println("turn passed3");
     if (gameState == GameState.INPROGRESS) {
       if (this.whoseTurn == Turn.BLACK) {
         this.whoseTurn = Turn.WHITE;
@@ -297,12 +296,8 @@ public class Board implements Reversi {
         int r = allcaptured.remove(0);
         this.placeDisc(q, r, this.currentColor());
       }
-      System.out.println("turn passed2");
       this.changeTurn();
-      System.out.println(this.consecPasses + "tism7");
-
       this.consecPasses = 0;
-      System.out.println(this.consecPasses + "tism7");
     } else {
       throw new IllegalStateException("The game has not been started yet no move can be made");
     }
@@ -418,7 +413,6 @@ public class Board implements Reversi {
     } else {
       gameState = GameState.WHITEWIN;
     }
-    System.out.println(gameState);
   }
 
   /**
@@ -427,15 +421,12 @@ public class Board implements Reversi {
    * @return True if the game is over, otherwise false.
    */
   public boolean isGameOver() {
-    System.out.println(this.consecPasses + "tismtismtismtismtismtismtis");
     if (gameState == GameState.PRE) {
       throw new IllegalStateException("The game has not been started this cannot be checked");
     }
-    System.out.println("isgameover" + this.consecPasses);
     // Check for consecutive passes
     if (consecPasses == 2) {
       
-      System.out.println("two passes");
       this.whoWins();
       return true;
     }
@@ -536,12 +527,6 @@ public class Board implements Reversi {
     } else {
       throw new IllegalStateException("The game has not been started yet no move can be made");
     }
-  }
-
-
-  @Override
-  public int getConsecPasses() {
-    return this.consecPasses;
   }
 }
 

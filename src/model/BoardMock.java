@@ -509,11 +509,6 @@ public class BoardMock implements Reversi {
     return possibleMoves;
   }
 
-  @Override
-  public int getConsecPasses() {
-    return 0;
-  }
-
   public StringBuilder getLog() {
     return log;
   }

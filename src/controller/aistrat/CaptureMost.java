@@ -28,7 +28,6 @@ public class CaptureMost implements ReversiStratagy {
   @Override
   public Coordinate chooseMove(Reversi model, Disc turn) {
     ArrayList<Coordinate> moves = model.getPossibleMoves();
-    System.out.println(model.getConsecPasses() + "sajkghasdjkghsdfjklghadfjkghasdjkfgh");
     return chooseMoveHelper(model, turn, moves);
   }
 
@@ -45,7 +44,6 @@ public class CaptureMost implements ReversiStratagy {
     int max = 0;
     Coordinate maxMove = null;
     Turn t = null;
-    System.out.println(model.getConsecPasses() + "tism");
     if (turn == Disc.BLACK) {
       t = Turn.BLACK;
     } else {
@@ -61,10 +59,8 @@ public class CaptureMost implements ReversiStratagy {
       }
     }
     if (maxMove == null) {
-      System.out.println("pass");
       return new Coordinate(model.getSize(), model.getSize());
     }
-    System.out.println(model.getConsecPasses());
     System.out.println(maxMove.getQ() + " " + maxMove.getR());
     return maxMove;
   }
