@@ -255,7 +255,7 @@ public class Board implements Reversi {
    *                                  disc captures.
    */
   public void makeMove(Coordinate dest) {
-    if (gameState == GameState.INPROGRESS) {
+    if (gameState != GameState.PRE) {
       if (!grid.keySet().contains(new Coordinate(dest.getQ(), dest.getR()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
       }

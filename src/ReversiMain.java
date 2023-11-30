@@ -10,7 +10,6 @@ import controller.aistrat.ReversiStratagy;
 import controller.aistrat.TryTwo;
 import model.Board;
 import model.Disc;
-import model.ReversiReadOnly;
 import view.BoardPanel;
 import view.ReversiFrame;
 import controller.HumanPlayer;
