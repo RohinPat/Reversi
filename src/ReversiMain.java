@@ -28,6 +28,8 @@ public final class ReversiMain {
     Player p2 = null;
     ReversiController controller2 = null;
     int argsUsed = 0;
+    System.out.println(argsUsed);
+    int maxArgs = args.length;
     int size = 0;
     if (args.length == 0) {
       b1 = new Board(4);
@@ -37,23 +39,28 @@ public final class ReversiMain {
     else {
       try {
         size = Integer.parseInt(args[argsUsed]);
+        argsUsed++;
       } catch (NumberFormatException e) {
         size = 4;
       }
       try {
         b1 = new Board(size);
-        argsUsed++;
+
+        System.out.println(argsUsed + "huh");
+
       } catch (IllegalArgumentException e) {
         System.out.println("Invalid board size");
       }
 
-    
+
       String player1 = args[argsUsed];
       argsUsed++;
+      System.out.println(argsUsed);
+
       ArrayList<String> moves = new ArrayList<String>();
       moves.add("capturemost");
       moves.add("capturecorners");
-      moves.add("avoidcorners"); 
+      moves.add("avoidcorners");
       if (player1.equals("human")) {
         p1 = new HumanPlayer(Disc.BLACK);
       }
@@ -62,13 +69,19 @@ public final class ReversiMain {
         String strat2 = null;
         String strat3 = null;
         argsUsed++;
+        System.out.println(argsUsed);
+
         if (moves.contains(args[argsUsed])) {
           strat2 = args[argsUsed];
           argsUsed++;
+          System.out.println(argsUsed);
+
         }
         if (moves.contains(args[argsUsed])) {
           strat3 = args[argsUsed];
           argsUsed++;
+          System.out.println(argsUsed);
+
         }
         ReversiStratagy strat = getStrat(strat1, strat2, strat3);
         p1 = new AIPlayer(Disc.BLACK, strat);
@@ -76,6 +89,8 @@ public final class ReversiMain {
 
       String player2 = args[argsUsed];
       argsUsed++;
+      System.out.println(argsUsed);
+
       if (player2.equals("human")) {
         p2 = new HumanPlayer(Disc.WHITE);
       }
@@ -84,13 +99,19 @@ public final class ReversiMain {
         String strat2 = null;
         String strat3 = null;
         argsUsed++;
+        System.out.println(argsUsed);
+
         if (moves.contains(args[argsUsed])) {
           strat2 = args[argsUsed];
           argsUsed++;
+          System.out.println(argsUsed);
+
         }
         if (moves.contains(args[argsUsed])) {
           strat3 = args[argsUsed];
           argsUsed++;
+          System.out.println(argsUsed);
+
         }
         ReversiStratagy strat = getStrat(strat1, strat2, strat3);
         p2 = new AIPlayer(Disc.WHITE, strat);
