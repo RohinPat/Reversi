@@ -428,7 +428,7 @@ public class Board implements Reversi {
    */
   public boolean isGameOver() {
     System.out.println(this.consecPasses + "tismtismtismtismtismtismtis");
-    if (gameState != GameState.INPROGRESS) {
+    if (gameState == GameState.PRE) {
       throw new IllegalStateException("The game has not been started this cannot be checked");
     }
     System.out.println("isgameover" + this.consecPasses);
