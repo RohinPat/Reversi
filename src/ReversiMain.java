@@ -22,8 +22,8 @@ public final class ReversiMain {
   public static void main(String[] args) {
     Board b1 = new Board(4);
 
-    Player p1 = new AIPlayer(Disc.BLACK, new CaptureMost());
-    Player p2 = new AIPlayer(Disc.WHITE, new CaptureMost());
+    Player p1 = new HumanPlayer(Disc.BLACK);
+    Player p2 = new HumanPlayer(Disc.WHITE);
 
     ReversiFrame viewPlayer1 = new ReversiFrame(b1);
     BoardPanel viewPanel1 = viewPlayer1.getBoardPanel();

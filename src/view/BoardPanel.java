@@ -17,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.awt.BorderLayout;
 
 import controller.ControllerFeatures;
 import model.Coordinate;
@@ -37,6 +38,7 @@ public class BoardPanel extends JPanel {
   private ComponentListener resize;
   private KeyListener keyInputListener;
   private ControllerFeatures controller;
+  private JLabel playerLabel;
 
   public void setController(ControllerFeatures cont){
     this.controller = cont;
@@ -51,6 +53,10 @@ public class BoardPanel extends JPanel {
    * @param height the height of the current window.
    */
   public BoardPanel(ReversiReadOnly board, int width, int height) {
+
+    // Set layout to null for absolute positioning
+    this.setLayout(null);
+
     hexagons = new ConcurrentHashMap<Hexagon, Coordinate>();
     this.setBackground(Color.DARK_GRAY);
     this.setPreferredSize(new Dimension(width, height));
@@ -66,6 +72,13 @@ public class BoardPanel extends JPanel {
     this.requestFocusInWindow();
 
     initializeHexagons(board);
+  }
+
+  private void updatePlayerLabel() {
+    if (controller != null) {
+      String playerText = "Player: " + controller.getPlayer();
+      playerLabel.setText(playerText);
+    }
   }
 
   private class hexagonMouseListener implements MouseListener {
@@ -183,7 +196,7 @@ public class BoardPanel extends JPanel {
       if (hex.contains(mouseX, mouseY)) {
         if (!hex.equals(selected)) {
           selected = hex;
-          System.out.println("(q : " + hex.q + ", r: " + hex.r + ")");
+          System.out.println("(q : " + hexagons.get(selected).getQ() + ", r: " + hexagons.get(selected).getQ() + ")");
         } else {
           selected = null;
         }
@@ -198,14 +211,14 @@ public class BoardPanel extends JPanel {
     }
 
     if (controller != null && selected != null) {
-      controller.selectHexagon(selected.q, selected.r);
+      controller.selectHexagon(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
     }
 
 
   }
 
   public Coordinate getSelectedHexagon(){
-    return new Coordinate(selected.q, selected.r);
+    return new Coordinate(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
   }
 
 
@@ -254,6 +267,7 @@ public class BoardPanel extends JPanel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
+
     Graphics2D g2d = (Graphics2D) g;
 
     // Draw hexagons

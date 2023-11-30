@@ -72,10 +72,12 @@ public class ReversiController implements ControllerFeatures {
     else{
       System.out.println("game over");
       System.out.println(model.getState());
-      System.exit(0);
     }
   }
 
+  public Disc getPlayer(){
+    return player.getDisc();
+  }
 
   // Additional methods for future functionalities can be added here
 }

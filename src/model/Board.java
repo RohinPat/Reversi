@@ -333,7 +333,7 @@ public class Board implements Reversi {
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
   public Disc getDiscAt(int q, int r) {
-    if (gameState == GameState.INPROGRESS) {
+    if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new Coordinate(q, r)))) {
         throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
