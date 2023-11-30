@@ -1,6 +1,11 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import controller.ControllerFeatures;
+import controller.HumanPlayer;
+import controller.Player;
+import controller.ReversiController;
+import controller.ReversiControllerMock;
 import controller.aistrat.AvoidCorners;
 import controller.aistrat.CaptureCorners;
 import controller.aistrat.CaptureMost;
@@ -21,7 +26,9 @@ import model.Coordinate;
 import model.Disc;
 import model.GameState;
 import model.Turn;
+import view.BoardPanel;
 import view.BoardRenderer;
+import view.ReversiFrame;
 
 /**
  * Contains unit tests for validating the functionality of the game's textual
@@ -681,5 +688,17 @@ public class ReversiTests {
             "q: 0 r: -3 s: 3\n" +
             "q: 2 r: -3 s: 1\n" +
             "getting possible moves and found:");
+  }
+
+  @Test
+  public void TestControllerSimple() {
+    Board newBoard = new Board(4);
+    ReversiFrame rf = new ReversiFrame(newBoard);
+    BoardPanel bp = rf.getBoardPanel();
+    HumanPlayer p1 = new HumanPlayer(Disc.BLACK);
+    ControllerFeatures controller = new ReversiControllerMock(newBoard, bp, p1);
+    
+
+
   }
 }
