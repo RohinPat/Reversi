@@ -24,10 +24,8 @@ public class Hexagon extends Path2D.Double {
    * @param y     y coordinate of the hexagon.
    * @param size  the size of the hexagon.
    * @param color the color of the disc to be placed in the hexagon.
-   * @param q     the q coordinate of the hexagon.
-   * @param r     the r coordinate of the hexagon.
    */
-  public Hexagon(double x, double y, double size, Disc color, int q, int r) {
+  public Hexagon(double x, double y, double size, Disc color) {
     // Start with an angle that points upwards
     if (color == Disc.BLACK) {
       this.color = Color.BLACK;
@@ -36,8 +34,6 @@ public class Hexagon extends Path2D.Double {
     } else if (color == Disc.EMPTY) {
       this.color = null;
     }
-    this.q = q;
-    this.r = r;
     this.x = x;
     this.y = y;
     this.size = size;

@@ -15,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import controller.ControllerFeatures;
 import model.Coordinate;
@@ -26,7 +28,7 @@ import model.ReversiReadOnly;
  * Sizing.
  */
 public class BoardPanel extends JPanel {
-  private ArrayList<Hexagon> hexagons;
+  private ConcurrentHashMap<Hexagon, Coordinate> hexagons;
   private Hexagon selected;
   private double hexSize = 30;
   private int boardWidth;
@@ -49,7 +51,7 @@ public class BoardPanel extends JPanel {
    * @param height the height of the current window.
    */
   public BoardPanel(ReversiReadOnly board, int width, int height) {
-    hexagons = new ArrayList<>();
+    hexagons = new ConcurrentHashMap<Hexagon, Coordinate>();
     this.setBackground(Color.DARK_GRAY);
     this.setPreferredSize(new Dimension(width, height));
     this.boardWidth = width;
@@ -112,7 +114,7 @@ public class BoardPanel extends JPanel {
       initializeHexagons(this.board);
 
       if (selectedQ != -1 && selectedR != -1) {
-        for (Hexagon hex : hexagons) {
+        for (Hexagon hex : hexagons.keySet()) {
           if (hex.q == selectedQ && hex.r == selectedR) {
             selected = hex;
             break;
@@ -177,7 +179,7 @@ public class BoardPanel extends JPanel {
 
   private void handleHexagonClick(int mouseX, int mouseY) {
     boolean inBounds = false;
-    for (Hexagon hex : hexagons) {
+    for (Hexagon hex : hexagons.keySet()) {
       if (hex.contains(mouseX, mouseY)) {
         if (!hex.equals(selected)) {
           selected = hex;
@@ -225,8 +227,8 @@ public class BoardPanel extends JPanel {
     for (int upperRow = 0; upperRow < boardSize - 1; upperRow++) {
       double x = startX + (hexWidth / 2) * (boardSize - 1 - upperRow);
       for (int index = -upperRow; index < boardSize; index++) {
-        hexagons.add(new Hexagon(x, y, hexSize, board.getDiscAt(index, -(boardSize - 1 - upperRow)),
-                index, -(boardSize - 1 - upperRow)));
+        hexagons.put(new Hexagon(x, y, hexSize, board.getDiscAt(index, -(boardSize - 1 - upperRow))),
+                new Coordinate(index, -(boardSize - 1 - upperRow)));
         x += hexSize * Math.sqrt(3); // Positioning for the next hexagon in the row
       }
       y += hexSize * 3 / 2;
@@ -236,7 +238,7 @@ public class BoardPanel extends JPanel {
     for (int lowerRow = 0; lowerRow < boardSize; lowerRow++) {
       double x = startX + (hexWidth * lowerRow) / 2;
       for (int index = -(boardSize - 1); index < boardSize - lowerRow; index++) {
-        hexagons.add(new Hexagon(x, y, hexSize, board.getDiscAt(index, lowerRow), index, lowerRow));
+        hexagons.put(new Hexagon(x, y, hexSize, board.getDiscAt(index, lowerRow)), new Coordinate( index, lowerRow));
         x += hexSize * Math.sqrt(3); // Positioning for the next hexagon in the row
       }
       y += hexSize * 3 / 2;
@@ -255,7 +257,7 @@ public class BoardPanel extends JPanel {
     Graphics2D g2d = (Graphics2D) g;
 
     // Draw hexagons
-    for (Hexagon hex : hexagons) {
+    for (Hexagon hex : hexagons.keySet()) {
       if (hex.equals(selected)) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hex);
