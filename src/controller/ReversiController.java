@@ -5,11 +5,25 @@ import model.Board;
 import model.Coordinate;
 import model.Disc;
 
+/**
+ * The {@code ReversiController} class is responsible for controlling the game logic and
+ * interaction between the model and the view in a Reversi game.
+ */
 public class ReversiController implements ControllerFeatures {
   private Board model;
   private BoardPanel view;
   private Player player;
 
+  /**
+   * Constructs a {@code ReversiController} with the specified model, view, and player.
+   * Initializes the controller with the given components and sets up the view's
+   * reference to this controller. If the player is an AI and it's their turn, the AI
+   * player may make a move immediately.
+   *
+   * @param model  The {@link Board} model representing the game board and state.
+   * @param view   The {@link BoardPanel} view displaying the game board.
+   * @param player The {@link Player} representing the current player.
+   */
   public ReversiController(Board model, BoardPanel view, Player player) {
     this.model = model;
     this.view = view;
@@ -34,16 +48,17 @@ public class ReversiController implements ControllerFeatures {
       Coordinate selectedHex = view.getSelectedHexagon();
       if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
         try {
-          System.out.println("Move confirmed to (" + selectedHex.getQ() + ", " + selectedHex.getR() + ")");
+          System.out.println("Move confirmed to (" + selectedHex.getQ() + ", " +
+                  selectedHex.getR() + ")");
           player.makeAMove(model, selectedHex);
           view.initializeHexagons(model); // Update the view to reflect the new board state
-          System.out.println("Move made to (" + selectedHex.getQ() + ", " + selectedHex.getR() + ")");
+          System.out.println("Move made to (" + selectedHex.getQ() + ", " +
+                  selectedHex.getR() + ")");
         } catch (IllegalArgumentException e) {
           view.showInvalidMoveDialog(e.getMessage());
         }
       }
-    }
-    else{
+    } else {
       view.showInvalidMoveDialog("Not your turn right now");
     }
   }
@@ -57,7 +72,12 @@ public class ReversiController implements ControllerFeatures {
     System.out.println("Turn passed");
   }
 
-  public void updateView(){
+  /**
+   * Updates the view to reflect the current game state. If the game is not over and it's
+   * the AI player's turn, the AI may make a move. Otherwise, it may highlight possible
+   * moves or indicate that it's the player's turn if it's a human player.
+   */
+  public void updateView() {
     view.initializeHexagons(model);
     if (!model.isGameOver()) {
       if (model.currentColor() == player.getDisc()) {
@@ -68,17 +88,28 @@ public class ReversiController implements ControllerFeatures {
           // Maybe highlight possible moves or indicate it's the player's turn
         }
       }
-    }
-    else{
+    } else {
       System.out.println("game over");
       String end = model.getState().toString();
       view.showInvalidMoveDialog("GAME IS OVER" + end);
     }
   }
 
-  public Disc getPlayer(){
+  /**
+   * Retrieves the current player's disc color (either black or white).
+   *
+   * @return The {@link Disc} representing the color of the current player.
+   */
+  public Disc getPlayer() {
     return player.getDisc();
   }
 
-  // Additional methods for future functionalities can be added here
+  /**
+   * Retrieves the current player whose turn it is.
+   *
+   * @return The {@link Player} representing the current player.
+   */
+  public Player getTurn() {
+    return player;
+  }
 }

@@ -142,7 +142,7 @@ public class Board implements Reversi {
    * @return The disc color of the current player.
    */
   public Disc currentColor() {
-    if (gameState == GameState.INPROGRESS) {
+    if (gameState != GameState.PRE) {
       if (this.whoseTurn == Turn.BLACK) {
         return Disc.BLACK;
       } else {
@@ -426,7 +426,7 @@ public class Board implements Reversi {
     }
     // Check for consecutive passes
     if (consecPasses == 2) {
-      
+
       this.whoWins();
       return true;
     }
@@ -516,6 +516,14 @@ public class Board implements Reversi {
     return possibleMoves;
   }
 
+  /**
+   * Changes the current turn to the next player's turn in the Reversi game.
+   * If the game is in progress, this method toggles the turn between black and white players.
+   * Additionally, it increments the count of consecutive passes.
+   *
+   * @throws IllegalStateException if the game has not been started yet, indicating that
+   *                               no move can be made until the game begins.
+   */
   public void changeTurn() {
     if (gameState == GameState.INPROGRESS) {
       if (this.whoseTurn == Turn.BLACK) {

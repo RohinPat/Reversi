@@ -12,6 +12,7 @@ import model.ReversiReadOnly;
 public class ReversiFrame extends JFrame {
 
   BoardPanel bp;
+
   /**
    * Constructs a {@code ReversiFrame} with the specified {@link ReversiReadOnly} board.
    * Initializes the game board and sets up the frame properties including size,
@@ -29,7 +30,14 @@ public class ReversiFrame extends JFrame {
     this.setLocationRelativeTo(null); // Center the frame on the screen
   }
 
-  public BoardPanel getBoardPanel(){
+  /**
+   * Retrieves the {@link BoardPanel} associated with this {@code ReversiFrame}.
+   *
+   * @return The {@link BoardPanel} object that displays the Reversi game board
+   *         within this frame. This panel allows access to the current state
+   *         of the game, including the positions of all pieces on the board.
+   */
+  public BoardPanel getBoardPanel() {
     return bp;
   }
 }

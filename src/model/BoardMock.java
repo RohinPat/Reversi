@@ -509,6 +509,12 @@ public class BoardMock implements Reversi {
     return possibleMoves;
   }
 
+  /**
+   * Retrieves the log of events and messages generated during the Reversi game.
+   *
+   * @return A {@link StringBuilder} containing the log of events and messages recorded
+   *         during the course of the game.
+   */
   public StringBuilder getLog() {
     return log;
   }

@@ -13,8 +13,6 @@ public class Hexagon extends Path2D.Double {
   Color color;
   double x;
   double y;
-  int q;
-  int r;
   double size;
 
   /**

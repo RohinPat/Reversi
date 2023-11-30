@@ -40,7 +40,7 @@ public class CaptureCorners implements ReversiStratagy {
         return move;
       }
     }
-    return new Coordinate(size, size);
+    return new Coordinate(model.getSize(), model.getSize());
   }
 
 

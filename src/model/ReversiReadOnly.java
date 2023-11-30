@@ -41,6 +41,11 @@ public interface ReversiReadOnly {
   boolean isGameOver();
 
 
+  /**
+   * Returns the current score of a specified player.
+   *
+   * @return True if the game is over, otherwise false.
+   */
   int getScore(Disc player);
 
 } 
