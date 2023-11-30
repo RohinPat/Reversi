@@ -58,6 +58,7 @@ public class ReversiController implements ControllerFeatures {
 
   public void updateView(){
     view.initializeHexagons(model);
+    System.out.println(model.isGameOver());
     if (!model.isGameOver()) {
       if (model.currentColor() == player.getDisc()) {
         if (player instanceof AIPlayer) {

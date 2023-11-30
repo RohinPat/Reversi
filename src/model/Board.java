@@ -414,6 +414,7 @@ public class Board implements Reversi {
     } else {
       gameState = GameState.WHITEWIN;
     }
+    System.out.println(gameState);
   }
 
   /**
@@ -428,6 +429,9 @@ public class Board implements Reversi {
 
     // Check for consecutive passes
     if (consecPasses == 2) {
+      
+      System.out.println("two passes");
+
       this.whoWins();
       return true;
     }

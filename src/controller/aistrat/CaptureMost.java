@@ -59,8 +59,10 @@ public class CaptureMost implements ReversiStratagy {
       }
     }
     if (maxMove == null) {
+      System.out.println("pass");
       return new Coordinate(model.getSize(), model.getSize());
     }
+    System.out.println(maxMove.getQ() + " " + maxMove.getR());
     return maxMove;
   }
 }
