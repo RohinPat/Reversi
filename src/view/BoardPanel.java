@@ -35,9 +35,6 @@ public class BoardPanel extends JPanel {
   private double hexSize = 30;
   private int boardWidth;
   private int boardHeight;
-  private MouseListener hexagonSelect;
-  private ComponentListener resize;
-  private KeyListener keyInputListener;
   private ControllerFeatures controller;
   private final JLabel helloLabel;
   private final JLabel scoreLabel;
@@ -84,12 +81,12 @@ public class BoardPanel extends JPanel {
     this.setPreferredSize(new Dimension(width, height));
     this.boardWidth = width;
     this.boardHeight = height;
-    this.hexagonSelect = new hexagonMouseListener();
-    this.resize = new resizeListener(board);
-    this.addMouseListener(this.hexagonSelect);
-    this.addComponentListener(this.resize);
-    this.keyInputListener = new KeyInputListener();
-    this.addKeyListener(this.keyInputListener);
+    MouseListener hexagonSelect = new HexagonMouseListener();
+    ComponentListener resize = new ResizeListener(board);
+    this.addMouseListener(hexagonSelect);
+    this.addComponentListener(resize);
+    KeyListener keyInputListener = new KeyInputListener();
+    this.addKeyListener(keyInputListener);
     this.setFocusable(true);
     this.requestFocusInWindow();
 
@@ -191,7 +188,7 @@ public class BoardPanel extends JPanel {
    * necessary methods for mouse click handling, while leaving the other mouse event
    * methods unimplemented.
    */
-  private class hexagonMouseListener implements MouseListener {
+  private class HexagonMouseListener implements MouseListener {
 
     /**
      * Invoked when a hexagon on the game board is clicked. This method delegates
@@ -233,17 +230,17 @@ public class BoardPanel extends JPanel {
    * adjusts the hexagon size, board dimensions, and label sizes/fonts when the
    * component (frame) is resized.
    */
-  private class resizeListener implements ComponentListener {
+  private class ResizeListener implements ComponentListener {
     private final ReversiReadOnly board;
 
     /**
-     * Constructs a {@code resizeListener} with the specified {@link ReversiReadOnly}
+     * Constructs a {@code ResizeListener} with the specified {@link ReversiReadOnly}
      * board to be used for resizing calculations.
      *
      * @param board The {@link ReversiReadOnly} board representing the current state
      *              of the Reversi game, used for determining hexagon size and positions.
      */
-    public resizeListener(ReversiReadOnly board) {
+    public ResizeListener(ReversiReadOnly board) {
       this.board = board;
     }
 
