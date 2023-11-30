@@ -31,69 +31,71 @@ public final class ReversiMain {
     int size = 0;
     if (args.length == 0) {
       b1 = new Board(4);
-    }
-
-    try {
-      size = Integer.parseInt(args[argsUsed]);
-    } catch (NumberFormatException e) {
-      size = 4;
-    }
-    try {
-      b1 = new Board(size);
-      argsUsed++;
-    } catch (IllegalArgumentException e) {
-      System.out.println("Invalid board size");
-    }
-
-    
-    String player1 = args[argsUsed];
-    argsUsed++;
-    ArrayList<String> moves = new ArrayList<String>();
-    moves.add("capturemost");
-    moves.add("capturecorners");
-    moves.add("avoidcorners"); 
-    if (player1.equals("human")) {
       p1 = new HumanPlayer(Disc.BLACK);
-    }
-    else if (player1.equals("ai")) {
-      String strat1 = args[argsUsed];
-      String strat2 = null;
-      String strat3 = null;
-      argsUsed++;
-      if (moves.contains(args[argsUsed])) {
-        strat2 = args[argsUsed];
-        argsUsed++;
-      }
-      if (moves.contains(args[argsUsed])) {
-        strat3 = args[argsUsed];
-        argsUsed++;
-      }
-      ReversiStratagy strat = getStrat(strat1, strat2, strat3);
-      p1 = new AIPlayer(Disc.BLACK, strat);
-    }
-
-    String player2 = args[argsUsed];
-    argsUsed++;
-    if (player2.equals("human")) {
       p2 = new HumanPlayer(Disc.WHITE);
     }
-    else if (player2.equals("ai")) {
-      String strat1 = args[argsUsed];
-      String strat2 = null;
-      String strat3 = null;
-      argsUsed++;
-      if (moves.contains(args[argsUsed])) {
-        strat2 = args[argsUsed];
-        argsUsed++;
+    else {
+      try {
+        size = Integer.parseInt(args[argsUsed]);
+      } catch (NumberFormatException e) {
+        size = 4;
       }
-      if (moves.contains(args[argsUsed])) {
-        strat3 = args[argsUsed];
+      try {
+        b1 = new Board(size);
         argsUsed++;
+      } catch (IllegalArgumentException e) {
+        System.out.println("Invalid board size");
       }
-      ReversiStratagy strat = getStrat(strat1, strat2, strat3);
-      p2 = new AIPlayer(Disc.WHITE, strat);
-    }
 
+    
+      String player1 = args[argsUsed];
+      argsUsed++;
+      ArrayList<String> moves = new ArrayList<String>();
+      moves.add("capturemost");
+      moves.add("capturecorners");
+      moves.add("avoidcorners"); 
+      if (player1.equals("human")) {
+        p1 = new HumanPlayer(Disc.BLACK);
+      }
+      else if (player1.equals("ai")) {
+        String strat1 = args[argsUsed];
+        String strat2 = null;
+        String strat3 = null;
+        argsUsed++;
+        if (moves.contains(args[argsUsed])) {
+          strat2 = args[argsUsed];
+          argsUsed++;
+        }
+        if (moves.contains(args[argsUsed])) {
+          strat3 = args[argsUsed];
+          argsUsed++;
+        }
+        ReversiStratagy strat = getStrat(strat1, strat2, strat3);
+        p1 = new AIPlayer(Disc.BLACK, strat);
+      }
+
+      String player2 = args[argsUsed];
+      argsUsed++;
+      if (player2.equals("human")) {
+        p2 = new HumanPlayer(Disc.WHITE);
+      }
+      else if (player2.equals("ai")) {
+        String strat1 = args[argsUsed];
+        String strat2 = null;
+        String strat3 = null;
+        argsUsed++;
+        if (moves.contains(args[argsUsed])) {
+          strat2 = args[argsUsed];
+          argsUsed++;
+        }
+        if (moves.contains(args[argsUsed])) {
+          strat3 = args[argsUsed];
+          argsUsed++;
+        }
+        ReversiStratagy strat = getStrat(strat1, strat2, strat3);
+        p2 = new AIPlayer(Disc.WHITE, strat);
+      }
+    }
     try {
       ReversiFrame viewPlayer1 = new ReversiFrame(b1);
       BoardPanel viewPanel1 = viewPlayer1.getBoardPanel();
