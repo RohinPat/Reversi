@@ -44,11 +44,13 @@ public class ReversiControllerMock implements ControllerFeatures {
 
   @Override
   public void confirmMove() {
+    System.out.println("Confirms the Move for " + player.getDisc() + "and trys to make the move");
     if (player.isPlayerTurn(model)) {
       Coordinate selectedHex = view.getSelectedHexagon();
       if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
         try {
           player.makeAMove(model, selectedHex);
+          System.out.println("move made");
           view.initializeHexagons(model); // Update the view to reflect the new board state
         } catch (IllegalArgumentException e) {
           view.showInvalidMoveDialog(e.getMessage());
@@ -62,6 +64,7 @@ public class ReversiControllerMock implements ControllerFeatures {
   @Override
   public void passTurn() {
     // Logic for passing a turn
+    System.out.println("Passes the Turn");
     model.passTurn();
     view.initializeHexagons(model); // Update the view if necessary
   }
@@ -72,12 +75,15 @@ public class ReversiControllerMock implements ControllerFeatures {
    * moves or indicate that it's the player's turn if it's a human player.
    */
   public void updateView() {
+    System.out.println("Updates the View");
     view.initializeHexagons(model);
     if (!model.isGameOver()) {
       if (model.currentColor() == player.getDisc()) {
         if (player instanceof AIPlayer) {
+          System.out.print("AI Player makes a move: " + player.getDisc());
           player.makeAMove(model, null); // AI strategy chooses the move
         } else {
+          System.out.print("Human Player makes a move" + player.getDisc());
           // Human player - wait for user input
           // Maybe highlight possible moves or indicate it's the player's turn
         }
@@ -95,6 +101,7 @@ public class ReversiControllerMock implements ControllerFeatures {
    * @return The {@link Disc} representing the color of the current player.
    */
   public Disc getPlayer() {
+    System.out.println("Gets the Players Disc: " + player.getDisc());
     return player.getDisc();
   }
 
