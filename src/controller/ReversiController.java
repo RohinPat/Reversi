@@ -71,7 +71,8 @@ public class ReversiController implements ControllerFeatures {
     }
     else{
       System.out.println("game over");
-      System.out.println(model.getState());
+      String end = model.getState().toString();
+      view.showInvalidMoveDialog("GAME IS OVER" + end);
     }
   }
 
