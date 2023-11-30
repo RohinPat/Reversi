@@ -318,10 +318,8 @@ public class BoardPanel extends JPanel {
     public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_M) {
         controller.confirmMove();
-        System.out.println("move selected");
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
         controller.passTurn();
-        System.out.println("pass selected");
       }
     }
 
@@ -370,8 +368,6 @@ public class BoardPanel extends JPanel {
       if (hex.contains(mouseX, mouseY)) {
         if (!hex.equals(selected)) {
           selected = hex;
-          System.out.println("(q : " + hexagons.get(selected).getQ() + ", r: " +
-                  hexagons.get(selected).getQ() + ")");
         } else {
           selected = null;
         }

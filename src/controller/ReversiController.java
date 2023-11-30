@@ -48,12 +48,8 @@ public class ReversiController implements ControllerFeatures {
       Coordinate selectedHex = view.getSelectedHexagon();
       if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
         try {
-          System.out.println("Move confirmed to (" + selectedHex.getQ() + ", " +
-                  selectedHex.getR() + ")");
           player.makeAMove(model, selectedHex);
           view.initializeHexagons(model); // Update the view to reflect the new board state
-          System.out.println("Move made to (" + selectedHex.getQ() + ", " +
-                  selectedHex.getR() + ")");
         } catch (IllegalArgumentException e) {
           view.showInvalidMoveDialog(e.getMessage());
         }
@@ -67,9 +63,7 @@ public class ReversiController implements ControllerFeatures {
   public void passTurn() {
     // Logic for passing a turn
     model.passTurn();
-    System.out.println("Turn passed by controller");
     view.initializeHexagons(model); // Update the view if necessary
-    System.out.println("Turn passed");
   }
 
   /**
@@ -89,7 +83,6 @@ public class ReversiController implements ControllerFeatures {
         }
       }
     } else {
-      System.out.println("game over");
       String end = model.getState().toString();
       view.showInvalidMoveDialog("GAME IS OVER" + end);
       System.exit(0);
