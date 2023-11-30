@@ -72,10 +72,8 @@ public final class ReversiMain {
         ReversiStratagy strat = getStrat(strat1, strat2, strat3);
         p1 = new AIPlayer(Disc.BLACK, strat);
       }
-
       String player2 = args[argsUsed];
       argsUsed++;
-
       if (player2.equals("human")) {
         p2 = new HumanPlayer(Disc.WHITE);
       }
@@ -92,7 +90,6 @@ public final class ReversiMain {
           if (moves.contains(args[argsUsed])) {
             strat3 = args[argsUsed];
             argsUsed++;
-
           }
         } catch (ArrayIndexOutOfBoundsException e) {
           //stops from checking args that arent there
@@ -115,9 +112,7 @@ public final class ReversiMain {
     } catch (IllegalArgumentException e) {
       System.out.println("error in inputs");
     }
-
     controller2.updateView();
-
   }
 
   private static ReversiStratagy getStrat(String strat1, String strat2, String strat3) {
