@@ -377,8 +377,22 @@ public class BoardPanel extends JPanel {
       selected = null;
       repaint();
     }
+    if (controller != null && selected != null) {
+      controller.selectHexagon(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
+    }
   }
-  
+
+  /**
+   * Retrieves the coordinates of the currently selected hexagon on the game board.
+   *
+   * @return A {@link Coordinate} object representing the coordinates (q, r) of the
+   *         currently selected hexagon. If no hexagon is currently selected, this
+   *         method returns null.
+   */
+  public Coordinate getSelectedHexagon() {
+    return new Coordinate(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
+  }
+
 
 
   /**

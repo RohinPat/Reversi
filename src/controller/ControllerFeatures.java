@@ -9,6 +9,13 @@ import model.Disc;
  */
 public interface ControllerFeatures {
 
+  /**
+   * Handles the selection of a hexagon on the game board based on its coordinates (q, r).
+   *
+   * @param q The column coordinate of the selected hexagon.
+   * @param r The row coordinate of the selected hexagon.
+   */
+  void selectHexagon(int q, int r);
 
   /**
    * Confirms a move in the Reversi game. This method is called when a player wants to make
