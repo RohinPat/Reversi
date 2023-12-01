@@ -106,4 +106,8 @@ public class ReversiController implements ControllerFeatures {
   public Player getTurn() {
     return player;
   }
+
+  public String getLog() {
+    return "";
+  }
 }

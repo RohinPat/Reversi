@@ -6,6 +6,7 @@ import java.util.Map;
 
 import java.util.ArrayList;
 
+import controller.ControllerFeatures;
 import controller.ReversiController;
 
 /**
@@ -24,7 +25,7 @@ public class Board implements Reversi {
   private int consecPasses;
   private GameState gameState;
 
-  private List<ReversiController> observers = new ArrayList<>();
+  private List<ControllerFeatures> observers = new ArrayList<>();
 
   /**
    * Adds a {@link ReversiController} observer to the list of observers.
@@ -33,7 +34,7 @@ public class Board implements Reversi {
    *
    * @param controller The {@link ReversiController} instance to be added as an observer.
    */
-  public void addObserver(ReversiController controller) {
+  public void addObserver(ControllerFeatures controller) {
     observers.add(controller);
   }
 
@@ -44,7 +45,7 @@ public class Board implements Reversi {
    * Each observer's `updateView` method is called to perform these updates.
    */
   public void notifyObservers() {
-    for (ReversiController controller : observers) {
+    for (ControllerFeatures controller : observers) {
       controller.updateView();
     }
   }

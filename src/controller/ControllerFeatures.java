@@ -42,4 +42,8 @@ public interface ControllerFeatures {
    * @return The {@link Player} representing the current player.
    */
   Player getTurn();
+
+  String getLog();
+
+  void updateView();
 }

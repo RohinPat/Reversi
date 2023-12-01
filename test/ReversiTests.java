@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import controller.AIPlayer;
 import controller.ControllerFeatures;
 import controller.HumanPlayer;
 import controller.Player;
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 import model.Board;
@@ -692,13 +694,26 @@ public class ReversiTests {
 
   @Test
   public void TestControllerSimple() {
-    Board newBoard = new Board(4);
-    ReversiFrame rf = new ReversiFrame(newBoard);
-    BoardPanel bp = rf.getBoardPanel();
-    HumanPlayer p1 = new HumanPlayer(Disc.BLACK);
-    ControllerFeatures controller = new ReversiControllerMock(newBoard, bp, p1);
+    Board b1 = new Board(4);
+    AIPlayer p1 = new AIPlayer(Disc.BLACK, new CaptureMost());
+    AIPlayer p2 = new AIPlayer(Disc.WHITE, new CaptureMost());
+    ReversiFrame viewPlayer1 = new ReversiFrame(b1);
+    BoardPanel viewPanel1 = viewPlayer1.getBoardPanel();
+    ControllerFeatures controller = new ReversiControllerMock(b1, viewPanel1, p1);
+    b1.addObserver(controller);
+    ReversiFrame viewPlayer2 = new ReversiFrame(b1);
+    BoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
+    ControllerFeatures controller2 = new ReversiControllerMock(b1, viewPanel2, p2);
+    b1.addObserver(controller2);
+    viewPlayer1.setVisible(true);
+    viewPlayer2.setVisible(true);
+
+    controller2.updateView();
+    controller.passTurn();
+    controller2.passTurn();
+    Assert.assertEquals(controller.getLog(), "hello");
     
-
-
   }
+
+
 }
