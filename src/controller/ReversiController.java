@@ -108,6 +108,6 @@ public class ReversiController implements ControllerFeatures {
   }
 
   public String getLog() {
-    return "";
+    return null;
   }
 }

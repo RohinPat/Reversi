@@ -705,14 +705,41 @@ public class ReversiTests {
     BoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
     ControllerFeatures controller2 = new ReversiControllerMock(b1, viewPanel2, p2);
     b1.addObserver(controller2);
-    viewPlayer1.setVisible(true);
-    viewPlayer2.setVisible(true);
-
     controller2.updateView();
-    controller.passTurn();
-    controller2.passTurn();
-    Assert.assertEquals(controller.getLog(), "hello");
-    
+
+    Assert.assertEquals(controller.getLog().toString(), "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "AI Player makes a move: BLACK\n" +
+            "Updates the View\n");
   }
 
 
