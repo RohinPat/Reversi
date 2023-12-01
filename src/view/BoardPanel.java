@@ -29,7 +29,7 @@ import model.ReversiReadOnly;
  * Starts by taking in a preset size, but allows for resizability with dynamic hexagon.
  * Sizing.
  */
-public class BoardPanel extends JPanel {
+public class BoardPanel extends JPanel implements IBoardPanel {
   private final ConcurrentMap<Hexagon, Coordinate> hexagons;
   private Hexagon selected;
   private double hexSize = 30;
@@ -359,7 +359,7 @@ public class BoardPanel extends JPanel {
    * @param mouseX The x-coordinate of the mouse click.
    * @param mouseY The y-coordinate of the mouse click.
    */
-  private void handleHexagonClick(int mouseX, int mouseY) {
+  public void handleHexagonClick(int mouseX, int mouseY) {
     boolean inBounds = false;
     for (Hexagon hex : hexagons.keySet()) {
       if (hex.contains(mouseX, mouseY)) {
