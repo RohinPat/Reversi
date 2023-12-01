@@ -52,3 +52,16 @@ System.out.println(renderer.toString()); // Display the board
 - **model Package:** Contains logic for the game's model, including board, cells, coordinates, and game states.
 - **view Package:** Manages the user interface, rendering the game board and handling user interactions.
 - **Controller Package:** Implements player functionalities and AI strategies, orchestrating the game play.
+
+### Changes for Assignment 3
+
+- Created features interface for the controller
+  - ControllerFeatures Interface - helped create the mock for testing as well
+- Created the entire controller
+  - AIPlayer - controls when to use the ai and chooses moves using the aistrat
+  - HumanPlayer - controls when a player is making the move to either make a move or pass a move
+  - ReversiController - helps handle all the inputs between the model and the view
+- Added listeners in our model and our view and follower the builder patterns
+- flushed out our human and ai player classes
+- enhanced the view to sync between multiple views and display each player, their score, and whose turn it is
+- added dynamic resizing for all those features
