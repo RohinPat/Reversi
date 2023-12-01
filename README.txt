@@ -64,4 +64,5 @@ System.out.println(renderer.toString()); // Display the board
 - Added listeners in our model and our view and follower the builder patterns
 - flushed out our human and ai player classes
 - enhanced the view to sync between multiple views and display each player, their score, and whose turn it is
+  - BoardPanel - updated to show the players game color, the score of the player whose display it is and whose turn it is in the game
 - added dynamic resizing for all those features
