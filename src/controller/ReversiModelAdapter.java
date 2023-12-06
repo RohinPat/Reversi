@@ -1,5 +1,6 @@
 package controller;
 
+import controller.BoardAdapter;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
@@ -19,7 +20,7 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
 
   @Override
   public IBoard getBoard() throws IllegalStateException {
-    return null;
+    return new BoardAdapter(currentModel);
   }
 
   @Override
