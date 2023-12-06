@@ -16,7 +16,7 @@ public class StratagyAdapter implements ReversiStratagy {
     private final InFallableReversiStrategy stratagy;
     private final TopLeftTieBreaker tieBreaker;
 
-    public StratagyAdapter(InFallableReversiStrategy stratagy, TopLeftTieBreaker tieBreaker) {
+    public StratagyAdapter(InFallableReversiStrategy stratagy) {
         this.stratagy = stratagy;
         this.tieBreaker = new TopLeftTieBreaker();
     }

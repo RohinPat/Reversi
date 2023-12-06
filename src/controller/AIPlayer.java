@@ -29,9 +29,9 @@ public class AIPlayer implements Player {
     this.strategy = strategy;
   }
 
-  public AIPlayer(Disc playerDisc, InFallableReversiStrategy infallibleStrategy, TopLeftTieBreaker tieBreaker) {
+  public AIPlayer(Disc playerDisc, InFallableReversiStrategy infallibleStrategy) {
     this.playerDisc = playerDisc;
-    this.strategy = new StratagyAdapter(infallibleStrategy, tieBreaker);
+    this.strategy = new StratagyAdapter(infallibleStrategy);
   }
 
   @Override
