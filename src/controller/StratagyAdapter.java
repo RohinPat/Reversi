@@ -32,9 +32,9 @@ public class StratagyAdapter implements ReversiStratagy {
  
     private PlayerOwnership discToOwnership(Disc disc) {
         if (disc == Disc.BLACK) {
-            return PlayerOwnership.PLAYER_1;
-        } else if (disc == Disc.WHITE) {
             return PlayerOwnership.PLAYER_2;
+        } else if (disc == Disc.WHITE) {
+            return PlayerOwnership.PLAYER_1;
         } else if (disc == Disc.EMPTY) {
             return PlayerOwnership.UNOCCUPIED;
         } else {
