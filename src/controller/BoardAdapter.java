@@ -47,12 +47,12 @@ public class BoardAdapter implements IBoard {
 
   @Override
   public int getWidth() {
-    return 0;
+    return (2 * currentBoard.getSize()) - 1;
   }
 
   @Override
   public int getHeight() {
-    return 0;
+    return (2 * currentBoard.getSize()) - 1;
   }
 
   @Override

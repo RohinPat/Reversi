@@ -589,5 +589,9 @@ public class Board implements Reversi {
       throw new IllegalStateException("The game has not been started yet no move can be made");
     }
   }
+
+  public Map<Coordinate, Cell> getMap(){
+    return grid;
+  }
 }
 
