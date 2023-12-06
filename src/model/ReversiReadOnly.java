@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An interface to create a version of Board in which you can only call observer.
@@ -60,5 +61,7 @@ public interface ReversiReadOnly {
   HashMap<Coordinate, Cell> createCopyOfBoard();
 
   boolean validMove(Coordinate coor, Disc currentTurn);
+
+  Map<Coordinate, Cell> getMap();
 
 } 

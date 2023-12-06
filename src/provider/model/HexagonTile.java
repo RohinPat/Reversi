@@ -17,7 +17,7 @@ public class HexagonTile {
    * @param playerOwnership The ownership status of the tile.
    * @throws NullPointerException if `playerOwnership` is `null`.
    */
-  HexagonTile(PlayerOwnership playerOwnership) {
+  public HexagonTile(PlayerOwnership playerOwnership) {
     this.playerOwnership = Objects.requireNonNull(playerOwnership);
   }
 
