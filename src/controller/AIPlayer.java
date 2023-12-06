@@ -13,7 +13,7 @@ import controller.StratagyAdapter;
  * It implements the {@link Player} interface and provides methods for making moves
  * based on a specified strategy.
  */
-public class AIPlayer implements Player {
+public class AIPlayer implements Player{
   private Disc playerDisc;
   private ReversiStratagy strategy;
 
@@ -37,7 +37,9 @@ public class AIPlayer implements Player {
   @Override
   public void makeAMove(Reversi model, Coordinate coordinate) {
     Coordinate c1 = strategy.chooseMove(model, playerDisc);
-    if (c1.equals(new Coordinate(model.getSize(), model.getSize()))) {
+    System.out.print(c1.getQ());
+    System.out.print(c1.getR());
+    if (c1.equals(new Coordinate(model.getSize(), model.getSize())) || c1 == null) {
       model.passTurn();
     }
     model.makeMove(c1);

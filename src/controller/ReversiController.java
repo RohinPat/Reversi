@@ -44,12 +44,11 @@ public class ReversiController implements ControllerFeatures {
 
   @Override
   public void confirmMove() {
-    if (player.isPlayerTurn(model)) {
+    if (player.getDisc().equals(model.currentColor())) {
       Coordinate selectedHex = view.getSelectedHexagon();
       if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
         try {
           player.makeAMove(model, selectedHex);
-          view.initializeHexagons(model); // Update the view to reflect the new board state
         } catch (IllegalArgumentException e) {
           view.showInvalidMoveDialog(e.getMessage());
         }
@@ -63,7 +62,6 @@ public class ReversiController implements ControllerFeatures {
   public void passTurn() {
     // Logic for passing a turn
     model.passTurn();
-    view.initializeHexagons(model); // Update the view if necessary
   }
 
   /**
@@ -73,19 +71,18 @@ public class ReversiController implements ControllerFeatures {
    */
   public void updateView() {
     view.initializeHexagons(model);
-    if (!model.isGameOver()) {
-      if (model.currentColor() == player.getDisc()) {
-        if (player instanceof AIPlayer) {
-          player.makeAMove(model, null); // AI strategy chooses the move
-        } else {
-          // Human player - wait for user input
-          // Maybe highlight possible moves or indicate it's the player's turn
-        }
-      }
-    } else {
+    handleTurnChange(model.currentColor());
+    if (model.isGameOver()) {
       String end = model.getState().toString();
       view.showInvalidMoveDialog("GAME IS OVER" + end);
       System.exit(0);
+    }
+  }
+
+  @Override
+  public void handleTurnChange(Disc disc) {
+    if (player.getDisc().equals(disc) && player instanceof AIPlayer){
+      player.makeAMove(model, null); // AI strategy chooses the move
     }
   }
 

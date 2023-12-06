@@ -55,4 +55,6 @@ public interface ControllerFeatures {
    * Used to refresh / update the views.
    */
   void updateView();
+
+  void handleTurnChange(Disc disc);
 }

@@ -1,7 +1,10 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import model.Board;
+import model.Cell;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
@@ -10,6 +13,7 @@ import provider.model.HexCoord;
 import provider.model.IBoard;
 import provider.model.PlayerOwnership;
 import provider.model.ReversiMutableModel;
+import model.Turn;
 
 public class BoardAdapter2 implements ReversiMutableModel {
   private final Reversi board;
@@ -31,9 +35,9 @@ public class BoardAdapter2 implements ReversiMutableModel {
   public void placeDisk(HexCoord hc, PlayerOwnership player){
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)){
-      disc = Disc.WHITE;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.BLACK;
+    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
+      disc = Disc.WHITE;
     }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
     }
@@ -48,9 +52,9 @@ public class BoardAdapter2 implements ReversiMutableModel {
   public void pass(PlayerOwnership player) throws IllegalStateException, IllegalArgumentException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)){
-      disc = Disc.WHITE;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.BLACK;
+    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
+      disc = Disc.WHITE;
     }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
     }
@@ -136,7 +140,23 @@ public class BoardAdapter2 implements ReversiMutableModel {
 
   @Override
   public ReversiMutableModel cloneModel() {
-    return new BoardAdapter2(board);
+    // Create a deep copy of the Reversi board
+    HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
+    for (Coordinate coor : board.getMap().keySet()) {
+      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()), new Cell(board.getMap().get(coor).getContent()));
+    }
+    // Create a new Reversi instance with the copied board state
+
+    Turn t = null;
+    if (board.currentColor().equals(Disc.BLACK)){
+      t = Turn.BLACK;
+    } else {
+      t = Turn.WHITE;
+    }
+
+
+    Reversi clonedBoard = new Board(board.getSize(), boardCopy, t);
+    return new BoardAdapter2(clonedBoard);
   }
 
   @Override

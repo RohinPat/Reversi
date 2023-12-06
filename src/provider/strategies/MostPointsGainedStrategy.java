@@ -2,6 +2,7 @@ package provider.strategies;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -30,32 +31,25 @@ public class MostPointsGainedStrategy implements InFallableReversiStrategy {
   @Override
   public List<Pair<HexCoord, Integer>> executeStrategyGivenMoves(ReversiReadOnlyModel model,
                                                                  PlayerOwnership player){
-    System.out.println("tism0");
+
     Objects.requireNonNull(model);
-    System.out.println("tism1");
     Objects.requireNonNull(player);
-    System.out.println("tism2");
     List<Pair<HexCoord, Integer>> coordsThatGainMostPoints = new ArrayList<>();
-    System.out.println("tism3");
     int maxPointsGained = 0;
-    System.out.println("tism4");
+    System.out.println("reached till entering the strategy safely");
     List<HexCoord> possibleMoves = new PossibleMoveGenerator().getPossibleMoves(model, player);
-    System.out.println("tism5");
+    System.out.println("\n" + "moves were generated" + possibleMoves + "\n");
     for (HexCoord coord : possibleMoves) {
-      System.out.println("tism6");
+      System.out.print("entered the for loop"+ "\n");
       ReversiMutableModel modelClone = model.cloneModel();
-      System.out.println("tism7");
+      Map m = modelClone.getBoard().getMap();
+      System.out.print("created the clone"+ m + "current player" + player + "\n");
       int pointsBeforeMove = modelClone.countClaimedTiles(player);
-      System.out.println("tism8");
       modelClone.placeDisk(coord, player);
-      System.out.println("tism9");
       int pointsGained = modelClone.countClaimedTiles(player) - pointsBeforeMove;
-      System.out.println("tism10");
       if (pointsGained == maxPointsGained) {
-        System.out.println("in If tism0");
         coordsThatGainMostPoints.add(new Pair<>(coord, pointsGained));
       } else if (pointsGained > maxPointsGained) {
-        System.out.println("in else If tism1");
         maxPointsGained = pointsGained;
         coordsThatGainMostPoints = new ArrayList<>();
         coordsThatGainMostPoints.add(new Pair<>(coord, pointsGained));

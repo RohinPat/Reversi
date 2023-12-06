@@ -31,6 +31,7 @@ public class TopLeftTieBreaker implements ReversiStrategyTieBreaker {
     } else {
       results.sort(new SortHexCoordsByTopLeft());
       return results.get(0);
+
     }
   }
 

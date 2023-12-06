@@ -15,7 +15,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import model.Board;
 import model.BoardMock;
@@ -24,6 +29,8 @@ import model.Coordinate;
 import model.Disc;
 import model.GameState;
 import model.Turn;
+import provider.model.HexCoord;
+import provider.strategies.TopLeftTieBreaker;
 import view.BoardPanel;
 import view.BoardRenderer;
 import view.ReversiFrame;
@@ -73,6 +80,23 @@ public class ReversiTests {
                     " _ _ X O _ _ \n" + //
                     "  _ _ _ _ _ \n" + //
                     "   _ _ _ _ \n", br.toString());
+  }
+
+  @Test
+  public void breakTieFunctionality(){
+    HexCoord h1 = new HexCoord(2, -1, -1);
+    HexCoord h2 = new HexCoord(2, -3, 1);
+
+    List<HexCoord> list = new ArrayList<HexCoord>();
+
+    list.add(h1);
+    list.add(h2);
+
+    TopLeftTieBreaker t1 = new TopLeftTieBreaker();
+
+    HexCoord out = t1.breakTie(list);
+
+    assertEquals("", out.toString());
   }
 
   @Test

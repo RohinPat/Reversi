@@ -50,6 +50,12 @@ public class Board implements Reversi {
     }
   }
 
+  public void notifyTurnChange() {
+    for (ControllerFeatures controller : observers) {
+      controller.handleTurnChange(currentColor());
+    }
+  }
+
   /**
    * Initializes a new game board of the specified size.
    *
@@ -201,6 +207,7 @@ public class Board implements Reversi {
     }
 
     notifyObservers();
+    notifyTurnChange();
   }
 
   private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
@@ -317,6 +324,7 @@ public class Board implements Reversi {
     }
 
     notifyObservers();
+    notifyTurnChange();
   }
 
   public boolean validMove(Coordinate coor, Disc currentTurn){

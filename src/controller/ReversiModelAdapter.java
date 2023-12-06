@@ -1,9 +1,14 @@
 package controller;
 
+import java.util.HashMap;
+
 import controller.BoardAdapter;
+import model.Board;
+import model.Cell;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
+import model.Turn;
 import provider.model.HexCoord;
 import provider.model.IBoard;
 import provider.model.PlayerOwnership;
@@ -71,9 +76,9 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   public boolean isMoveAllowed(HexCoord hc, PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)){
-      disc = Disc.WHITE;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.BLACK;
+    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
+      disc = Disc.WHITE;
     }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
     }
@@ -85,7 +90,23 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
 
   @Override
   public ReversiMutableModel cloneModel() {
-    return new BoardAdapter2(currentModel);
+    // Create a deep copy of the Reversi board
+    HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
+    for (Coordinate coor : currentModel.getMap().keySet()) {
+      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()), new Cell(currentModel.getMap().get(coor).getContent()));
+    }
+    // Create a new Reversi instance with the copied board state
+
+    Turn t = null;
+    if (currentModel.currentColor().equals(Disc.BLACK)){
+      t = Turn.BLACK;
+    } else {
+      t = Turn.WHITE;
+    }
+
+
+    Reversi clonedBoard = new Board(currentModel.getSize(), boardCopy, t);
+    return new BoardAdapter2(clonedBoard);
   }
 
   @Override

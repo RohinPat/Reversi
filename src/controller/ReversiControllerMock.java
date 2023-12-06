@@ -99,6 +99,11 @@ public class ReversiControllerMock implements ControllerFeatures {
     }
   }
 
+  @Override
+  public void handleTurnChange(Disc disc) {
+    log.append("Turn was changed" + "\n");
+  }
+
   /**
    * Retrieves the current player's disc color (either black or white).
    *
