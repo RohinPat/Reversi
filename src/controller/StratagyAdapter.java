@@ -23,6 +23,8 @@ public class StratagyAdapter implements ReversiStratagy {
     public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
       PlayerOwnership ownership = discToOwnership(turn);
       StrategyWrapper wrapper = new StrategyWrapper(model, ownership);
+      tieBreaker.breakTie(wrapper.executeStrategy(model, ownership));
+      // Convert their coordinate system to ours and then return the new coordinate in our system.
     }
  
     private PlayerOwnership discToOwnership(Disc disc) {
