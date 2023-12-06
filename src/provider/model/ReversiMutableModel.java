@@ -36,8 +36,7 @@ public interface ReversiMutableModel extends ReversiReadOnlyModel {
    * @throws IllegalArgumentException if the tile doesn't exist on the board, if the player is
    *                                  neither of the game's players
    */
-  void placeDisk(HexCoord hc, PlayerOwnership player)
-      throws IllegalStateException, IllegalArgumentException;
+  void placeDisk(HexCoord hc, PlayerOwnership player);
 
   /**
    * Passes the turn to the next player.

@@ -28,7 +28,7 @@ public class BoardAdapter2 implements ReversiMutableModel {
   }
 
   @Override
-  public void placeDisk(HexCoord hc, PlayerOwnership player) throws IllegalStateException, IllegalArgumentException {
+  public void placeDisk(HexCoord hc, PlayerOwnership player){
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)){
       disc = Disc.WHITE;

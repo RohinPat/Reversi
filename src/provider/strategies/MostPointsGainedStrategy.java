@@ -29,7 +29,7 @@ public class MostPointsGainedStrategy implements InFallableReversiStrategy {
    */
   @Override
   public List<Pair<HexCoord, Integer>> executeStrategyGivenMoves(ReversiReadOnlyModel model,
-                                                                 PlayerOwnership player) {
+                                                                 PlayerOwnership player){
     System.out.println("tism0");
     Objects.requireNonNull(model);
     System.out.println("tism1");
