@@ -14,6 +14,7 @@ import provider.strategies.AvoidTilesNextToCornersStrategy;
 import provider.strategies.FallableInfallablePairStrategy;
 import provider.strategies.MinimaxStrategy;
 import provider.strategies.MostPointsGainedStrategy;
+import provider.strategies.PlayCornersStrategy;
 import view.BoardPanel;
 import view.ReversiFrame;
 import controller.HumanPlayer;
@@ -34,9 +35,9 @@ public final class ReversiMain {
     int maxArgs = args.length;
     int size = 0;
     if (args.length == 0) {
-      b1 = new Board(4);
-      p1 = new HumanPlayer(Disc.BLACK);
-      p2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy());
+      b1 = new Board(10);
+      p1 = new AIPlayer(Disc.BLACK, new MostPointsGainedStrategy());
+      p2 = new AIPlayer(Disc.WHITE, new MinimaxStrategy(3, new FallableInfallablePairStrategy( new PlayCornersStrategy(), new MostPointsGainedStrategy()), new MostPointsGainedStrategy()));
     }
     else {
       try {

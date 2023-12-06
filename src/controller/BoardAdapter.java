@@ -1,13 +1,16 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.Board;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
+import model.Turn;
 import provider.model.HexCoord;
 import provider.model.HexDirection;
 import provider.model.HexagonTile;
@@ -58,11 +61,45 @@ public class BoardAdapter implements IBoard {
 
   @Override
   public List<HexDirection> getDirections() {
-    return null;
+    HexDirection hd1 =  HexDirection.UPLEFT;
+    HexDirection hd2 =  HexDirection.UPRIGHT;
+    HexDirection hd3 =  HexDirection.DOWNLEFT;
+    HexDirection hd4 =  HexDirection.DOWNRIGHT;
+    HexDirection hd5 =  HexDirection.LEFT;
+    HexDirection hd6 =  HexDirection.RIGHT;
+
+    List<HexDirection> hexDirectionList = new ArrayList<>();
+
+    hexDirectionList.add(hd1);
+    hexDirectionList.add(hd2);
+    hexDirectionList.add(hd3);
+    hexDirectionList.add(hd4);
+    hexDirectionList.add(hd5);
+    hexDirectionList.add(hd6);
+
+    return hexDirectionList;
+
+
   }
 
   @Override
   public IBoard clone() {
-    return null;
+    // Create a deep copy of the Reversi board
+    HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
+    for (Coordinate coor : currentBoard.getMap().keySet()) {
+      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()), new Cell(currentBoard.getMap().get(coor).getContent()));
+    }
+    // Create a new Reversi instance with the copied board state
+
+    Turn t = null;
+    if (currentBoard.currentColor().equals(Disc.BLACK)){
+      t = Turn.BLACK;
+    } else {
+      t = Turn.WHITE;
+    }
+
+
+    Reversi clonedBoard = new Board(currentBoard.getSize(), boardCopy, t);
+    return new BoardAdapter(clonedBoard);
   }
 }

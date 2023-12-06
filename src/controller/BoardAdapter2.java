@@ -161,6 +161,17 @@ public class BoardAdapter2 implements ReversiMutableModel {
 
   @Override
   public boolean isMoveAllowedTurnIndependent(HexCoord hc, PlayerOwnership playerOwnership) throws IllegalArgumentException, IllegalStateException {
-    throw new UnsupportedOperationException("Not good 3233232");
+    Disc disc = null;
+    if (playerOwnership.equals(PlayerOwnership.PLAYER_1)){
+      disc = Disc.BLACK;
+    } else if (playerOwnership.equals(PlayerOwnership.PLAYER_2)) {
+      disc = Disc.WHITE;
+    }  else if (playerOwnership.equals(PlayerOwnership.UNOCCUPIED)) {
+      disc = Disc.EMPTY;
+    }
+    else{
+      throw new IllegalArgumentException("Invalid disc");
+    }
+    return board.validMove(new Coordinate(hc.q, hc.r), disc);
   }
 }
