@@ -59,4 +59,9 @@ public class BoardReadOnly implements ReversiReadOnly {
   public HashMap<Coordinate, Cell> createCopyOfBoard() {
     return null;
   }
+
+  @Override
+  public boolean validMove(Coordinate coor, Disc currentTurn) {
+    return false;
+  }
 }
