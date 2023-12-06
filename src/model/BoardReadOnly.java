@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Creates an instance of a Readonly board in which you can only call observer methods.
@@ -63,5 +64,10 @@ public class BoardReadOnly implements ReversiReadOnly {
   @Override
   public boolean validMove(Coordinate coor, Disc currentTurn) {
     return false;
+  }
+
+  @Override
+  public Map<Coordinate, Cell> getMap() {
+    return null;
   }
 }

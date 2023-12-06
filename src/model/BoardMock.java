@@ -5,6 +5,8 @@ import java.util.Map;
 
 import java.util.ArrayList;
 
+import controller.ControllerFeatures;
+
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
@@ -517,6 +519,16 @@ public class BoardMock implements Reversi {
   @Override
   public boolean validMove(Coordinate coor, Disc currentTurn) {
     return false;
+  }
+
+  @Override
+  public Map<Coordinate, Cell> getMap() {
+    return null;
+  }
+
+  @Override
+  public void addObserver(ControllerFeatures controller) {
+
   }
 
   /**

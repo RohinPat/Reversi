@@ -13,6 +13,7 @@ import provider.model.HexDirection;
 import provider.model.HexagonTile;
 import provider.model.IBoard;
 import provider.model.PlayerOwnership;
+import provider.model.ReversiMutableModel;
 
 public class BoardAdapter implements IBoard {
   private final Reversi currentBoard;
@@ -29,11 +30,11 @@ public class BoardAdapter implements IBoard {
 
     for (Coordinate coord : map.keySet()){
       PlayerOwnership ownership = null;
-      if (map.get(coord).equals(Disc.BLACK)){
+      if (map.get(coord).getContent().equals(Disc.BLACK)){
         ownership = PlayerOwnership.PLAYER_1;
-      } else if (map.get(coord).equals(Disc.WHITE)) {
+      } else if (map.get(coord).getContent().equals(Disc.WHITE)) {
         ownership = PlayerOwnership.PLAYER_2;
-      }  else if (map.get(coord).equals(Disc.EMPTY)) {
+      }  else if (map.get(coord).getContent().equals(Disc.EMPTY)) {
         ownership = PlayerOwnership.UNOCCUPIED;
       }
       else{

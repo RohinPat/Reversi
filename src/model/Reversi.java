@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import controller.ControllerFeatures;
+
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
@@ -97,4 +99,6 @@ public interface Reversi extends ReversiReadOnly {
   boolean validMove(Coordinate coor, Disc currentTurn);
 
   Map<Coordinate, Cell> getMap();
+
+  void addObserver(ControllerFeatures controller);
 }
