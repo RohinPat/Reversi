@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents the game board for a hexagonal grid-based game.
@@ -94,4 +95,6 @@ public interface Reversi extends ReversiReadOnly {
   int checkMove(ReversiReadOnly model, Coordinate move);
 
   boolean validMove(Coordinate coor, Disc currentTurn);
+
+  Map<Coordinate, Cell> getMap();
 }
