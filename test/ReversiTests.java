@@ -3,9 +3,6 @@ import org.junit.Test;
 
 import controller.AIPlayer;
 import controller.ControllerFeatures;
-import controller.HumanPlayer;
-import controller.Player;
-import controller.ReversiController;
 import controller.ReversiControllerMock;
 import controller.aistrat.AvoidCorners;
 import controller.aistrat.CaptureCorners;
@@ -18,7 +15,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 import model.Board;
@@ -707,38 +703,72 @@ public class ReversiTests {
     b1.addObserver(controller2);
     controller2.updateView();
 
+    // checks for player.black moves
     Assert.assertEquals(controller.getLog().toString(), "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: 1 R: -2\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: 1 R: 1\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: -2 R: 1\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: 3 R: -2\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: -1 R: -2\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: -1 R: 3\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: 2 R: -3\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: -3 R: 1\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: 1 R: 2\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: 3 R: 0\n" +
             "Updates the View\n" +
             "Updates the View\n" +
-            "AI Player makes a move: BLACK\n" +
+            "AI Player BLACK makes a move at hexagon: Q: -3 R: 3\n" +
+            "Updates the View\n");
+
+    // checks for player.white moves
+    Assert.assertEquals(controller2.getLog().toString(), "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: 2 R: -1\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: -1 R: 2\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: 1 R: -3\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: -3 R: 2\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: 2 R: 1\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: 3 R: -1\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: 3 R: -3\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: -3 R: 0\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: 0 R: -3\n" +
+            "Updates the View\n" +
+            "AI Player WHITE makes a move at hexagon: Q: -2 R: 3\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
+            "Updates the View\n" +
             "Updates the View\n");
   }
 

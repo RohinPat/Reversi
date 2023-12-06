@@ -509,6 +509,11 @@ public class BoardMock implements Reversi {
     return possibleMoves;
   }
 
+  @Override
+  public int checkMove(Reversi model, Coordinate move) {
+    return 0;
+  }
+
   /**
    * Retrieves the log of events and messages generated during the Reversi game.
    *

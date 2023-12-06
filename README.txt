@@ -53,7 +53,7 @@ System.out.println(renderer.toString()); // Display the board
 - **view Package:** Manages the user interface, rendering the game board and handling user interactions.
 - **Controller Package:** Implements player functionalities and AI strategies, orchestrating the game play.
 
-### Changes for Assignment 3
+### Changes for Part 3
 
 - Created features interface for the controller
   - ControllerFeatures Interface - helped create the mock for testing as well

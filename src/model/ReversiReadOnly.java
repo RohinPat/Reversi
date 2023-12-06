@@ -48,4 +48,6 @@ public interface ReversiReadOnly {
    */
   int getScore(Disc player);
 
+  int checkMove(Reversi model, Coordinate move);
+
 } 

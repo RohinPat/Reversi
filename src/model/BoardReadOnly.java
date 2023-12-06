@@ -36,4 +36,9 @@ public class BoardReadOnly implements ReversiReadOnly {
   public int getScore(Disc player) {
     return board.getScore(player);
   }
+
+  @Override
+  public int checkMove(Reversi model, Coordinate move) {
+    return 0;
+  }
 }

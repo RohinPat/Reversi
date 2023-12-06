@@ -50,9 +50,7 @@ public class CaptureMost implements ReversiStratagy {
       t = Turn.WHITE;
     }
     for (Coordinate move : possibleMoves) {
-      Board copy = new Board(model.getSize(), model.createCopyOfBoard(), t);
-      copy.makeMove(move);
-      int score = copy.getScore(turn);
+      int score = model.checkMove(model, move);
       if (score > max) {
         max = score;
         maxMove = move;

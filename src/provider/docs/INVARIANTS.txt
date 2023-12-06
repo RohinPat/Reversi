@@ -1,0 +1,21 @@
+BasicReversi Class Invariants:
+
+INVARIANT 1:
+IF this.gameStarted == true, THEN this.playerTurn is either PlayerOwnership.PLAYER_1 or PlayerOwnership.PLAYER_2
+BECAUSE
+When the game is started playerTurn is assigned to PLAYER_2 and every method that mutates the turn toggles it between PLAYER_1
+OR PLAYER_2. Thus, the invariant holds before and after any method call which means the it is preserved.
+
+INVARIANT 2:
+IF there are no more board moves left, THEN this.consecutivePassCounter will be > 1.
+BECAUSE
+A board is only assigned to the model when startGame is called. Also, in start game updateTurn is called, so if the board has no more moves left, the consecutive number of passes increases by 2.
+Since this.consecutivePassCounter starts at 0 on construction, the invariant holds true at the start.
+Also, in any method that mutates the board state, updateTurn is called, which will increase the consecutive number of passes by 2 if there are no more board moves left.
+Thus, the invariant holds before and after any method call which means it is preserved.
+
+HexCoord Invariant:
+The sum of the three coordinates is equal to 0.
+BECAUSE
+on construction we ensure that the sum of the three coordinates is equal to 0.
+Also, the fields for each of them are final so they can never change.

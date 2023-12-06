@@ -319,6 +319,26 @@ public class Board implements Reversi {
     notifyObservers();
   }
 
+
+  public int checkMove(Reversi model, Coordinate move){
+    Turn turn = null;
+    if (model.currentColor().equals(Disc.BLACK)){
+      turn = Turn.BLACK;
+    }
+    else{
+      turn = Turn.WHITE;
+    }
+    Board copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
+    int score = 0;
+    try{
+      copy.makeMove(move);
+      score = copy.getScore(model.currentColor());
+      return score;
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(e);
+    }
+  }
+
   /**
    * Places a disc at the specified cell coordinates.
    *

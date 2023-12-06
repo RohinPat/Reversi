@@ -90,4 +90,6 @@ public interface Reversi extends ReversiReadOnly {
    *     that the current player can make.
    */
   ArrayList<Coordinate> getPossibleMoves();
+
+  int checkMove(Reversi model, Coordinate move);
 }

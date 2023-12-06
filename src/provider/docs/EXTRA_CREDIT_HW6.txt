@@ -1,0 +1,24 @@
+EC Strategy: Avoid the cells next to corners. because you’re just giving your opponent
+the ability to get a corner on their next turn.
+AvoidTilesNextToCornersStrategy
+
+EC Strategy: Go for the corners.
+Discs in corners cannot be captured, because they don’t have cells on their other side.
+PlayCornersStrategy
+
+
+EC Strategy: Choose the move that leaves their opponent in a situation with no good moves. Minimax.
+More about minimax:
+Minimax can be configured in a few ways. It takes a depth to determine how many moves it should calculate before returning.
+It also takes a backup strategy to play a move when it is out of foresight (depth).
+It also takes the opponent's strategy, or the best guess of what their opponent's strategy is, and uses it to calculate the move they would make.
+
+EC Strategy Chaining:
+TryManyStrategies
+At the moment, fallable strategies can be chained together in one way, through a trymanystrategy,
+which takes in an arbitrary number of fallable strategies, and tries one before the next until it gets
+a working result from one of the strategies.
+
+FallableInfallablePairStrategy
+Another way strategies are connected is throught the fallableinfallable pair, which takes in a fallable
+infallable strategy. The goal of this class is to provide a backup strategy should a fallable strategy not work.

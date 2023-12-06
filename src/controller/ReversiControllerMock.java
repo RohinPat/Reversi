@@ -83,7 +83,9 @@ public class ReversiControllerMock implements ControllerFeatures {
       if (model.currentColor() == player.getDisc()) {
         if (player instanceof AIPlayer) {
           CaptureMost cm = new CaptureMost();
-          log.append("AI Player makes a move: " + player.getDisc() + cm.chooseMove(model, player.getDisc()).getQ() + cm.chooseMove(model, player.getDisc()).getR() + "\n");
+          log.append("AI Player " + player.getDisc() + " makes a move at hexagon: Q: "
+                  + cm.chooseMove(model, player.getDisc()).getQ() + " R: "
+                  + cm.chooseMove(model, player.getDisc()).getR() + "\n");
           player.makeAMove(model, null); // AI strategy chooses the move
         } else {
           log.append("Human Player makes a move" + player.getDisc() + "\n");
@@ -117,6 +119,12 @@ public class ReversiControllerMock implements ControllerFeatures {
     return player;
   }
 
+  /**
+   * Helps in the creation of an output log to ensure code runs as expected, and we can see the.
+   * finer details of the AI decisions.
+   *
+   * @return the text output of the log that was accumulating through the running of the code.
+   */
   public String getLog() {
     return log.toString();
   }

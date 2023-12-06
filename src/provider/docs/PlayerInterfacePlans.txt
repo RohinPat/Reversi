@@ -1,0 +1,3 @@
+Our player interface currently is a dummy/placeholder interface that allows room for behaviors to be added to any type of player, such as human and AI.
+Players are represented in the model through an enum PlayerOwnership.
+We envision passing them into the controller as an entry point and then the controller can pass the players down to the model or potentially view.

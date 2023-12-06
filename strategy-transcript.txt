@@ -1,0 +1,33 @@
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: 1 R: -2
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: 1 R: 1
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: -2 R: 1
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: 3 R: -2
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: -1 R: -2
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: -1 R: 3
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: 2 R: -3
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: -3 R: 1
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: 1 R: 2
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: 3 R: 0
+Updates the View
+Updates the View
+AI Player BLACK makes a move at hexagon: Q: -3 R: 3
+Updates the View

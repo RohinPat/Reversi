@@ -32,8 +32,7 @@ public class CaptureCorners implements ReversiStratagy {
     } else {
       t = Turn.WHITE;
     }
-    Board copy = new Board(model.getSize(), model.createCopyOfBoard(), t);
-    ArrayList<Coordinate> moves = copy.getPossibleMoves();
+    ArrayList<Coordinate> moves = model.getPossibleMoves();
     int size = model.getSize();
     for (Coordinate move : moves) {
       if (this.getCorners(size).contains(move)) {

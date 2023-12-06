@@ -107,6 +107,13 @@ public class ReversiController implements ControllerFeatures {
     return player;
   }
 
+  /**
+   * Helps in the creation of an output log to ensure code runs as expected, and we can see the.
+   * finer details of the AI decisions - there is no log as this is not the mock, so it doesn't.
+   * log anything here.
+   *
+   * @return null as this is not the mock, so it doesn't log anything here
+   */
   public String getLog() {
     return null;
   }
