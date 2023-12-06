@@ -4,6 +4,9 @@ import model.Reversi;
 import model.Disc;
 import model.Coordinate;
 import controller.aistrat.ReversiStratagy;
+import provider.strategies.InFallableReversiStrategy;
+import provider.strategies.TopLeftTieBreaker;
+import controller.StratagyAdapter;
 
 /**
  * The {@code AIPlayer} class represents an AI player in the Reversi game.
@@ -24,6 +27,11 @@ public class AIPlayer implements Player {
   public AIPlayer(Disc playerDisc, ReversiStratagy strategy) {
     this.playerDisc = playerDisc;
     this.strategy = strategy;
+  }
+
+  public AIPlayer(Disc playerDisc, InFallableReversiStrategy infallibleStrategy, TopLeftTieBreaker tieBreaker) {
+    this.playerDisc = playerDisc;
+    this.strategy = new StratagyAdapter(infallibleStrategy, tieBreaker);
   }
 
   @Override
