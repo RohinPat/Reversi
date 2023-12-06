@@ -92,4 +92,6 @@ public interface Reversi extends ReversiReadOnly {
   ArrayList<Coordinate> getPossibleMoves();
 
   int checkMove(ReversiReadOnly model, Coordinate move);
+
+  boolean validMove(Coordinate coor, Disc currentTurn);
 }

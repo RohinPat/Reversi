@@ -59,4 +59,6 @@ public interface ReversiReadOnly {
 
   HashMap<Coordinate, Cell> createCopyOfBoard();
 
+  boolean validMove(Coordinate coor, Disc currentTurn);
+
 } 

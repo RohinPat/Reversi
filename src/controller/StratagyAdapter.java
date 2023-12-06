@@ -1,9 +1,11 @@
 package controller;
 
+import model.Reversi;
 import controller.aistrat.ReversiStratagy;
 import model.Coordinate;
 import model.Disc;
 import model.ReversiReadOnly;
+import provider.model.HexCoord;
 import provider.model.PlayerOwnership;
 import provider.strategies.InFallableReversiStrategy;
 import provider.strategies.StrategyWrapper;
@@ -22,9 +24,10 @@ public class StratagyAdapter implements ReversiStratagy {
     @Override
     public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
       PlayerOwnership ownership = discToOwnership(turn);
-      StrategyWrapper wrapper = new StrategyWrapper(model, ownership);
-      tieBreaker.breakTie(wrapper.executeStrategy(model, ownership));
-      // Convert their coordinate system to ours and then return the new coordinate in our system.
+      ReversiModelAdapter modelAdapter = new ReversiModelAdapter((Reversi) model);
+      StrategyWrapper wrapper = new StrategyWrapper(stratagy);
+      HexCoord output = tieBreaker.breakTie(wrapper.executeStrategy(modelAdapter, ownership));
+      return new Coordinate(output.q, output.r);
     }
  
     private PlayerOwnership discToOwnership(Disc disc) {
