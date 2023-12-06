@@ -3,6 +3,7 @@ package controller.aistrat;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
+import model.ReversiReadOnly;
 
 
 /**
@@ -35,7 +36,7 @@ public class TryTwo implements ReversiStratagy {
    * @param turn  The object representing the current player's turn.
    * @return The chosen for the move, or null if no move is found.
    */
-  public Coordinate chooseMove(Reversi model, Disc turn) {
+  public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
     Coordinate ans = this.first.chooseMove(model, turn);
     if (ans.equals(new Coordinate(model.getSize(), model.getSize()))) {
       ans = this.second.chooseMove(model, turn);

@@ -6,6 +6,7 @@ import model.Board;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
+import model.ReversiReadOnly;
 import model.Turn;
 
 /**
@@ -25,7 +26,7 @@ public class CaptureCorners implements ReversiStratagy {
    * @return The selected for the next move, prioritizing corners.
    */
   @Override
-  public Coordinate chooseMove(Reversi model, Disc turn) {
+  public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
     Turn t = null;
     if (turn == Disc.BLACK) {
       t = Turn.BLACK;

@@ -320,7 +320,7 @@ public class Board implements Reversi {
   }
 
 
-  public int checkMove(Reversi model, Coordinate move){
+  public int checkMove(ReversiReadOnly model, Coordinate move){
     Turn turn = null;
     if (model.currentColor().equals(Disc.BLACK)){
       turn = Turn.BLACK;

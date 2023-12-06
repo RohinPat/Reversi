@@ -510,7 +510,7 @@ public class BoardMock implements Reversi {
   }
 
   @Override
-  public int checkMove(Reversi model, Coordinate move) {
+  public int checkMove(ReversiReadOnly model, Coordinate move) {
     return 0;
   }
 

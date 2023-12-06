@@ -91,5 +91,5 @@ public interface Reversi extends ReversiReadOnly {
    */
   ArrayList<Coordinate> getPossibleMoves();
 
-  int checkMove(Reversi model, Coordinate move);
+  int checkMove(ReversiReadOnly model, Coordinate move);
 }

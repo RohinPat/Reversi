@@ -3,6 +3,7 @@ package controller.aistrat;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
+import model.ReversiReadOnly;
 
 /**
  * Interface for strategy classes used in playing the game Reversi.
@@ -21,6 +22,6 @@ public interface ReversiStratagy {
    * @param turn  The disc color (either BLACK or WHITE) of the current player.
    * @return The of the chosen move according to the strategy's logic.
    */
-  Coordinate chooseMove(Reversi model, Disc turn);
+  Coordinate chooseMove(ReversiReadOnly model, Disc turn);
 
 }

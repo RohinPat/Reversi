@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * An interface to create a version of Board in which you can only call observer.
  * Methods upon it to prevent any mutation.
@@ -48,6 +51,12 @@ public interface ReversiReadOnly {
    */
   int getScore(Disc player);
 
-  int checkMove(Reversi model, Coordinate move);
+  ArrayList<Coordinate> getPossibleMoves();
+
+  int checkMove(ReversiReadOnly model, Coordinate move);
+
+  Disc currentColor();
+
+  HashMap<Coordinate, Cell> createCopyOfBoard();
 
 } 

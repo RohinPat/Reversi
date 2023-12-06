@@ -3,6 +3,7 @@ package controller.aistrat;
 import model.Board;
 import model.Disc;
 import model.Reversi;
+import model.ReversiReadOnly;
 import model.Turn;
 import model.Coordinate;
 
@@ -26,7 +27,7 @@ public class CaptureMost implements ReversiStratagy {
    * @return The for the move that captures the most discs.
    */
   @Override
-  public Coordinate chooseMove(Reversi model, Disc turn) {
+  public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
     ArrayList<Coordinate> moves = model.getPossibleMoves();
     return chooseMoveHelper(model, turn, moves);
   }
@@ -39,7 +40,7 @@ public class CaptureMost implements ReversiStratagy {
    * @param possibleMoves A list of possible moves to consider.
    * @return The of the move that results in the highest score.
    */
-  protected Coordinate chooseMoveHelper(Reversi model, Disc turn,
+  protected Coordinate chooseMoveHelper(ReversiReadOnly model, Disc turn,
                                         ArrayList<Coordinate> possibleMoves) {
     int max = 0;
     Coordinate maxMove = null;

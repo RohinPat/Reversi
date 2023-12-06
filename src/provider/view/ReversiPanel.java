@@ -1,5 +1,5 @@
 package provider.view;
-import cs3500.reversi.Pair;
+import provider.Pair;
 import provider.model.HexCoord;
 import provider.model.PlayerOwnership;
 import provider.model.ReversiReadOnlyModel;

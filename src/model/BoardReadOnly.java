@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Creates an instance of a Readonly board in which you can only call observer methods.
  * On the board to prevent mutation when interacting with GUI.
@@ -38,7 +41,22 @@ public class BoardReadOnly implements ReversiReadOnly {
   }
 
   @Override
-  public int checkMove(Reversi model, Coordinate move) {
+  public ArrayList<Coordinate> getPossibleMoves() {
+    return null;
+  }
+
+  @Override
+  public int checkMove(ReversiReadOnly model, Coordinate move) {
     return 0;
+  }
+
+  @Override
+  public Disc currentColor() {
+    return null;
+  }
+
+  @Override
+  public HashMap<Coordinate, Cell> createCopyOfBoard() {
+    return null;
   }
 }

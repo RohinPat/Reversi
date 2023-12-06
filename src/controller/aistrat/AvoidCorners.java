@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.Coordinate;
 import model.Disc;
 import model.Reversi;
+import model.ReversiReadOnly;
 
 
 /**
@@ -25,7 +26,7 @@ public class AvoidCorners implements ReversiStratagy {
    * @return The selected for the next move, avoiding corners.
    */
   @Override
-  public Coordinate chooseMove(Reversi model, Disc turn) {
+  public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
     CaptureMost cm = new CaptureMost();
     int size = model.getSize();
     ArrayList<Coordinate> notCorners = getSpotsToAvoid(size);
