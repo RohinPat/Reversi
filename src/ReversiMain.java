@@ -10,6 +10,7 @@ import controller.aistrat.ReversiStratagy;
 import controller.aistrat.TryTwo;
 import model.Board;
 import model.Disc;
+import provider.strategies.MostPointsGainedStrategy;
 import view.BoardPanel;
 import view.ReversiFrame;
 import controller.HumanPlayer;
@@ -32,7 +33,7 @@ public final class ReversiMain {
     if (args.length == 0) {
       b1 = new Board(4);
       p1 = new HumanPlayer(Disc.BLACK);
-      p2 = new HumanPlayer(Disc.WHITE);
+      p2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy()));
     }
     else {
       try {
