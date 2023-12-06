@@ -33,7 +33,7 @@ public final class ReversiMain {
     if (args.length == 0) {
       b1 = new Board(4);
       p1 = new HumanPlayer(Disc.BLACK);
-      p2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy()));
+      p2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy());
     }
     else {
       try {
