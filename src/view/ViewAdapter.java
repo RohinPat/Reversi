@@ -8,7 +8,7 @@ import model.Reversi;
 import model.ReversiReadOnly;
 import provider.model.HexCoord;
 import provider.view.Features;
-import provider.view.FeaturesAdapter;
+import controller.FeaturesAdapter;
 import provider.view.ReversiGUIView;
 import provider.view.ReversiPanel;
 

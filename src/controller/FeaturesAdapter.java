@@ -1,12 +1,13 @@
-package provider.view;
+package controller;
 
 import java.util.Optional;
 
 import controller.ControllerFeatures;
 import model.Coordinate;
 import provider.model.HexCoord;
+import provider.view.Features;
 
-public class FeaturesAdapter implements Features{
+public class FeaturesAdapter implements Features {
   private final ControllerFeatures controller;
 
   public FeaturesAdapter(ControllerFeatures controller){
