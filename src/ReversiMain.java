@@ -85,7 +85,7 @@ public final class ReversiMain {
       boolean nextplayer2 = true;
       if (player2.equals("human")) {
         nextplayer2 = false;
-        p2 = new HumanPlayer(Disc.BLACK);
+        p2 = new HumanPlayer(Disc.WHITE);
       }
       else if (player2.equals("ai")) {
         ArrayList<String> strats2 = new ArrayList<String>();

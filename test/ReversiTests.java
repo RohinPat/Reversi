@@ -516,6 +516,8 @@ public class ReversiTests {
     AvoidCorners cm = new AvoidCorners();
     
     Coordinate c = cm.chooseMove(board, Disc.BLACK);
+    System.out.println(c.getQ() + " " + c.getR());
+
     board.makeMove(c);
 
     c = cm.chooseMove(board, Disc.WHITE);
