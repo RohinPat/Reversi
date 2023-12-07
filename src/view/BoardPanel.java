@@ -320,6 +320,10 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     @Override
     public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_M) {
+        if (selected == null) {
+          showInvalidMoveDialog("No hexagon selected. Please select a hexagon before confirming the move.");
+          return;
+        }
         controller.confirmMove(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
         controller.passTurn();
