@@ -96,7 +96,7 @@ public class ReversiTests {
 
     HexCoord out = t1.breakTie(list);
 
-    assertEquals("", out.toString());
+    assertEquals("2 -3 1", out.toString());
   }
 
   @Test
@@ -513,30 +513,31 @@ public class ReversiTests {
   @Test 
   public void testAvoidCorners() {
     BoardMock board = new BoardMock(4);
-    AvoidCorners cm = new AvoidCorners();
+    ReversiStratagy cm = new TryTwo(new AvoidCorners(), new CaptureMost());
     
     Coordinate c = cm.chooseMove(board, Disc.BLACK);
+
+
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
     System.out.println(c.getQ() + " " + c.getR());
-
-    board.makeMove(c);
-
-    c = cm.chooseMove(board, Disc.WHITE);
-    board.makeMove(c);
-
-    c = cm.chooseMove(board, Disc.BLACK);
-    board.makeMove(c);
-
-    c = cm.chooseMove(board, Disc.WHITE);
-    board.makeMove(c);
-
-    c = cm.chooseMove(board, Disc.BLACK);
-    board.makeMove(c);
-
-    c = cm.chooseMove(board, Disc.WHITE);
-    board.makeMove(c);
-
-    c = cm.chooseMove(board, Disc.BLACK);
-    Assert.assertEquals(c, new Coordinate(4, 4));
+    Assert.assertEquals(c, new Coordinate(1, -3));
     Assert.assertEquals(board.getLog().toString(),
             "getting possible moves and found:q: -1 r: -1 s: 2\n" +
         "q: 1 r: 1 s: -2\n" + //
@@ -560,7 +561,8 @@ public class ReversiTests {
         "q: -2 r: 1 s: 1\n" + //
         "q: -2 r: -1 s: 3\n" + //
         "getting possible moves and found:q: 1 r: -3 s: 2\n" + //
-        "q: 1 r: 2 s: -3\n" + //
+        "q: 1 r: 2 s: -3\n" + "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+        "q: 1 r: 2 s: -3\n" +
         "");
   }
 
@@ -571,7 +573,8 @@ public class ReversiTests {
     new1.put(new Coordinate(0,0), new Cell(Disc.BLACK));
     BoardMock newBoard1 = new BoardMock(3, new1, Turn.BLACK);
     CaptureCorners cm = new CaptureCorners();
-    Assert.assertEquals(new Coordinate(-2, 2), cm.chooseMove(newBoard1, Disc.WHITE));
+    System.out.println(cm.chooseMove(newBoard1, Disc.WHITE).getQ() + "" + cm.chooseMove(newBoard1, Disc.WHITE).getR());
+    Assert.assertEquals(new Coordinate(0, 2), cm.chooseMove(newBoard1, Disc.WHITE));
   }
 
   @Test
@@ -642,76 +645,100 @@ public class ReversiTests {
     Assert.assertEquals(c, new Coordinate(4, 4));
     Assert.assertEquals(board.getLog().toString(),
             "getting possible moves and found:q: -1 r: -1 s: 2\n" +
-            "q: 1 r: 1 s: -2\n" +
-            "q: -1 r: 2 s: -1\n" +
-            "q: 1 r: -2 s: 1\n" +
-            "q: -2 r: 1 s: 1\n" +
-            "q: 2 r: -1 s: -1\n" +
-            "getting possible moves and found:q: 1 r: 1 s: -2\n" +
-            "q: -2 r: 1 s: 1\n" +
-            "q: 2 r: -1 s: -1\n" +
-            "q: -2 r: -1 s: 3\n" +
-            "getting possible moves and found:q: 2 r: -1 s: -1\n" +
-            "q: 2 r: 1 s: -3\n" +
-            "getting possible moves and found:q: -1 r: 2 s: -1\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "q: -2 r: -1 s: 3\n" +
-            "getting possible moves and found:q: -1 r: 3 s: -2\n" +
-            "q: 1 r: -2 s: 1\n" +
-            "q: 2 r: -1 s: -1\n" +
-            "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-            "q: -2 r: 1 s: 1\n" +
-            "q: 2 r: -1 s: -1\n" +
-            "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-            "q: -1 r: 3 s: -2\n" +
-            "q: -3 r: 1 s: 2\n" +
-            "q: -2 r: 3 s: -1\n" +
-            "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-            "q: 2 r: -1 s: -1\n" +
-            "getting possible moves and found:q: -1 r: 3 s: -2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "q: -2 r: -1 s: 3\n" +
-            "q: -2 r: 3 s: -1\n" +
-            "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "q: -2 r: -1 s: 3\n" +
-            "q: -2 r: 3 s: -1\n" +
-            "getting possible moves and found:q: 3 r: -2 s: -1\n" +
-            "q: -1 r: -2 s: 3\n" +
-            "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-            "q: 1 r: -3 s: 2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-            "q: 1 r: -3 s: 2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: -2 r: 3 s: -1\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: -2 r: 3 s: -1\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-            "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: 0 r: -3 s: 3\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:");
+                    "q: 1 r: 1 s: -2\n" +
+                    "q: -1 r: 2 s: -1\n" +
+                    "q: 1 r: -2 s: 1\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "getting possible moves and found:q: -1 r: -1 s: 2\n" +
+                    "q: 1 r: 1 s: -2\n" +
+                    "q: -1 r: 2 s: -1\n" +
+                    "q: 1 r: -2 s: 1\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "getting possible moves and found:q: 1 r: 1 s: -2\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "q: -2 r: -1 s: 3\n" +
+                    "getting possible moves and found:q: 2 r: -1 s: -1\n" +
+                    "q: 2 r: 1 s: -3\n" +
+                    "getting possible moves and found:q: 2 r: -1 s: -1\n" +
+                    "q: 2 r: 1 s: -3\n" +
+                    "getting possible moves and found:q: -1 r: 2 s: -1\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "q: -2 r: -1 s: 3\n" +
+                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
+                    "q: 1 r: -2 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
+                    "q: 1 r: -2 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
+                    "q: -1 r: 3 s: -2\n" +
+                    "q: -3 r: 1 s: 2\n" +
+                    "q: -2 r: 3 s: -1\n" +
+                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
+                    "q: -1 r: 3 s: -2\n" +
+                    "q: -3 r: 1 s: 2\n" +
+                    "q: -2 r: 3 s: -1\n" +
+                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "q: -2 r: -1 s: 3\n" +
+                    "q: -2 r: 3 s: -1\n" +
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "q: -2 r: -1 s: 3\n" +
+                    "q: -2 r: 3 s: -1\n" +
+                    "getting possible moves and found:q: 3 r: -2 s: -1\n" +
+                    "q: -1 r: -2 s: 3\n" +
+                    "getting possible moves and found:q: 3 r: -2 s: -1\n" +
+                    "q: -1 r: -2 s: 3\n" +
+                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
+                    "q: 1 r: -3 s: 2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
+                    "q: 1 r: -3 s: 2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
+                    "q: -3 r: 3 s: 0\n" +
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
+                    "q: 0 r: 3 s: -3\n" +
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: -2 r: 3 s: -1\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: -2 r: 3 s: -1\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
+                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: 0 r: -3 s: 3\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:getting possible moves and found:");
   }
 
   @Test
@@ -730,9 +757,12 @@ public class ReversiTests {
     controller2.updateView();
 
     // checks for player.black moves
-    Assert.assertEquals(controller.getLog().toString(), "Updates the View\n" +
+    Assert.assertEquals(controller.getLog().toString(), "" +
+            "Updates the View\n" +
             "AI Player BLACK makes a move at hexagon: Q: 1 R: -2\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
             "AI Player BLACK makes a move at hexagon: Q: 1 R: 1\n" +
             "Updates the View\n" +
@@ -762,7 +792,28 @@ public class ReversiTests {
             "Updates the View\n" +
             "Updates the View\n" +
             "AI Player BLACK makes a move at hexagon: Q: -3 R: 3\n" +
-            "Updates the View\n");
+            "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "");
 
     // checks for player.white moves
     Assert.assertEquals(controller2.getLog().toString(), "Updates the View\n" +
@@ -786,16 +837,36 @@ public class ReversiTests {
             "Updates the View\n" +
             "AI Player WHITE makes a move at hexagon: Q: -2 R: 3\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
+            "Turn was changed\n" +
+            "Turn was changed\n" +
             "Updates the View\n" +
-            "Updates the View\n");
+            "Turn was changed\n" +
+            "Turn was changed\n" +
+            "Updates the View\n" +
+            "Turn was changed\n");
   }
 
 
