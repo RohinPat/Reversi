@@ -35,9 +35,9 @@ public final class ReversiMain {
     int maxArgs = args.length;
     int size = 0;
     if (args.length == 0) {
-      b1 = new Board(10);
-      p1 = new AIPlayer(Disc.BLACK, new MostPointsGainedStrategy());
-      p2 = new AIPlayer(Disc.WHITE, new MinimaxStrategy(3, new FallableInfallablePairStrategy( new PlayCornersStrategy(), new MostPointsGainedStrategy()), new MostPointsGainedStrategy()));
+      b1 = new Board(4);
+      p1 = new HumanPlayer(Disc.BLACK);
+      p2 = new HumanPlayer(Disc.WHITE);
     }
     else {
       try {
@@ -53,53 +53,48 @@ public final class ReversiMain {
       }
       String player1 = args[argsUsed];
       argsUsed++;
-      ArrayList<String> moves = new ArrayList<String>();
-      moves.add("capturemost");
-      moves.add("capturecorners");
-      moves.add("avoidcorners");
+      boolean nextplayer = true;
       if (player1.equals("human")) {
+        nextplayer = false;
         p1 = new HumanPlayer(Disc.BLACK);
       }
       else if (player1.equals("ai")) {
-        String strat1 = args[argsUsed];
-        String strat2 = null;
-        String strat3 = null;
-        argsUsed++;
-        if (moves.contains(args[argsUsed])) {
-          strat2 = args[argsUsed];
+        ArrayList<String> strats = new ArrayList<String>();
+        while (nextplayer) {
+          strats.add(args[argsUsed]);
           argsUsed++;
+          if (args[argsUsed].equals("human") || args[argsUsed].equals("ai")) {
+            nextplayer = false;
+          }
         }
-        if (moves.contains(args[argsUsed])) {
-          strat3 = args[argsUsed];
-          argsUsed++;
-        }
-        ReversiStratagy strat = getStrat(strat1, strat2, strat3);
-        p1 = new AIPlayer(Disc.BLACK, strat);
+        ReversiStratagy strat1 = getStrat(strats);
+        p1 = new AIPlayer(Disc.BLACK, strat1);
       }
+      else {
+        System.out.println("First Player Input Error");
+      }
+            
       String player2 = args[argsUsed];
       argsUsed++;
+      boolean nextplayer2 = true;
       if (player2.equals("human")) {
-        p2 = new HumanPlayer(Disc.WHITE);
+        nextplayer2 = false;
+        p2 = new HumanPlayer(Disc.BLACK);
       }
       else if (player2.equals("ai")) {
-        String strat1 = args[argsUsed];
-        String strat2 = null;
-        String strat3 = null;
-        argsUsed++;
-        try {
-          if (moves.contains(args[argsUsed])) {
-            strat2 = args[argsUsed];
-            argsUsed++;
+        ArrayList<String> strats2 = new ArrayList<String>();
+        while (nextplayer2) {
+          strats2.add(args[argsUsed]);
+          argsUsed++;
+          if (args[argsUsed].equals("human") || args[argsUsed].equals("ai")) {
+            nextplayer = false;
           }
-          if (moves.contains(args[argsUsed])) {
-            strat3 = args[argsUsed];
-            argsUsed++;
-          }
-        } catch (ArrayIndexOutOfBoundsException e) {
-          //stops from checking args that arent there
         }
-        ReversiStratagy strat = getStrat(strat1, strat2, strat3);
-        p2 = new AIPlayer(Disc.WHITE, strat);
+        ReversiStratagy strat2 = getStrat(strats2);
+        p2 = new AIPlayer(Disc.WHITE, strat2);
+      }
+      else {
+        System.out.println("Second Player Input Error");
       }
     }
     try {
@@ -118,49 +113,27 @@ public final class ReversiMain {
     }
     controller2.updateView();
   }
-
-  private static ReversiStratagy getStrat(String strat1, String strat2, String strat3) {
-    ReversiStratagy stratOne = null;
-    ReversiStratagy stratTwo = null;
-    ReversiStratagy stratThree = null;
-    if (strat1.equals("capturemost")) {
-      stratOne = new CaptureMost();
-    }
-    else if (strat1.equals("capturecorners")) {
-      stratOne = new CaptureCorners();
-    }
-    else if (strat1.equals("avoidcorners")) {
-      stratOne = new AvoidCorners();
-    }
-    if (strat2 != null) {
-      if (strat2.equals("capturemost")) {
-        stratTwo = new CaptureMost();
-      } else if (strat2.equals("capturecorners")) {
-        stratTwo = new CaptureCorners();
-      } else if (strat2.equals("avoidcorners")) {
-        stratTwo = new AvoidCorners();
+// 5 capturemost fallibleinfalliblepair(new Capture Corners, new Most)
+  private static ReversiStratagy getStrat(ArrayList<String> strats) {
+   int numOfStrats = strats.size();
+    if (numOfStrats == 1) {
+      if (strats.get(0).equals("capturecorners")) {
+        return new CaptureCorners();
+      }
+      else if (strats.get(0).equals("capturemost")) {
+        return new CaptureMost();
+      }
+      else if (strats.get(0).equals("avoidcorners")) {
+        return new AvoidCorners();
+      }
+      else if (strats.get(0).equals("trytwo")) {
+        return new TryTwo();
+      }
+      else {
+        System.out.println("Invalid Strategy");
+        return null;
       }
     }
-    if (strat3 != null) {
-      if (strat3.equals("capturemost")) {
-        stratThree = new CaptureMost();
-      } else if (strat3.equals("capturecorners")) {
-        stratThree = new CaptureCorners();
-      } else if (strat3.equals("avoidcorners")) {
-        stratThree = new AvoidCorners();
-      }
-    }
-    if (stratOne != null && stratTwo == null && stratThree == null) {
-      return stratOne;
-    }
-    else if (stratOne != null && stratTwo != null && stratThree == null) {
-      return new TryTwo(stratOne, stratTwo);
-    }
-    else if (stratOne != null && stratTwo != null && stratThree != null) {
-      return new TryTwo(stratOne, new TryTwo(stratTwo, stratThree));
-    }
-    else {
-      return null;
-    }
+    
   }
 }
