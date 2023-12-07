@@ -329,18 +329,17 @@ public class BoardMock implements Reversi {
     notifyTurnChange();
   }
 
-  public boolean validMove(Coordinate coor, Disc currentTurn){
+  public boolean validMove(Coordinate coor, Disc currentTurn) {
     boolean flag = true;
     Turn turn = null;
 
-    if (this.currentColor().equals(Disc.BLACK)){
+    if (this.currentColor().equals(Disc.BLACK)) {
       turn = Turn.BLACK;
-    }
-    else{
+    } else {
       turn = Turn.WHITE;
     }
     Board copy = new Board(this.getSize(), this.createCopyOfBoard(), turn);
-    try{
+    try {
       copy.makeMove(coor);
       return true;
     } catch (IllegalArgumentException e) {
@@ -349,17 +348,16 @@ public class BoardMock implements Reversi {
   }
 
 
-  public int checkMove(ReversiReadOnly model, Coordinate move){
+  public int checkMove(ReversiReadOnly model, Coordinate move) {
     Turn turn = null;
-    if (model.currentColor().equals(Disc.BLACK)){
+    if (model.currentColor().equals(Disc.BLACK)) {
       turn = Turn.BLACK;
-    }
-    else{
+    } else {
       turn = Turn.WHITE;
     }
     Board copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
     int score = 0;
-    try{
+    try {
       copy.makeMove(move);
       score = copy.getScore(model.currentColor());
       return score;
@@ -605,7 +603,7 @@ public class BoardMock implements Reversi {
     }
   }
 
-  public Map<Coordinate, Cell> getMap(){
+  public Map<Coordinate, Cell> getMap() {
     return grid;
   }
 
@@ -613,7 +611,7 @@ public class BoardMock implements Reversi {
    * Retrieves the log of events and messages generated during the Reversi game.
    *
    * @return A {@link StringBuilder} containing the log of events and messages recorded
-   *         during the course of the game.
+   * during the course of the game.
    */
   public StringBuilder getLog() {
     return log;

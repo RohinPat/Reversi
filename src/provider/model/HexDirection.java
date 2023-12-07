@@ -38,6 +38,6 @@ public enum HexDirection {
   public HexCoord addDirectionToCoord(HexCoord other) {
     Objects.requireNonNull(other);
     return new HexCoord(other.q + this.direction.q,
-        other.r + this.direction.r, other.s + this.direction.s);
+            other.r + this.direction.r, other.s + this.direction.s);
   }
 }
