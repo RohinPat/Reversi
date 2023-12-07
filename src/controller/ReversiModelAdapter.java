@@ -18,7 +18,7 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
 
   private final Reversi currentModel;
 
-  public ReversiModelAdapter(Reversi currentModel){
+  public ReversiModelAdapter(Reversi currentModel) {
     this.currentModel = currentModel;
   }
 
@@ -35,14 +35,13 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   @Override
   public int countClaimedTiles(PlayerOwnership player) throws IllegalStateException, IllegalArgumentException {
     Disc disc = null;
-    if (player.equals(PlayerOwnership.PLAYER_1)){
+    if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.WHITE;
     } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.BLACK;
-    }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
+    } else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
-    }
-    else{
+    } else {
       throw new IllegalArgumentException("Invalid disc");
     }
     return currentModel.getScore(disc);
@@ -51,21 +50,19 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   @Override
   public boolean isPlayerTurn(PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
-    if (player.equals(PlayerOwnership.PLAYER_1)){
+    if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.WHITE;
     } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.BLACK;
-    }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
+    } else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
-    }
-    else{
+    } else {
       throw new IllegalArgumentException("Invalid disc");
     }
 
-    if (disc.equals(currentModel.currentColor())){
+    if (disc.equals(currentModel.currentColor())) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
 
@@ -74,14 +71,13 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   @Override
   public boolean isMoveAllowed(HexCoord hc, PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
-    if (player.equals(PlayerOwnership.PLAYER_1)){
+    if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.WHITE;
     } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.BLACK;
-    }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
+    } else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
-    }
-    else{
+    } else {
       throw new IllegalArgumentException("Invalid disc");
     }
     return currentModel.validMove(new Coordinate(hc.q, hc.r), disc);
@@ -97,7 +93,7 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
     // Create a new Reversi instance with the copied board state
 
     Turn t = null;
-    if (currentModel.currentColor().equals(Disc.BLACK)){
+    if (currentModel.currentColor().equals(Disc.BLACK)) {
       t = Turn.BLACK;
     } else {
       t = Turn.WHITE;

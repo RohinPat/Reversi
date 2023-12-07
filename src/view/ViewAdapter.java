@@ -5,10 +5,10 @@ import model.ReversiReadOnly;
 import controller.FeaturesAdapter;
 import provider.view.ReversiGUIView;
 
-public class ViewAdapter implements IBoardPanel{
+public class ViewAdapter implements IBoardPanel {
   private final ReversiGUIView reversiGUIView;
 
-  public ViewAdapter (ReversiGUIView reversiGUIView){
+  public ViewAdapter(ReversiGUIView reversiGUIView) {
     this.reversiGUIView = reversiGUIView;
   }
 

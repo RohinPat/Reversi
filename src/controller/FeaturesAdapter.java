@@ -8,7 +8,7 @@ import provider.view.Features;
 public class FeaturesAdapter implements Features {
   private final ControllerFeatures controller;
 
-  public FeaturesAdapter(ControllerFeatures controller){
+  public FeaturesAdapter(ControllerFeatures controller) {
     this.controller = controller;
   }
 

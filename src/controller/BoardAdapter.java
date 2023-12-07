@@ -20,7 +20,7 @@ import provider.model.PlayerOwnership;
 public class BoardAdapter implements IBoard {
   private final Reversi currentBoard;
 
-  public BoardAdapter(Reversi currentBoard){
+  public BoardAdapter(Reversi currentBoard) {
     this.currentBoard = currentBoard;
   }
 
@@ -30,16 +30,15 @@ public class BoardAdapter implements IBoard {
     Map<HexCoord, HexagonTile> outputMap = new HashMap<>();
 
 
-    for (Coordinate coord : map.keySet()){
+    for (Coordinate coord : map.keySet()) {
       PlayerOwnership ownership = null;
-      if (map.get(coord).getContent().equals(Disc.BLACK)){
+      if (map.get(coord).getContent().equals(Disc.BLACK)) {
         ownership = PlayerOwnership.PLAYER_1;
       } else if (map.get(coord).getContent().equals(Disc.WHITE)) {
         ownership = PlayerOwnership.PLAYER_2;
-      }  else if (map.get(coord).getContent().equals(Disc.EMPTY)) {
+      } else if (map.get(coord).getContent().equals(Disc.EMPTY)) {
         ownership = PlayerOwnership.UNOCCUPIED;
-      }
-      else{
+      } else {
         throw new IllegalArgumentException("Invalid disc");
       }
       outputMap.put(new HexCoord(coord.getQ(), coord.getR(), coord.getS()), new HexagonTile(ownership));
@@ -60,12 +59,12 @@ public class BoardAdapter implements IBoard {
 
   @Override
   public List<HexDirection> getDirections() {
-    HexDirection hd1 =  HexDirection.UPLEFT;
-    HexDirection hd2 =  HexDirection.UPRIGHT;
-    HexDirection hd3 =  HexDirection.DOWNLEFT;
-    HexDirection hd4 =  HexDirection.DOWNRIGHT;
-    HexDirection hd5 =  HexDirection.LEFT;
-    HexDirection hd6 =  HexDirection.RIGHT;
+    HexDirection hd1 = HexDirection.UPLEFT;
+    HexDirection hd2 = HexDirection.UPRIGHT;
+    HexDirection hd3 = HexDirection.DOWNLEFT;
+    HexDirection hd4 = HexDirection.DOWNRIGHT;
+    HexDirection hd5 = HexDirection.LEFT;
+    HexDirection hd6 = HexDirection.RIGHT;
 
     List<HexDirection> hexDirectionList = new ArrayList<>();
 
@@ -91,7 +90,7 @@ public class BoardAdapter implements IBoard {
     // Create a new Reversi instance with the copied board state
 
     Turn t = null;
-    if (currentBoard.currentColor().equals(Disc.BLACK)){
+    if (currentBoard.currentColor().equals(Disc.BLACK)) {
       t = Turn.BLACK;
     } else {
       t = Turn.WHITE;

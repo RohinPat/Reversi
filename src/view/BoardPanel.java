@@ -153,8 +153,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
         }
 
         turnLabel.setText(turnMonitor);
-      }
-      else {
+      } else {
         turnLabel.setText(board2.getState().toString());
       }
     }
@@ -184,7 +183,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     helloLabel.setBounds(10, 0, boardWidth / 3, (int) (startY));
     scoreLabel.setBounds(
             (2 * boardWidth / 3) + 1, 0, boardWidth / 3 - 1, (int) (startY));
-    turnLabel.setBounds(10, boardHeight - (int)startY,
+    turnLabel.setBounds(10, boardHeight - (int) startY,
             boardWidth / 3 - 1, (int) (startY));
   }
 
@@ -359,7 +358,6 @@ public class BoardPanel extends JPanel implements IBoardPanel {
   }
 
 
-
   /**
    * Handles a mouse click event on a hexagon within the game board. The method determines
    * which hexagon, if any, has been clicked and updates the selection accordingly. It
@@ -386,8 +384,6 @@ public class BoardPanel extends JPanel implements IBoardPanel {
       repaint();
     }
   }
-
-
 
 
   /**
