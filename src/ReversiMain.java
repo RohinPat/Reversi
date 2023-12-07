@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 
+import javax.swing.text.View;
+
 import controller.AIPlayer;
+import controller.BoardAdapter2;
 import controller.Player;
 import controller.ReversiController;
 import controller.StratagyAdapter;
@@ -16,9 +19,11 @@ import provider.strategies.FallableInfallablePairStrategy;
 import provider.strategies.MinimaxStrategy;
 import provider.strategies.MostPointsGainedStrategy;
 import provider.strategies.PlayCornersStrategy;
+import provider.view.ReversiGUIView;
 import view.BoardPanel;
 import view.ReversiFrame;
 import controller.HumanPlayer;
+import view.ViewAdapter;
 
 /**
  * Main class used to run our GUI - passes through a ReadOnly version of Reversi to display.
@@ -110,10 +115,12 @@ public final class ReversiMain {
       b1.addObserver(controller);
       ReversiFrame viewPlayer2 = new ReversiFrame(b1);
       BoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
-      controller2 = new ReversiController(b1, viewPanel2, p2);
+      ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
+      ViewAdapter v2 = new ViewAdapter(rev2);
+      controller2 = new ReversiController(b1, v2, p2);
       b1.addObserver(controller2);
       viewPlayer1.setVisible(true);
-      viewPlayer2.setVisible(true);
+      viewPanel2.setVisible(true);
     } catch (IllegalArgumentException e) {
       System.out.println("error in inputs");
     }
