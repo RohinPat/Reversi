@@ -25,6 +25,7 @@ public class HumanPlayer implements Player {
 
   /**
    * Method which checks if it is the turn of the player assigned to this class.
+   *
    * @param model The {@link Reversi} game model representing the current game state.
    * @return true if it is this player's turn and false if it isn't.
    */

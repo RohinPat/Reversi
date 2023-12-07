@@ -39,8 +39,8 @@ public class TryManyStrategies implements FallableReversiStrategy {
    */
   @Override
   public Optional<List<Pair<HexCoord, Integer>>> executeStrategyGivenMoves(
-      ReversiReadOnlyModel model,
-      PlayerOwnership player) {
+          ReversiReadOnlyModel model,
+          PlayerOwnership player) {
     Objects.requireNonNull(model);
     Objects.requireNonNull(player);
     Optional<List<Pair<HexCoord, Integer>>> strategicMoves;
