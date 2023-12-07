@@ -33,9 +33,9 @@ public class BoardAdapter implements IBoard {
 
     for (Coordinate coord : map.keySet()){
       PlayerOwnership ownership = null;
-      if (map.get(coord).getContent().equals(Disc.WHITE)){
+      if (map.get(coord).getContent().equals(Disc.BLACK)){
         ownership = PlayerOwnership.PLAYER_1;
-      } else if (map.get(coord).getContent().equals(Disc.BLACK)) {
+      } else if (map.get(coord).getContent().equals(Disc.WHITE)) {
         ownership = PlayerOwnership.PLAYER_2;
       }  else if (map.get(coord).getContent().equals(Disc.EMPTY)) {
         ownership = PlayerOwnership.UNOCCUPIED;

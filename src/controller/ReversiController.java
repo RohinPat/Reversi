@@ -1,9 +1,11 @@
 package controller;
 
+import model.ReversiReadOnly;
 import view.BoardPanel;
 import model.Board;
 import model.Coordinate;
 import model.Disc;
+import view.IBoardPanel;
 
 /**
  * The {@code ReversiController} class is responsible for controlling the game logic and
@@ -11,7 +13,7 @@ import model.Disc;
  */
 public class ReversiController implements ControllerFeatures {
   private Board model;
-  private BoardPanel view;
+  private IBoardPanel view;
   private Player player;
 
   /**
@@ -24,7 +26,7 @@ public class ReversiController implements ControllerFeatures {
    * @param view   The {@link BoardPanel} view displaying the game board.
    * @param player The {@link Player} representing the current player.
    */
-  public ReversiController(Board model, BoardPanel view, Player player) {
+  public ReversiController(Board model, IBoardPanel view, Player player) {
     this.model = model;
     this.view = view;
     this.player = player;
@@ -49,6 +51,7 @@ public class ReversiController implements ControllerFeatures {
       if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
         try {
           player.makeAMove(model, selectedHex);
+          model.notifyTurnChange();
         } catch (IllegalArgumentException e) {
           view.showInvalidMoveDialog(e.getMessage());
         }

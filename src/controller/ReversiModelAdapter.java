@@ -37,9 +37,9 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   public int countClaimedTiles(PlayerOwnership player) throws IllegalStateException, IllegalArgumentException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)){
-      disc = Disc.BLACK;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.WHITE;
+    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
+      disc = Disc.BLACK;
     }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
     }
@@ -53,9 +53,9 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   public boolean isPlayerTurn(PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)){
-      disc = Disc.BLACK;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.WHITE;
+    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
+      disc = Disc.BLACK;
     }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
     }
@@ -76,9 +76,9 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   public boolean isMoveAllowed(HexCoord hc, PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)){
-      disc = Disc.BLACK;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
       disc = Disc.WHITE;
+    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
+      disc = Disc.BLACK;
     }  else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
       disc = Disc.EMPTY;
     }
