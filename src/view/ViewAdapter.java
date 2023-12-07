@@ -12,7 +12,7 @@ import provider.view.FeaturesAdapter;
 import provider.view.ReversiGUIView;
 import provider.view.ReversiPanel;
 
-public class ViewAdapter implements IBoardPanel, Features {
+public class ViewAdapter implements IBoardPanel{
   private final ReversiGUIView reversiGUIView;
 
   public ViewAdapter (ReversiGUIView reversiGUIView){
@@ -38,16 +38,6 @@ public class ViewAdapter implements IBoardPanel, Features {
   @Override
   public void showInvalidMoveDialog(String message) {
     this.reversiGUIView.alertErrorMessage(message);
-  }
-
-  @Override
-  public void attemptMove(Optional<HexCoord> hc) {
-    //
-  }
-
-  @Override
-  public void attemptPass() {
-
   }
 
   public void setVisible(boolean b) {
