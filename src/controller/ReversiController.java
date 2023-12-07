@@ -1,6 +1,5 @@
 package controller;
 
-import model.ReversiReadOnly;
 import view.BoardPanel;
 import model.Board;
 import model.Coordinate;
@@ -52,12 +51,6 @@ public class ReversiController implements ControllerFeatures {
     } else {
       view.showInvalidMoveDialog("Not your turn right now");
     }
-  }
-
-  @Override
-  public void selectHexagon(int q, int r) {
-    // Logic when a hexagon is selected
-    // You might want to highlight the selected hexagon in the view, for example
   }
 
   @Override

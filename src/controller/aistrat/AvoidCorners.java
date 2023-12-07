@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import model.Coordinate;
 import model.Disc;
-import model.Reversi;
 import model.ReversiReadOnly;
 
 

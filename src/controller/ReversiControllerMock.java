@@ -40,12 +40,6 @@ public class ReversiControllerMock implements ControllerFeatures {
   }
 
   @Override
-  public void selectHexagon(int q, int r) {
-    // Logic when a hexagon is selected
-    // You might want to highlight the selected hexagon in the view, for example
-  }
-
-  @Override
   public void confirmMove(int q, int r) {
     if (player.getDisc().equals(model.currentColor())) {
       Coordinate selectedHex = new Coordinate(q, r);

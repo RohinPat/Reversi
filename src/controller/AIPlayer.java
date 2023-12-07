@@ -5,8 +5,6 @@ import model.Disc;
 import model.Coordinate;
 import controller.aistrat.ReversiStratagy;
 import provider.strategies.InFallableReversiStrategy;
-import provider.strategies.TopLeftTieBreaker;
-import controller.StratagyAdapter;
 
 /**
  * The {@code AIPlayer} class represents an AI player in the Reversi game.

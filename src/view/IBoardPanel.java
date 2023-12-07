@@ -1,7 +1,6 @@
 package view;
 
 import controller.ControllerFeatures;
-import model.Coordinate;
 import model.ReversiReadOnly;
 
 public interface IBoardPanel {

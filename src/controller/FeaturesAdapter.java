@@ -2,8 +2,6 @@ package controller;
 
 import java.util.Optional;
 
-import controller.ControllerFeatures;
-import model.Coordinate;
 import provider.model.HexCoord;
 import provider.view.Features;
 

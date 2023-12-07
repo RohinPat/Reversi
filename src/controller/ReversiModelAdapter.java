@@ -2,7 +2,6 @@ package controller;
 
 import java.util.HashMap;
 
-import controller.BoardAdapter;
 import model.Board;
 import model.Cell;
 import model.Coordinate;

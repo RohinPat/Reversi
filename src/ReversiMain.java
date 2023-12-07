@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import javax.swing.text.View;
-
 import controller.AIPlayer;
 import controller.BoardAdapter2;
 import controller.Player;

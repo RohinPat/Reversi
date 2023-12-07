@@ -16,7 +16,6 @@ import provider.model.HexDirection;
 import provider.model.HexagonTile;
 import provider.model.IBoard;
 import provider.model.PlayerOwnership;
-import provider.model.ReversiMutableModel;
 
 public class BoardAdapter implements IBoard {
   private final Reversi currentBoard;

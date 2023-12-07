@@ -1,16 +1,9 @@
 package view;
 
-import java.util.Optional;
-
 import controller.ControllerFeatures;
-import model.Coordinate;
-import model.Reversi;
 import model.ReversiReadOnly;
-import provider.model.HexCoord;
-import provider.view.Features;
 import controller.FeaturesAdapter;
 import provider.view.ReversiGUIView;
-import provider.view.ReversiPanel;
 
 public class ViewAdapter implements IBoardPanel{
   private final ReversiGUIView reversiGUIView;

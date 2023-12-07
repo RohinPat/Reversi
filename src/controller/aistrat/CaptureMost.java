@@ -1,8 +1,6 @@
 package controller.aistrat;
 
-import model.Board;
 import model.Disc;
-import model.Reversi;
 import model.ReversiReadOnly;
 import model.Turn;
 import model.Coordinate;
