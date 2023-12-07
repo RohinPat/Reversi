@@ -14,10 +14,22 @@ import provider.model.PlayerOwnership;
 import provider.model.ReversiMutableModel;
 import provider.model.ReversiReadOnlyModel;
 
+/**
+ * Adapter class that enables interaction between the Reversi game model and a provider's view.
+ * model.
+ * It serves as a bridge to convert and relay information from the Reversi game model to a format
+ * compatible with the provider's view requirements, specifically for read-only operations.
+ */
 public class ReversiModelAdapter implements ReversiReadOnlyModel {
 
   private final Reversi currentModel;
 
+  /**
+   * Constructs a ReversiModelAdapter with a given Reversi model.
+   * This adapter facilitates access to game state information such as board configuration,
+   * game over status, and player turns, translating it to the provider's model format.
+   * @param currentModel The Reversi game model to be adapted for the provider's view.
+   */
   public ReversiModelAdapter(Reversi currentModel) {
     this.currentModel = currentModel;
   }

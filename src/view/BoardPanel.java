@@ -137,7 +137,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
 
   /**
    * Updates the turn label to display whether it is currently the player's turn
-   * in the Reversi game.
+   * in the Reversi game. Also used at the end of the game to display the winner of the game.
    *
    * @param board2 The {@link ReversiReadOnly} board representing the current state
    *               of the Reversi game, used to determine the current turn.
@@ -320,7 +320,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_M) {
         if (selected == null) {
-          showInvalidMoveDialog("No hexagon selected. Please select a hexagon before confirming the move.");
+          showInvalidMoveDialog("No hexagon selected. " +
+                  "Please select a hexagon before confirming the move.");
           return;
         }
         controller.confirmMove(hexagons.get(selected).getQ(), hexagons.get(selected).getR());

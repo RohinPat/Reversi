@@ -14,9 +14,30 @@ import provider.model.PlayerOwnership;
 import provider.model.ReversiMutableModel;
 import model.Turn;
 
+/**
+ * The {@code BoardAdapter2} class is an adapter that conforms a {@link Reversi} board to the.
+ * {@link ReversiMutableModel} interface, allowing the Reversi game logic to be used in contexts.
+ * requiring this interface. This adapter enables the integration of the Reversi game model with.
+ * different systems or frameworks that operate through the {@link ReversiMutableModel} interface.
+ * It acts as a bridge between the Reversi model and these systems, translating the calls and data.
+ * between them.
+ * This class implements all the methods of the {@link ReversiMutableModel} interface, delegating.
+ * most of its functionality to an underlying {@link Reversi} board instance. It is responsible for.
+ * converting the data and calls between the {@link Reversi} model and the interface methods.
+ * ensuring compatibility and correct behavior.
+ */
 public class BoardAdapter2 implements ReversiMutableModel {
   private final Reversi board;
 
+  /**
+   * Constructs a new {@code BoardAdapter2} which adapts a {@link Reversi} board to conform to the.
+   * {@link ReversiMutableModel} interface. This adapter allows the provided Reversi board to be.
+   * used in any context that requires a {@link ReversiMutableModel}, facilitating interoperability.
+   * with systems built around this interface.
+   *
+   * @param board The {@link Reversi} board that this adapter will represent and adapt to the.
+   *     {@link ReversiMutableModel} interface.
+   */
   public BoardAdapter2(Reversi board) {
     this.board = board;
   }
@@ -81,7 +102,8 @@ public class BoardAdapter2 implements ReversiMutableModel {
   }
 
   @Override
-  public int countClaimedTiles(PlayerOwnership player) throws IllegalStateException, IllegalArgumentException {
+  public int countClaimedTiles(PlayerOwnership player)
+          throws IllegalStateException, IllegalArgumentException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.BLACK;
@@ -96,7 +118,8 @@ public class BoardAdapter2 implements ReversiMutableModel {
   }
 
   @Override
-  public boolean isPlayerTurn(PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
+  public boolean isPlayerTurn(PlayerOwnership player)
+          throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.BLACK;
@@ -116,7 +139,8 @@ public class BoardAdapter2 implements ReversiMutableModel {
   }
 
   @Override
-  public boolean isMoveAllowed(HexCoord hc, PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
+  public boolean isMoveAllowed(HexCoord hc, PlayerOwnership player)
+          throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.BLACK;
@@ -135,7 +159,8 @@ public class BoardAdapter2 implements ReversiMutableModel {
     // Create a deep copy of the Reversi board
     HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
     for (Coordinate coor : board.getMap().keySet()) {
-      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()), new Cell(board.getMap().get(coor).getContent()));
+      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()),
+              new Cell(board.getMap().get(coor).getContent()));
     }
     // Create a new Reversi instance with the copied board state
 
@@ -152,7 +177,8 @@ public class BoardAdapter2 implements ReversiMutableModel {
   }
 
   @Override
-  public boolean isMoveAllowedTurnIndependent(HexCoord hc, PlayerOwnership playerOwnership) throws IllegalArgumentException, IllegalStateException {
+  public boolean isMoveAllowedTurnIndependent(HexCoord hc, PlayerOwnership playerOwnership)
+          throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
     if (playerOwnership.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.BLACK;

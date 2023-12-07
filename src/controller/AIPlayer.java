@@ -11,7 +11,7 @@ import provider.strategies.InFallableReversiStrategy;
  * It implements the {@link Player} interface and provides methods for making moves
  * based on a specified strategy.
  */
-public class AIPlayer implements Player{
+public class AIPlayer implements Player {
   private Disc playerDisc;
   private ReversiStratagy strategy;
 
@@ -27,6 +27,19 @@ public class AIPlayer implements Player{
     this.strategy = strategy;
   }
 
+  /**
+   * Constructs an {@code AIPlayer} with the specified player disc color and an infallible strategy.
+   * This constructor adapts an {@link InFallableReversiStrategy} into a regular.
+   * {@link ReversiStratagy} so it can be used by the AI player. This allows the AI player to.
+   * utilize advanced, error-proof strategies.
+   *
+   * @param playerDisc The {@link Disc} representing the color of the AI player's pieces
+   *                   (BLACK or WHITE).
+   * @param infallibleStrategy The {@link InFallableReversiStrategy} defining the advanced.
+   *                           error-proof strategy used by this AI player. This strategy is.
+   *                           adapted to a standard {@link ReversiStratagy} format for.
+   *                           compatibility with the AI player.
+   */
   public AIPlayer(Disc playerDisc, InFallableReversiStrategy infallibleStrategy) {
     this.playerDisc = playerDisc;
     this.strategy = new StratagyAdapter(infallibleStrategy);
@@ -37,12 +50,13 @@ public class AIPlayer implements Player{
     Coordinate c1 = strategy.chooseMove(model, playerDisc);
     System.out.print(c1.getQ());
     System.out.print(c1.getR());
-    if (!model.isGameOver() && (c1.equals(new Coordinate(model.getSize(), model.getSize())) || c1 == null)) {
+    if (!model.isGameOver()
+            && (c1.equals(new Coordinate(model.getSize(), model.getSize())) || c1 == null)) {
       model.passTurn();
     }
-    if (model.validMove(c1, playerDisc)){
+    if (model.validMove(c1, playerDisc)) {
       model.makeMove(c1);
-    }else{
+    } else {
       model.passTurn();
     }
   }

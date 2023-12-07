@@ -15,7 +15,6 @@ public class ReversiControllerMock implements ControllerFeatures {
   private Board model;
   private BoardPanel view;
   private Player player;
-  private Coordinate lastClickedHexagon = null;
 
   /**
    * Constructs a {@code ReversiController} with the specified model, view, and player.

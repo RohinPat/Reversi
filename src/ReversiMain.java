@@ -42,8 +42,7 @@ public final class ReversiMain {
       b1 = new Board(4);
       p1 = new HumanPlayer(Disc.BLACK);
       p2 = new HumanPlayer(Disc.WHITE);
-    }
-    else {
+    } else {
       try {
         size = Integer.parseInt(args[argsUsed]);
         argsUsed++;
@@ -61,8 +60,7 @@ public final class ReversiMain {
       if (player1.equals("human")) {
         nextplayer = false;
         p1 = new HumanPlayer(Disc.BLACK);
-      }
-      else if (player1.equals("ai")) {
+      } else if (player1.equals("ai")) {
         ArrayList<String> strats = new ArrayList<String>();
         while (nextplayer) {
           strats.add(args[argsUsed]);
@@ -73,19 +71,17 @@ public final class ReversiMain {
         }
         ReversiStratagy strat1 = getStrat(strats);
         p1 = new AIPlayer(Disc.BLACK, strat1);
-      }
-      else {
+      } else {
         System.out.println("First Player Input Error");
       }
-            
+
       String player2 = args[argsUsed];
       argsUsed++;
       boolean nextplayer2 = true;
       if (player2.equals("human")) {
         nextplayer2 = false;
         p2 = new HumanPlayer(Disc.WHITE);
-      }
-      else if (player2.equals("ai")) {
+      } else if (player2.equals("ai")) {
         ArrayList<String> strats2 = new ArrayList<String>();
         while (nextplayer2) {
           strats2.add(args[argsUsed]);
@@ -94,15 +90,13 @@ public final class ReversiMain {
             if (args[argsUsed].equals("human") || args[argsUsed].equals("ai")) {
               nextplayer2 = false;
             }
-          }
-          catch (ArrayIndexOutOfBoundsException e) {
+          } catch (ArrayIndexOutOfBoundsException e) {
             nextplayer2 = false;
           }
         }
         ReversiStratagy strat2 = getStrat(strats2);
         p2 = new AIPlayer(Disc.WHITE, strat2);
-      }
-      else {
+      } else {
         System.out.println("Second Player Input Error");
       }
     }
@@ -124,73 +118,79 @@ public final class ReversiMain {
     }
     controller2.updateView();
   }
-// 5 capturemost fallibleinfalliblepair(new Capture Corners, new Most)
+
+  /**
+   * Parses command-line arguments to set up the game strategy for a Reversi game.
+   * This method maps strings representing strategy names to their corresponding strategy objects.
+   * It supports both single and multiple strategies. In the case of multiple strategies,
+   * it combines them using the 'TryTwo' class, allowing an AI player to sequentially attempt
+   * different strategies during the game. If an invalid strategy name is provided, the method
+   * returns null, indicating an error in strategy selection.
+   *
+   * @param strats An ArrayList of strings representing the names of strategies.
+   * @return ReversiStrategy The final composed strategy based on the input list,
+   *                         or null if an invalid strategy name is encountered.
+   */
+  // 5 capturemost fallibleinfalliblepair(new Capture Corners, new Most)
   private static ReversiStratagy getStrat(ArrayList<String> strats) {
-  ArrayList<String> listOfStrats = strats;
-  int numOfStrats = strats.size();
-  ReversiStratagy finalStrat = new CaptureMost();
-  ReversiStratagy captureCorners = new CaptureCorners();
-  ReversiStratagy captureMost = new CaptureMost();
-  ReversiStratagy avoidCorners = new AvoidCorners();
-  ReversiStratagy avoidTilesNextToCorners = new StratagyAdapter(new FallableInfallablePairStrategy (new AvoidTilesNextToCornersStrategy(), new MostPointsGainedStrategy()));
-  ReversiStratagy minimax = new StratagyAdapter(new MinimaxStrategy(5, new MostPointsGainedStrategy(), new MostPointsGainedStrategy()));
-  ReversiStratagy mostPointsGained = new StratagyAdapter(new MostPointsGainedStrategy());
-  ReversiStratagy playCorners = new StratagyAdapter(new FallableInfallablePairStrategy(new PlayCornersStrategy(), new MostPointsGainedStrategy()));
-  if (numOfStrats == 1) {
-    if (strats.get(0).equals("capturecorners")) {
-      finalStrat = captureCorners;
+    ArrayList<String> listOfStrats = strats;
+    int numOfStrats = strats.size();
+    ReversiStratagy finalStrat = new CaptureMost();
+    ReversiStratagy captureCorners = new CaptureCorners();
+    ReversiStratagy captureMost = new CaptureMost();
+    ReversiStratagy avoidCorners = new AvoidCorners();
+    ReversiStratagy avoidTilesNextToCorners =
+            new StratagyAdapter(
+                    new FallableInfallablePairStrategy(
+                            new AvoidTilesNextToCornersStrategy(), new MostPointsGainedStrategy()));
+    ReversiStratagy minimax = new StratagyAdapter(
+            new MinimaxStrategy(5, new MostPointsGainedStrategy(),
+                    new MostPointsGainedStrategy()));
+    ReversiStratagy mostPointsGained = new StratagyAdapter(new MostPointsGainedStrategy());
+    ReversiStratagy playCorners = new StratagyAdapter(
+            new FallableInfallablePairStrategy(new PlayCornersStrategy(),
+                    new MostPointsGainedStrategy()));
+    if (numOfStrats == 1) {
+      if (strats.get(0).equals("capturecorners")) {
+        finalStrat = captureCorners;
+      } else if (strats.get(0).equals("capturemost")) {
+        finalStrat = captureMost;
+      } else if (strats.get(0).equals("avoidcorners")) {
+        finalStrat = avoidCorners;
+      } else if (strats.get(0).equals("avoidtilesnexttocorners")) {
+        finalStrat = avoidTilesNextToCorners;
+      } else if (strats.get(0).equals("minimax")) {
+        finalStrat = minimax;
+      } else if (strats.get(0).equals("mostpointsgained")) {
+        finalStrat = mostPointsGained;
+      } else if (strats.get(0).equals("playcorners")) {
+        finalStrat = playCorners;
+      } else {
+        System.out.println("Invalid Strategy");
+        return null;
+      }
     }
-    else if (strats.get(0).equals("capturemost")) {
-      finalStrat = captureMost;
+    while (listOfStrats.size() > 0) {
+      if (strats.get(0).equals("capturecorners")) {
+        finalStrat = new TryTwo(finalStrat, captureCorners);
+      } else if (strats.get(0).equals("capturemost")) {
+        finalStrat = new TryTwo(finalStrat, captureMost);
+      } else if (strats.get(0).equals("avoidcorners")) {
+        finalStrat = new TryTwo(finalStrat, avoidCorners);
+      } else if (strats.get(0).equals("avoidtilesnexttocorners")) {
+        finalStrat = new TryTwo(finalStrat, avoidTilesNextToCorners);
+      } else if (strats.get(0).equals("minimax")) {
+        finalStrat = new TryTwo(finalStrat, minimax);
+      } else if (strats.get(0).equals("mostpointsgained")) {
+        finalStrat = new TryTwo(finalStrat, mostPointsGained);
+      } else if (strats.get(0).equals("playcorners")) {
+        finalStrat = new TryTwo(finalStrat, playCorners);
+      } else {
+        System.out.println("Invalid Strategy Two");
+        return null;
+      }
+      listOfStrats.remove(0);
     }
-    else if (strats.get(0).equals("avoidcorners")) {
-      finalStrat = avoidCorners;
-    }
-    else if (strats.get(0).equals("avoidtilesnexttocorners")) {
-      finalStrat = avoidTilesNextToCorners;
-    }
-    else if (strats.get(0).equals("minimax")) {
-      finalStrat = minimax;
-    }
-    else if (strats.get(0).equals("mostpointsgained")) {
-      finalStrat = mostPointsGained;
-    }
-    else if (strats.get(0).equals("playcorners")) {
-      finalStrat = playCorners;
-    }
-    else {
-      System.out.println("Invalid Strategy");
-      return null;
-    }
-  }
-  while (listOfStrats.size() > 0) {
-    if (strats.get(0).equals("capturecorners")) {
-      finalStrat = new TryTwo(finalStrat, captureCorners);
-    }
-    else if (strats.get(0).equals("capturemost")) {
-      finalStrat = new TryTwo(finalStrat, captureMost);
-    }
-    else if (strats.get(0).equals("avoidcorners")) {
-      finalStrat = new TryTwo(finalStrat, avoidCorners);
-    }
-    else if (strats.get(0).equals("avoidtilesnexttocorners")) {
-      finalStrat = new TryTwo(finalStrat, avoidTilesNextToCorners);
-    }
-    else if (strats.get(0).equals("minimax")) {
-      finalStrat = new TryTwo(finalStrat, minimax);
-    }
-    else if (strats.get(0).equals("mostpointsgained")) {
-      finalStrat = new TryTwo(finalStrat, mostPointsGained);
-    }
-    else if (strats.get(0).equals("playcorners")) {
-      finalStrat = new TryTwo(finalStrat, playCorners);
-    }
-    else {
-      System.out.println("Invalid Strategy Two");
-      return null;
-    }
-    listOfStrats.remove(0);
-  }
-  return finalStrat;
+    return finalStrat;
   }
 }

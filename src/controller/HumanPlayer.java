@@ -22,7 +22,6 @@ public class HumanPlayer implements Player {
     this.playerDisc = playerDisc;
   }
 
-
   /**
    * Method which checks if it is the turn of the player assigned to this class.
    *

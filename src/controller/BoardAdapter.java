@@ -17,9 +17,28 @@ import provider.model.HexagonTile;
 import provider.model.IBoard;
 import provider.model.PlayerOwnership;
 
+
+/**
+ * The {@code BoardAdapter} class serves as an adapter that allows a {@link Reversi} board to be.
+ * used where an {@link IBoard} is required. This class implements the {@link IBoard} interface and.
+ * delegates calls to the underlying {@link Reversi} board. It acts as a bridge between the Reversi.
+ * game model and other components or systems that interact with game boards through the.
+ * {@link IBoard} interface.
+ * This class ensures that the specific details and methods of the {@link Reversi} board are.
+ * correctly translated and presented in a form compatible with the {@link IBoard} interface.
+ * It also provides additional methods that are specific to the adapter itself, such as cloning the.
+ * board for independent manipulation.
+ */
 public class BoardAdapter implements IBoard {
   private final Reversi currentBoard;
 
+  /**
+   * Constructs a new {@code BoardAdapter} which adapts a {@link Reversi} board to the.
+   * {@link IBoard} interface. This allows for the use of Reversi board functionalities in contexts.
+   * that require an {@link IBoard} instance.
+   *
+   * @param currentBoard The {@link Reversi} board instance that this adapter will represent.
+   */
   public BoardAdapter(Reversi currentBoard) {
     this.currentBoard = currentBoard;
   }
@@ -28,8 +47,6 @@ public class BoardAdapter implements IBoard {
   public Map<HexCoord, HexagonTile> getMap() {
     Map<Coordinate, Cell> map = currentBoard.getMap();
     Map<HexCoord, HexagonTile> outputMap = new HashMap<>();
-
-
     for (Coordinate coord : map.keySet()) {
       PlayerOwnership ownership = null;
       if (map.get(coord).getContent().equals(Disc.BLACK)) {
@@ -41,7 +58,8 @@ public class BoardAdapter implements IBoard {
       } else {
         throw new IllegalArgumentException("Invalid disc");
       }
-      outputMap.put(new HexCoord(coord.getQ(), coord.getR(), coord.getS()), new HexagonTile(ownership));
+      outputMap.put(new HexCoord(coord.getQ(), coord.getR(), coord.getS()),
+              new HexagonTile(ownership));
     }
 
     return outputMap;
@@ -85,18 +103,16 @@ public class BoardAdapter implements IBoard {
     // Create a deep copy of the Reversi board
     HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
     for (Coordinate coor : currentBoard.getMap().keySet()) {
-      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()), new Cell(currentBoard.getMap().get(coor).getContent()));
+      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()),
+              new Cell(currentBoard.getMap().get(coor).getContent()));
     }
     // Create a new Reversi instance with the copied board state
-
     Turn t = null;
     if (currentBoard.currentColor().equals(Disc.BLACK)) {
       t = Turn.BLACK;
     } else {
       t = Turn.WHITE;
     }
-
-
     Reversi clonedBoard = new Board(currentBoard.getSize(), boardCopy, t);
     return new BoardAdapter(clonedBoard);
   }

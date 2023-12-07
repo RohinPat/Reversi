@@ -72,7 +72,7 @@ public class BoardReadOnly implements ReversiReadOnly {
   }
 
   @Override
-  public Object getState() {
+  public GameState getState() {
     return null;
   }
 }

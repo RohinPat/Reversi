@@ -5,9 +5,19 @@ import model.ReversiReadOnly;
 import controller.FeaturesAdapter;
 import provider.view.ReversiGUIView;
 
+/**
+ * A view adapter that connects a ReversiGUIView to the controller, enabling interaction
+ * between the view and the game logic.
+ */
 public class ViewAdapter implements IBoardPanel {
   private final ReversiGUIView reversiGUIView;
 
+  /**
+   * Constructs a ViewAdapter using a given ReversiGUIView.
+   *
+   * @param reversiGUIView The ReversiGUIView to be adapted for interaction with the game.
+   *                      controller.
+   */
   public ViewAdapter(ReversiGUIView reversiGUIView) {
     this.reversiGUIView = reversiGUIView;
   }
@@ -34,6 +44,6 @@ public class ViewAdapter implements IBoardPanel {
   }
 
   public void setVisible(boolean b) {
-    //
+    // nothing
   }
 }

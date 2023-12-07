@@ -83,7 +83,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void breakTieFunctionality(){
+  public void breakTieFunctionality() {
     HexCoord h1 = new HexCoord(2, -1, -1);
     HexCoord h2 = new HexCoord(2, -3, 1);
 
@@ -427,7 +427,7 @@ public class ReversiTests {
   public void testAICaptureMost() {
     BoardMock board = new BoardMock(4);
     CaptureMost cm = new CaptureMost();
-    
+
     Coordinate c = cm.chooseMove(board, Disc.BLACK);
     board.makeMove(c);
 
@@ -463,58 +463,58 @@ public class ReversiTests {
 
     Assert.assertEquals(board.getLog().toString(),
             "getting possible moves and found:q: -1 r: -1 s: 2\n" +
-            "q: 1 r: 1 s: -2\n" +
-            "q: -1 r: 2 s: -1\n" +
-            "q: 1 r: -2 s: 1\n" +
-            "q: -2 r: 1 s: 1\n" +
-            "q: 2 r: -1 s: -1\n" +
-            "getting possible moves and found:q: 1 r: 1 s: -2\n" +
-            "q: -2 r: 1 s: 1\n" +
-            "q: 2 r: -1 s: -1\n" +
-            "q: -2 r: -1 s: 3\n" +
-            "getting possible moves and found:q: 1 r: 1 s: -2\n" +
-            "q: -1 r: -2 s: 3\n" +
-            "q: -1 r: 2 s: -1\n" +
-            "q: 1 r: -2 s: 1\n" +
-            "getting possible moves and found:q: -1 r: 2 s: -1\n" +
-            "q: -2 r: 1 s: 1\n" +
-            "q: 2 r: -1 s: -1\n" +
-            "getting possible moves and found:q: 1 r: 1 s: -2\n" +
-            "q: -1 r: -2 s: 3\n" +
-            "getting possible moves and found:q: -1 r: 2 s: -1\n" +
-            "q: -2 r: 1 s: 1\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:q: 3 r: -1 s: -2\n" +
-            "q: -2 r: 1 s: 1\n" +
-            "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "getting possible moves and found:q: 3 r: -2 s: -1\n" +
-            "q: -1 r: 3 s: -2\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: -1 r: -2 s: 3\n" +
-            "q: -2 r: 3 s: -1\n" +
-            "q: 2 r: -3 s: 1\n" +
-            "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-            "q: 3 r: -1 s: -2\n" +
-            "q: 1 r: 2 s: -3\n" +
-            "getting possible moves and found:q: -1 r: 3 s: -2\n" +
-            "q: -3 r: 1 s: 2\n" +
-            "q: -1 r: -2 s: 3\n" +
-            "q: -2 r: 3 s: -1\n");
+                    "q: 1 r: 1 s: -2\n" +
+                    "q: -1 r: 2 s: -1\n" +
+                    "q: 1 r: -2 s: 1\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "getting possible moves and found:q: 1 r: 1 s: -2\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "q: -2 r: -1 s: 3\n" +
+                    "getting possible moves and found:q: 1 r: 1 s: -2\n" +
+                    "q: -1 r: -2 s: 3\n" +
+                    "q: -1 r: 2 s: -1\n" +
+                    "q: 1 r: -2 s: 1\n" +
+                    "getting possible moves and found:q: -1 r: 2 s: -1\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "q: 2 r: -1 s: -1\n" +
+                    "getting possible moves and found:q: 1 r: 1 s: -2\n" +
+                    "q: -1 r: -2 s: 3\n" +
+                    "getting possible moves and found:q: -1 r: 2 s: -1\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:q: 3 r: -1 s: -2\n" +
+                    "q: -2 r: 1 s: 1\n" +
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "getting possible moves and found:q: 3 r: -2 s: -1\n" +
+                    "q: -1 r: 3 s: -2\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: -1 r: -2 s: 3\n" +
+                    "q: -2 r: 3 s: -1\n" +
+                    "q: 2 r: -3 s: 1\n" +
+                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
+                    "q: 3 r: -1 s: -2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
+                    "q: -3 r: 1 s: 2\n" +
+                    "q: -1 r: -2 s: 3\n" +
+                    "q: -2 r: 3 s: -1\n");
   }
 
   @Test
   public void testNoCornersToCapture() {
     BoardMock board = new BoardMock(4);
-    CaptureCorners cm = new CaptureCorners(); 
+    CaptureCorners cm = new CaptureCorners();
     Assert.assertEquals(new Coordinate(4, 4), cm.chooseMove(board, Disc.BLACK));
   }
 
-  @Test 
+  @Test
   public void testAvoidCorners() {
     BoardMock board = new BoardMock(4);
     ReversiStratagy cm = new TryTwo(new AvoidCorners(), new CaptureMost());
-    
+
     Coordinate c = cm.chooseMove(board, Disc.BLACK);
 
 
@@ -540,37 +540,37 @@ public class ReversiTests {
     Assert.assertEquals(c, new Coordinate(1, -3));
     Assert.assertEquals(board.getLog().toString(),
             "getting possible moves and found:q: -1 r: -1 s: 2\n" +
-        "q: 1 r: 1 s: -2\n" + //
-        "q: -1 r: 2 s: -1\n" + //
-        "q: 1 r: -2 s: 1\n" + //
-        "q: -2 r: 1 s: 1\n" + //
-        "q: 2 r: -1 s: -1\n" + //
-        "getting possible moves and found:q: 1 r: 1 s: -2\n" + //
-        "q: -2 r: 1 s: 1\n" + //
-        "q: 2 r: -1 s: -1\n" + //
-        "q: -2 r: -1 s: 3\n" + //
-        "getting possible moves and found:q: 2 r: -1 s: -1\n" + //
-        "q: 2 r: 1 s: -3\n" + //
-        "getting possible moves and found:q: 3 r: -2 s: -1\n" + //
-        "q: 1 r: -2 s: 1\n" + //
-        "q: -2 r: 1 s: 1\n" + //
-        "getting possible moves and found:q: -1 r: 2 s: -1\n" + //
-        "q: 2 r: -3 s: 1\n" + //
-        "q: 2 r: 1 s: -3\n" + //
-        "getting possible moves and found:q: 3 r: -1 s: -2\n" + //
-        "q: -2 r: 1 s: 1\n" + //
-        "q: -2 r: -1 s: 3\n" + //
-        "getting possible moves and found:q: 1 r: -3 s: 2\n" + //
-        "q: 1 r: 2 s: -3\n" + "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-        "q: 1 r: 2 s: -3\n" +
-        "");
+                    "q: 1 r: 1 s: -2\n" + //
+                    "q: -1 r: 2 s: -1\n" + //
+                    "q: 1 r: -2 s: 1\n" + //
+                    "q: -2 r: 1 s: 1\n" + //
+                    "q: 2 r: -1 s: -1\n" + //
+                    "getting possible moves and found:q: 1 r: 1 s: -2\n" + //
+                    "q: -2 r: 1 s: 1\n" + //
+                    "q: 2 r: -1 s: -1\n" + //
+                    "q: -2 r: -1 s: 3\n" + //
+                    "getting possible moves and found:q: 2 r: -1 s: -1\n" + //
+                    "q: 2 r: 1 s: -3\n" + //
+                    "getting possible moves and found:q: 3 r: -2 s: -1\n" + //
+                    "q: 1 r: -2 s: 1\n" + //
+                    "q: -2 r: 1 s: 1\n" + //
+                    "getting possible moves and found:q: -1 r: 2 s: -1\n" + //
+                    "q: 2 r: -3 s: 1\n" + //
+                    "q: 2 r: 1 s: -3\n" + //
+                    "getting possible moves and found:q: 3 r: -1 s: -2\n" + //
+                    "q: -2 r: 1 s: 1\n" + //
+                    "q: -2 r: -1 s: 3\n" + //
+                    "getting possible moves and found:q: 1 r: -3 s: 2\n" + //
+                    "q: 1 r: 2 s: -3\n" + "getting possible moves and found:q: 1 r: -3 s: 2\n" +
+                    "q: 1 r: 2 s: -3\n" +
+                    "");
   }
 
   @Test
   public void testCaptureCornerWorks() {
     BoardMock newBoard = new BoardMock(3);
     HashMap<Coordinate, Cell> new1 = newBoard.createCopyOfBoard();
-    new1.put(new Coordinate(0,0), new Cell(Disc.BLACK));
+    new1.put(new Coordinate(0, 0), new Cell(Disc.BLACK));
     BoardMock newBoard1 = new BoardMock(3, new1, Turn.BLACK);
     CaptureCorners cm = new CaptureCorners();
     System.out.println(cm.chooseMove(newBoard1, Disc.WHITE).getQ() + "" + cm.chooseMove(newBoard1, Disc.WHITE).getR());
