@@ -15,6 +15,7 @@ public class ReversiControllerMock implements ControllerFeatures {
   private Board model;
   private BoardPanel view;
   private Player player;
+  private Coordinate lastClickedHexagon = null;
 
   /**
    * Constructs a {@code ReversiController} with the specified model, view, and player.
@@ -45,15 +46,13 @@ public class ReversiControllerMock implements ControllerFeatures {
   }
 
   @Override
-  public void confirmMove() {
-    log.append("Confirms the Move for " + player.getDisc() + "and trys to make the move" + "\n");
-    if (player.isPlayerTurn(model)) {
-      Coordinate selectedHex = view.getSelectedHexagon();
+  public void confirmMove(int q, int r) {
+    if (player.getDisc().equals(model.currentColor())) {
+      Coordinate selectedHex = new Coordinate(q, r);
       if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
         try {
           player.makeAMove(model, selectedHex);
-          log.append("move made" + "\n");
-          view.initializeHexagons(model); // Update the view to reflect the new board state
+          model.notifyTurnChange();
         } catch (IllegalArgumentException e) {
           view.showInvalidMoveDialog(e.getMessage());
         }

@@ -314,7 +314,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     @Override
     public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_M) {
-        controller.confirmMove();
+        controller.confirmMove(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
         controller.passTurn();
       }
@@ -365,33 +365,18 @@ public class BoardPanel extends JPanel implements IBoardPanel {
       if (hex.contains(mouseX, mouseY)) {
         if (!hex.equals(selected)) {
           selected = hex;
-        } else {
-          selected = null;
+          inBounds = true;
+          repaint();
+          break;
         }
-        inBounds = true;
-        repaint();
-        break;
       }
     }
     if (!inBounds) {
       selected = null;
       repaint();
     }
-    if (controller != null && selected != null) {
-      controller.selectHexagon(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
-    }
   }
 
-  /**
-   * Retrieves the coordinates of the currently selected hexagon on the game board.
-   *
-   * @return A {@link Coordinate} object representing the coordinates (q, r) of the
-   *         currently selected hexagon. If no hexagon is currently selected, this
-   *         method returns null.
-   */
-  public Coordinate getSelectedHexagon() {
-    return new Coordinate(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
-  }
 
 
 

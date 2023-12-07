@@ -8,6 +8,7 @@ import model.Reversi;
 import model.ReversiReadOnly;
 import provider.model.HexCoord;
 import provider.view.Features;
+import provider.view.FeaturesAdapter;
 import provider.view.ReversiGUIView;
 import provider.view.ReversiPanel;
 
@@ -20,7 +21,7 @@ public class ViewAdapter implements IBoardPanel, Features {
 
   @Override
   public void setController(ControllerFeatures cont) {
-
+    reversiGUIView.addFeaturesListener(new FeaturesAdapter(cont));
   }
 
   @Override
@@ -32,11 +33,6 @@ public class ViewAdapter implements IBoardPanel, Features {
   @Override
   public void handleHexagonClick(int mouseX, int mouseY) {
     // nothing
-  }
-
-  @Override
-  public Coordinate getSelectedHexagon() {
-    throw new UnsupportedOperationException("very bad 223");
   }
 
   @Override

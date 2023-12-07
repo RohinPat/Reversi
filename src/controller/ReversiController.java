@@ -30,7 +30,6 @@ public class ReversiController implements ControllerFeatures {
     this.model = model;
     this.view = view;
     this.player = player;
-    this.view.setController(this);
 
     // Check if the AI player should make a move immediately
     if (model.currentColor() == player.getDisc() && player instanceof AIPlayer) {
@@ -39,15 +38,9 @@ public class ReversiController implements ControllerFeatures {
   }
 
   @Override
-  public void selectHexagon(int q, int r) {
-    // Logic when a hexagon is selected
-    // You might want to highlight the selected hexagon in the view, for example
-  }
-
-  @Override
-  public void confirmMove() {
+  public void confirmMove(int q, int r) {
     if (player.getDisc().equals(model.currentColor())) {
-      Coordinate selectedHex = view.getSelectedHexagon();
+      Coordinate selectedHex = new Coordinate(q, r);
       if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
         try {
           player.makeAMove(model, selectedHex);
@@ -59,6 +52,12 @@ public class ReversiController implements ControllerFeatures {
     } else {
       view.showInvalidMoveDialog("Not your turn right now");
     }
+  }
+
+  @Override
+  public void selectHexagon(int q, int r) {
+    // Logic when a hexagon is selected
+    // You might want to highlight the selected hexagon in the view, for example
   }
 
   @Override

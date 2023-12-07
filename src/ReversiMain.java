@@ -113,14 +113,14 @@ public final class ReversiMain {
       BoardPanel viewPanel1 = viewPlayer1.getBoardPanel();
       ReversiController controller = new ReversiController(b1, viewPanel1, p1);
       b1.addObserver(controller);
-      ReversiFrame viewPlayer2 = new ReversiFrame(b1);
-      BoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
+      viewPanel1.setController(controller);
       ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
       ViewAdapter v2 = new ViewAdapter(rev2);
       controller2 = new ReversiController(b1, v2, p2);
       b1.addObserver(controller2);
+      v2.setController(controller2);
       viewPlayer1.setVisible(true);
-      viewPanel2.setVisible(true);
+      v2.setVisible(true);
     } catch (IllegalArgumentException e) {
       System.out.println("error in inputs");
     }

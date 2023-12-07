@@ -30,13 +30,6 @@ public interface IBoardPanel {
   void handleHexagonClick(int mouseX, int mouseY);
 
   /**
-   * Retrieves the coordinates of the currently selected hexagon on the game board.
-   *
-   * @return The coordinates of the selected hexagon.
-   */
-  Coordinate getSelectedHexagon();
-
-  /**
    * Displays a dialog box to inform the user of an invalid move.
    *
    * @param message The message to be displayed in the dialog box.

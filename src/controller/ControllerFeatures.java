@@ -21,7 +21,7 @@ public interface ControllerFeatures {
    * Confirms a move in the Reversi game. This method is called when a player wants to make
    * a move after selecting a hexagon.
    */
-  void confirmMove();
+  void confirmMove(int q, int r);
 
   /**
    * Passes the current player's turn in the Reversi game. This method is called when a player
