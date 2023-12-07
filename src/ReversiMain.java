@@ -87,8 +87,13 @@ public final class ReversiMain {
         while (nextplayer2) {
           strats2.add(args[argsUsed]);
           argsUsed++;
-          if (args[argsUsed].equals("human") || args[argsUsed].equals("ai")) {
-            nextplayer = false;
+          try {
+            if (args[argsUsed].equals("human") || args[argsUsed].equals("ai")) {
+              nextplayer2 = false;
+            }
+          }
+          catch (ArrayIndexOutOfBoundsException e) {
+            nextplayer2 = false;
           }
         }
         ReversiStratagy strat2 = getStrat(strats2);
@@ -118,7 +123,7 @@ public final class ReversiMain {
   private static ReversiStratagy getStrat(ArrayList<String> strats) {
   ArrayList<String> listOfStrats = strats;
   int numOfStrats = strats.size();
-  ReversiStratagy finalStrat = null;
+  ReversiStratagy finalStrat = new CaptureMost();
   ReversiStratagy captureCorners = new CaptureCorners();
   ReversiStratagy captureMost = new CaptureMost();
   ReversiStratagy avoidCorners = new AvoidCorners();
@@ -179,6 +184,7 @@ public final class ReversiMain {
       System.out.println("Invalid Strategy Two");
       return null;
     }
+    listOfStrats.remove(0);
   }
   return finalStrat;
   }
