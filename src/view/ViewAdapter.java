@@ -47,7 +47,7 @@ public class ViewAdapter implements IBoardPanel, Features {
 
   @Override
   public void attemptPass() {
-    //
+
   }
 
   public void setVisible(boolean b) {

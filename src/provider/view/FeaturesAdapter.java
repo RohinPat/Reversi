@@ -16,7 +16,6 @@ public class FeaturesAdapter implements Features{
   @Override
   public void attemptMove(Optional<HexCoord> hc) {
     if (hc.isPresent()) {
-      // If HexCoord is present, convert it to a Coordinate and make a move
       HexCoord hexCoord = hc.get();
       controller.confirmMove(hexCoord.q, hexCoord.r);
     }
@@ -24,6 +23,6 @@ public class FeaturesAdapter implements Features{
 
   @Override
   public void attemptPass() {
-    //
+    controller.passTurn();
   }
 }
