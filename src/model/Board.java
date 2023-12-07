@@ -195,7 +195,7 @@ public class Board implements Reversi {
    * used to swap turns either when a player passes their turn or at the end of their move
    */
   public void passTurn() {
-    if (gameState == GameState.INPROGRESS) {
+    if (gameState != GameState.PRE) {
       if (this.whoseTurn == Turn.BLACK) {
         this.whoseTurn = Turn.WHITE;
       } else {

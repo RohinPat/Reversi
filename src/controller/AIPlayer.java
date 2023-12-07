@@ -39,10 +39,14 @@ public class AIPlayer implements Player{
     Coordinate c1 = strategy.chooseMove(model, playerDisc);
     System.out.print(c1.getQ());
     System.out.print(c1.getR());
-    if (c1.equals(new Coordinate(model.getSize(), model.getSize())) || c1 == null) {
+    if (!model.isGameOver() && (c1.equals(new Coordinate(model.getSize(), model.getSize())) || c1 == null)) {
       model.passTurn();
     }
-    model.makeMove(c1);
+    if (model.validMove(c1, playerDisc)){
+      model.makeMove(c1);
+    }else{
+      model.passTurn();
+    }
   }
 
   @Override
