@@ -74,7 +74,7 @@ public class ReversiController implements ControllerFeatures {
   public void updateView() {
     view.initializeHexagons(model);
     handleTurnChange(model.currentColor());
-    if (model.isGameOver()) {
+    if (model.isGameOver()){
       view.initializeHexagons(model);
     }
   }

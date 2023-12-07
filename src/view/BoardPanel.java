@@ -154,10 +154,11 @@ public class BoardPanel extends JPanel implements IBoardPanel {
 
         turnLabel.setText(turnMonitor);
       }
-      else{
+      else {
         turnLabel.setText(board2.getState().toString());
       }
     }
+
   }
 
   /**
