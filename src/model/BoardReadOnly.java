@@ -70,4 +70,9 @@ public class BoardReadOnly implements ReversiReadOnly {
   public Map<Coordinate, Cell> getMap() {
     return null;
   }
+
+  @Override
+  public Object getState() {
+    return null;
+  }
 }

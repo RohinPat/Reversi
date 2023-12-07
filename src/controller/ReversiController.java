@@ -75,15 +75,13 @@ public class ReversiController implements ControllerFeatures {
     view.initializeHexagons(model);
     handleTurnChange(model.currentColor());
     if (model.isGameOver()) {
-      String end = model.getState().toString();
-      view.showInvalidMoveDialog("GAME IS OVER" + end);
-      System.exit(0);
+      view.initializeHexagons(model);
     }
   }
 
   @Override
   public void handleTurnChange(Disc disc) {
-    if (player.getDisc().equals(disc) && player instanceof AIPlayer){
+    if (player.getDisc().equals(disc) && player instanceof AIPlayer && !model.isGameOver()){
       player.makeAMove(model, null); // AI strategy chooses the move
     }
   }

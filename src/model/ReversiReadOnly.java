@@ -64,4 +64,5 @@ public interface ReversiReadOnly {
 
   Map<Coordinate, Cell> getMap();
 
+  Object getState();
 } 

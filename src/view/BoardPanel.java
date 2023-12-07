@@ -144,14 +144,19 @@ public class BoardPanel extends JPanel implements IBoardPanel {
    */
   private void updateTurnLabel(ReversiReadOnly board2) {
     if (controller != null) {
-      String turnMonitor;
-      if (controller.getTurn().isPlayerTurn((Reversi) board2)) {
-        turnMonitor = "Your Turn";
-      } else {
-        turnMonitor = "";
-      }
+      if (!board2.isGameOver()) {
+        String turnMonitor;
+        if (controller.getTurn().isPlayerTurn((Reversi) board2)) {
+          turnMonitor = "Your Turn";
+        } else {
+          turnMonitor = "";
+        }
 
-      turnLabel.setText(turnMonitor);
+        turnLabel.setText(turnMonitor);
+      }
+      else{
+        turnLabel.setText(board2.getState().toString());
+      }
     }
   }
 
