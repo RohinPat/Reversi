@@ -35,7 +35,7 @@ public class ViewAdapter implements IBoardPanel {
 
   @Override
   public void handleHexagonClick(int mouseX, int mouseY) {
-    // nothing
+    // nothing as it is already handles within their view
   }
 
   @Override
@@ -44,6 +44,6 @@ public class ViewAdapter implements IBoardPanel {
   }
 
   public void setVisible(boolean b) {
-    // nothing
+    // nothing as it is already handles within their view
   }
 }

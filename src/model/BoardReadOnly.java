@@ -53,7 +53,7 @@ public class BoardReadOnly implements ReversiReadOnly {
 
   @Override
   public Disc currentColor() {
-    return null;
+    return board.currentColor();
   }
 
   @Override
@@ -68,11 +68,11 @@ public class BoardReadOnly implements ReversiReadOnly {
 
   @Override
   public Map<Coordinate, Cell> getMap() {
-    return null;
+    return board.getMap();
   }
 
   @Override
   public GameState getState() {
-    return null;
+    return board.getState();
   }
 }
