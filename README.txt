@@ -23,11 +23,15 @@ BoardRenderer renderer = new BoardRenderer(gameBoard); // Create a renderer for 
 System.out.println(renderer.toString()); // Display the board
 
 In order to run the program using the main you must follow the following argument format:
-    First argument is an int board size which is optional
+    First argument is an int board size which is optional - defaults to a board size of 4
     Second argument is a string for player 1(Black player) - Either "ai" or "human"
-        If you choose an ai you must follow it up with a strategy listed below
+        If you choose an ai you must follow it up with a strategy listed below.
     Third argument is a string for player 2(White player) - Either "ai" or "human"
         If you choose an ai you must follow it up with a strategy listed below
+
+    You may put as many stratagies as you would like as the code will automatically wrap the strategies in as many trytwo as needed.  Each trytwo basically uses the first strategy and then moves on to the next one if the strategy tries to pass
+
+    If nothing is put in it will default to a human vs human board with a board size of 4
 
     Strategy Args:
         avoidcorners
@@ -89,3 +93,8 @@ In order to run the program using the main you must follow the following argumen
 - enhanced the view to sync between multiple views and display each player, their score, and whose turn it is
   - BoardPanel - updated to show the players game color, the score of the player whose display it is and whose turn it is in the game
 - added dynamic resizing for all those features
+
+
+
+
+
