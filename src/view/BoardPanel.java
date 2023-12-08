@@ -40,6 +40,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
   private final JLabel scoreLabel;
   private final JLabel turnLabel;
   private final ReversiReadOnly board;
+  private final HintDecorator hd;
+  private boolean hintsEnabled;
 
   public void setController(ControllerFeatures cont) {
     this.controller = cont;
@@ -90,7 +92,16 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     this.setFocusable(true);
     this.requestFocusInWindow();
 
+    hd = new HintDecorator(this);
+
+    hintsEnabled = false;
+
     initializeHexagons(board);
+  }
+
+  public void toggleHints() {
+    hintsEnabled = !hintsEnabled;
+    repaint();
   }
 
   /**
@@ -327,6 +338,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
         controller.confirmMove(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
         controller.passTurn();
+      } else if (e.getKeyCode() == KeyEvent.VK_E) {
+        toggleHints();
       }
     }
 
@@ -470,6 +483,10 @@ public class BoardPanel extends JPanel implements IBoardPanel {
       if (hex.equals(selected)) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hex);
+        if (hintsEnabled) {
+          hd.drawHints(g2d, selected, hexagons.get(selected).getQ(), hexagons.get(selected).getR(), board);
+        }
+
       } else {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fill(hex);

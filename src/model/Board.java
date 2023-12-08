@@ -375,6 +375,7 @@ public class Board implements Reversi {
    * @throws IllegalArgumentException If the move is invalid.
    */
   public int checkMove(ReversiReadOnly model, Coordinate move) {
+    int originalScore = model.getScore(currentColor());
     Turn turn = null;
     if (model.currentColor().equals(Disc.BLACK)) {
       turn = Turn.BLACK;
@@ -386,9 +387,9 @@ public class Board implements Reversi {
     try {
       copy.makeMove(move);
       score = copy.getScore(model.currentColor());
-      return score;
+      return score - originalScore - 1; // isolating only the pieces that will be captured and removing the one piece that will be placed
     } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException(e);
+      return 0;
     }
   }
 
