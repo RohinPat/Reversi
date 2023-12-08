@@ -22,6 +22,29 @@ gameBoard.setCell(coord, cell); // Place the initial cells on the board
 BoardRenderer renderer = new BoardRenderer(gameBoard); // Create a renderer for the board
 System.out.println(renderer.toString()); // Display the board
 
+In order to run the program using the main you must follow the following argument format:
+    First argument is an int board size which is optional
+    Second argument is a string for player 1(Black player) - Either "ai" or "human"
+        If you choose an ai you must follow it up with a strategy listed below
+    Third argument is a string for player 2(White player) - Either "ai" or "human"
+        If you choose an ai you must follow it up with a strategy listed below
+
+    Strategy Args:
+        avoidcorners
+        capturecorners
+        capturemost
+
+        avoidtilesnexttocorners
+        minimax
+        mostpointsgained
+        playcorners
+
+    Example full arguments
+        human human - two human players with default board size 4
+        ai avoidtilesnexttocorners capturecorners minimax human - one ai player that plays the 3 given strategies vs a human player with the default board size 4
+        8 ai minimax ai capturemost - one ai running minimax strategy vs another ai using capture most strategy that is on a board size of 8
+        12 human human - two human players with a board size of 12
+
 ## Key Components
 
 ### model Package

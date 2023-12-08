@@ -12,29 +12,6 @@ You can start the game by passing in a board and the two different players.
     ReversiMutableModel rmm = new BasicReversi();
     rmm.startGame(hexBoard);
 
-In order to run the program using the main you must follow the following argument format:
-    First argument is an int board size which is optional
-    Second argument is a string for player 1(Black player) - Either "ai" or "human"
-        If you choose an ai you must follow it up with a strategy listed below
-    Third argument is a string for player 2(White player) - Either "ai" or "human"
-        If you choose an ai you must follow it up with a strategy listed below
-
-    Strategy Args:
-        avoidcorners
-        capturecorners
-        capturemost
-
-        avoidtilesnexttocorners
-        minimax
-        mostpointsgained
-        playcorners
-
-    Example full arguments
-        human human - two human players with default board size 4
-        ai avoidtilesnexttocorners capturecorners minimax human - one ai player that plays the 3 given strategies vs a human player with the default board size 4
-        8 ai minimax ai capturemost - one ai running minimax strategy vs another ai using capture most strategy that is on a board size of 8
-        12 human human - two human players with a board size of 12
-
 
 Key components: At the highest level we start with the Mutable and ReadOnly Models. They are two parts to an overall reversi model game. A mutable model has a way to start the game, allows for a player to attempt to place a disk, and allows for a player to attempt to pass.
 The read only model allows for a safe way to observe the board, guaranteeing that no mutations will be made on the given model, for example the textual view can take in a read only model since it doesn't need the ability to mutate the model. Using the read only model, you can observe the current board, check if the game is over, count the given player's claimed tiles, and check if it is this player's turn.
