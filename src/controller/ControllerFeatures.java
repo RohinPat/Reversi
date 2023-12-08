@@ -38,7 +38,7 @@ public interface ControllerFeatures {
 
   /**
    * Helps in the creation of an output log to ensure code runs as expected, and we can see the.
-   * finer details of the AI decisions
+   * finer details of the AI decisions.
    *
    * @return the text output of the log that was accumulating through the running of the code
    */

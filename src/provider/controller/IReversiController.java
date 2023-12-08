@@ -1,6 +1,7 @@
 package provider.controller;
 
 
+import controller.Player;
 import provider.view.ReversiView;
 import provider.model.ReversiMutableModel;
 
@@ -22,5 +23,5 @@ public interface IReversiController extends ModelTurnListener {
    * @param humanController whether or not this controller should treat this player as a human.
    */
   void startController(Player player, ReversiMutableModel model,
-      ReversiView view, boolean humanController);
+                       ReversiView view, boolean humanController);
 }

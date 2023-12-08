@@ -52,6 +52,13 @@ public class BoardMock implements Reversi {
     }
   }
 
+  /**
+   * Notifies all registered observers of a change in the current player's turn.
+   * This method is invoked to communicate to observers that the turn has switched
+   * from one player to another in the game. It triggers the `handleTurnChange`
+   * method in each observer, allowing them to respond appropriately to the new
+   * game state, such as updating the UI or initiating AI moves.
+   */
   public void notifyTurnChange() {
     for (ControllerFeatures controller : observers) {
       controller.handleTurnChange(currentColor());
@@ -329,6 +336,16 @@ public class BoardMock implements Reversi {
     notifyTurnChange();
   }
 
+  /**
+   * Determines if a move is valid in the current game state.
+   * This method creates a copy of the current game board and attempts
+   * to make the specified move. If the move is successfully made without
+   * throwing an exception, the move is considered valid.
+   *
+   * @param coor        The {@link Coordinate} where the move is to be made.
+   * @param currentTurn The {@link Disc} representing the player making the move.
+   * @return True if the move is valid, false otherwise.
+   */
   public boolean validMove(Coordinate coor, Disc currentTurn) {
     boolean flag = true;
     Turn turn = null;
@@ -348,6 +365,17 @@ public class BoardMock implements Reversi {
   }
 
 
+  /**
+   * Evaluates and returns the score after a hypothetical move.
+   * This method simulates making a move on a copy of the current game board
+   * and calculates the resulting score. It's useful for strategy and AI decision-making.
+   * If the move is invalid, an {@link IllegalArgumentException} is thrown.
+   *
+   * @param model The {@link ReversiReadOnly} game model representing the current state.
+   * @param move  The {@link Coordinate} representing the move to be evaluated.
+   * @return The score after making the move.
+   * @throws IllegalArgumentException If the move is invalid.
+   */
   public int checkMove(ReversiReadOnly model, Coordinate move) {
     Turn turn = null;
     if (model.currentColor().equals(Disc.BLACK)) {
@@ -611,7 +639,7 @@ public class BoardMock implements Reversi {
    * Retrieves the log of events and messages generated during the Reversi game.
    *
    * @return A {@link StringBuilder} containing the log of events and messages recorded
-   * during the course of the game.
+   *     during the course of the game.
    */
   public StringBuilder getLog() {
     return log;

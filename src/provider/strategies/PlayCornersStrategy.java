@@ -22,7 +22,7 @@ public class PlayCornersStrategy implements FallableReversiStrategy {
    * @param model  the reversi model this strategy is being performed on.
    * @param player the player that is performing this strategy on the given board.
    * @return a list of coordinates and their scores. If there are none in this corner, return an
-   * empty optional.
+   *     empty optional.
    */
   @Override
   public Optional<List<Pair<HexCoord, Integer>>> executeStrategyGivenMoves(

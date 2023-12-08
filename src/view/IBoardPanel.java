@@ -3,6 +3,11 @@ package view;
 import controller.ControllerFeatures;
 import model.ReversiReadOnly;
 
+/**
+ * The IBoardPanel interface defines the necessary methods for a board panel in the Reversi game.
+ * It includes methods to set a controller, initialize the game board's hexagonal grid, handle
+ * hexagon click events, and display dialog boxes for invalid moves.
+ */
 public interface IBoardPanel {
 
   /**

@@ -49,7 +49,7 @@ public class TopLeftTieBreaker implements ReversiStrategyTieBreaker {
      * @param coord1 the first object to be compared.
      * @param coord2 the second object to be compared.
      * @return negative value if obj 1 is closer to top left, pos value if obj 2 is closer to top
-     * left, or 0 if same.
+     *     left, or 0 if same.
      */
     @Override
     public int compare(HexCoord coord1, HexCoord coord2) {

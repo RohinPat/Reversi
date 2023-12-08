@@ -16,11 +16,8 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import model.Board;
 import model.BoardMock;
@@ -573,7 +570,8 @@ public class ReversiTests {
     new1.put(new Coordinate(0, 0), new Cell(Disc.BLACK));
     BoardMock newBoard1 = new BoardMock(3, new1, Turn.BLACK);
     CaptureCorners cm = new CaptureCorners();
-    System.out.println(cm.chooseMove(newBoard1, Disc.WHITE).getQ() + "" + cm.chooseMove(newBoard1, Disc.WHITE).getR());
+    System.out.println(cm.chooseMove(newBoard1, Disc.WHITE).getQ()
+            + "" + cm.chooseMove(newBoard1, Disc.WHITE).getR());
     Assert.assertEquals(new Coordinate(0, 2), cm.chooseMove(newBoard1, Disc.WHITE));
   }
 

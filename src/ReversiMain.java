@@ -52,7 +52,7 @@ public final class ReversiMain {
       try {
         b1 = new Board(size);
       } catch (IllegalArgumentException e) {
-        System.out.println("Invalid board size");
+        throw new IllegalArgumentException("Invalid board size");
       }
       String player1 = args[argsUsed];
       argsUsed++;

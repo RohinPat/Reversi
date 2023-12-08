@@ -131,11 +131,7 @@ public class BoardAdapter2 implements ReversiMutableModel {
       throw new IllegalArgumentException("Invalid disc");
     }
 
-    if (disc.equals(board.currentColor())) {
-      return true;
-    } else {
-      return false;
-    }
+    return disc.equals(board.currentColor());
   }
 
   @Override

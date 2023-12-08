@@ -1,9 +1,11 @@
 package provider.view;
+
 /**
  * The {@code ReversiPanelView} interface represents a view for the Reversi game that is designed to
  * be displayed within a panel. Implementations of this interface are expected to provide methods
  * for adding feature listeners to handle user interactions.
  */
+
 public interface ReversiPanelView {
 
   /**
