@@ -46,7 +46,8 @@ public class FallableInfallablePairStrategy implements InFallableReversiStrategy
     Objects.requireNonNull(model);
     Objects.requireNonNull(player);
 
-    Optional<List<Pair<HexCoord, Integer>>> strategicMoves = fallable.executeStrategyGivenMoves(model, player);
+    Optional<List<Pair<HexCoord, Integer>>> strategicMoves =
+            fallable.executeStrategyGivenMoves(model, player);
 
     if (strategicMoves.isPresent()) {
       return strategicMoves.get();

@@ -2,12 +2,9 @@ package provider.strategies;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 import provider.model.HexCoord;
-import provider.model.IBoard;
 import provider.model.PlayerOwnership;
 import provider.model.ReversiReadOnlyModel;
 
@@ -29,8 +26,6 @@ public class PossibleMoveGenerator {
     Objects.requireNonNull(model);
     Objects.requireNonNull(player);
     List<HexCoord> results = new ArrayList<>();
-    Set b = model.getBoard().getMap().keySet();
-    System.out.print("got board successfully" + b);
     for (HexCoord coord : model.getBoard().getMap().keySet()) {
       if (model.isMoveAllowed(coord, player)) {
         results.add(coord);

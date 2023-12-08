@@ -24,7 +24,7 @@ public interface InFallableReversiStrategy {
    * @param player the player that is attempting to make a move on the given model using this
    *               strategy.
    * @return a list of the coordinates and their corresponding scores that match this strategy.
-   * should not be empty.
+   *     should not be empty.
    * @throws IllegalStateException    if it is not that player's turn, or the model hasn't been
    *                                  started yet
    * @throws IllegalArgumentException if either input is null

@@ -45,7 +45,8 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   }
 
   @Override
-  public int countClaimedTiles(PlayerOwnership player) throws IllegalStateException, IllegalArgumentException {
+  public int countClaimedTiles(PlayerOwnership player)
+          throws IllegalStateException, IllegalArgumentException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.WHITE;
@@ -60,7 +61,8 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   }
 
   @Override
-  public boolean isPlayerTurn(PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
+  public boolean isPlayerTurn(PlayerOwnership player)
+          throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.WHITE;
@@ -72,16 +74,13 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
       throw new IllegalArgumentException("Invalid disc");
     }
 
-    if (disc.equals(currentModel.currentColor())) {
-      return true;
-    } else {
-      return false;
-    }
+    return (disc.equals(currentModel.currentColor()));
 
   }
 
   @Override
-  public boolean isMoveAllowed(HexCoord hc, PlayerOwnership player) throws IllegalArgumentException, IllegalStateException {
+  public boolean isMoveAllowed(HexCoord hc, PlayerOwnership player)
+          throws IllegalArgumentException, IllegalStateException {
     Disc disc = null;
     if (player.equals(PlayerOwnership.PLAYER_1)) {
       disc = Disc.WHITE;
@@ -100,7 +99,8 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
     // Create a deep copy of the Reversi board
     HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
     for (Coordinate coor : currentModel.getMap().keySet()) {
-      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()), new Cell(currentModel.getMap().get(coor).getContent()));
+      boardCopy.put(new Coordinate(coor.getQ(), coor.getR()),
+              new Cell(currentModel.getMap().get(coor).getContent()));
     }
     // Create a new Reversi instance with the copied board state
 
@@ -117,7 +117,8 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   }
 
   @Override
-  public boolean isMoveAllowedTurnIndependent(HexCoord hc, PlayerOwnership playerOwnership) throws IllegalArgumentException, IllegalStateException {
+  public boolean isMoveAllowedTurnIndependent(HexCoord hc, PlayerOwnership playerOwnership)
+          throws IllegalArgumentException, IllegalStateException {
     throw new UnsupportedOperationException("This is unsupported");
   }
 }

@@ -45,12 +45,10 @@ public class StratagyAdapter implements ReversiStratagy {
     List<HexCoord> possibleMoves = wrapper.executeStrategy(modelAdapter, ownership);
 
     if (possibleMoves == null || possibleMoves.isEmpty()) {
-      System.out.println("Strategy returned no moves. Passing Turn");
       return new Coordinate(model.getSize(), model.getSize()); // or handle this case as appropriate
     }
 
     // Debugging: Check if tiebreaker is called
-    System.out.println("Executing tiebreaker...");
     HexCoord output = tieBreaker.breakTie(possibleMoves);
 
     return new Coordinate(output.q, output.r);

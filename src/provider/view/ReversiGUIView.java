@@ -1,10 +1,8 @@
 package provider.view;
 
-import java.awt.*;
-
+import java.awt.Color;
 import provider.model.ReversiReadOnlyModel;
-
-import javax.swing.*;
+import javax.swing.JFrame;
 
 /**
  * The ReversiGUIView class represents a graphical user interface (GUI) view for the Reversi game.

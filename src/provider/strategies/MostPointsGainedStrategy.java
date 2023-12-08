@@ -36,14 +36,10 @@ public class MostPointsGainedStrategy implements InFallableReversiStrategy {
     Objects.requireNonNull(player);
     List<Pair<HexCoord, Integer>> coordsThatGainMostPoints = new ArrayList<>();
     int maxPointsGained = 0;
-    System.out.println("reached till entering the strategy safely");
     List<HexCoord> possibleMoves = new PossibleMoveGenerator().getPossibleMoves(model, player);
-    System.out.println("\n" + "moves were generated" + possibleMoves + "\n");
     for (HexCoord coord : possibleMoves) {
-      System.out.print("entered the for loop" + "\n");
       ReversiMutableModel modelClone = model.cloneModel();
       Map m = modelClone.getBoard().getMap();
-      System.out.print("created the clone" + m + "current player" + player + "\n");
       int pointsBeforeMove = modelClone.countClaimedTiles(player);
       modelClone.placeDisk(coord, player);
       int pointsGained = modelClone.countClaimedTiles(player) - pointsBeforeMove;

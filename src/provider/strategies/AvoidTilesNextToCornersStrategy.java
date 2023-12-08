@@ -28,7 +28,7 @@ public class AvoidTilesNextToCornersStrategy implements FallableReversiStrategy 
    * @param model  the reversi model this strategy is being performed on.
    * @param player the player that is performing this strategy on the given board.
    * @return a list of coordinates and their scores. If there are none matching the requirements of
-   * the strategy, return an empty optional.
+   *     the strategy, return an empty optional.
    */
   @Override
   public Optional<List<Pair<HexCoord, Integer>>> executeStrategyGivenMoves(

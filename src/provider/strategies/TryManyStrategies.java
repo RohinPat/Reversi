@@ -35,7 +35,7 @@ public class TryManyStrategies implements FallableReversiStrategy {
    * @param model  the reversi model this strategy is being performed on.
    * @param player the player that is performing this strategy on the given board.
    * @return optionally the result of the first working strategy in the list, or an empty if none of
-   * the strategies work.
+   *     the strategies work.
    */
   @Override
   public Optional<List<Pair<HexCoord, Integer>>> executeStrategyGivenMoves(

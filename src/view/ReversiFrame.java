@@ -34,8 +34,8 @@ public class ReversiFrame extends JFrame {
    * Retrieves the {@link BoardPanel} associated with this {@code ReversiFrame}.
    *
    * @return The {@link BoardPanel} object that displays the Reversi game board
-   * within this frame. This panel allows access to the current state
-   * of the game, including the positions of all pieces on the board.
+   *     within this frame. This panel allows access to the current state
+   *     of the game, including the positions of all pieces on the board.
    */
   public BoardPanel getBoardPanel() {
     return bp;

@@ -1,4 +1,5 @@
 package provider.view;
+
 import provider.Pair;
 import provider.model.HexCoord;
 import provider.model.PlayerOwnership;
@@ -18,7 +19,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 
 /**
@@ -31,7 +33,6 @@ public class ReversiPanel extends JPanel implements ReversiPanelView {
   // CONSTANTS that can be modified
   private static final int WINDOW_WIDTH = 700;
   private static final int WINDOW_HEIGHT = 700;
-  private Color bgColor;
   private static final Color TILE_BACKGROUND_COLOR = new Color(114, 117, 117);
   private static final Color TILE_OUTLINE_COLOR = new Color(143, 189, 144);
   private static final Color HIGHLIGHT_COLOR = new Color(197, 83, 124);
@@ -75,8 +76,8 @@ public class ReversiPanel extends JPanel implements ReversiPanelView {
     this.model = Objects.requireNonNull(model);
     this.featuresListeners = new ArrayList<>();
     this.highlightedTile = Optional.empty();
-    this.bgColor = new Color(128, 161, 138);
-    this.setBackground(this.bgColor);
+    Color bgColor = new Color(128, 161, 138);
+    this.setBackground(bgColor);
     // configure listeners
     MouseEventsListener listener = new MouseEventsListener();
     this.addMouseListener(listener);
@@ -226,7 +227,7 @@ public class ReversiPanel extends JPanel implements ReversiPanelView {
    * @param q The q-coordinate of the hexagon.
    * @param r The r-coordinate of the hexagon.
    * @return An optional Color representing the color of the disc, or empty if the hexagon is
-   * unoccupied.
+   *     unoccupied.
    */
   private Optional<Color> getDiscColor(int q, int r) {
     PlayerOwnership playerOwnership = this.model.getBoard().getMap().get(new HexCoord(q, r, -q - r))

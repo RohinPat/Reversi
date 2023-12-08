@@ -1,4 +1,5 @@
 package provider.view;
+
 import provider.model.HexCoord;
 import java.awt.Rectangle;
 
