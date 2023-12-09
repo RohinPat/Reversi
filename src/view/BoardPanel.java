@@ -40,8 +40,6 @@ public class BoardPanel extends JPanel implements IBoardPanel {
   private final JLabel scoreLabel;
   private final JLabel turnLabel;
   private final ReversiReadOnly board;
-  private final HintDecorator hd;
-  private boolean hintsEnabled;
 
   public void setController(ControllerFeatures cont) {
     this.controller = cont;
@@ -92,16 +90,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     this.setFocusable(true);
     this.requestFocusInWindow();
 
-    hd = new HintDecorator(this);
-
-    hintsEnabled = false;
-
     initializeHexagons(board);
-  }
-
-  public void toggleHints() {
-    hintsEnabled = !hintsEnabled;
-    repaint();
   }
 
   /**
@@ -270,8 +259,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
      */
     @Override
     public void componentResized(ComponentEvent e) {
-      int selectedQ = selected != null ? hexagons.get(selected).getQ() : -1;
-      int selectedR = selected != null ? hexagons.get(selected).getR() : -1;
+      int selectedQ = selected != null ? hexagons.get(selected).getFirstCoordinate() : -1;
+      int selectedR = selected != null ? hexagons.get(selected).getSecondCoordinate() : -1;
 
       adjustHexagonSize(this.board);
       boardWidth = getWidth();
@@ -280,7 +269,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
 
       if (selectedQ != -1 && selectedR != -1) {
         for (Hexagon hex : hexagons.keySet()) {
-          if (hexagons.get(hex).getQ() == selectedQ && hexagons.get(hex).getR() == selectedR) {
+          if (hexagons.get(hex).getFirstCoordinate() == selectedQ && hexagons.get(hex).getSecondCoordinate() == selectedR) {
             selected = hex;
             break;
           }
@@ -335,11 +324,9 @@ public class BoardPanel extends JPanel implements IBoardPanel {
                   "Please select a hexagon before confirming the move.");
           return;
         }
-        controller.confirmMove(hexagons.get(selected).getQ(), hexagons.get(selected).getR());
+        controller.confirmMove(hexagons.get(selected).getFirstCoordinate(), hexagons.get(selected).getSecondCoordinate());
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
         controller.passTurn();
-      } else if (e.getKeyCode() == KeyEvent.VK_E) {
-        toggleHints();
       }
     }
 
@@ -483,10 +470,6 @@ public class BoardPanel extends JPanel implements IBoardPanel {
       if (hex.equals(selected)) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hex);
-        if (hintsEnabled) {
-          hd.drawHints(g2d, selected, hexagons.get(selected).getQ(), hexagons.get(selected).getR(), board);
-        }
-
       } else {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fill(hex);

@@ -42,12 +42,12 @@ public class BoardReadOnly implements ReversiReadOnly {
   }
 
   @Override
-  public ArrayList<Coordinate> getPossibleMoves() {
+  public ArrayList<Position> getPossibleMoves() {
     return null;
   }
 
   @Override
-  public int checkMove(ReversiReadOnly model, Coordinate move) {
+  public int checkMove(ReversiReadOnly model, Position move) {
     return 0;
   }
 
@@ -57,17 +57,17 @@ public class BoardReadOnly implements ReversiReadOnly {
   }
 
   @Override
-  public HashMap<Coordinate, Cell> createCopyOfBoard() {
+  public HashMap<Position, Cell> createCopyOfBoard() {
     return null;
   }
 
   @Override
-  public boolean validMove(Coordinate coor, Disc currentTurn) {
+  public boolean validMove(Position coor, Disc currentTurn) {
     return false;
   }
 
   @Override
-  public Map<Coordinate, Cell> getMap() {
+  public Map<Position, Cell> getMap() {
     return board.getMap();
   }
 

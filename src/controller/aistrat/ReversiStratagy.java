@@ -2,6 +2,7 @@ package controller.aistrat;
 
 import model.Coordinate;
 import model.Disc;
+import model.Position;
 import model.ReversiReadOnly;
 
 /**
@@ -21,6 +22,6 @@ public interface ReversiStratagy {
    * @param turn  The disc color (either BLACK or WHITE) of the current player.
    * @return The of the chosen move according to the strategy's logic.
    */
-  Coordinate chooseMove(ReversiReadOnly model, Disc turn);
+  Position chooseMove(ReversiReadOnly model, Disc turn);
 
 }

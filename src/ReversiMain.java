@@ -34,7 +34,7 @@ public final class ReversiMain {
     Board b1 = null;
     Player p1 = null;
     Player p2 = null;
-    ReversiController controller2 = null;
+    ReversiController controller12 = null;
     int argsUsed = 0;
     int maxArgs = args.length;
     int size = 0;
@@ -110,7 +110,7 @@ public final class ReversiMain {
 
       ReversiFrame viewPlayer2 = new ReversiFrame(b1);
       BoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
-      ReversiController controller12 = new ReversiController(b1, viewPanel2, p2);
+      controller12 = new ReversiController(b1, viewPanel2, p2);
       b1.addObserver(controller12);
       viewPanel2.setController(controller12);
       viewPlayer2.setVisible(true);
@@ -129,7 +129,7 @@ public final class ReversiMain {
       System.out.println("error in inputs");
     }
     try {
-      controller2.updateView();
+      controller12.updateView();
     }
     catch (NullPointerException e){
       //

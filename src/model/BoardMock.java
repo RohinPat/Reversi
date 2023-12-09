@@ -15,7 +15,7 @@ import controller.ReversiController;
 public class BoardMock implements Reversi {
 
   private StringBuilder log = new StringBuilder();
-  private final Map<Coordinate, Cell> grid;
+  private final Map<Position, Cell> grid;
 
   //INVARIANT: should always be positive
   private final int size;
@@ -102,7 +102,7 @@ public class BoardMock implements Reversi {
    * @param grid1      The hashmap of discs to be overwritten onto the old grid.
    * @param whoseTuren The turn that's to be instantiated in the new game.
    */
-  public BoardMock(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
+  public BoardMock(int size, HashMap<Position, Cell> grid1, Turn whoseTuren) {
     this.consecPasses = 0;
     if (size <= 0) {
       throw new IllegalArgumentException("Size must be positive");
@@ -124,7 +124,7 @@ public class BoardMock implements Reversi {
     compassR.put("sw", 1);
     this.gameState = GameState.PRE;
     playGame();
-    for (Coordinate coord : grid1.keySet()) {
+    for (Position coord : grid1.keySet()) {
       Cell originalCell = grid1.get(coord);
       Cell newCell = new Cell(originalCell.getContent());
       this.grid.put(coord, newCell);
@@ -219,11 +219,11 @@ public class BoardMock implements Reversi {
     notifyTurnChange();
   }
 
-  private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
+  private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
-    Coordinate nextPiece = new Coordinate((dest.getQ() + compassQ.get(dir)), (dest.getR()
+    Coordinate nextPiece = new Coordinate((dest.getFirstCoordinate() + compassQ.get(dir)), (dest.getSecondCoordinate()
             + compassR.get(dir)));
 
     if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor()) {
@@ -231,9 +231,9 @@ public class BoardMock implements Reversi {
         if (grid.get(nextPiece).getContent() == this.currentColor()) {
           endFound = true;
         } else {
-          captured.add(nextPiece.getQ());
-          captured.add(nextPiece.getR());
-          nextPiece = new Coordinate((nextPiece.getQ() + compassQ.get(dir)), (nextPiece.getR()
+          captured.add(nextPiece.getFirstCoordinate());
+          captured.add(nextPiece.getSecondCoordinate());
+          nextPiece = new Coordinate((nextPiece.getFirstCoordinate() + compassQ.get(dir)), (nextPiece.getSecondCoordinate()
                   + compassR.get(dir)));
         }
       }
@@ -260,8 +260,8 @@ public class BoardMock implements Reversi {
       }
 
       if (validMove) {
-        captured.add(dest.getQ());
-        captured.add(dest.getR());
+        captured.add(dest.getFirstCoordinate());
+        captured.add(dest.getSecondCoordinate());
         return captured;
       } else {
         captured.clear();
@@ -284,9 +284,9 @@ public class BoardMock implements Reversi {
    *                                  cell is already occupied or doesn't result in any opponent
    *                                  disc captures.
    */
-  public void makeMove(Coordinate dest) {
+  public void makeMove(Position dest) {
     if (gameState != GameState.PRE) {
-      if (!grid.keySet().contains(new Coordinate(dest.getQ(), dest.getR()))) {
+      if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
       }
 
@@ -346,7 +346,7 @@ public class BoardMock implements Reversi {
    * @param currentTurn The {@link Disc} representing the player making the move.
    * @return True if the move is valid, false otherwise.
    */
-  public boolean validMove(Coordinate coor, Disc currentTurn) {
+  public boolean validMove(Position coor, Disc currentTurn) {
     boolean flag = true;
     Turn turn = null;
 
@@ -376,7 +376,7 @@ public class BoardMock implements Reversi {
    * @return The score after making the move.
    * @throws IllegalArgumentException If the move is invalid.
    */
-  public int checkMove(ReversiReadOnly model, Coordinate move) {
+  public int checkMove(ReversiReadOnly model, Position move) {
     Turn turn = null;
     if (model.currentColor().equals(Disc.BLACK)) {
       turn = Turn.BLACK;
@@ -555,7 +555,7 @@ public class BoardMock implements Reversi {
     }
     Board dupe = new Board(size, this.createCopyOfBoard(), current);
 
-    for (Coordinate coord : grid.keySet()) {
+    for (Position coord : grid.keySet()) {
       if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
         try {
           dupe.makeMove(coord);
@@ -574,9 +574,9 @@ public class BoardMock implements Reversi {
    *
    * @return A copy of the board.
    */
-  public HashMap<Coordinate, Cell> createCopyOfBoard() {
-    HashMap<Coordinate, Cell> copy = new HashMap<Coordinate, Cell>();
-    for (Coordinate coord : this.grid.keySet()) {
+  public HashMap<Position, Cell> createCopyOfBoard() {
+    HashMap<Position, Cell> copy = new HashMap<Position, Cell>();
+    for (Position coord : this.grid.keySet()) {
       Cell originalCell = this.grid.get(coord);
       Cell newCell = new Cell(originalCell.getContent());
       copy.put(coord, newCell);
@@ -589,11 +589,11 @@ public class BoardMock implements Reversi {
    *
    * @return A list of all possible moves for the current player.
    */
-  public ArrayList<Coordinate> getPossibleMoves() {
+  public ArrayList<Position> getPossibleMoves() {
     log.append("getting possible moves and found:");
-    ArrayList<Coordinate> possibleMoves = new ArrayList<>();
+    ArrayList<Position> possibleMoves = new ArrayList<>();
     Board og = new Board(size, this.createCopyOfBoard(), this.whoseTurn);
-    for (Coordinate coord : grid.keySet()) {
+    for (Position coord : grid.keySet()) {
       if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
         try {
           Board og1 = new Board(size, og.createCopyOfBoard(), this.whoseTurn);
@@ -604,8 +604,9 @@ public class BoardMock implements Reversi {
         }
       }
     }
-    for (Coordinate c : possibleMoves) {
-      log.append("q: " + c.getQ() + " r: " + c.getR() + " s: " + c.getS() + "\n");
+    for (Position c : possibleMoves) {
+      Coordinate tempCoord = (Coordinate)c;
+      log.append("q: " + c.getFirstCoordinate() + " r: " + c.getSecondCoordinate() + " s: " + tempCoord.getS() + "\n");
     }
     return possibleMoves;
   }
@@ -631,7 +632,7 @@ public class BoardMock implements Reversi {
     }
   }
 
-  public Map<Coordinate, Cell> getMap() {
+  public Map<Position, Cell> getMap() {
     return grid;
   }
 

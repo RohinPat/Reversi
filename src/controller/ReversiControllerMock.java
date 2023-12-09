@@ -42,7 +42,7 @@ public class ReversiControllerMock implements ControllerFeatures {
   public void confirmMove(int q, int r) {
     if (player.getDisc().equals(model.currentColor())) {
       Coordinate selectedHex = new Coordinate(q, r);
-      if (selectedHex != null && model.isCellEmpty(selectedHex.getQ(), selectedHex.getR())) {
+      if (selectedHex != null && model.isCellEmpty(selectedHex.getFirstCoordinate(), selectedHex.getSecondCoordinate())) {
         try {
           player.makeAMove(model, selectedHex);
           model.notifyTurnChange();
@@ -76,8 +76,8 @@ public class ReversiControllerMock implements ControllerFeatures {
         if (player instanceof AIPlayer) {
           CaptureMost cm = new CaptureMost();
           log.append("AI Player " + player.getDisc() + " makes a move at hexagon: Q: "
-                  + cm.chooseMove(model, player.getDisc()).getQ() + " R: "
-                  + cm.chooseMove(model, player.getDisc()).getR() + "\n");
+                  + cm.chooseMove(model, player.getDisc()).getFirstCoordinate() + " R: "
+                  + cm.chooseMove(model, player.getDisc()).getSecondCoordinate() + "\n");
           player.makeAMove(model, null); // AI strategy chooses the move
         } else {
           log.append("Human Player makes a move" + player.getDisc() + "\n");

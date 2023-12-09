@@ -5,7 +5,7 @@ package model;
  * In a hexagonal coordinate system, three axes are used: q, r, and s.
  * These axes are constrained such that q + r + s = 0.
  */
-public class Coordinate {
+public class Coordinate implements Position{
   private final int q;
   private final int r;
   private final int s;
@@ -48,7 +48,7 @@ public class Coordinate {
    *
    * @return The q value.
    */
-  public int getQ() {
+  public int getFirstCoordinate() {
     int q = this.q;
     return q;
   }
@@ -58,7 +58,7 @@ public class Coordinate {
    *
    * @return The r value.
    */
-  public int getR() {
+  public int getSecondCoordinate() {
     int r = this.r;
     return r;
   }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.Coordinate;
 import model.Disc;
+import model.Position;
 import model.ReversiReadOnly;
 
 
@@ -25,12 +26,12 @@ public class AvoidCorners implements ReversiStratagy {
    * @return The selected for the next move, avoiding corners.
    */
   @Override
-  public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
+  public Position chooseMove(ReversiReadOnly model, Disc turn) {
     CaptureMost cm = new CaptureMost();
     int size = model.getSize();
-    ArrayList<Coordinate> notCorners = getSpotsToAvoid(size);
-    ArrayList<Coordinate> possibleMoves = model.getPossibleMoves();
-    for (Coordinate c : notCorners) {
+    ArrayList<Position> notCorners = getSpotsToAvoid(size);
+    ArrayList<Position> possibleMoves = model.getPossibleMoves();
+    for (Position c : notCorners) {
       if (possibleMoves.contains(c)) {
         possibleMoves.remove(c);
       }
@@ -45,8 +46,8 @@ public class AvoidCorners implements ReversiStratagy {
    * @param size The size of the Reversi board.
    * @return An ArrayList of objects representing spots to avoid.
    */
-  private ArrayList<Coordinate> getSpotsToAvoid(int size) {
-    ArrayList<Coordinate> notCorners = new ArrayList<Coordinate>();
+  private ArrayList<Position> getSpotsToAvoid(int size) {
+    ArrayList<Position> notCorners = new ArrayList<Position>();
     notCorners.add(new Coordinate(1, 1 - size));
     notCorners.add(new Coordinate(0, 2 - size));
     notCorners.add(new Coordinate(-1, 2 - size));
