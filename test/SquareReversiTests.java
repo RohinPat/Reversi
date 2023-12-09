@@ -36,6 +36,7 @@ import view.BoardPanel;
 import view.BoardRenderer;
 import view.ReversiFrame;
 import view.SquareBoardRenderer;
+import view.SquareReversiFrame;
 
 public class SquareReversiTests {
 
@@ -115,5 +116,6 @@ public class SquareReversiTests {
 
     assertFalse(newBoard.isGameOver());
   }
+
 
 }

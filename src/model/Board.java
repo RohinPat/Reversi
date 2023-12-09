@@ -381,7 +381,7 @@ public class Board implements Reversi {
     } else {
       turn = Turn.WHITE;
     }
-    Board copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
+    Reversi copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
     int score = 0;
     int oldscore = copy.getScore(model.currentColor());
     try {
