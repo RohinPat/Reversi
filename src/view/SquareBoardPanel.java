@@ -49,7 +49,7 @@ public class SquareBoardPanel extends JPanel {
       for (int col = 0; col < boardSize; col++) {
         int x = (int) Math.round(startX + (col * squareSize));
         int y = (int) Math.round(startY + (row * squareSize));
-        squares.put(new Square(x, y, squareSize, Disc.EMPTY), new CartesianCoordinate(row, col));
+        squares.put(new Square(x, y, squareSize, board.getDiscAt(row, col)), new CartesianCoordinate(row, col));
       }
     }
   }
@@ -66,10 +66,24 @@ public class SquareBoardPanel extends JPanel {
     g2d.setStroke(new BasicStroke(thickness));
 
     for (Square square : squares.keySet()) {
-      g2d.setColor(Color.WHITE);
+      g2d.setColor(Color.LIGHT_GRAY);
       g2d.fill(square);
       g2d.setColor(Color.BLACK);
       g2d.draw(square);
+
+      int circleDiameter = (int) (squareSize) / 2;
+
+      int centerX = (int) (square.x);
+      int centerY = (int) (square.y);
+
+      int circleX = centerX + circleDiameter / 2;
+      int circleY = centerY + circleDiameter / 2;
+      if (square.color != null) {
+        g2d.setColor(square.color);
+        g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter);
+      }
     }
+
+
   }
 }
