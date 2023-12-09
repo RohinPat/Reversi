@@ -12,6 +12,8 @@ import controller.aistrat.ReversiStratagy;
 import controller.aistrat.TryTwo;
 import model.Board;
 import model.Disc;
+import model.Reversi;
+import model.SquareBoard;
 import provider.strategies.AvoidTilesNextToCornersStrategy;
 import provider.strategies.FallableInfallablePairStrategy;
 import provider.strategies.MinimaxStrategy;
@@ -21,6 +23,7 @@ import provider.view.ReversiGUIView;
 import view.BoardPanel;
 import view.ReversiFrame;
 import controller.HumanPlayer;
+import view.SquareReversiFrame;
 import view.ViewAdapter;
 
 /**
@@ -31,7 +34,12 @@ public final class ReversiMain {
    * Used to initialize the frame based on the given board.
    */
   public static void main(String[] args) {
-    Board b1 = null;
+    Reversi newBoard = new SquareBoard(6);
+
+    SquareReversiFrame frame = new SquareReversiFrame(newBoard);
+    frame.setVisible(true);
+  }
+    /*Board b1 = null;
     Player p1 = null;
     Player p2 = null;
     ReversiController controller12 = null;
@@ -115,14 +123,14 @@ public final class ReversiMain {
       viewPanel2.setController(controller12);
       viewPlayer2.setVisible(true);
 
-      /*
+      *//*
       ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
       ViewAdapter v2 = new ViewAdapter(rev2);
       controller2 = new ReversiController(b1, v2, p2);
       b1.addObserver(controller2);
       v2.setController(controller2);
       v2.setVisible(true);
-       */
+       *//*
 
       viewPlayer1.setVisible(true);
     } catch (IllegalArgumentException e) {
@@ -136,7 +144,7 @@ public final class ReversiMain {
     }
   }
 
-  /**
+  *//**
    * Parses command-line arguments to set up the game strategy for a Reversi game.
    * This method maps strings representing strategy names to their corresponding strategy objects.
    * It supports both single and multiple strategies. In the case of multiple strategies,
@@ -147,7 +155,7 @@ public final class ReversiMain {
    * @param strats An ArrayList of strings representing the names of strategies.
    * @return ReversiStrategy The final composed strategy based on the input list,
    *                         or null if an invalid strategy name is encountered.
-   */
+   *//*
   // 5 capturemost fallibleinfalliblepair(new Capture Corners, new Most)
   private static ReversiStratagy getStrat(ArrayList<String> strats) {
     ArrayList<String> listOfStrats = strats;
@@ -209,5 +217,5 @@ public final class ReversiMain {
       listOfStrats.remove(0);
     }
     return finalStrat;
-  }
+  }*/
 }
