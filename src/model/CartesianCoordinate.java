@@ -41,5 +41,15 @@ public class CartesianCoordinate implements Position{
     return y;
   }
 
+  @Override
+  public int hashCode() {
+    return x * 31 + y * 26;
+  }
+
+  @Override
+  public String toString(){
+    return "X" + this.x + "Y" + this.y;
+  }
+
 
 }
