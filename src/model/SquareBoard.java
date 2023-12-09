@@ -313,7 +313,6 @@ public class SquareBoard implements Reversi{
     }
     // Check for consecutive passes
     if (consecPasses == 2) {
-
       this.whoWins();
       return true;
     }
@@ -327,6 +326,11 @@ public class SquareBoard implements Reversi{
       }
     }
     if (allCellsFilled) {
+      this.whoWins();
+      return true;
+    }
+
+    if (this.getScore(Disc.BLACK) == 0 || this.getScore(Disc.WHITE) == 0){
       this.whoWins();
       return true;
     }

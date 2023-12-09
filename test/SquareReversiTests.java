@@ -66,4 +66,54 @@ public class SquareReversiTests {
                     "_ _ _ _ _ _ \n" +
                     "_ _ _ _ _ _ \n", br.toString());
   }
+
+  @Test
+  public void testSquareBoardMake2MovesBySamePlayerByPassing(){
+    Reversi newBoard = new SquareBoard(6);
+    newBoard.makeMove(new CartesianCoordinate(4, 2));
+    newBoard.passTurn();
+    newBoard.makeMove(new CartesianCoordinate(1, 4));
+
+    SquareBoardRenderer br = new SquareBoardRenderer(newBoard);
+
+    assertEquals(
+            "_ _ _ _ _ _ \n" +
+                    "_ _ _ _ _ _ \n" +
+                    "_ _ X X X _ \n" +
+                    "_ _ X X _ _ \n" +
+                    "_ X _ _ _ _ \n" +
+                    "_ _ _ _ _ _ \n", br.toString());
+
+  }
+
+  @Test
+  public void testSquareBoardMake2MovesBySamePlayerByPassingAndThenGameOverTrue(){
+    Reversi newBoard = new SquareBoard(6);
+    newBoard.makeMove(new CartesianCoordinate(4, 2));
+    newBoard.passTurn();
+    newBoard.makeMove(new CartesianCoordinate(1, 4));
+    assertTrue(newBoard.isGameOver());
+
+  }
+
+  @Test
+  public void test2PassesMakesGameOverTrue(){
+    Reversi newBoard = new SquareBoard(6);
+    newBoard.passTurn();
+    newBoard.passTurn();
+    assertTrue(newBoard.isGameOver());
+  }
+
+  @Test
+  public void test2PassesNonConsecutiveDoesntMeanGameOver(){
+    Reversi newBoard = new SquareBoard(6);
+    newBoard.makeMove(new CartesianCoordinate(4, 2));
+    newBoard.makeMove(new CartesianCoordinate(4, 3));
+    newBoard.passTurn();
+    newBoard.makeMove(new CartesianCoordinate(4, 1));
+    newBoard.passTurn();
+    
+    assertFalse(newBoard.isGameOver());
+  }
+
 }
