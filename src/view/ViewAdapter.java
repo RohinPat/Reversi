@@ -28,13 +28,13 @@ public class ViewAdapter implements IBoardPanel {
   }
 
   @Override
-  public void initializeHexagons(ReversiReadOnly board) {
+  public void initializeBoard(ReversiReadOnly board) {
     this.reversiGUIView.display(true);
     this.reversiGUIView.repaint();
   }
 
   @Override
-  public void handleHexagonClick(int mouseX, int mouseY) {
+  public void handleMouseClick(int mouseX, int mouseY) {
     // nothing as it is already handles within their view
   }
 

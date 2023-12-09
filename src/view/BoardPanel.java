@@ -40,6 +40,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
   private final JLabel scoreLabel;
   private final JLabel turnLabel;
   private final ReversiReadOnly board;
+  private final HintDecorator hd;
+  private boolean hintsEnabled;
 
   public void setController(ControllerFeatures cont) {
     this.controller = cont;
@@ -90,7 +92,16 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     this.setFocusable(true);
     this.requestFocusInWindow();
 
-    initializeHexagons(board);
+    hd = new HintDecorator(this);
+
+    hintsEnabled = false;
+
+    initializeBoard(board);
+  }
+
+  public void toggleHints() {
+    hintsEnabled = !hintsEnabled;
+    repaint();
   }
 
   /**
@@ -204,7 +215,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-      handleHexagonClick(e.getX(), e.getY());
+      handleMouseClick(e.getX(), e.getY());
     }
 
     @Override
@@ -265,7 +276,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
       adjustHexagonSize(this.board);
       boardWidth = getWidth();
       boardHeight = getHeight();
-      initializeHexagons(this.board);
+      initializeBoard(this.board);
 
       if (selectedQ != -1 && selectedR != -1) {
         for (Hexagon hex : hexagons.keySet()) {
@@ -327,6 +338,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
         controller.confirmMove(hexagons.get(selected).getFirstCoordinate(), hexagons.get(selected).getSecondCoordinate());
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
         controller.passTurn();
+      } else if (e.getKeyCode() == KeyEvent.VK_E) {
+        toggleHints();
       }
     }
 
@@ -368,7 +381,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
    * @param mouseX The x-coordinate of the mouse click.
    * @param mouseY The y-coordinate of the mouse click.
    */
-  public void handleHexagonClick(int mouseX, int mouseY) {
+  public void handleMouseClick(int mouseX, int mouseY) {
     boolean inBounds = false;
     for (Hexagon hex : hexagons.keySet()) {
       if (hex.contains(mouseX, mouseY)) {
@@ -397,7 +410,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
    *              the Reversi game. The hexagonal grid is initialized based on the board's
    *              size and the disc values it contains.
    */
-  public void initializeHexagons(ReversiReadOnly board) {
+  public void initializeBoard(ReversiReadOnly board) {
     hexagons.clear();
     double hexWidth = hexSize * Math.sqrt(3);
     double hexHeight = hexSize * 1.5;
@@ -470,6 +483,10 @@ public class BoardPanel extends JPanel implements IBoardPanel {
       if (hex.equals(selected)) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hex);
+        if (hintsEnabled) {
+          hd.drawHints(g2d, selected, hexagons.get(selected).getFirstCoordinate(), hexagons.get(selected).getSecondCoordinate(), board);
+        }
+
       } else {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fill(hex);
@@ -491,4 +508,3 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     }
   }
 }
-

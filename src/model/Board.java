@@ -383,12 +383,13 @@ public class Board implements Reversi {
     }
     Board copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
     int score = 0;
+    int oldscore = copy.getScore(model.currentColor());
     try {
       copy.makeMove(move);
       score = copy.getScore(model.currentColor());
-      return score;
+      return score - oldscore - 1; // discounting the piece that will be added
     } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException(e);
+      return 0;
     }
   }
 

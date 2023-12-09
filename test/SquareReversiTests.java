@@ -112,7 +112,7 @@ public class SquareReversiTests {
     newBoard.passTurn();
     newBoard.makeMove(new CartesianCoordinate(4, 1));
     newBoard.passTurn();
-    
+
     assertFalse(newBoard.isGameOver());
   }
 

@@ -60,7 +60,7 @@ public class ReversiControllerMock implements ControllerFeatures {
     // Logic for passing a turn
     log.append("Passes the Turn" + "\n");
     model.passTurn();
-    view.initializeHexagons(model); // Update the view if necessary
+    view.initializeBoard(model); // Update the view if necessary
   }
 
   /**
@@ -70,7 +70,7 @@ public class ReversiControllerMock implements ControllerFeatures {
    */
   public void updateView() {
     log.append("Updates the View" + "\n");
-    view.initializeHexagons(model);
+    view.initializeBoard(model);
     if (!model.isGameOver()) {
       if (model.currentColor() == player.getDisc()) {
         if (player instanceof AIPlayer) {

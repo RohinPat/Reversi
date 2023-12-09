@@ -22,7 +22,7 @@ public interface IBoardPanel {
    *
    * @param board The ReversiReadOnly board representing the current state of the game.
    */
-  void initializeHexagons(ReversiReadOnly board);
+  void initializeBoard(ReversiReadOnly board);
 
 
   /**
@@ -31,7 +31,7 @@ public interface IBoardPanel {
    * @param mouseX The x-coordinate of the mouse click.
    * @param mouseY The y-coordinate of the mouse click.
    */
-  void handleHexagonClick(int mouseX, int mouseY);
+  void handleMouseClick(int mouseX, int mouseY);
 
   /**
    * Displays a dialog box to inform the user of an invalid move.
