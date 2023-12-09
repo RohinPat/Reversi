@@ -45,12 +45,13 @@ public class SquareBoardPanel extends JPanel {
     double startX = 10;
     double startY = 10;
 
-    squares.put(new Square(100, 100, squareSize, Disc.BLACK), new CartesianCoordinate(1, 1));
-    /*for (int row = 0; row < boardSize; row++) {
+    for (int row = 0; row < boardSize; row++) {
       for (int col = 0; col < boardSize; col++) {
-
+        int x = (int) Math.round(startX + (col * squareSize));
+        int y = (int) Math.round(startY + (row * squareSize));
+        squares.put(new Square(x, y, squareSize, Disc.EMPTY), new CartesianCoordinate(row, col));
       }
-    }*/
+    }
   }
 
 
@@ -61,9 +62,14 @@ public class SquareBoardPanel extends JPanel {
 
     drawSquare(board);
 
-    for (Square hex : squares.keySet()) {
+    float thickness = 2; // Set the thickness you want for the squares' outline
+    g2d.setStroke(new BasicStroke(thickness));
+
+    for (Square square : squares.keySet()) {
+      g2d.setColor(Color.WHITE);
+      g2d.fill(square);
       g2d.setColor(Color.BLACK);
-      g2d.draw(hex);
+      g2d.draw(square);
     }
   }
 }
