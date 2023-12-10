@@ -6,7 +6,7 @@ import model.Board;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
-import model.Position;
+import model.Coordinate;
 import model.Reversi;
 import provider.controller.ModelTurnListener;
 import provider.model.HexCoord;
@@ -154,8 +154,8 @@ public class BoardAdapter2 implements ReversiMutableModel {
   @Override
   public ReversiMutableModel cloneModel() {
     // Create a deep copy of the Reversi board
-    HashMap<Position, Cell> boardCopy = new HashMap<>();
-    for (Position coor : board.getMap().keySet()) {
+    HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
+    for (Coordinate coor : board.getMap().keySet()) {
       boardCopy.put(new Coordinate(coor.getFirstCoordinate(), coor.getSecondCoordinate()),
               new Cell(board.getMap().get(coor).getContent()));
     }

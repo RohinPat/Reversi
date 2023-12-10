@@ -13,7 +13,7 @@ import controller.ReversiController;
  * Represents the game board for a hexagonal grid-based game.
  */
 public class Board implements Reversi {
-  private final Map<Position, Cell> grid;
+  private final Map<Coordinate, Cell> grid;
 
   //INVARIANT: should always be positive
   private final int size;
@@ -100,7 +100,7 @@ public class Board implements Reversi {
    * @param grid1      The hashmap of discs to be overwritten onto the old grid.
    * @param whoseTuren The turn that's to be instantiated in the new game.
    */
-  public Board(int size, HashMap<Position, Cell> grid1, Turn whoseTuren) {
+  public Board(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
     this.consecPasses = 0;
     if (size <= 0) {
       throw new IllegalArgumentException("Size must be positive");
@@ -122,7 +122,7 @@ public class Board implements Reversi {
     compassR.put("sw", 1);
     this.gameState = GameState.PRE;
     playGame();
-    for (Position coord : grid1.keySet()) {
+    for (Coordinate coord : grid1.keySet()) {
       Cell originalCell = grid1.get(coord);
       Cell newCell = new Cell(originalCell.getContent());
       this.grid.put(coord, newCell);
@@ -217,7 +217,7 @@ public class Board implements Reversi {
     notifyTurnChange();
   }
 
-  private ArrayList<Integer> moveHelper(Position dest, String dir) {
+  private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
@@ -282,7 +282,7 @@ public class Board implements Reversi {
    *                                  cell is already occupied or doesn't result in any opponent
    *                                  disc captures.
    */
-  public void makeMove(Position dest) {
+  public void makeMove(Coordinate dest) {
     if (gameState != GameState.PRE) {
       if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
@@ -344,7 +344,7 @@ public class Board implements Reversi {
    * @param currentTurn The {@link Disc} representing the player making the move.
    * @return True if the move is valid, false otherwise.
    */
-  public boolean validMove(Position coor, Disc currentTurn) {
+  public boolean validMove(Coordinate coor, Disc currentTurn) {
     boolean flag = true;
     Turn turn = null;
 
@@ -374,7 +374,7 @@ public class Board implements Reversi {
    * @return The score after making the move.
    * @throws IllegalArgumentException If the move is invalid.
    */
-  public int checkMove(ReversiReadOnly model, Position move) {
+  public int checkMove(ReversiReadOnly model, Coordinate move) {
     Turn turn = null;
     if (model.currentColor().equals(Disc.BLACK)) {
       turn = Turn.BLACK;
@@ -562,7 +562,7 @@ public class Board implements Reversi {
     }
     Board dupe = new Board(size, this.createCopyOfBoard(), current);
 
-    for (Position coord : grid.keySet()) {
+    for (Coordinate coord : grid.keySet()) {
       if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
         try {
           dupe.makeMove(coord);
@@ -581,9 +581,9 @@ public class Board implements Reversi {
    *
    * @return A copy of the board.
    */
-  public HashMap<Position, Cell> createCopyOfBoard() {
-    HashMap<Position, Cell> copy = new HashMap<Position, Cell>();
-    for (Position coord : this.grid.keySet()) {
+  public HashMap<Coordinate, Cell> createCopyOfBoard() {
+    HashMap<Coordinate, Cell> copy = new HashMap<Coordinate, Cell>();
+    for (Coordinate coord : this.grid.keySet()) {
       Cell originalCell = this.grid.get(coord);
       Cell newCell = new Cell(originalCell.getContent());
       copy.put(coord, newCell);
@@ -596,10 +596,10 @@ public class Board implements Reversi {
    *
    * @return A list of all possible moves for the current player.
    */
-  public ArrayList<Position> getPossibleMoves() {
-    ArrayList<Position> possibleMoves = new ArrayList<>();
+  public ArrayList<Coordinate> getPossibleMoves() {
+    ArrayList<Coordinate> possibleMoves = new ArrayList<>();
     Board og = new Board(size, this.createCopyOfBoard(), this.whoseTurn);
-    for (Position coord : grid.keySet()) {
+    for (Coordinate coord : grid.keySet()) {
       if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
         try {
           Board og1 = new Board(size, og.createCopyOfBoard(), this.whoseTurn);
@@ -636,11 +636,11 @@ public class Board implements Reversi {
 
   /**
    * Used to return a map representation of the current game board, which holds what pieces.
-   * are placed at what positions.
+   * are placed at what Coordinates.
    *
    * @return returns a map representation of the current game board.
    */
-  public Map<Position, Cell> getMap() {
+  public Map<Coordinate, Cell> getMap() {
     return grid;
   }
 }

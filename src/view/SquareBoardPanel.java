@@ -3,14 +3,18 @@ package view;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.awt.event.KeyListener;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+
+import controller.ControllerFeatures;
 import model.Board; // Assuming you have a Board model representing the game's board.
 import model.CartesianCoordinate;
 import model.Coordinate;
@@ -18,13 +22,15 @@ import model.Disc; // Your Disc enum (BLACK, WHITE, EMPTY).
 import model.Position;
 import model.ReversiReadOnly;
 
-public class SquareBoardPanel extends JPanel {
+public class SquareBoardPanel extends JPanel implements IBoardPanel {
   private ReversiReadOnly board; // The game board.
   private double squareSize; // The size of each square.
   private int boardWidth;
   private int boardHeight;
   private ConcurrentMap<Square, Position> squares;
   private Square selected;
+  private ControllerFeatures controller;
+
 
   public SquareBoardPanel(ReversiReadOnly board, int width, int height) {
     this.board = board;
@@ -40,7 +46,11 @@ public class SquareBoardPanel extends JPanel {
     this.setFocusable(true);
     MouseListener squareSelect = new SquareMouseListener();
     this.addMouseListener(squareSelect);
+    KeyListener keyInputListener = new KeyInputListener();
+    this.addKeyListener(keyInputListener);
     this.requestFocusInWindow();
+
+    initializeBoard(board);
   }
 
   /**
@@ -86,6 +96,47 @@ public class SquareBoardPanel extends JPanel {
   }
 
   /**
+   * This inner class implements the {@link KeyListener} interface and is used to
+   * handle keyboard input events for specific key presses. It responds to the "M" key
+   * for confirming a move and the "Space" key for passing the turn in the Reversi game.
+   */
+  private class KeyInputListener implements KeyListener {
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+      //not used but has to be overwritten
+    }
+
+    /**
+     * Invoked when a key is pressed. This method checks for specific key presses,
+     * such as "M" for confirming a move and "Space" for passing the turn, and
+     * triggers the corresponding actions.
+     *
+     * @param e The {@link KeyEvent} representing a key press event.
+     */
+    @Override
+    public void keyPressed(KeyEvent e) {
+      if (e.getKeyCode() == KeyEvent.VK_M) {
+        System.out.println(squares.get(selected).getFirstCoordinate());
+        System.out.println(squares.get(selected).getSecondCoordinate());
+        if (selected == null) {
+          showInvalidMoveDialog("No hexagon selected. " +
+                  "Please select a hexagon before confirming the move.");
+          return;
+        }
+        controller.confirmMove(squares.get(selected).getFirstCoordinate(), squares.get(selected).getSecondCoordinate());
+      } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        controller.passTurn();
+      }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+      //not used but has to be overwritten
+    }
+  }
+
+  /**
    * Handles a mouse click event on a hexagon within the game board. The method determines
    * which hexagon, if any, has been clicked and updates the selection accordingly. It
    * also triggers the selection of the clicked hexagon in the game controller if one is
@@ -112,6 +163,17 @@ public class SquareBoardPanel extends JPanel {
     }
   }
 
+  @Override
+  public void showInvalidMoveDialog(String message) {
+    JOptionPane.showMessageDialog(this, message, "Invalid Move",
+            JOptionPane.ERROR_MESSAGE);
+  }
+
+  @Override
+  public void setController(ControllerFeatures cont) {
+    this.controller = cont;
+  }
+
   public void initializeBoard(ReversiReadOnly board){
     squares.clear();
     double squareWidth = squareSize;
@@ -131,6 +193,8 @@ public class SquareBoardPanel extends JPanel {
         squares.put(new Square(x, y, squareSize, board.getDiscAt(col, row)), new CartesianCoordinate(col, row));
       }
     }
+
+    repaint();
   }
 
   /**

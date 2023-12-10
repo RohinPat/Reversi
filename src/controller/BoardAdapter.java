@@ -9,7 +9,7 @@ import model.Board;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
-import model.Position;
+import model.Coordinate;
 import model.Reversi;
 import model.Turn;
 import provider.model.HexCoord;
@@ -46,9 +46,9 @@ public class BoardAdapter implements IBoard {
 
   @Override
   public Map<HexCoord, HexagonTile> getMap() {
-    Map<Position, Cell> map = currentBoard.getMap();
+    Map<Coordinate, Cell> map = currentBoard.getMap();
     Map<HexCoord, HexagonTile> outputMap = new HashMap<>();
-    for (Position coord : map.keySet()) {
+    for (Coordinate coord : map.keySet()) {
       PlayerOwnership ownership = null;
       if (map.get(coord).getContent().equals(Disc.BLACK)) {
         ownership = PlayerOwnership.PLAYER_1;
@@ -103,8 +103,8 @@ public class BoardAdapter implements IBoard {
   @Override
   public IBoard clone() {
     // Create a deep copy of the Reversi board
-    HashMap<Position, Cell> boardCopy = new HashMap<>();
-    for (Position coor : currentBoard.getMap().keySet()) {
+    HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
+    for (Coordinate coor : currentBoard.getMap().keySet()) {
       boardCopy.put(new Coordinate(coor.getFirstCoordinate(), coor.getSecondCoordinate()),
               new Cell(currentBoard.getMap().get(coor).getContent()));
     }

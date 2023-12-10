@@ -32,7 +32,7 @@ public interface Reversi extends ReversiReadOnly {
    *                                  cell is already occupied or doesn't result in any opponent
    *                                  disc captures.
    */
-  void makeMove(Position dest);
+  void makeMove(Coordinate dest);
 
   /**
    * Places a disc at the specified cell coordinates.
@@ -84,7 +84,7 @@ public interface Reversi extends ReversiReadOnly {
    * @return A {@link HashMap} representing a copy of the board. Each {@link Coordinate}.
    *     key is mapped to a {@link Cell} value.
    */
-  HashMap<Position, Cell> createCopyOfBoard();
+  HashMap<Coordinate, Cell> createCopyOfBoard();
 
   /**
    * Calculates and returns a list of all possible moves for the current player.
@@ -92,7 +92,7 @@ public interface Reversi extends ReversiReadOnly {
    * @return An {@link ArrayList} of {@link Coordinate} objects representing all possible moves.
    *     that the current player can make.
    */
-  ArrayList<Position> getPossibleMoves();
+  ArrayList<Coordinate> getPossibleMoves();
 
   /**
    * Checks if a given move is valid on the current game board.
@@ -104,7 +104,7 @@ public interface Reversi extends ReversiReadOnly {
    * @return The score resulting from the move, if valid.
    * @throws IllegalArgumentException If the move is invalid.
    */
-  int checkMove(ReversiReadOnly model, Position move);
+  int checkMove(ReversiReadOnly model, Coordinate move);
 
   /**
    * Determines if a move is valid for the given player at the specified coordinates.
@@ -114,7 +114,7 @@ public interface Reversi extends ReversiReadOnly {
    * @param currentTurn The current turn's disc to evaluate the move for.
    * @return True if the move is valid, false otherwise.
    */
-  boolean validMove(Position coor, Disc currentTurn);
+  boolean validMove(Coordinate coor, Disc currentTurn);
 
   /**
    * Retrieves a map representation of the current game board.
@@ -123,7 +123,7 @@ public interface Reversi extends ReversiReadOnly {
    * @return A map where each key is a {@link Coordinate} and each value is the.
    *     corresponding {@link Cell}.
    */
-  Map<Position, Cell> getMap();
+  Map<Coordinate, Cell> getMap();
 
   /**
    * Adds an observer, typically a controller, to be notified of changes in the game state.
@@ -133,4 +133,6 @@ public interface Reversi extends ReversiReadOnly {
    *     {@link ControllerFeatures} interface.
    */
   void addObserver(ControllerFeatures controller);
+
+  void notifyTurnChange();
 }

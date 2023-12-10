@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.Coordinate;
 import model.Disc;
-import model.Position;
+import model.Coordinate;
 import model.ReversiReadOnly;
 
 
@@ -12,7 +12,7 @@ import model.ReversiReadOnly;
  * The avoid corner strategy for playing Reversi.
  * This strategy focuses on avoiding corner spots on the Reversi board.
  * It modifies the list of potential moves by removing those that are
- * considered to be near the corners, as these positions are generally
+ * considered to be near the corners, as these Coordinates are generally
  * less advantageous.
  */
 public class AvoidCorners implements ReversiStratagy {
@@ -26,12 +26,12 @@ public class AvoidCorners implements ReversiStratagy {
    * @return The selected for the next move, avoiding corners.
    */
   @Override
-  public Position chooseMove(ReversiReadOnly model, Disc turn) {
+  public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
     CaptureMost cm = new CaptureMost();
     int size = model.getSize();
-    ArrayList<Position> notCorners = getSpotsToAvoid(size);
-    ArrayList<Position> possibleMoves = model.getPossibleMoves();
-    for (Position c : notCorners) {
+    ArrayList<Coordinate> notCorners = getSpotsToAvoid(size);
+    ArrayList<Coordinate> possibleMoves = model.getPossibleMoves();
+    for (Coordinate c : notCorners) {
       if (possibleMoves.contains(c)) {
         possibleMoves.remove(c);
       }
@@ -41,13 +41,13 @@ public class AvoidCorners implements ReversiStratagy {
 
   /**
    * Generates a list of coordinates that represent spots to be avoided near the corners.
-   * These are the positions adjacent to the corners where placing a disc could be disadvantageous.
+   * These are the Coordinates adjacent to the corners where placing a disc could be disadvantageous.
    *
    * @param size The size of the Reversi board.
    * @return An ArrayList of objects representing spots to avoid.
    */
-  private ArrayList<Position> getSpotsToAvoid(int size) {
-    ArrayList<Position> notCorners = new ArrayList<Position>();
+  private ArrayList<Coordinate> getSpotsToAvoid(int size) {
+    ArrayList<Coordinate> notCorners = new ArrayList<Coordinate>();
     notCorners.add(new Coordinate(1, 1 - size));
     notCorners.add(new Coordinate(0, 2 - size));
     notCorners.add(new Coordinate(-1, 2 - size));

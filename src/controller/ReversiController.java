@@ -1,5 +1,6 @@
 package controller;
 
+import model.Reversi;
 import view.BoardPanel;
 import model.Board;
 import model.Coordinate;
@@ -11,7 +12,7 @@ import view.IBoardPanel;
  * interaction between the model and the view in a Reversi game.
  */
 public class ReversiController implements ControllerFeatures {
-  private Board model;
+  private Reversi model;
   private IBoardPanel view;
   private Player player;
 
@@ -25,7 +26,7 @@ public class ReversiController implements ControllerFeatures {
    * @param view   The {@link BoardPanel} view displaying the game board.
    * @param player The {@link Player} representing the current player.
    */
-  public ReversiController(Board model, IBoardPanel view, Player player) {
+  public ReversiController(Reversi model, IBoardPanel view, Player player) {
     this.model = model;
     this.view = view;
     this.player = player;
@@ -65,6 +66,7 @@ public class ReversiController implements ControllerFeatures {
    * moves or indicate that it's the player's turn if it's a human player.
    */
   public void updateView() {
+    System.out.println(model.isGameOver());
     view.initializeBoard(model);
     handleTurnChange(model.currentColor());
     if (model.isGameOver()) {
