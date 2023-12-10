@@ -104,4 +104,6 @@ public interface ReversiReadOnly {
    * @return The current state of the game.
    */
   GameState getState();
+
+  int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player);
 }

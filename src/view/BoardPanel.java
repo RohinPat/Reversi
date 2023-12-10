@@ -41,9 +41,16 @@ public class BoardPanel extends JPanel implements IBoardPanel {
   protected final JLabel turnLabel;
   protected final ReversiReadOnly board;
   protected boolean hintsEnabled;
+  protected Disc player;
 
   public void setController(ControllerFeatures cont) {
     this.controller = cont;
+    player = cont.getPlayer();
+
+  }
+
+  public ControllerFeatures getController(){
+    return controller;
   }
 
 
@@ -94,6 +101,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     hintsEnabled = false;
 
     initializeBoard(board);
+
+    System.out.println(player);
   }
 
   public void toggleHints() {

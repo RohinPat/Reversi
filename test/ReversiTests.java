@@ -33,6 +33,7 @@ import provider.model.HexCoord;
 import provider.strategies.TopLeftTieBreaker;
 import view.BoardPanel;
 import view.BoardRenderer;
+import view.IBoardPanel;
 import view.ReversiFrame;
 
 /**
@@ -131,6 +132,15 @@ public class ReversiTests {
                     "_ O _ X _ \n" +
                     " O O O _ \n" +
                     "  _ _ _ \n", br.toString());
+
+  }
+
+  @Test
+  public void testGetScoreForPlayer() {
+    Board newBoard = new Board(3);
+    BoardRenderer br = new BoardRenderer(newBoard);
+    int white = newBoard.getScoreForPlayer(newBoard, new Coordinate(-1, -1), Disc.WHITE);
+    assertEquals(white, 1);
 
   }
 
@@ -748,12 +758,10 @@ public class ReversiTests {
     Board b1 = new Board(4);
     AIPlayer p1 = new AIPlayer(Disc.BLACK, new CaptureMost());
     AIPlayer p2 = new AIPlayer(Disc.WHITE, new CaptureMost());
-    ReversiFrame viewPlayer1 = new ReversiFrame(b1);
-    BoardPanel viewPanel1 = viewPlayer1.getBoardPanel();
+    IBoardPanel viewPanel1 = new BoardPanel(b1, 600, 600);
     ControllerFeatures controller = new ReversiControllerMock(b1, viewPanel1, p1);
     b1.addObserver(controller);
-    ReversiFrame viewPlayer2 = new ReversiFrame(b1);
-    BoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
+    IBoardPanel viewPanel2 = new BoardPanel(b1, 600, 600);
     ControllerFeatures controller2 = new ReversiControllerMock(b1, viewPanel2, p2);
     b1.addObserver(controller2);
     controller2.updateView();

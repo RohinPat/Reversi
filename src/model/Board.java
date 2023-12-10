@@ -263,5 +263,25 @@ public class Board extends AbstractModel {
     notifyObservers();
     notifyTurnChange();
   }
+
+  public int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player){
+    Turn turn = null;
+    if (player.equals(Disc.BLACK)) {
+      turn = Turn.BLACK;
+    } else {
+      turn = Turn.WHITE;
+    }
+    Board copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
+    int score = 0;
+    int oldScore = copy.getScore(player);
+    try {
+      copy.makeMove(move);
+      score = copy.getScore(player) - oldScore - 1;
+      return score;
+    } catch (IllegalArgumentException e) {
+      return 0;
+    }
+  }
+
 }
 

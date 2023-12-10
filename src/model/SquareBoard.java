@@ -172,4 +172,9 @@ public class SquareBoard extends AbstractModel{
     notifyTurnChange();
   }
 
+  @Override
+  public int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player) {
+    return 0;
+  }
+
 }

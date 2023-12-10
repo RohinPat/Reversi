@@ -1,43 +1,26 @@
 package view;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import model.ReversiReadOnly;
+import model.SquareBoard;
 
-/**
- * The {@code ReversiFrame} class extends {@link JFrame} and is used to create
- * the main window for a Reversi game. It contains a {@link BoardPanel} that
- * displays the game board.
- */
-public class SquareReversiFrame extends JFrame {
-
+public class SquareReversiFrame extends JFrame implements IFrame{
   SquareBoardPanel bp;
 
-  /**
-   * Constructs a {@code ReversiFrame} with the specified {@link ReversiReadOnly} board.
-   * Initializes the game board and sets up the frame properties including size,
-   * close operation, and default layout.
-   *
-   * @param board The {@link ReversiReadOnly} board to be displayed inside this frame.
-   *              This object represents the current state of the Reversi game,
-   *              including the positions of all pieces on the board.
-   */
   public SquareReversiFrame(ReversiReadOnly board) {
-    bp = new SquareBoardPanel(board, 600, 600);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.add(bp);
-    this.pack();
-    this.setLocationRelativeTo(null); // Center the frame on the screen
+      bp = (new SquareBoardPanel(board, 600, 600));
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.add(bp);
+      this.pack();
+      this.setLocationRelativeTo(null); // Center the frame on the screen
   }
 
-  /**
-   * Retrieves the {@link BoardPanel} associated with this {@code ReversiFrame}.
-   *
-   * @return The {@link BoardPanel} object that displays the Reversi game board
-   *     within this frame. This panel allows access to the current state
-   *     of the game, including the positions of all pieces on the board.
-   */
-  public SquareBoardPanel getBoardPanel() {
+  public IBoardPanel getBoardPanel() {
     return bp;
+  }
+
+  public void makeVisible(boolean bool){
+    setVisible(true);
   }
 }

@@ -3,7 +3,11 @@ package view;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 
+import javax.naming.ldap.Control;
+
+import controller.ControllerFeatures;
 import model.Coordinate;
+import model.Disc;
 import model.ReversiReadOnly;
 
 public class HintDecorator extends BoardPanel {
@@ -14,10 +18,11 @@ public class HintDecorator extends BoardPanel {
     this.boardPanel = boardPanel;
   }
 
-  public void drawHints(Graphics2D g2d, Hexagon selected, int q, int r, ReversiReadOnly board, int bwidth, int bheight) {
+  public void drawHints(Graphics2D g2d, Hexagon selected, int q, int r, ReversiReadOnly board, int bwidth, int bheight, Disc player) {
     if (selected != null) {
       Coordinate dest = new Coordinate(q, r);
-      int change = board.checkMove(board, dest);
+
+      int change = board.getScoreForPlayer(board, dest, player);
 
       int boardSize = board.getSize();
 
@@ -42,7 +47,7 @@ public class HintDecorator extends BoardPanel {
 
     for (Hexagon hex : hexagons.keySet()){
       if (hex.equals(selected) && hintsEnabled){
-        drawHints(g2d, hex, hexagons.get(hex).getFirstCoordinate(), hexagons.get(hex).getSecondCoordinate(), boardPanel.getReadReversi(), boardPanel.getBWidth(), boardPanel.getBHeight());
+        drawHints(g2d, hex, hexagons.get(hex).getFirstCoordinate(), hexagons.get(hex).getSecondCoordinate(), boardPanel.getReadReversi(), boardPanel.getBWidth(), boardPanel.getBHeight(), player);
       }
     }
   }

@@ -75,4 +75,9 @@ public class BoardReadOnly implements ReversiReadOnly {
   public GameState getState() {
     return board.getState();
   }
+
+  @Override
+  public int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player) {
+    return 0;
+  }
 }

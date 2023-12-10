@@ -135,4 +135,6 @@ public interface Reversi extends ReversiReadOnly {
   void addObserver(ControllerFeatures controller);
 
   void notifyTurnChange();
+
+  int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player);
 }

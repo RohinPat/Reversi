@@ -1,42 +1,14 @@
-import org.junit.Assert;
 import org.junit.Test;
-
-import controller.AIPlayer;
-import controller.ControllerFeatures;
-import controller.ReversiControllerMock;
-import controller.aistrat.AvoidCorners;
-import controller.aistrat.CaptureCorners;
-import controller.aistrat.CaptureMost;
-import controller.aistrat.ReversiStratagy;
-import controller.aistrat.TryTwo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import model.Board;
-import model.BoardMock;
 import model.Coordinate;
-import model.Cell;
-import model.Coordinate;
-import model.Disc;
-import model.GameState;
-import model.Position;
 import model.Reversi;
 import model.SquareBoard;
-import model.Turn;
-import provider.model.HexCoord;
-import provider.strategies.TopLeftTieBreaker;
-import view.BoardPanel;
-import view.BoardRenderer;
-import view.ReversiFrame;
 import view.SquareBoardRenderer;
-import view.SquareReversiFrame;
 
 public class SquareReversiTests {
 

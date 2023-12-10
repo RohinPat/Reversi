@@ -24,6 +24,7 @@ import provider.view.ReversiGUIView;
 import view.BoardPanel;
 import view.HintDecorator;
 import view.IBoardPanel;
+import view.IFrame;
 import view.ReversiFrame;
 import controller.HumanPlayer;
 import view.SquareBoardPanel;
@@ -42,21 +43,21 @@ public final class ReversiMain {
     Reversi newBoard = new SquareBoard(10);
 
     Player player1 = new HumanPlayer(Disc.BLACK);
-    SquareReversiFrame frame = new SquareReversiFrame(newBoard);
+    IFrame frame = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel = frame.getBoardPanel();
     ControllerFeatures controller1 = new ReversiController(newBoard, viewPanel, player1);
     newBoard.addObserver(controller1);
     viewPanel.setController(controller1);
 
     Player player2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy());
-    SquareReversiFrame frame2 = new SquareReversiFrame(newBoard);
+    IFrame frame2 = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel2 = frame2.getBoardPanel();
     ControllerFeatures controller2 = new ReversiController(newBoard, viewPanel2, player2);
     newBoard.addObserver(controller2);
     viewPanel2.setController(controller2);
 
-    frame.setVisible(true);
-    frame2.setVisible(true);
+    frame.makeVisible(true);
+    frame2.makeVisible(true);
 
     controller2.updateView();
   }
@@ -64,7 +65,8 @@ public final class ReversiMain {
 
 
 
-   /* Board b1 = null;
+
+    /*Board b1 = null;
     Player p1 = null;
     Player p2 = null;
     ReversiController controller12 = null;
@@ -73,8 +75,8 @@ public final class ReversiMain {
     int size = 0;
     if (args.length == 0) {
       b1 = new Board(4);
-      p1 = new AIPlayer(Disc.BLACK, new CaptureMost());
-      p2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy());
+      p1 = new HumanPlayer(Disc.BLACK);
+      p2 = new HumanPlayer(Disc.WHITE);
     } else {
       try {
         size = Integer.parseInt(args[argsUsed]);
@@ -135,15 +137,13 @@ public final class ReversiMain {
     }
     try {
 
-      ReversiFrame viewPlayer1 = new ReversiFrame(b1);
+      ReversiFrame viewPlayer1 = new ReversiFrame(b1, true);
       BoardPanel viewPanel1 = viewPlayer1.getBoardPanel();
-      HintDecorator hd1 = new HintDecorator(viewPanel1);
-      ReversiController controller = new ReversiController(b1, hd1, p1);
-      viewPlayer1.setBoardPanel(hd1);
+      ReversiController controller = new ReversiController(b1, viewPanel1, p1);
       b1.addObserver(controller);
-      hd1.setController(controller);
+      viewPanel1.setController(controller);
 
-      ReversiFrame viewPlayer2 = new ReversiFrame(b1);
+      ReversiFrame viewPlayer2 = new ReversiFrame(b1, true);
       BoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
       controller12 = new ReversiController(b1, viewPanel2, p2);
       b1.addObserver(controller12);
@@ -152,12 +152,14 @@ public final class ReversiMain {
 
 
 
+      *//*
       ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
       ViewAdapter v2 = new ViewAdapter(rev2);
       controller2 = new ReversiController(b1, v2, p2);
       b1.addObserver(controller2);
       v2.setController(controller2);
       v2.setVisible(true);
+      *//*
 
 
 

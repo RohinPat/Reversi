@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.*;
+
 import javax.swing.JFrame;
 
 import model.ReversiReadOnly;
@@ -9,7 +11,7 @@ import model.ReversiReadOnly;
  * the main window for a Reversi game. It contains a {@link BoardPanel} that
  * displays the game board.
  */
-public class ReversiFrame extends JFrame {
+public class ReversiFrame extends JFrame implements IFrame{
 
   BoardPanel bp;
 
@@ -22,12 +24,22 @@ public class ReversiFrame extends JFrame {
    *              This object represents the current state of the Reversi game,
    *              including the positions of all pieces on the board.
    */
-  public ReversiFrame(ReversiReadOnly board) {
-    bp = new BoardPanel(board, 600, 600);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.add(bp);
-    this.pack();
-    this.setLocationRelativeTo(null); // Center the frame on the screen
+
+  public ReversiFrame(ReversiReadOnly board, boolean hint) {
+    if (hint) {
+      bp = new HintDecorator(new BoardPanel(board, 600, 600));
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.add(bp);
+      this.pack();
+      this.setLocationRelativeTo(null); // Center the frame on the screen
+    }
+    else{
+      bp = new BoardPanel(board, 600, 600);
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.add(bp);
+      this.pack();
+      this.setLocationRelativeTo(null); // Center the frame on the screen
+    }
   }
 
   public ReversiFrame(BoardPanel panel) {
@@ -44,15 +56,11 @@ public class ReversiFrame extends JFrame {
    *     within this frame. This panel allows access to the current state
    *     of the game, including the positions of all pieces on the board.
    */
-  public BoardPanel getBoardPanel() {
+  public IBoardPanel getBoardPanel() {
     return bp;
   }
 
-  public void setBoardPanel(BoardPanel panel){
-    this.getContentPane().remove(bp); // Remove the existing panel
-    bp = panel; // Update the reference to the new panel
-    this.getContentPane().add(bp); // Add the new panel to the frame
-    this.revalidate(); // Revalidate the frame layout
-    this.repaint(); // Repaint the frame to reflect the changes
+  public void makeVisible(boolean bool){
+    setVisible(true);
   }
 }

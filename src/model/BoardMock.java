@@ -65,6 +65,11 @@ public class BoardMock implements Reversi {
     }
   }
 
+  @Override
+  public int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player) {
+    return 0;
+  }
+
 
   /**
    * Initializes a new game board of the specified size.
