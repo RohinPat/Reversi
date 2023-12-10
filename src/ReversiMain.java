@@ -125,6 +125,7 @@ public final class ReversiMain {
       b1.addObserver(controller12);
       viewPanel2.setController(controller12);
       viewPlayer2.setVisible(true);
+      
 
       /*
       ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
