@@ -37,6 +37,7 @@ public final class ReversiMain {
    * Used to initialize the frame based on the given board.
    */
   public static void main(String[] args) {
+    /*
     Reversi newBoard = new SquareBoard(10);
 
     Player player1 = new AIPlayer(Disc.BLACK, new CaptureMost());
@@ -60,7 +61,7 @@ public final class ReversiMain {
   }
 }
 
-   /*
+     */
     Board b1 = null;
     Player p1 = null;
     Player p2 = null;
@@ -70,8 +71,8 @@ public final class ReversiMain {
     int size = 0;
     if (args.length == 0) {
       b1 = new Board(4);
-      p1 = new HumanPlayer(Disc.BLACK);
-      p2 = new HumanPlayer(Disc.WHITE);
+      p1 = new AIPlayer(Disc.BLACK, new CaptureMost());
+      p2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy());
     } else {
       try {
         size = Integer.parseInt(args[argsUsed]);
@@ -148,15 +149,14 @@ public final class ReversiMain {
       viewPlayer2.setVisible(true);
 
 
-      *//*
+      /*
       ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
       ViewAdapter v2 = new ViewAdapter(rev2);
       controller2 = new ReversiController(b1, v2, p2);
       b1.addObserver(controller2);
       v2.setController(controller2);
       v2.setVisible(true);
-       *//*
-
+       */
 
 
       viewPlayer1.setVisible(true);
@@ -166,26 +166,24 @@ public final class ReversiMain {
     }
     try {
       controller12.updateView();
-    }
-    catch (NullPointerException e){
+    } catch (NullPointerException e) {
       //
     }
   }
 
 
-  *//**
-     * Parses command-line arguments to set up the game strategy for a Reversi game.
-     * This method maps strings representing strategy names to their corresponding strategy objects.
-     * It supports both single and multiple strategies. In the case of multiple strategies,
-     * it combines them using the 'TryTwo' class, allowing an AI player to sequentially attempt
-     * different strategies during the game. If an invalid strategy name is provided, the method
-     * returns null, indicating an error in strategy selection.
-     *
-     * @param strats An ArrayList of strings representing the names of strategies.
-     * @return ReversiStrategy The final composed strategy based on the input list,
-     *                         or null if an invalid strategy name is encountered.
-
-     **//*
+  /**
+   * Parses command-line arguments to set up the game strategy for a Reversi game.
+   * This method maps strings representing strategy names to their corresponding strategy objects.
+   * It supports both single and multiple strategies. In the case of multiple strategies,
+   * it combines them using the 'TryTwo' class, allowing an AI player to sequentially attempt
+   * different strategies during the game. If an invalid strategy name is provided, the method
+   * returns null, indicating an error in strategy selection.
+   *
+   * @param strats An ArrayList of strings representing the names of strategies.
+   * @return ReversiStrategy The final composed strategy based on the input list,
+   * or null if an invalid strategy name is encountered.
+   **/
 
   // 5 capturemost fallibleinfalliblepair(new Capture Corners, new Most)
   private static ReversiStratagy getStrat(ArrayList<String> strats) {
@@ -248,4 +246,5 @@ public final class ReversiMain {
       listOfStrats.remove(0);
     }
     return finalStrat;
-  }*/
+  }
+}
