@@ -23,6 +23,7 @@ import provider.strategies.PlayCornersStrategy;
 import provider.view.ReversiGUIView;
 import view.BoardPanel;
 import view.HintDecorator;
+import view.IBoardPanel;
 import view.ReversiFrame;
 import controller.HumanPlayer;
 import view.SquareBoardPanel;
@@ -37,19 +38,19 @@ public final class ReversiMain {
    * Used to initialize the frame based on the given board.
    */
   public static void main(String[] args) {
-    /*
+
     Reversi newBoard = new SquareBoard(10);
 
-    Player player1 = new AIPlayer(Disc.BLACK, new CaptureMost());
+    Player player1 = new HumanPlayer(Disc.BLACK);
     SquareReversiFrame frame = new SquareReversiFrame(newBoard);
-    SquareBoardPanel viewPanel = frame.getBoardPanel();
+    IBoardPanel viewPanel = frame.getBoardPanel();
     ControllerFeatures controller1 = new ReversiController(newBoard, viewPanel, player1);
     newBoard.addObserver(controller1);
     viewPanel.setController(controller1);
 
     Player player2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy());
     SquareReversiFrame frame2 = new SquareReversiFrame(newBoard);
-    SquareBoardPanel viewPanel2 = frame2.getBoardPanel();
+    IBoardPanel viewPanel2 = frame2.getBoardPanel();
     ControllerFeatures controller2 = new ReversiController(newBoard, viewPanel2, player2);
     newBoard.addObserver(controller2);
     viewPanel2.setController(controller2);
@@ -61,8 +62,9 @@ public final class ReversiMain {
   }
 }
 
-     */
-    Board b1 = null;
+
+
+   /* Board b1 = null;
     Player p1 = null;
     Player p2 = null;
     ReversiController controller12 = null;
@@ -149,14 +151,14 @@ public final class ReversiMain {
       viewPlayer2.setVisible(true);
 
 
-      /*
+
       ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
       ViewAdapter v2 = new ViewAdapter(rev2);
       controller2 = new ReversiController(b1, v2, p2);
       b1.addObserver(controller2);
       v2.setController(controller2);
       v2.setVisible(true);
-       */
+
 
 
       viewPlayer1.setVisible(true);
@@ -172,7 +174,7 @@ public final class ReversiMain {
   }
 
 
-  /**
+  *//**
    * Parses command-line arguments to set up the game strategy for a Reversi game.
    * This method maps strings representing strategy names to their corresponding strategy objects.
    * It supports both single and multiple strategies. In the case of multiple strategies,
@@ -183,7 +185,7 @@ public final class ReversiMain {
    * @param strats An ArrayList of strings representing the names of strategies.
    * @return ReversiStrategy The final composed strategy based on the input list,
    * or null if an invalid strategy name is encountered.
-   **/
+   **//*
 
   // 5 capturemost fallibleinfalliblepair(new Capture Corners, new Most)
   private static ReversiStratagy getStrat(ArrayList<String> strats) {
@@ -248,3 +250,4 @@ public final class ReversiMain {
     return finalStrat;
   }
 }
+*/

@@ -379,6 +379,7 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
           }
         }
       }
+      adjustLabelSizeAndFont();
 
       repaint();
     }
@@ -403,6 +404,7 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
+
     updatePlayerLabel();
     updateScoreLabel1(board);
     updateTurnLabel1(board);
