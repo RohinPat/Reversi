@@ -42,6 +42,11 @@ public class CartesianCoordinate implements Position{
   }
 
   @Override
+  public boolean isCorner(int size) {
+    return false;
+  }
+
+  @Override
   public int hashCode() {
     return x * 31 + y * 26;
   }
