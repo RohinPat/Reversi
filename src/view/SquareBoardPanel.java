@@ -126,8 +126,8 @@ public class SquareBoardPanel extends JPanel {
 
     for (int row = 0; row < boardSize; row++) {
       for (int col = 0; col < boardSize; col++) {
-        int x = (int) Math.round(startX + (col * squareSize));
-        int y = (int) Math.round(startY + (row * squareSize));
+        double x = startX + (col * squareSize);
+        double y = startY + (row * squareSize);
         squares.put(new Square(x, y, squareSize, board.getDiscAt(col, row)), new CartesianCoordinate(col, row));
       }
     }

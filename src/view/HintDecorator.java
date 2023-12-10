@@ -12,13 +12,22 @@ public class HintDecorator {
     this.boardPanel = boardPanel;
   }
 
-  public void drawHints(Graphics2D g2d, Hexagon selected, int q, int r, ReversiReadOnly board) {
+  public void drawHints(Graphics2D g2d, Hexagon selected, int q, int r, ReversiReadOnly board, int bwidth, int bheight) {
     if (selected != null) {
       Coordinate dest = new Coordinate(q, r);
       int change = board.checkMove(board, dest);
 
-      g2d.setColor(Color.YELLOW); // Choose an appropriate color
-      g2d.fillOval((int)selected.x - 10, (int)selected.y - 10, 20, 20); // Draw a small circle
+      int boardSize = board.getSize();
+
+      double maxHexWidth = (double) bwidth / (boardSize * 2);
+
+      double maxHexHeight = (double) bheight / ((boardSize) * 2);
+
+      int fontSize = (int)Math.min(maxHexWidth / 2, maxHexHeight / 2);
+
+
+      g2d.setFont(new Font("Default", Font.BOLD, fontSize)); // Set the font to the dynamically calculated size
+
       g2d.setColor(Color.BLACK); // Color for text
       g2d.drawString(String.valueOf(change), (int)selected.x, (int)selected.y);
     }

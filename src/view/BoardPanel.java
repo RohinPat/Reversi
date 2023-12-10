@@ -484,7 +484,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
         g2d.setColor(Color.CYAN);
         g2d.fill(hex);
         if (hintsEnabled) {
-          hd.drawHints(g2d, selected, hexagons.get(selected).getFirstCoordinate(), hexagons.get(selected).getSecondCoordinate(), board);
+          hd.drawHints(g2d, selected, hexagons.get(selected).getFirstCoordinate(), hexagons.get(selected).getSecondCoordinate(), board, boardWidth, boardHeight);
         }
 
       } else {
