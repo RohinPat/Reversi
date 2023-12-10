@@ -34,7 +34,7 @@ public final class ReversiMain {
    * Used to initialize the frame based on the given board.
    */
   public static void main(String[] args) {
-    Reversi newBoard = new SquareBoard(6);
+    Reversi newBoard = new SquareBoard(10);
 
     SquareReversiFrame frame = new SquareReversiFrame(newBoard);
     frame.setVisible(true);

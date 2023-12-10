@@ -246,7 +246,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
    * adjusts the hexagon size, board dimensions, and label sizes/fonts when the
    * component (frame) is resized.
    */
-  private class ResizeListener implements ComponentListener {
+  class ResizeListener implements ComponentListener {
     private final ReversiReadOnly board;
 
     /**
