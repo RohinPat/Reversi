@@ -9,7 +9,7 @@ import model.Disc;
  * The {@code Hexagon} class extends {@link Path2D.Double} and represents a hexagonal shape.
  * It is used to render a hexagon for a grid-based board game, such as Reversi.
  */
-public class Hexagon extends Path2D.Double {
+public class Hexagon extends Path2D.Double{
   Color color;
   double x;
   double y;
