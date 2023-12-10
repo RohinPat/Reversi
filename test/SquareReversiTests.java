@@ -21,7 +21,7 @@ import java.util.List;
 
 import model.Board;
 import model.BoardMock;
-import model.CartesianCoordinate;
+import model.Coordinate;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
@@ -55,8 +55,8 @@ public class SquareReversiTests {
   @Test
   public void testSquareBoardMake2MovesPlusCheckingForTurnPassing() {
     Reversi newBoard = new SquareBoard(6);
-    newBoard.makeMove(new CartesianCoordinate(4, 2));
-    newBoard.makeMove(new CartesianCoordinate(4, 1));
+    newBoard.makeMove(new Coordinate(4, 2));
+    newBoard.makeMove(new Coordinate(4, 1));
     SquareBoardRenderer br = new SquareBoardRenderer(newBoard);
 
     assertEquals(
@@ -71,9 +71,9 @@ public class SquareReversiTests {
   @Test
   public void testSquareBoardMake2MovesBySamePlayerByPassing(){
     Reversi newBoard = new SquareBoard(6);
-    newBoard.makeMove(new CartesianCoordinate(4, 2));
+    newBoard.makeMove(new Coordinate(4, 2));
     newBoard.passTurn();
-    newBoard.makeMove(new CartesianCoordinate(1, 4));
+    newBoard.makeMove(new Coordinate(1, 4));
 
     SquareBoardRenderer br = new SquareBoardRenderer(newBoard);
 
@@ -90,9 +90,9 @@ public class SquareReversiTests {
   @Test
   public void testSquareBoardMake2MovesBySamePlayerByPassingAndThenGameOverTrue(){
     Reversi newBoard = new SquareBoard(6);
-    newBoard.makeMove(new CartesianCoordinate(4, 2));
+    newBoard.makeMove(new Coordinate(4, 2));
     newBoard.passTurn();
-    newBoard.makeMove(new CartesianCoordinate(1, 4));
+    newBoard.makeMove(new Coordinate(1, 4));
     assertTrue(newBoard.isGameOver());
 
   }
@@ -108,10 +108,10 @@ public class SquareReversiTests {
   @Test
   public void test2PassesNonConsecutiveDoesntMeanGameOver(){
     Reversi newBoard = new SquareBoard(6);
-    newBoard.makeMove(new CartesianCoordinate(4, 2));
-    newBoard.makeMove(new CartesianCoordinate(4, 3));
+    newBoard.makeMove(new Coordinate(4, 2));
+    newBoard.makeMove(new Coordinate(4, 3));
     newBoard.passTurn();
-    newBoard.makeMove(new CartesianCoordinate(4, 1));
+    newBoard.makeMove(new Coordinate(4, 1));
     newBoard.passTurn();
 
     assertFalse(newBoard.isGameOver());

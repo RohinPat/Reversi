@@ -59,8 +59,7 @@ public class BoardAdapter implements IBoard {
       } else {
         throw new IllegalArgumentException("Invalid disc");
       }
-      Coordinate tempCoord = (Coordinate) coord;
-      outputMap.put(new HexCoord(coord.getFirstCoordinate(), coord.getSecondCoordinate(), tempCoord.getS()),
+      outputMap.put(new HexCoord(coord.getFirstCoordinate(), coord.getSecondCoordinate(), coord.getS()),
               new HexagonTile(ownership));
     }
 

@@ -25,7 +25,7 @@ import model.Cell;
 import model.Coordinate;
 import model.Disc;
 import model.GameState;
-import model.Position;
+import model.Coordinate;
 import model.Reversi;
 import model.SquareBoard;
 import model.Turn;
@@ -429,7 +429,7 @@ public class ReversiTests {
     BoardMock board = new BoardMock(4);
     CaptureMost cm = new CaptureMost();
 
-    Position c = cm.chooseMove(board, Disc.BLACK);
+    Coordinate c = cm.chooseMove(board, Disc.BLACK);
     board.makeMove(c);
 
     c = cm.chooseMove(board, Disc.WHITE);
@@ -516,7 +516,7 @@ public class ReversiTests {
     BoardMock board = new BoardMock(4);
     ReversiStratagy cm = new TryTwo(new AvoidCorners(), new CaptureMost());
 
-    Position c = cm.chooseMove(board, Disc.BLACK);
+    Coordinate c = cm.chooseMove(board, Disc.BLACK);
 
 
     board.makeMove(c);
@@ -570,7 +570,7 @@ public class ReversiTests {
   @Test
   public void testCaptureCornerWorks() {
     BoardMock newBoard = new BoardMock(3);
-    HashMap<Position, Cell> new1 = newBoard.createCopyOfBoard();
+    HashMap<Coordinate, Cell> new1 = newBoard.createCopyOfBoard();
     new1.put(new Coordinate(0, 0), new Cell(Disc.BLACK));
     BoardMock newBoard1 = new BoardMock(3, new1, Turn.BLACK);
     CaptureCorners cm = new CaptureCorners();
@@ -589,7 +589,7 @@ public class ReversiTests {
 
     BoardMock board = new BoardMock(4);
 
-    Position c = tt1.chooseMove(board, Disc.BLACK);
+    Coordinate c = tt1.chooseMove(board, Disc.BLACK);
     board.makeMove(c);
 
     c = tt2.chooseMove(board, Disc.WHITE);
@@ -759,116 +759,114 @@ public class ReversiTests {
     controller2.updateView();
 
     // checks for player.black moves
-    Assert.assertEquals(controller.getLog().toString(), "" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: 1 R: -2\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: 1 R: 1\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: -2 R: 1\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: 3 R: -2\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: -1 R: -2\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: -1 R: 3\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: 2 R: -3\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: -3 R: 1\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: 1 R: 2\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: 3 R: 0\n" +
-            "Updates the View\n" +
-            "Updates the View\n" +
-            "AI Player BLACK makes a move at hexagon: Q: -3 R: 3\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "");
+    Assert.assertEquals(controller.getLog().toString(), "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n" +
+            "AI Move was made by BLACK\n" +
+            "View was updated + \n");
 
     // checks for player.white moves
-    Assert.assertEquals(controller2.getLog().toString(), "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: 2 R: -1\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: -1 R: 2\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: 1 R: -3\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: -3 R: 2\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: 2 R: 1\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: 3 R: -1\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: 3 R: -3\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: -3 R: 0\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: 0 R: -3\n" +
-            "Updates the View\n" +
-            "AI Player WHITE makes a move at hexagon: Q: -2 R: 3\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n" +
-            "Turn was changed\n" +
-            "Updates the View\n" +
-            "Turn was changed\n");
+    Assert.assertEquals(controller2.getLog().toString(), "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n" +
+            "View was updated + \n" +
+            "View was updated + \n" +
+            "AI Move was made by WHITE\n");
   }
 
 

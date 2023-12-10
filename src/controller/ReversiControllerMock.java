@@ -1,20 +1,21 @@
 package controller;
 
-import controller.aistrat.CaptureMost;
+import model.Reversi;
 import view.BoardPanel;
 import model.Board;
 import model.Coordinate;
 import model.Disc;
+import view.IBoardPanel;
 
 /**
  * The {@code ReversiController} class is responsible for controlling the game logic and
  * interaction between the model and the view in a Reversi game.
  */
 public class ReversiControllerMock implements ControllerFeatures {
-  private StringBuilder log = new StringBuilder();
-  private Board model;
-  private BoardPanel view;
+  private Reversi model;
+  private IBoardPanel view;
   private Player player;
+  private StringBuilder logOut;
 
   /**
    * Constructs a {@code ReversiController} with the specified model, view, and player.
@@ -26,11 +27,11 @@ public class ReversiControllerMock implements ControllerFeatures {
    * @param view   The {@link BoardPanel} view displaying the game board.
    * @param player The {@link Player} representing the current player.
    */
-  public ReversiControllerMock(Board model, BoardPanel view, Player player) {
+  public ReversiControllerMock(Reversi model, IBoardPanel view, Player player) {
+    logOut = new StringBuilder();
     this.model = model;
     this.view = view;
     this.player = player;
-    this.view.setController(this);
 
     // Check if the AI player should make a move immediately
     if (model.currentColor() == player.getDisc() && player instanceof AIPlayer) {
@@ -57,10 +58,9 @@ public class ReversiControllerMock implements ControllerFeatures {
 
   @Override
   public void passTurn() {
+    logOut.append("Move was passed + \n");
     // Logic for passing a turn
-    log.append("Passes the Turn" + "\n");
     model.passTurn();
-    view.initializeBoard(model); // Update the view if necessary
   }
 
   /**
@@ -69,31 +69,20 @@ public class ReversiControllerMock implements ControllerFeatures {
    * moves or indicate that it's the player's turn if it's a human player.
    */
   public void updateView() {
-    log.append("Updates the View" + "\n");
+    logOut.append("View was updated + \n");
     view.initializeBoard(model);
-    if (!model.isGameOver()) {
-      if (model.currentColor() == player.getDisc()) {
-        if (player instanceof AIPlayer) {
-          CaptureMost cm = new CaptureMost();
-          log.append("AI Player " + player.getDisc() + " makes a move at hexagon: Q: "
-                  + cm.chooseMove(model, player.getDisc()).getFirstCoordinate() + " R: "
-                  + cm.chooseMove(model, player.getDisc()).getSecondCoordinate() + "\n");
-          player.makeAMove(model, null); // AI strategy chooses the move
-        } else {
-          log.append("Human Player makes a move" + player.getDisc() + "\n");
-          // Human player - wait for user input
-          // Maybe highlight possible moves or indicate it's the player's turn
-        }
-      }
-    } else {
-      String end = model.getState().toString();
-      view.showInvalidMoveDialog("GAME IS OVER" + end);
+    handleTurnChange(model.currentColor());
+    if (model.isGameOver()) {
+      view.initializeBoard(model);
     }
   }
 
   @Override
   public void handleTurnChange(Disc disc) {
-    log.append("Turn was changed" + "\n");
+    if (player.getDisc().equals(disc) && player instanceof AIPlayer && !model.isGameOver()) {
+      player.makeAMove(model, null); // AI strategy chooses the move
+      logOut.append("AI Move was made by " + player.getDisc() + "\n");
+    }
   }
 
   /**
@@ -102,7 +91,7 @@ public class ReversiControllerMock implements ControllerFeatures {
    * @return The {@link Disc} representing the color of the current player.
    */
   public Disc getPlayer() {
-    log.append("Gets the Players Disc: " + player.getDisc() + "\n");
+    logOut.append(player.getDisc() + "'s disc was retrieved + \n");
     return player.getDisc();
   }
 
@@ -112,17 +101,18 @@ public class ReversiControllerMock implements ControllerFeatures {
    * @return The {@link Player} representing the current player.
    */
   public Player getTurn() {
-    log.append("Gets the Players Turn: " + player + "\n");
+    logOut.append(player.getDisc() + "'s turn was retrieved + \n");
     return player;
   }
 
   /**
    * Helps in the creation of an output log to ensure code runs as expected, and we can see the.
-   * finer details of the AI decisions.
+   * finer details of the AI decisions - there is no log as this is not the mock, so it doesn't.
+   * log anything here.
    *
-   * @return the text output of the log that was accumulating through the running of the code.
+   * @return null as this is not the mock, so it doesn't log anything here
    */
   public String getLog() {
-    return log.toString();
+    return logOut.toString();
   }
 }

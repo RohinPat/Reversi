@@ -606,8 +606,7 @@ public class BoardMock implements Reversi {
       }
     }
     for (Coordinate c : possibleMoves) {
-      Coordinate tempCoord = (Coordinate)c;
-      log.append("q: " + c.getFirstCoordinate() + " r: " + c.getSecondCoordinate() + " s: " + tempCoord.getS() + "\n");
+      log.append("q: " + c.getFirstCoordinate() + " r: " + c.getSecondCoordinate() + " s: " + c.getS() + "\n");
     }
     return possibleMoves;
   }
