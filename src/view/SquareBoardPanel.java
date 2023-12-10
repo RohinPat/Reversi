@@ -20,6 +20,7 @@ import model.CartesianCoordinate;
 import model.Coordinate;
 import model.Disc; // Your Disc enum (BLACK, WHITE, EMPTY).
 import model.Position;
+import model.Reversi;
 import model.ReversiReadOnly;
 
 public class SquareBoardPanel extends JPanel implements IBoardPanel {
@@ -30,13 +31,33 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
   private ConcurrentMap<Square, Position> squares;
   private Square selected;
   private ControllerFeatures controller;
+  private JLabel helloLabel1;
+  private JLabel scoreLabel1;
+  private JLabel turnLabel1;
 
 
   public SquareBoardPanel(ReversiReadOnly board, int width, int height) {
     this.board = board;
     this.squareSize = 30;
-    this.squares = new ConcurrentHashMap<>();
 
+    helloLabel1 = new JLabel();
+    helloLabel1.setForeground(Color.WHITE);
+    helloLabel1.setFont(new Font(helloLabel1.getFont().getName(), Font.PLAIN, 5));
+    this.add(helloLabel1);
+
+    scoreLabel1 = new JLabel();
+    scoreLabel1.setForeground(Color.WHITE);
+    scoreLabel1.setHorizontalAlignment(JLabel.RIGHT);
+    scoreLabel1.setFont(new Font(helloLabel1.getFont().getName(), Font.PLAIN, 5));
+    this.add(scoreLabel1);
+
+    turnLabel1 = new JLabel();
+    turnLabel1.setForeground(Color.WHITE);
+    turnLabel1.setFont(new Font(helloLabel1.getFont().getName(), Font.PLAIN, 5));
+    this.add(turnLabel1);
+    
+    this.squares = new ConcurrentHashMap<>();
+    
     this.setBackground(Color.DARK_GRAY);
     this.setPreferredSize(new Dimension(width, height));
     this.boardWidth = width;
@@ -51,6 +72,100 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
     this.requestFocusInWindow();
 
     initializeBoard(board);
+  }
+
+  /**
+   * Updates the player label to display the name of the current player's turn.
+   * If a valid game controller is set, this method retrieves the current player's
+   * identity and updates the label accordingly, showing either "Black" or "White"
+   * as the current player.
+   */
+  private void updatePlayerLabel() {
+    if (controller != null) {
+      String playerName;
+      Disc playerIdentity = controller.getPlayer();
+      if (playerIdentity.equals(Disc.BLACK)) {
+        playerName = "Black";
+      } else {
+        playerName = "White";
+      }
+      helloLabel1.setText("Player: " + playerName);
+    }
+  }
+
+  /**
+   * Updates the score label to display the current score of the player whose turn
+   * it is in the Reversi game.
+   *
+   * @param board The {@link ReversiReadOnly} board representing the current state
+   *              of the Reversi game, including the scores of both players.
+   *              This board is used to retrieve the score of the current player.
+   */
+  private void updateScoreLabel1(ReversiReadOnly board) {
+    if (controller != null) {
+      int score;
+      Disc playerIdentity = controller.getPlayer();
+
+      if (playerIdentity.equals(Disc.BLACK)) {
+        score = board.getScore(Disc.BLACK);
+      } else {
+        score = board.getScore(Disc.WHITE);
+      }
+      scoreLabel1.setText("Score: " + score);
+    }
+  }
+
+
+  /**
+   * Updates the turn label to display whether it is currently the player's turn
+   * in the Reversi game. Also used at the end of the game to display the winner of the game.
+   *
+   * @param board2 The {@link ReversiReadOnly} board representing the current state
+   *               of the Reversi game, used to determine the current turn.
+   */
+  private void updateTurnLabel1(ReversiReadOnly board2) {
+    if (controller != null) {
+      if (!board2.isGameOver()) {
+        String turnMonitor;
+        if (controller.getTurn().isPlayerTurn((Reversi) board2)) {
+          turnMonitor = "Your Turn";
+        } else {
+          turnMonitor = "";
+        }
+
+        turnLabel1.setText(turnMonitor);
+      } else {
+        turnLabel1.setText(board2.getState().toString());
+      }
+    }
+
+  }
+
+  /**
+   * Adjusts the size and font of the labels (helloLabel1, scoreLabel1, and turnLabel1)
+   * based on the current dimensions of the game board and the desired layout.
+   * This method calculates the appropriate font size and label positions to ensure
+   * they fit within the specified board layout.
+   */
+  private void adjustLabelSizeAndFont() {
+    double hexHeight = squareSize;
+    int boardSize = board.getSize();
+
+    double totalHeight = ((boardSize * 2 - 1) * hexHeight) - hexHeight;
+
+    double startY = (boardHeight - totalHeight) / 2;
+
+    int newFontSize = ((boardWidth + boardHeight) / 50);
+
+    helloLabel1.setFont(new Font(helloLabel1.getFont().getName(), Font.PLAIN, newFontSize));
+    scoreLabel1.setFont(new Font(scoreLabel1.getFont().getName(), Font.PLAIN, newFontSize));
+    turnLabel1.setFont(new Font(turnLabel1.getFont().getName(), Font.PLAIN, newFontSize));
+
+    helloLabel1.setBounds(10, 0, boardWidth / 3, (int) (startY));
+    scoreLabel1.setBounds(
+            (2 * boardWidth / 3) + 1, 0, boardWidth / 3 - 1, (int) (startY));
+    turnLabel1.setBounds(10, boardHeight - (int) startY,
+            boardWidth / 3 - 1, (int) (startY));
   }
 
   /**
@@ -288,6 +403,10 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
+    updatePlayerLabel();
+    updateScoreLabel1(board);
+    updateTurnLabel1(board);
+
     Graphics2D g2d = (Graphics2D) g;
 
     float thickness = 1; // Set the thickness you want for the squares' outline
