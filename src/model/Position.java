@@ -9,4 +9,6 @@ public interface Position {
   int getFirstCoordinate();
 
   int getSecondCoordinate();
+
+  boolean isCorner(int size);
 }
