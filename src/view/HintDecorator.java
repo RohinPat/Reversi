@@ -5,10 +5,11 @@ import java.awt.*;
 import model.Coordinate;
 import model.ReversiReadOnly;
 
-public class HintDecorator {
+public class HintDecorator extends BoardPanel {
   private BoardPanel boardPanel;
 
   public HintDecorator(BoardPanel boardPanel) {
+    super(boardPanel.getReadReversi(), boardPanel.getBWidth(), boardPanel.getBHeight());
     this.boardPanel = boardPanel;
   }
 
@@ -32,6 +33,19 @@ public class HintDecorator {
       g2d.drawString(String.valueOf(change), (int)selected.x, (int)selected.y);
     }
   }
+
+  @Override
+  public void paintComponent(Graphics g){
+    super.paintComponent(g);
+    Graphics2D g2d = (Graphics2D) g;
+
+    for (Hexagon hex : hexagons.keySet()){
+      if (hex.equals(selected)){
+        drawHints(g2d, hex, hexagons.get(hex).getFirstCoordinate(), hexagons.get(hex).getSecondCoordinate(), boardPanel.getReadReversi(), boardPanel.getBWidth(), boardPanel.getBHeight());
+      }
+    }
+  }
+
 
 
 

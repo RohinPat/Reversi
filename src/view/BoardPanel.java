@@ -30,18 +30,17 @@ import model.ReversiReadOnly;
  * Sizing.
  */
 public class BoardPanel extends JPanel implements IBoardPanel {
-  private final ConcurrentMap<Hexagon, Coordinate> hexagons;
-  private Hexagon selected;
-  private double hexSize = 30;
-  private int boardWidth;
-  private int boardHeight;
-  private ControllerFeatures controller;
-  private final JLabel helloLabel;
-  private final JLabel scoreLabel;
-  private final JLabel turnLabel;
-  private final ReversiReadOnly board;
-  private final HintDecorator hd;
-  private boolean hintsEnabled;
+  protected final ConcurrentMap<Hexagon, Coordinate> hexagons;
+  protected Hexagon selected;
+  protected double hexSize = 30;
+  protected int boardWidth;
+  protected int boardHeight;
+  protected ControllerFeatures controller;
+  protected final JLabel helloLabel;
+  protected final JLabel scoreLabel;
+  protected final JLabel turnLabel;
+  protected final ReversiReadOnly board;
+  protected boolean hintsEnabled;
 
   public void setController(ControllerFeatures cont) {
     this.controller = cont;
@@ -91,8 +90,6 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     this.addKeyListener(keyInputListener);
     this.setFocusable(true);
     this.requestFocusInWindow();
-
-    hd = new HintDecorator(this);
 
     hintsEnabled = false;
 
@@ -145,6 +142,17 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     }
   }
 
+  public ReversiReadOnly getReadReversi() {
+    return board;
+  }
+
+  public int getBWidth() {
+    return boardWidth;
+  }
+
+  public int getBHeight() {
+    return boardHeight;
+  }
 
   /**
    * Updates the turn label to display whether it is currently the player's turn
@@ -483,10 +491,6 @@ public class BoardPanel extends JPanel implements IBoardPanel {
       if (hex.equals(selected)) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hex);
-        if (hintsEnabled) {
-          hd.drawHints(g2d, selected, hexagons.get(selected).getFirstCoordinate(), hexagons.get(selected).getSecondCoordinate(), board, boardWidth, boardHeight);
-        }
-
       } else {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fill(hex);

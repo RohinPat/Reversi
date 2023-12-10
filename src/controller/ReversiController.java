@@ -66,7 +66,6 @@ public class ReversiController implements ControllerFeatures {
    * moves or indicate that it's the player's turn if it's a human player.
    */
   public void updateView() {
-    System.out.println(model.isGameOver());
     view.initializeBoard(model);
     handleTurnChange(model.currentColor());
     if (model.isGameOver()) {

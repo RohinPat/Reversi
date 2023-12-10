@@ -30,6 +30,13 @@ public class ReversiFrame extends JFrame {
     this.setLocationRelativeTo(null); // Center the frame on the screen
   }
 
+  public ReversiFrame(BoardPanel panel) {
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.add(panel);
+    this.pack();
+    this.setLocationRelativeTo(null); // Center the frame on the screen
+  }
+
   /**
    * Retrieves the {@link BoardPanel} associated with this {@code ReversiFrame}.
    *
@@ -39,5 +46,13 @@ public class ReversiFrame extends JFrame {
    */
   public BoardPanel getBoardPanel() {
     return bp;
+  }
+
+  public void setBoardPanel(BoardPanel panel){
+    this.getContentPane().remove(bp); // Remove the existing panel
+    bp = panel; // Update the reference to the new panel
+    this.getContentPane().add(bp); // Add the new panel to the frame
+    this.revalidate(); // Revalidate the frame layout
+    this.repaint(); // Repaint the frame to reflect the changes
   }
 }
