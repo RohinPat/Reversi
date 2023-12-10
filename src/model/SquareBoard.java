@@ -456,4 +456,23 @@ public class SquareBoard extends AbstractModel{
   public void addObserver(ControllerFeatures controller) {
     observersSquare.add(controller);
   }
+
+  @Override
+  public boolean validMove(Coordinate coor, Disc currentTurn) {
+    boolean flag = true;
+    Turn turn = null;
+
+    if (this.currentColor().equals(Disc.BLACK)) {
+      turn = Turn.BLACK;
+    } else {
+      turn = Turn.WHITE;
+    }
+    Board copy = new Board(this.getSize(), this.createCopyOfBoard(), turn);
+    try {
+      copy.makeMove(coor);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
+  }
 }
