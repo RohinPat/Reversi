@@ -65,6 +65,7 @@ public class BoardMock implements Reversi {
     }
   }
 
+
   /**
    * Initializes a new game board of the specified size.
    *

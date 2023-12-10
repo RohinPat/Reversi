@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ComponentEvent;
 
 import model.Coordinate;
 import model.ReversiReadOnly;
@@ -40,7 +41,7 @@ public class HintDecorator extends BoardPanel {
     Graphics2D g2d = (Graphics2D) g;
 
     for (Hexagon hex : hexagons.keySet()){
-      if (hex.equals(selected)){
+      if (hex.equals(selected) && hintsEnabled){
         drawHints(g2d, hex, hexagons.get(hex).getFirstCoordinate(), hexagons.get(hex).getSecondCoordinate(), boardPanel.getReadReversi(), boardPanel.getBWidth(), boardPanel.getBHeight());
       }
     }

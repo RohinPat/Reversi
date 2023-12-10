@@ -12,20 +12,11 @@ import controller.ReversiController;
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
-public class Board implements Reversi {
-  private final Map<Coordinate, Cell> grid;
+public class Board extends AbstractModel {
+  protected final HashMap<String, Integer> compassQ = new HashMap<>();
+  protected final HashMap<String, Integer> compassR = new HashMap<>();
 
-  //INVARIANT: should always be positive
-  private final int size;
-  private Turn whoseTurn;
-  private final HashMap<String, Integer> compassQ = new HashMap<>();
-  private final HashMap<String, Integer> compassR = new HashMap<>();
-
-  //INVARIANT: should always be positive (never subtracted from, initialized at 0)
-  private int consecPasses;
-  private GameState gameState;
-
-  private List<ControllerFeatures> observers = new ArrayList<>();
+  protected List<ControllerFeatures> observers = new ArrayList<>();
 
   /**
    * Adds a {@link ReversiController} observer to the list of observers.
@@ -69,13 +60,10 @@ public class Board implements Reversi {
    * @param size The size of the board.
    */
   public Board(int size) {
-    this.consecPasses = 0;
+    super(size);
     if (size <= 0) {
       throw new IllegalArgumentException("Size must be positive");
     }
-    this.size = size;
-    this.grid = new HashMap<>();
-    this.whoseTurn = Turn.BLACK;
     compassQ.put("east", 1);
     compassQ.put("west", -1);
     compassQ.put("ne", 1);
@@ -88,7 +76,6 @@ public class Board implements Reversi {
     compassR.put("nw", -1);
     compassR.put("se", 1);
     compassR.put("sw", 1);
-    this.gameState = GameState.PRE;
     playGame();
   }
 
@@ -101,12 +88,10 @@ public class Board implements Reversi {
    * @param whoseTuren The turn that's to be instantiated in the new game.
    */
   public Board(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
-    this.consecPasses = 0;
+    super(size);
     if (size <= 0) {
       throw new IllegalArgumentException("Size must be positive");
     }
-    this.size = size;
-    this.grid = new HashMap<>();
     this.whoseTurn = whoseTuren;
     compassQ.put("east", 1);
     compassQ.put("west", -1);
@@ -120,7 +105,6 @@ public class Board implements Reversi {
     compassR.put("nw", -1);
     compassR.put("se", 1);
     compassR.put("sw", 1);
-    this.gameState = GameState.PRE;
     playGame();
     for (Coordinate coord : grid1.keySet()) {
       Cell originalCell = grid1.get(coord);
@@ -632,16 +616,6 @@ public class Board implements Reversi {
     } else {
       throw new IllegalStateException("The game has not been started yet no move can be made");
     }
-  }
-
-  /**
-   * Used to return a map representation of the current game board, which holds what pieces.
-   * are placed at what Coordinates.
-   *
-   * @return returns a map representation of the current game board.
-   */
-  public Map<Coordinate, Cell> getMap() {
-    return grid;
   }
 }
 

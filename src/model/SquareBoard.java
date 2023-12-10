@@ -10,19 +10,16 @@ import controller.ReversiController;
 import controller.aistrat.CaptureCorners;
 
 
-public class SquareBoard implements Reversi{
-  private final Map<Coordinate, Cell> grid1;
-  private int consecPasses;
-  private GameState gameState;
-  private Turn whoseTurn;
-  private int size;
-  private List<ControllerFeatures> observers = new ArrayList<>();
-  private final HashMap<String, Integer> compassX = new HashMap<>();
-  private final HashMap<String, Integer> compassY = new HashMap<>();
+public class SquareBoard extends AbstractModel{
+  protected Turn whoseTurn;
 
-  private List<ControllerFeatures> observersSquare = new ArrayList<>();
+  protected List<ControllerFeatures> observers = new ArrayList<>();
+  protected final HashMap<String, Integer> compassX = new HashMap<>();
+  protected final HashMap<String, Integer> compassY = new HashMap<>();
 
-/**
+  protected List<ControllerFeatures> observersSquare = new ArrayList<>();
+
+  /**
    * Notifies all registered observers of a change in the object's state.
    * This method is typically called to inform the observers about an update or change in the state
    * that requires their attention, usually resulting in a change or refresh of their view or data.
@@ -35,7 +32,7 @@ public class SquareBoard implements Reversi{
     }
   }
 
-/**
+  /**
    * Notifies all registered observers of a change in the current player's turn.
    * This method is invoked to communicate to observers that the turn has switched
    * from one player to another in the game. It triggers the `handleTurnChange`
@@ -50,14 +47,11 @@ public class SquareBoard implements Reversi{
   }
 
   public SquareBoard(int size){
+    super(size);
     if (size <= 0 || size % 2 != 0){
       throw new IllegalArgumentException("Board size must be positive and even");
     }
-    this.size = size;
-    this.grid1 = new HashMap<>();
     this.whoseTurn = Turn.BLACK;
-    this.gameState = GameState.PRE;
-    this.consecPasses = 0;
     compassX.put("left", -1);
     compassX.put("right", 1);
     compassX.put("up", 0);
@@ -85,15 +79,15 @@ public class SquareBoard implements Reversi{
 
       for (int row = 0; row < size ; row++){
         for (int column = 0; column < size; column++){
-          grid1.put(new Coordinate(column, row), new Cell(Disc.EMPTY));
+          grid.put(new Coordinate(column, row), new Cell(Disc.EMPTY));
         }
       }
 
 
-      grid1.put(new Coordinate(size/2 - 1, size/2 - 1), new Cell(Disc.BLACK)); // top left
-      grid1.put(new Coordinate(size/2, size/2 - 1), new Cell(Disc.WHITE)); // top right
-      grid1.put(new Coordinate(size/2, size/2), new Cell(Disc.BLACK)); // bottom right
-      grid1.put(new Coordinate(size/2 - 1, size/2), new Cell(Disc.WHITE)); // bottom left
+      grid.put(new Coordinate(size/2 - 1, size/2 - 1), new Cell(Disc.BLACK)); // top left
+      grid.put(new Coordinate(size/2, size/2 - 1), new Cell(Disc.WHITE)); // top right
+      grid.put(new Coordinate(size/2, size/2), new Cell(Disc.BLACK)); // bottom right
+      grid.put(new Coordinate(size/2 - 1, size/2), new Cell(Disc.WHITE)); // bottom left
     } else {
       throw new IllegalStateException("A game has already been started");
     }
@@ -116,7 +110,7 @@ public class SquareBoard implements Reversi{
   }
 
 
-/**
+  /**
    * Returns the color of the disc of the opponent player.
    *
    * @return The disc color of the opponent.
@@ -136,9 +130,9 @@ public class SquareBoard implements Reversi{
 
   @Override
 /**
-   * Passes the turn to the next player.
-   * used to swap turns either when a player passes their turn or at the end of their move
-   */
+ * Passes the turn to the next player.
+ * used to swap turns either when a player passes their turn or at the end of their move
+ */
 
   public void passTurn() {
     if (gameState != GameState.PRE) {
@@ -163,9 +157,9 @@ public class SquareBoard implements Reversi{
     Coordinate nextPiece = new Coordinate((dest.getFirstCoordinate() + compassX.get(dir)), (dest.getSecondCoordinate()
             + compassY.get(dir)));
 
-    if (grid1.containsKey(nextPiece) && grid1.get(nextPiece).getContent() == this.oppositeColor()) {
-      while (grid1.containsKey(nextPiece) && !endFound) {
-        if (grid1.get(nextPiece).getContent() == this.currentColor()) {
+    if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor()) {
+      while (grid.containsKey(nextPiece) && !endFound) {
+        if (grid.get(nextPiece).getContent() == this.currentColor()) {
           endFound = true;
         } else {
           captured.add(nextPiece.getFirstCoordinate());
@@ -190,7 +184,7 @@ public class SquareBoard implements Reversi{
       while (!capturedCopy.isEmpty()) {
         int x = capturedCopy.get(0);
         int y = capturedCopy.get(1);
-        if (!grid1.get(new Coordinate(x, y)).getContent().equals(this.oppositeColor())) {
+        if (!grid.get(new Coordinate(x, y)).getContent().equals(this.oppositeColor())) {
           validMove = false;
         }
         capturedCopy.remove(0);
@@ -214,11 +208,11 @@ public class SquareBoard implements Reversi{
   @Override
   public void makeMove(Coordinate dest) {
     if (gameState != GameState.PRE) {
-      if (!grid1.keySet().contains(new Coordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
+      if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
       }
 
-      if (grid1.get(dest).getContent() != Disc.EMPTY) {
+      if (grid.get(dest).getContent() != Disc.EMPTY) {
         throw new IllegalArgumentException("This space is already occupied");
       }
 
@@ -268,10 +262,10 @@ public class SquareBoard implements Reversi{
   @Override
   public void placeDisc(int q, int r, Disc disc) {
     if (gameState != GameState.PRE) {
-      if (!(grid1.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid1 ");
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
-      grid1.get(new Coordinate(q, r)).setContent(disc);
+      grid.get(new Coordinate(q, r)).setContent(disc);
     } else {
       throw new IllegalStateException("The game has not been started yet this cannot be done");
     }
@@ -280,10 +274,10 @@ public class SquareBoard implements Reversi{
   @Override
   public Disc getDiscAt(int q, int r) {
     if (gameState != GameState.PRE) {
-      if (!(grid1.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid1 ");
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
-      return grid1.get(new Coordinate(q, r)).getContent();
+      return grid.get(new Coordinate(q, r)).getContent();
     } else {
       throw new IllegalStateException("The game has not been started yet this cannot be done");
     }
@@ -292,10 +286,10 @@ public class SquareBoard implements Reversi{
   @Override
   public boolean isCellEmpty(int q, int r) {
     if (gameState != GameState.PRE) {
-      if (!(grid1.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid1 ");
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
-      return grid1.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
+      return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
     } else {
       throw new IllegalStateException("The game has not been started this cannot be checked");
     }
@@ -319,7 +313,7 @@ public class SquareBoard implements Reversi{
 
     // Check if all cells are filled
     boolean allCellsFilled = true;
-    for (Cell cell : grid1.values()) {
+    for (Cell cell : grid.values()) {
       if (cell.getContent() == Disc.EMPTY) {
         allCellsFilled = false;
         break;
@@ -362,7 +356,7 @@ public class SquareBoard implements Reversi{
     } else {
       current = Turn.WHITE;
     }
-    for (Coordinate coord : grid1.keySet()) {
+    for (Coordinate coord : grid.keySet()) {
       Board dupe = new Board(size, this.createCopyOfBoard(), current);
       if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
         try {
@@ -379,7 +373,7 @@ public class SquareBoard implements Reversi{
   @Override
   public int getScore(Disc player) {
     int scoreCounter = 0;
-    for (Cell cell : grid1.values()) {
+    for (Cell cell : grid.values()) {
       if (cell.getContent().equals(player)) {
         scoreCounter += 1;
       }
@@ -408,8 +402,8 @@ public class SquareBoard implements Reversi{
   @Override
   public HashMap<Coordinate, Cell> createCopyOfBoard() {
     HashMap<Coordinate, Cell> copy = new HashMap<Coordinate, Cell>();
-    for (Coordinate coord : this.grid1.keySet()) {
-      Cell originalCell = this.grid1.get(coord);
+    for (Coordinate coord : this.grid.keySet()) {
+      Cell originalCell = this.grid.get(coord);
       Cell newCell = new Cell(originalCell.getContent());
       copy.put(coord, newCell);
     }
@@ -420,8 +414,8 @@ public class SquareBoard implements Reversi{
   public ArrayList<Coordinate> getPossibleMoves() {
     ArrayList<Coordinate> possibleMoves = new ArrayList<>();
     Board og = new Board(size, this.createCopyOfBoard(), this.whoseTurn);
-    for (Coordinate coord : grid1.keySet()) {
-      if (grid1.get(coord).getContent().equals(Disc.EMPTY)) {
+    for (Coordinate coord : grid.keySet()) {
+      if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
         try {
           Board og1 = new Board(size, og.createCopyOfBoard(), this.whoseTurn);
           og1.makeMove(coord);
@@ -451,30 +445,6 @@ public class SquareBoard implements Reversi{
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException(e);
     }
-  }
-
-  @Override
-  public boolean validMove(Coordinate coor, Disc currentTurn) {
-    boolean flag = true;
-    Turn turn = null;
-
-    if (this.currentColor().equals(Disc.BLACK)) {
-      turn = Turn.BLACK;
-    } else {
-      turn = Turn.WHITE;
-    }
-    Board copy = new Board(this.getSize(), this.createCopyOfBoard(), turn);
-    try {
-      copy.makeMove(coor);
-      return true;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
-  }
-
-  @Override
-  public Map<Coordinate, Cell> getMap() {
-    return grid1;
   }
 
   @Override
