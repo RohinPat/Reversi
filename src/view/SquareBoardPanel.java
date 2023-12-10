@@ -110,8 +110,6 @@ public class SquareBoardPanel extends JPanel {
       selected = null;
       repaint();
     }
-    System.out.println(squares.get(selected).getFirstCoordinate());
-    System.out.println(squares.get(selected).getSecondCoordinate());
   }
 
   public void initializeBoard(ReversiReadOnly board){
@@ -227,8 +225,6 @@ public class SquareBoardPanel extends JPanel {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
-
-    initializeBoard(board);
 
     float thickness = 1; // Set the thickness you want for the squares' outline
     g2d.setStroke(new BasicStroke(thickness));
