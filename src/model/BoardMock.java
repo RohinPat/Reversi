@@ -13,6 +13,7 @@ import controller.ReversiController;
  * Represents the game board for a hexagonal grid-based game.
  */
 public class BoardMock extends AbstractModel {
+  protected StringBuilder log;
   protected final HashMap<String, Integer> compassQ = new HashMap<>();
   protected final HashMap<String, Integer> compassR = new HashMap<>();
 
@@ -314,6 +315,10 @@ public class BoardMock extends AbstractModel {
     } else {
       throw new IllegalStateException("The game has not been started this cannot be checked");
     }
+  }
+
+  public String getLog(){
+    return log.toString();
   }
 
 }
