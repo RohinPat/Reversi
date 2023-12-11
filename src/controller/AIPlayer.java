@@ -48,7 +48,7 @@ public class AIPlayer implements Player {
   }
 
   @Override
-  public void makeAMove(Reversi model, Coordinate coordinate) {
+  public void makeAMove(Reversi model, Position coordinate) {
     Position c1 = strategy.chooseMove(model, playerDisc);
     if (!model.isGameOver()
             && (c1.equals(new Coordinate(model.getSize(), model.getSize())) || c1 == null)) {

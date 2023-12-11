@@ -1,5 +1,6 @@
 package controller;
 
+import model.Position;
 import model.Reversi;
 import model.Disc;
 import model.Coordinate;
@@ -39,7 +40,7 @@ public class HumanPlayer implements Player {
    * @param move  The {@link Coordinate} representing the move to be made. If the player is
    *              unable to make a move, this parameter can be set to null.
    */
-  public void makeAMove(Reversi model, Coordinate move) {
+  public void makeAMove(Reversi model, Position move) {
     if (isPlayerTurn(model)) {
       model.makeMove(move);
     }

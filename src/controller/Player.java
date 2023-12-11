@@ -1,6 +1,6 @@
 package controller;
 
-import model.Coordinate;
+import model.Position;
 import model.Disc;
 import model.Reversi;
 
@@ -12,13 +12,13 @@ import model.Reversi;
 public interface Player {
 
   /**
-   * Makes a move in the Reversi game, given the game model and a move coordinate.
+   * Makes a move in the Reversi game, given the game model and a move Position.
    *
    * @param model The {@link Reversi} game model representing the current game state.
-   * @param move  The {@link Coordinate} representing the move to be made. If the player is
+   * @param move  The {@link Position} representing the move to be made. If the player is
    *              unable to make a move, this parameter can be set to null.
    */
-  void makeAMove(Reversi model, Coordinate move);
+  void makeAMove(Reversi model, Position move);
 
   /**
    * Checks if it is currently the player's turn to make a move in the Reversi game.

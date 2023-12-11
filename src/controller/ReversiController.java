@@ -41,7 +41,8 @@ public class ReversiController implements ControllerFeatures {
   public void confirmMove(int q, int r) {
     if (player.getDisc().equals(model.currentColor())) {
       Coordinate selectedHex = new Coordinate(q, r);
-      if (selectedHex != null && model.isCellEmpty(selectedHex.getFirstCoordinate(), selectedHex.getSecondCoordinate())) {
+      System.out.println(model.getDiscAt(selectedHex.getFirstCoordinate(), selectedHex.getSecondCoordinate()));
+      if (model.isCellEmpty(selectedHex.getFirstCoordinate(), selectedHex.getSecondCoordinate())) {
         try {
           player.makeAMove(model, selectedHex);
           model.notifyTurnChange();

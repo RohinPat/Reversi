@@ -98,7 +98,7 @@ public class SquareBoard extends AbstractModel{
       while (!capturedCopy.isEmpty()) {
         int x = capturedCopy.get(0);
         int y = capturedCopy.get(1);
-        if (!grid.get(new Coordinate(x, y)).getContent().equals(this.oppositeColor())) {
+        if (!grid.get(new CartesianCoordinate(x, y)).getContent().equals(this.oppositeColor())) {
           validMove = false;
         }
         capturedCopy.remove(0);
@@ -121,12 +121,14 @@ public class SquareBoard extends AbstractModel{
 
   @Override
   public void makeMove(Position dest) {
+    CartesianCoordinate dest1 = new CartesianCoordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate());
     if (gameState != GameState.PRE) {
       if (!grid.keySet().contains(new CartesianCoordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
       }
 
-      if (grid.get(dest).getContent() != Disc.EMPTY) {
+      System.out.println(dest1);
+      if (grid.get(dest1).getContent() != Disc.EMPTY) {
         throw new IllegalArgumentException("This space is already occupied");
       }
 
@@ -174,7 +176,7 @@ public class SquareBoard extends AbstractModel{
 
   public void placeDisc(int q, int r, Disc disc) {
     if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+      if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
         throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
       grid.get(new CartesianCoordinate(q, r)).setContent(disc);
