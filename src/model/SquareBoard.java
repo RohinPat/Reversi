@@ -48,15 +48,15 @@ public class SquareBoard extends AbstractModel{
 
       for (int row = 0; row < size ; row++){
         for (int column = 0; column < size; column++){
-          grid.put(new Coordinate(column, row), new Cell(Disc.EMPTY));
+          grid.put(new CartesianCoordinate(column, row), new Cell(Disc.EMPTY));
         }
       }
 
 
-      grid.put(new Coordinate(size/2 - 1, size/2 - 1), new Cell(Disc.BLACK)); // top left
-      grid.put(new Coordinate(size/2, size/2 - 1), new Cell(Disc.WHITE)); // top right
-      grid.put(new Coordinate(size/2, size/2), new Cell(Disc.BLACK)); // bottom right
-      grid.put(new Coordinate(size/2 - 1, size/2), new Cell(Disc.WHITE)); // bottom left
+      grid.put(new CartesianCoordinate(size/2 - 1, size/2 - 1), new Cell(Disc.BLACK)); // top left
+      grid.put(new CartesianCoordinate(size/2, size/2 - 1), new Cell(Disc.WHITE)); // top right
+      grid.put(new CartesianCoordinate(size/2, size/2), new Cell(Disc.BLACK)); // bottom right
+      grid.put(new CartesianCoordinate(size/2 - 1, size/2), new Cell(Disc.WHITE)); // bottom left
     } else {
       throw new IllegalStateException("A game has already been started");
     }
@@ -185,7 +185,7 @@ public class SquareBoard extends AbstractModel{
 
   public Disc getDiscAt(int q, int r) {
     if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+      if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
         throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
       return grid.get(new CartesianCoordinate(q, r)).getContent();
@@ -196,7 +196,7 @@ public class SquareBoard extends AbstractModel{
 
   public boolean isCellEmpty(int q, int r) {
     if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+      if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
         throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
       return grid.get(new CartesianCoordinate(q, r)).getContent() == Disc.EMPTY;

@@ -42,21 +42,23 @@ public final class ReversiMain {
     Reversi newBoard = new SquareBoard(10);
 
     Player player1 = new HumanPlayer(Disc.BLACK);
-    IFrame frame = new SquareReversiFrame(newBoard);
+    SquareReversiFrame frame = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel = frame.getBoardPanel();
     ControllerFeatures controller1 = new ReversiController(newBoard, viewPanel, player1);
     newBoard.addObserver(controller1);
     viewPanel.setController(controller1);
 
     Player player2 = new HumanPlayer(Disc.WHITE);
-    IFrame frame2 = new SquareReversiFrame(newBoard);
+    SquareReversiFrame frame2 = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel2 = frame2.getBoardPanel();
     ControllerFeatures controller2 = new ReversiController(newBoard, viewPanel2, player2);
     newBoard.addObserver(controller2);
     viewPanel2.setController(controller2);
 
     frame.makeVisible(true);
+    System.out.println("View turned on");
     frame2.makeVisible(true);
+    System.out.println("View turned on");
 
     controller2.updateView();
   }
