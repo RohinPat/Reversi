@@ -1,8 +1,6 @@
 package controller.aistrat;
 
-import model.Coordinate;
 import model.Disc;
-import model.Coordinate;
 import model.Position;
 import model.ReversiReadOnly;
 

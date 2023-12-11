@@ -152,7 +152,6 @@ public final class ReversiMain {
       b1.addObserver(controller12);
       viewPanel2.setController(controller12);
       viewPlayer2.makeVisible(true);
-
       viewPlayer1.makeVisible(true);
 
     } catch (IllegalArgumentException e) {

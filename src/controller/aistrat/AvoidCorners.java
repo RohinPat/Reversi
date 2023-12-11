@@ -2,9 +2,7 @@ package controller.aistrat;
 
 import java.util.ArrayList;
 
-import model.Coordinate;
 import model.Disc;
-import model.Coordinate;
 import model.Position;
 import model.ReversiReadOnly;
 
@@ -33,9 +31,7 @@ public class AvoidCorners implements ReversiStratagy {
     ArrayList<Position> possibleMoves = model.getPossibleMoves();
     ArrayList<Position> returnCopy = model.getPossibleMoves();
     for (Position c : possibleMoves) {
-      System.out.println("tism");
       if (this.isSpotToAvoid(c, size)) {
-        System.out.println("Remooved");
         returnCopy.remove(c);
       }
     }
@@ -43,11 +39,11 @@ public class AvoidCorners implements ReversiStratagy {
   }
 
   /**
-   * Generates a list of coordinates that represent spots to be avoided near the corners.
-   * These are the Coordinates adjacent to the corners where placing a disc could be disadvantageous.
+   * Checks if a given position on the Reversi board is near a corner and should be avoided.
    *
+   * @param p    The position to check.
    * @param size The size of the Reversi board.
-   * @return An ArrayList of objects representing spots to avoid.
+   * @return True if the position is near a corner and should be avoided, false otherwise.
    */
   private boolean isSpotToAvoid(Position p, int size) {
     return p.isNextToCorner(size);

@@ -5,7 +5,6 @@ import model.Coordinate;
 import model.Position;
 import model.ReversiReadOnly;
 import model.Turn;
-import model.Coordinate;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public class CaptureMost implements ReversiStratagy {
    *
    * @param model The Reversi game model representing the current state of the game.
    * @param turn  The  object representing the current player's turn.
-   * @return The for the move that captures the most discs.
+   * @return The Position for the move that captures the most discs.
    */
   @Override
   public Position chooseMove(ReversiReadOnly model, Disc turn) {
@@ -41,7 +40,7 @@ public class CaptureMost implements ReversiStratagy {
    * @return The of the move that results in the highest score.
    */
   protected Position chooseMoveHelper(ReversiReadOnly model, Disc turn,
-                                        ArrayList<Position> possibleMoves) {
+                                      ArrayList<Position> possibleMoves) {
 
     int max = 0;
     Position maxMove = null;
@@ -58,10 +57,9 @@ public class CaptureMost implements ReversiStratagy {
         maxMove = move;
       }
     }
-    if (maxMove != null){
+    if (maxMove != null) {
       return maxMove;
-    }
-    else{
+    } else {
       return new Coordinate(model.getSize(), model.getSize());
     }
   }

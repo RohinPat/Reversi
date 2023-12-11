@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import model.Coordinate;
 import model.Disc;
-import model.Coordinate;
 import model.Position;
 import model.ReversiReadOnly;
 import model.Turn;
@@ -34,7 +33,7 @@ public class CaptureCorners implements ReversiStratagy {
       t = Turn.WHITE;
     }
     ArrayList<Position> moves = model.getPossibleMoves();
-    for (Position move: moves) {
+    for (Position move : moves) {
       System.out.println(move.getFirstCoordinate() + " " + move.getSecondCoordinate());
     }
     int size = model.getSize();
@@ -46,12 +45,12 @@ public class CaptureCorners implements ReversiStratagy {
     return new Coordinate(model.getSize(), model.getSize());
   }
 
-
   /**
-   * Generates a list of coordinates that represent the corners of the board.
+   * Checks if a given position on the Reversi board is a corner and can be captured.
    *
+   * @param p    The position to check.
    * @param size The size of the Reversi board.
-   * @return An ArrayList of objects representing the corners of the board.
+   * @return True if the position is a corner and can be captured, false otherwise.
    */
   private boolean getCorners(Position p, int size) {
     return p.isCorner(size);

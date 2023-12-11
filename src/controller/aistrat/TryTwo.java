@@ -2,7 +2,6 @@ package controller.aistrat;
 
 import model.Coordinate;
 import model.Disc;
-import model.Coordinate;
 import model.Position;
 import model.ReversiReadOnly;
 
@@ -30,12 +29,12 @@ public class TryTwo implements ReversiStratagy {
 
   /**
    * Chooses a move in the Reversi game by first trying the primary strategy.
-   * If the primary strategy returns null (indicating no move found),
+   * If the primary strategy returns a pass (indicating no move found),
    * it then tries the secondary strategy.
    *
    * @param model The Reversi game model representing the current state of the game.
    * @param turn  The object representing the current player's turn.
-   * @return The chosen for the move, or null if no move is found.
+   * @return The chosen for the move, or a specified coordinate indicating no move is found.
    */
   public Position chooseMove(ReversiReadOnly model, Disc turn) {
     Position ans = this.first.chooseMove(model, turn);
