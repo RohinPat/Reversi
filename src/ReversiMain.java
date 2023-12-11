@@ -44,6 +44,7 @@ public final class ReversiMain {
     Player p1 = null;
     Player p2 = null;
     ReversiController controller12 = null;
+    boolean isSquare = false;
     int argsUsed = 0;
     int maxArgs = args.length;
     int size = 6;
@@ -62,6 +63,7 @@ public final class ReversiMain {
       if (args[argsUsed].equals("s")) {
         try {
           b1 = new SquareBoard(size);
+          isSquare = true;
           argsUsed++;
         }
         catch (IllegalArgumentException e) {
@@ -108,7 +110,7 @@ public final class ReversiMain {
           strats2.add(args[argsUsed]);
           argsUsed++;
           try {
-            if (args[argsUsed].equals("human") || args[argsUsed].equals("ai")) {
+            if (args[argsUsed].equals("human") || args[argsUsed].equals("ai") || args[argsUsed].equals("hintson")) {
               nextplayer2 = false;
             }
           } catch (ArrayIndexOutOfBoundsException e) {
@@ -131,18 +133,25 @@ public final class ReversiMain {
       }
     }
     try {
-      ReversiFrame viewPlayer1 = new ReversiFrame(b1, hints);
+      IFrame viewPlayer1 = null;
+      IFrame viewPlayer2 = null;
+      if (isSquare) {
+        viewPlayer1 = new SquareReversiFrame(b1);
+        viewPlayer2 = new SquareReversiFrame(b1);
+      } else {
+        viewPlayer1 = new ReversiFrame(b1, hints);
+        viewPlayer2 = new ReversiFrame(b1, hints);
+      }
       IBoardPanel viewPanel1 = viewPlayer1.getBoardPanel();
       ReversiController controller = new ReversiController(b1, viewPanel1, p1);
       b1.addObserver(controller);
       viewPanel1.setController(controller);
 
-      ReversiFrame viewPlayer2 = new ReversiFrame(b1, hints);
       IBoardPanel viewPanel2 = viewPlayer2.getBoardPanel();
       controller12 = new ReversiController(b1, viewPanel2, p2);
       b1.addObserver(controller12);
       viewPanel2.setController(controller12);
-      viewPlayer2.setVisible(true);
+      viewPlayer2.makeVisible(true);
 
 
 
@@ -158,7 +167,7 @@ public final class ReversiMain {
 
 
 
-      viewPlayer1.setVisible(true);
+      viewPlayer1.makeVisible(true);
 
     } catch (IllegalArgumentException e) {
       System.out.println("error in inputs");
