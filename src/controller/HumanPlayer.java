@@ -29,17 +29,13 @@ public class HumanPlayer implements Player {
    * @param model The {@link Reversi} game model representing the current game state.
    * @return true if it is this player's turn and false if it isn't.
    */
+  @Override
   public boolean isPlayerTurn(Reversi model) {
     return model.currentColor() == this.playerDisc;
   }
 
-  /**
-   * Makes a move in the Reversi game if it's currently the human player's turn.
-   *
-   * @param model The {@link Reversi} game model representing the current game state.
-   * @param move  The {@link Coordinate} representing the move to be made. If the player is
-   *              unable to make a move, this parameter can be set to null.
-   */
+
+  @Override
   public void makeAMove(Reversi model, Position move) {
     if (isPlayerTurn(model)) {
       model.makeMove(move);
@@ -53,7 +49,6 @@ public class HumanPlayer implements Player {
 
   @Override
   public void passTurn(Reversi model) {
-    model.passTurn();
     // unused but needs to be overwritten
   }
 }

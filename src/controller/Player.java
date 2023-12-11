@@ -7,7 +7,7 @@ import model.Reversi;
 /**
  * This is an interface that implements all the basic functionality that each.
  * Player type/ profile could have. These can include a human player, or AI.
- * Players with varying strategies.
+ * players with varying strategies.
  */
 public interface Player {
 
@@ -15,8 +15,9 @@ public interface Player {
    * Makes a move in the Reversi game, given the game model and a move Position.
    *
    * @param model The {@link Reversi} game model representing the current game state.
-   * @param move  The {@link Position} representing the move to be made. If the player is
-   *              unable to make a move, this parameter can be set to null.
+   * @param move  The {@link Position} representing the move to be made. As the AI determines the.
+   *              best move on its own, in the AIPlayer implementation of this method the move.
+   *              parameter is not included in the calculation, so you can pass in null.
    */
   void makeAMove(Reversi model, Position move);
 

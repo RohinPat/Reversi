@@ -12,9 +12,9 @@ import view.IBoardPanel;
  * interaction between the model and the view in a Reversi game.
  */
 public class ReversiController implements ControllerFeatures {
-  private Reversi model;
-  private IBoardPanel view;
-  private Player player;
+  private final Reversi model;
+  private final IBoardPanel view;
+  private final Player player;
 
   /**
    * Constructs a {@code ReversiController} with the specified model, view, and player.
@@ -31,7 +31,7 @@ public class ReversiController implements ControllerFeatures {
     this.view = view;
     this.player = player;
 
-    // Check if the AI player should make a move immediately
+    // Check if the AI player should make a move immediately if it is first to move
     if (model.currentColor() == player.getDisc() && player instanceof AIPlayer) {
       player.makeAMove(model, null);
     }
@@ -56,7 +56,6 @@ public class ReversiController implements ControllerFeatures {
 
   @Override
   public void passTurn() {
-    // Logic for passing a turn
     model.passTurn();
   }
 
@@ -65,6 +64,7 @@ public class ReversiController implements ControllerFeatures {
    * the AI player's turn, the AI may make a move. Otherwise, it may highlight possible
    * moves or indicate that it's the player's turn if it's a human player.
    */
+  @Override
   public void updateView() {
     view.initializeBoard(model);
     if (model.isGameOver()) {
@@ -76,7 +76,7 @@ public class ReversiController implements ControllerFeatures {
 
   @Override
   public void handleTurnChange(Disc disc) {
-    if (model.isGameOver()){
+    if (model.isGameOver()) {
       view.initializeBoard(model);
     }
     if (player.getDisc().equals(disc) && player instanceof AIPlayer && !model.isGameOver()) {
@@ -89,6 +89,7 @@ public class ReversiController implements ControllerFeatures {
    *
    * @return The {@link Disc} representing the color of the current player.
    */
+  @Override
   public Disc getPlayer() {
     return player.getDisc();
   }
@@ -98,6 +99,7 @@ public class ReversiController implements ControllerFeatures {
    *
    * @return The {@link Player} representing the current player.
    */
+  @Override
   public Player getTurn() {
     return player;
   }

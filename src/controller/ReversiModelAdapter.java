@@ -6,7 +6,6 @@ import model.Board;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
-import model.Coordinate;
 import model.Position;
 import model.Reversi;
 import model.Turn;
@@ -49,32 +48,14 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   @Override
   public int countClaimedTiles(PlayerOwnership player)
           throws IllegalStateException, IllegalArgumentException {
-    Disc disc = null;
-    if (player.equals(PlayerOwnership.PLAYER_1)) {
-      disc = Disc.WHITE;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
-      disc = Disc.BLACK;
-    } else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
-      disc = Disc.EMPTY;
-    } else {
-      throw new IllegalArgumentException("Invalid disc");
-    }
+    Disc disc = ownershipToDisc(player);
     return currentModel.getScore(disc);
   }
 
   @Override
   public boolean isPlayerTurn(PlayerOwnership player)
           throws IllegalArgumentException, IllegalStateException {
-    Disc disc = null;
-    if (player.equals(PlayerOwnership.PLAYER_1)) {
-      disc = Disc.WHITE;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
-      disc = Disc.BLACK;
-    } else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
-      disc = Disc.EMPTY;
-    } else {
-      throw new IllegalArgumentException("Invalid disc");
-    }
+    Disc disc = ownershipToDisc(player);
 
     return (disc.equals(currentModel.currentColor()));
 
@@ -83,16 +64,7 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   @Override
   public boolean isMoveAllowed(HexCoord hc, PlayerOwnership player)
           throws IllegalArgumentException, IllegalStateException {
-    Disc disc = null;
-    if (player.equals(PlayerOwnership.PLAYER_1)) {
-      disc = Disc.WHITE;
-    } else if (player.equals(PlayerOwnership.PLAYER_2)) {
-      disc = Disc.BLACK;
-    } else if (player.equals(PlayerOwnership.UNOCCUPIED)) {
-      disc = Disc.EMPTY;
-    } else {
-      throw new IllegalArgumentException("Invalid disc");
-    }
+    Disc disc = ownershipToDisc(player);
     return currentModel.validMove(new Coordinate(hc.q, hc.r), disc);
   }
 
@@ -122,5 +94,24 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   public boolean isMoveAllowedTurnIndependent(HexCoord hc, PlayerOwnership playerOwnership)
           throws IllegalArgumentException, IllegalStateException {
     throw new UnsupportedOperationException("This is unsupported");
+  }
+
+  /**
+   * Helper to convert a player ownership status to a corresponding Disc.
+   *
+   * @param playerOwnership The player ownership status to convert.
+   * @return The Disc corresponding to the provided player ownership status.
+   * @throws IllegalArgumentException if an invalid player ownership status is provided.
+   */
+  private Disc ownershipToDisc(PlayerOwnership playerOwnership){
+    if (playerOwnership.equals(PlayerOwnership.PLAYER_1)) {
+      return Disc.BLACK;
+    } else if (playerOwnership.equals(PlayerOwnership.PLAYER_2)) {
+      return Disc.WHITE;
+    } else if (playerOwnership.equals(PlayerOwnership.UNOCCUPIED)) {
+      return Disc.EMPTY;
+    } else {
+      throw new IllegalArgumentException("Invalid disc");
+    }
   }
 }

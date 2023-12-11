@@ -21,7 +21,7 @@ import provider.strategies.TopLeftTieBreaker;
 public class StratagyAdapter implements ReversiStratagy {
 
   private final InFallableReversiStrategy stratagy;
-  private TopLeftTieBreaker tieBreaker;
+  private final TopLeftTieBreaker tieBreaker;
 
   /**
    * Constructs a StrategyAdapter with a given infallible strategy from the provider.
@@ -40,15 +40,11 @@ public class StratagyAdapter implements ReversiStratagy {
     PlayerOwnership ownership = discToOwnership(turn);
     ReversiModelAdapter modelAdapter = new ReversiModelAdapter((Reversi) model);
     StrategyWrapper wrapper = new StrategyWrapper(stratagy);
-
-    // Debugging: Check if the strategy is executed correctly
     List<HexCoord> possibleMoves = wrapper.executeStrategy(modelAdapter, ownership);
 
     if (possibleMoves == null || possibleMoves.isEmpty()) {
-      return new Coordinate(model.getSize(), model.getSize()); // or handle this case as appropriate
+      return new Coordinate(model.getSize(), model.getSize());
     }
-
-    // Debugging: Check if tiebreaker is called
     HexCoord output = tieBreaker.breakTie(possibleMoves);
 
     return new Coordinate(output.q, output.r);

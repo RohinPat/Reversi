@@ -12,9 +12,9 @@ import view.IBoardPanel;
  * interaction between the model and the view in a Reversi game.
  */
 public class ReversiControllerMock implements ControllerFeatures {
-  private Reversi model;
-  private IBoardPanel view;
-  private Player player;
+  private final Reversi model;
+  private final IBoardPanel view;
+  private final Player player;
   private StringBuilder logOut;
 
   /**
