@@ -48,7 +48,7 @@ public final class ReversiMain {
     newBoard.addObserver(controller1);
     viewPanel.setController(controller1);
 
-    Player player2 = new HumanPlayer(Disc.WHITE);
+    Player player2 = new AIPlayer(Disc.WHITE, new CaptureMost());
     SquareReversiFrame frame2 = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel2 = frame2.getBoardPanel();
     ControllerFeatures controller2 = new ReversiController(newBoard, viewPanel2, player2);
