@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class CartesianCoordinate implements Position{
   private final int x;
   private final int y;
@@ -43,12 +45,38 @@ public class CartesianCoordinate implements Position{
 
   @Override
   public boolean isCorner(int size) {
-    return false;
+    ArrayList<CartesianCoordinate> corners = new ArrayList<CartesianCoordinate>();
+    corners.add(new CartesianCoordinate(0, 0));
+    corners.add(new CartesianCoordinate(0, size - 1));
+    corners.add(new CartesianCoordinate(size - 1, 0));
+    corners.add(new CartesianCoordinate(size - 1, size - 1));
+
+
+    return corners.contains(new CartesianCoordinate
+            (this.getFirstCoordinate(), this.getSecondCoordinate()));
   }
 
   @Override
   public boolean isNextToCorner(int size) {
-    return false;
+    ArrayList<CartesianCoordinate> notCorners = new ArrayList<CartesianCoordinate>();
+    notCorners.add(new CartesianCoordinate(0,1));
+    notCorners.add(new CartesianCoordinate(1,0));
+    notCorners.add(new CartesianCoordinate(1,1));
+
+    notCorners.add(new CartesianCoordinate(0,size - 2));
+    notCorners.add(new CartesianCoordinate(1,size - 2));
+    notCorners.add(new CartesianCoordinate(1,size - 1));
+
+    notCorners.add(new CartesianCoordinate(size - 2,0));
+    notCorners.add(new CartesianCoordinate(size - 2,1));
+    notCorners.add(new CartesianCoordinate(size - 1,1));
+
+    notCorners.add(new CartesianCoordinate(size - 1,size - 2));
+    notCorners.add(new CartesianCoordinate(size - 2,size - 2));
+    notCorners.add(new CartesianCoordinate(size - 2,size - 2));
+
+    return notCorners.contains(new CartesianCoordinate
+            (this.getFirstCoordinate(), this.getSecondCoordinate()));
   }
 
   @Override

@@ -41,14 +41,14 @@ public final class ReversiMain {
   public static void main(String[] args) {
     Reversi newBoard = new SquareBoard(6);
 
-    Player player1 = new AIPlayer(Disc.BLACK, new TryTwo(new CaptureCorners(), new CaptureMost()));
+    Player player1 = new HumanPlayer(Disc.BLACK);
     SquareReversiFrame frame = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel = frame.getBoardPanel();
     ControllerFeatures controller1 = new ReversiController(newBoard, viewPanel, player1);
     newBoard.addObserver(controller1);
     viewPanel.setController(controller1);
 
-    Player player2 = new AIPlayer(Disc.WHITE, new CaptureMost());
+    Player player2 = new AIPlayer(Disc.WHITE, new TryTwo(new AvoidCorners(), new CaptureMost()));
     SquareReversiFrame frame2 = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel2 = frame2.getBoardPanel();
     ControllerFeatures controller2 = new ReversiController(newBoard, viewPanel2, player2);
