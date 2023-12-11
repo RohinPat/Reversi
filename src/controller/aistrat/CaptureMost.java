@@ -52,7 +52,6 @@ public class CaptureMost implements ReversiStratagy {
       t = Turn.WHITE;
     }
     for (Position move : possibleMoves) {
-      // SAFE TILL HERE
       int score = model.checkMove(model, move);
       if (score > max) {
         max = score;
@@ -60,6 +59,7 @@ public class CaptureMost implements ReversiStratagy {
       }
     }
     if (maxMove == null) {
+      System.out.println("Decided on pass");
       return new Coordinate(model.getSize(), model.getSize());
     }
     return maxMove;

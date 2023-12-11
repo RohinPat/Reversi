@@ -39,9 +39,9 @@ public final class ReversiMain {
    * Used to initialize the frame based on the given board.
    */
   public static void main(String[] args) {
-    Reversi newBoard = new SquareBoard(10);
+    Reversi newBoard = new SquareBoard(6);
 
-    Player player1 = new HumanPlayer(Disc.BLACK);
+    Player player1 = new AIPlayer(Disc.BLACK, new TryTwo(new CaptureCorners(), new CaptureMost()));
     SquareReversiFrame frame = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel = frame.getBoardPanel();
     ControllerFeatures controller1 = new ReversiController(newBoard, viewPanel, player1);

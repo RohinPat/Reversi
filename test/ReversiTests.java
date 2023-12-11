@@ -26,6 +26,7 @@ import model.Coordinate;
 import model.Disc;
 import model.GameState;
 import model.Coordinate;
+import model.Position;
 import model.Reversi;
 import model.SquareBoard;
 import model.Turn;
@@ -439,7 +440,7 @@ public class ReversiTests {
     BoardMock board = new BoardMock(4);
     CaptureMost cm = new CaptureMost();
 
-    Coordinate c = cm.chooseMove(board, Disc.BLACK);
+    Position c = cm.chooseMove(board, Disc.BLACK);
     board.makeMove(c);
 
     c = cm.chooseMove(board, Disc.WHITE);
@@ -526,7 +527,7 @@ public class ReversiTests {
     BoardMock board = new BoardMock(4);
     ReversiStratagy cm = new TryTwo(new AvoidCorners(), new CaptureMost());
 
-    Coordinate c = cm.chooseMove(board, Disc.BLACK);
+    Position c = cm.chooseMove(board, Disc.BLACK);
 
 
     board.makeMove(c);
@@ -580,7 +581,7 @@ public class ReversiTests {
   @Test
   public void testCaptureCornerWorks() {
     BoardMock newBoard = new BoardMock(3);
-    HashMap<Coordinate, Cell> new1 = newBoard.createCopyOfBoard();
+    HashMap<Position, Cell> new1 = newBoard.createCopyOfBoard();
     new1.put(new Coordinate(0, 0), new Cell(Disc.BLACK));
     BoardMock newBoard1 = new BoardMock(3, new1, Turn.BLACK);
     CaptureCorners cm = new CaptureCorners();
@@ -599,7 +600,7 @@ public class ReversiTests {
 
     BoardMock board = new BoardMock(4);
 
-    Coordinate c = tt1.chooseMove(board, Disc.BLACK);
+    Position c = tt1.chooseMove(board, Disc.BLACK);
     board.makeMove(c);
 
     c = tt2.chooseMove(board, Disc.WHITE);

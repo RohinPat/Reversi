@@ -39,12 +39,10 @@ public class CaptureCorners implements ReversiStratagy {
     }
     int size = model.getSize();
     for (Position move : moves) {
-      System.out.println("checked a move");
       if (this.getCorners(move, size)) {
         return move;
       }
     }
-    System.out.println("this shit autistic");
     return new Coordinate(model.getSize(), model.getSize());
   }
 

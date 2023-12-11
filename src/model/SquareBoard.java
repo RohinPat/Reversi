@@ -309,4 +309,26 @@ public class SquareBoard extends AbstractModel{
     }
   }
 
+  @Override
+  protected boolean hasValidMoves(Disc playerDisc) {
+    Turn current;
+    if (playerDisc.equals(Disc.BLACK)) {
+      current = Turn.BLACK;
+    } else {
+      current = Turn.WHITE;
+    }
+    for (Position coord : grid.keySet()) {
+      SquareBoard dupe = new SquareBoard(size, this.createCopyOfBoard(), current);
+      if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
+        try {
+          dupe.makeMove(coord);
+          return true;
+        } catch (IllegalArgumentException e) {
+          // Ignore and continue checking other moves
+        }
+      }
+    }
+    return false;
+  }
+
 }
