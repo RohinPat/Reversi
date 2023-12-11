@@ -206,6 +206,9 @@ public class SquareBoard extends AbstractModel{
   }
 
   @Override
+  // override as a square game the grid only holds CartesianCoordinates, so it must be
+  // specified when doing the contains
+
   public void placeDisc(int q, int r, Disc disc) {
     if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {

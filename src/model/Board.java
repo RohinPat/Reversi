@@ -1,58 +1,19 @@
 package model;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import java.util.ArrayList;
-
-import controller.ControllerFeatures;
-import controller.ReversiController;
 
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
 public class Board extends AbstractModel {
   protected final HashMap<String, Integer> compassQ = new HashMap<>();
+  // used to represent all the changes in the Q coordinate to check capture
+  // outcomes in the different capturing directions
+
   protected final HashMap<String, Integer> compassR = new HashMap<>();
-
-  protected List<ControllerFeatures> observers = new ArrayList<>();
-
-  /**
-   * Adds a {@link ReversiController} observer to the list of observers.
-   * This method is used to register a controller as an observer that should be notified
-   * of changes to the state of this object.
-   *
-   * @param controller The {@link ReversiController} instance to be added as an observer.
-   */
-  public void addObserver(ControllerFeatures controller) {
-    observers.add(controller);
-  }
-
-  /**
-   * Notifies all registered observers of a change in the object's state.
-   * This method is typically called to inform the observers about an update or change in the state
-   * that requires their attention, usually resulting in a change or refresh of their view or data.
-   * Each observer's `updateView` method is called to perform these updates.
-   */
-  public void notifyObservers() {
-    for (ControllerFeatures controller : observers) {
-      controller.updateView();
-    }
-  }
-
-  /**
-   * Notifies all registered observers of a change in the current player's turn.
-   * This method is invoked to communicate to observers that the turn has switched
-   * from one player to another in the game. It triggers the `handleTurnChange`
-   * method in each observer, allowing them to respond appropriately to the new
-   * game state, such as updating the UI or initiating AI moves.
-   */
-  public void notifyTurnChange() {
-    for (ControllerFeatures controller : observers) {
-      controller.handleTurnChange(currentColor());
-    }
-  }
+  // used to represent all the changes in the R coordinate to check capture
+  // outcomes in the different capturing directions
 
   /**
    * Initializes a new game board of the specified size.
@@ -114,7 +75,8 @@ public class Board extends AbstractModel {
   }
 
   /**
-   * Sets up the game board, initializes the grid, and places the starting pieces.
+   * Sets up the game board, initializes the grid, and places the starting pieces for a hexagonal.
+   * Game of reversi.
    */
   private void playGame() {
     if (gameState == GameState.PRE) {
@@ -147,6 +109,13 @@ public class Board extends AbstractModel {
     notifyObservers();
   }
 
+  /**
+   * Helper method to determine the captured pieces in a specific direction from the given destination.
+   *
+   * @param dest The destination position to start capturing pieces from.
+   * @param dir  The direction in which to capture pieces (e.g., "NE", "SW", etc.).
+   * @return An ArrayList containing the coordinates of the captured pieces, or an empty list if no pieces are captured.
+   */
   private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
@@ -214,7 +183,8 @@ public class Board extends AbstractModel {
    */
   public void makeMove(Position dest) {
     if (gameState != GameState.PRE) {
-      if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
+      if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(),
+              dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
       }
 
@@ -264,7 +234,17 @@ public class Board extends AbstractModel {
     notifyTurnChange();
   }
 
-  public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player){
+  /**
+   * Calculates the score change for a player after making a move on a Reversi game model.
+   * Doesn't account for current turn of the game - useful for the hints.
+   *
+   * @param model  The Reversi game model representing the current state of the game.
+   * @param move   The position where the player intends to make a move.
+   * @param player The player for whom the score change is calculated (Disc.BLACK or Disc.WHITE).
+   * @return The change in score for the specified player after making the move, or 0 if the move.
+   * is invalid.
+   */
+  public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player) {
     Turn turn = null;
     if (player.equals(Disc.BLACK)) {
       turn = Turn.BLACK;
@@ -280,39 +260,6 @@ public class Board extends AbstractModel {
       return score;
     } catch (IllegalArgumentException e) {
       return 0;
-    }
-  }
-
-  public void placeDisc(int q, int r, Disc disc) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      grid.get(new Coordinate(q, r)).setContent(disc);
-    } else {
-      throw new IllegalStateException("The game has not been started yet this cannot be done");
-    }
-  }
-
-  public Disc getDiscAt(int q, int r) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      return grid.get(new Coordinate(q, r)).getContent();
-    } else {
-      throw new IllegalStateException("The game has not been started yet this cannot be done");
-    }
-  }
-
-  public boolean isCellEmpty(int q, int r) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
-    } else {
-      throw new IllegalStateException("The game has not been started this cannot be checked");
     }
   }
 

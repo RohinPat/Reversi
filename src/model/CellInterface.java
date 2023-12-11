@@ -5,6 +5,7 @@ package model;
  * Each cell can hold a Disc, and the Disc can be retrieved or set.
  */
 public interface CellInterface {
+
   /**
    * Retrieves the disc content of the cell.
    *

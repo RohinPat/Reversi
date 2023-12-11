@@ -107,10 +107,8 @@ public class ReversiControllerMock implements ControllerFeatures {
 
   /**
    * Helps in the creation of an output log to ensure code runs as expected, and we can see the.
-   * finer details of the AI decisions - there is no log as this is not the mock, so it doesn't.
-   * log anything here.
-   *
-   * @return null as this is not the mock, so it doesn't log anything here
+   * finer details of the AI decisions
+   * @return the string output of the log of actions
    */
   public String getLog() {
     return logOut.toString();

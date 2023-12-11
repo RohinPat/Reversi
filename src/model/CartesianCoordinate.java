@@ -2,13 +2,15 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Cartesian coordinate with x and y values.
+ */
 public class CartesianCoordinate implements Position{
   private final int x;
   private final int y;
 
   /**
-   * Constructs a new Coordinate with the given q and r values.
-   * The s value is automatically calculated based on the constraint q + r + s = 0.
+   * Constructs a new CartesianCoordinate with the given x and y values.
    *
    * @param x The x-axis value.
    * @param y The y-axis value.
@@ -88,6 +90,5 @@ public class CartesianCoordinate implements Position{
   public String toString(){
     return "X" + this.x + "Y" + this.y;
   }
-
 
 }
