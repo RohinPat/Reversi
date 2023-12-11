@@ -56,8 +56,6 @@ public class AIPlayer implements Player {
     }
     if (model.validMove(c1, playerDisc)) {
       model.makeMove(c1);
-    } else {
-      model.passTurn();
     }
   }
 

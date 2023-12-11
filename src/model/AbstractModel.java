@@ -71,6 +71,7 @@ public abstract class AbstractModel implements Reversi {
 
     notifyObservers();
     notifyTurnChange();
+
   }
 
   public int getSize() {

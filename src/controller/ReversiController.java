@@ -67,14 +67,18 @@ public class ReversiController implements ControllerFeatures {
    */
   public void updateView() {
     view.initializeBoard(model);
-    handleTurnChange(model.currentColor());
     if (model.isGameOver()) {
       view.initializeBoard(model);
     }
+    handleTurnChange(model.currentColor());
+
   }
 
   @Override
   public void handleTurnChange(Disc disc) {
+    if (model.isGameOver()){
+      view.initializeBoard(model);
+    }
     if (player.getDisc().equals(disc) && player instanceof AIPlayer && !model.isGameOver()) {
       player.makeAMove(model, null); // AI strategy chooses the move
     }
