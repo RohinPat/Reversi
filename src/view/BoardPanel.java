@@ -350,9 +350,10 @@ public class BoardPanel extends JPanel implements IBoardPanel {
         if (selected == null) {
           showInvalidMoveDialog("No hexagon selected. " +
                   "Please select a hexagon before confirming the move.");
-          return;
         }
-        controller.confirmMove(hexagons.get(selected).getFirstCoordinate(), hexagons.get(selected).getSecondCoordinate());
+        else{
+          controller.confirmMove(hexagons.get(selected).getFirstCoordinate(), hexagons.get(selected).getSecondCoordinate());
+        }
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
         controller.passTurn();
       } else if (e.getKeyCode() == KeyEvent.VK_E) {
@@ -428,6 +429,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
    *              size and the disc values it contains.
    */
   public void initializeBoard(ReversiReadOnly board) {
+    selected = null;
     hexagons.clear();
     double hexWidth = hexSize * Math.sqrt(3);
     double hexHeight = hexSize * 1.5;

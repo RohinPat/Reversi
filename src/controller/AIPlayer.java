@@ -4,7 +4,6 @@ import model.Coordinate;
 import model.Position;
 import model.Reversi;
 import model.Disc;
-import model.Coordinate;
 import controller.aistrat.ReversiStratagy;
 import provider.strategies.InFallableReversiStrategy;
 
@@ -14,11 +13,11 @@ import provider.strategies.InFallableReversiStrategy;
  * based on a specified strategy.
  */
 public class AIPlayer implements Player {
-  private Disc playerDisc;
-  private ReversiStratagy strategy;
+  private final Disc playerDisc;
+  private final ReversiStratagy strategy;
 
   /**
-   * Constructs an {@code AIPlayer} with the specified player disc color and strategy.
+   * Constructs an {@code AIPlayer} with the specified player disc and strategy.
    *
    * @param playerDisc The {@link Disc} representing the color of the AI player's pieces
    *                   (BLACK or WHITE).
@@ -33,7 +32,7 @@ public class AIPlayer implements Player {
    * Constructs an {@code AIPlayer} with the specified player disc color and an infallible strategy.
    * This constructor adapts an {@link InFallableReversiStrategy} into a regular.
    * {@link ReversiStratagy} so it can be used by the AI player. This allows the AI player to.
-   * utilize advanced, error-proof strategies.
+   * utilize advanced, error-proof strategies and helps us combine the provider's strategies.
    *
    * @param playerDisc The {@link Disc} representing the color of the AI player's pieces
    *                   (BLACK or WHITE).
@@ -51,7 +50,7 @@ public class AIPlayer implements Player {
   public void makeAMove(Reversi model, Position coordinate) {
     Position c1 = strategy.chooseMove(model, playerDisc);
     if (!model.isGameOver()
-            && (c1.equals(new Coordinate(model.getSize(), model.getSize())) || c1 == null)) {
+            && (c1.equals(new Coordinate(model.getSize(), model.getSize())))) {
       model.passTurn();
     }
     if (model.validMove(c1, playerDisc)) {
@@ -71,7 +70,6 @@ public class AIPlayer implements Player {
 
   @Override
   public void passTurn(Reversi model) {
-    model.passTurn();
     // we left it blank as our makeAMove method handles the passing as well by returning a
     // special output that is read and understood as a pass (it is because our AI's only return
     // coordinates)

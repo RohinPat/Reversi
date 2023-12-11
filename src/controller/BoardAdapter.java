@@ -9,7 +9,6 @@ import model.Board;
 import model.Cell;
 import model.Coordinate;
 import model.Disc;
-import model.Coordinate;
 import model.Position;
 import model.Reversi;
 import model.Turn;
@@ -50,7 +49,7 @@ public class BoardAdapter implements IBoard {
     Map<Position, Cell> map = currentBoard.getMap();
     Map<HexCoord, HexagonTile> outputMap = new HashMap<>();
     for (Position coord : map.keySet()) {
-      PlayerOwnership ownership = null;
+      PlayerOwnership ownership;
       if (map.get(coord).getContent().equals(Disc.BLACK)) {
         ownership = PlayerOwnership.PLAYER_1;
       } else if (map.get(coord).getContent().equals(Disc.WHITE)) {
@@ -60,8 +59,8 @@ public class BoardAdapter implements IBoard {
       } else {
         throw new IllegalArgumentException("Invalid disc");
       }
-      Coordinate tempCoor = (Coordinate)coord;
-      outputMap.put(new HexCoord(coord.getFirstCoordinate(), coord.getSecondCoordinate(), tempCoor.getS()),
+      int s = -(coord.getFirstCoordinate()) - (coord.getSecondCoordinate());
+      outputMap.put(new HexCoord(coord.getFirstCoordinate(), coord.getSecondCoordinate(), s),
               new HexagonTile(ownership));
     }
 

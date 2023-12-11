@@ -232,14 +232,13 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
     @Override
     public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_M) {
-        System.out.println(squares.get(selected).getFirstCoordinate());
-        System.out.println(squares.get(selected).getSecondCoordinate());
         if (selected == null) {
           showInvalidMoveDialog("No hexagon selected. " +
                   "Please select a hexagon before confirming the move.");
-          return;
         }
-        controller.confirmMove(squares.get(selected).getFirstCoordinate(), squares.get(selected).getSecondCoordinate());
+        else {
+          controller.confirmMove(squares.get(selected).getFirstCoordinate(), squares.get(selected).getSecondCoordinate());
+        }
       } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
         controller.passTurn();
       }
@@ -290,6 +289,7 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
   }
 
   public void initializeBoard(ReversiReadOnly board){
+    selected = null;
     squares.clear();
     double squareWidth = squareSize;
     double squareHeight = squareSize;
