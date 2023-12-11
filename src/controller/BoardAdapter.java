@@ -96,8 +96,6 @@ public class BoardAdapter implements IBoard {
     hexDirectionList.add(hd6);
 
     return hexDirectionList;
-
-
   }
 
   @Override

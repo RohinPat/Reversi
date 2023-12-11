@@ -10,9 +10,9 @@ import model.Disc;
 public interface ControllerFeatures {
 
   /**
-   * Confirms a move in the Reversi game. This method takes in the q,r axial coordinates of the.
-   * selected hexagon and then attempts to carry out a move to that coordinate. Passes through.
-   * Checks to make the move is legal.
+   * Confirms a move in the Reversi game. This method takes in the coordinates of the.
+   * selected shape (Hexagon or Square depending on the game) and then attempts to carry out a move.
+   * to that coordinate. Passes through and checks to make sure the move is legal.
    */
   void confirmMove(int q, int r);
 
@@ -56,7 +56,8 @@ public interface ControllerFeatures {
    * Handles actions required in the view when the turn changes from one player to another.
    * This method updates the view to reflect the new active player, indicated by the 'disc'
    * parameter.
-   * It can trigger updating turn-related information displayed on the view.
+   * It can trigger updating turn-related information displayed on the view and also be used.
+   * TO notify the AI to make a move when it is the AI's turn.
    * @param disc The disc color (BLACK or WHITE) of the player whose turn is starting.
    */
   void handleTurnChange(Disc disc);
