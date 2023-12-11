@@ -1,76 +1,89 @@
 package model;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import controller.ControllerFeatures;
 
-/**
- * Represents the game board for a hexagonal grid-based game.
- */
-public class BoardMock extends AbstractModel {
-  protected final HashMap<String, Integer> compassQ = new HashMap<>();
-  // used to represent all the changes in the Q coordinate to check capture
-  // outcomes in the different capturing directions
+public class SquareBoardMock extends AbstractModel{
 
-  protected final HashMap<String, Integer> compassR = new HashMap<>();
-  // used to represent all the changes in the R coordinate to check capture
+  protected final HashMap<String, Integer> compassX = new HashMap<>();
+  // used to represent all the changes in the X coordinate to check capture
+  // outcomes in the different capturing directions
+  protected final HashMap<String, Integer> compassY = new HashMap<>();
+  // used to represent all the changes in the Y coordinate to check capture
   // outcomes in the different capturing directions
 
   protected StringBuilder log;
 
+
   /**
-   * Initializes a new game board of the specified size.
+   * Initializes a new square game board of the specified size.
    *
    * @param size The size of the board.
    */
-  public BoardMock(int size) {
+  public SquareBoardMock(int size){
     super(size);
-    if (size <= 0) {
-      throw new IllegalArgumentException("Size must be positive");
+    if (size <= 0 || size % 2 != 0){
+      throw new IllegalArgumentException("Board size must be positive and even");
     }
-    compassQ.put("east", 1);
-    compassQ.put("west", -1);
-    compassQ.put("ne", 1);
-    compassQ.put("nw", 0);
-    compassQ.put("se", 0);
-    compassQ.put("sw", -1);
-    compassR.put("east", 0);
-    compassR.put("west", 0);
-    compassR.put("ne", -1);
-    compassR.put("nw", -1);
-    compassR.put("se", 1);
-    compassR.put("sw", 1);
+    compassX.put("left", -1);
+    compassX.put("right", 1);
+    compassX.put("up", 0);
+    compassX.put("down", 0);
+    compassX.put("ne", 1);
+    compassX.put("nw", -1);
+    compassX.put("se", 1);
+    compassX.put("sw", -1);
+
+
+    compassY.put("left", 0);
+    compassY.put("right", 0);
+    compassY.put("up", -1);
+    compassY.put("down", 1);
+    compassY.put("ne", -1);
+    compassY.put("nw", -1);
+    compassY.put("se", 1);
+    compassY.put("sw", 1);
     playGame();
+    log = new StringBuilder();
   }
 
   /**
-   * Initializes a new game board of the specified size, and overwrites the board using a.
-   * Given map of disc placements.
+   * Initializes a new square game board of the specified size, and overwrites the board using a.
+   * Given map of disc placements. Useful for creating deep copies for trying moves on the.
+   * current gamestate without actually mutuating the main model.
    *
    * @param size       The size of the board.
    * @param grid1      The hashmap of discs to be overwritten onto the old grid.
    * @param whoseTuren The turn that's to be instantiated in the new game.
    */
-  public BoardMock(int size, HashMap<Position, Cell> grid1, Turn whoseTuren) {
+  public SquareBoardMock(int size, HashMap<Position, Cell> grid1, Turn whoseTuren) {
     super(size);
-    if (size <= 0) {
-      throw new IllegalArgumentException("Size must be positive");
+    if (size <= 0 || size % 2 != 0){
+      throw new IllegalArgumentException("Board size must be positive and even");
     }
     this.whoseTurn = whoseTuren;
-    compassQ.put("east", 1);
-    compassQ.put("west", -1);
-    compassQ.put("ne", 1);
-    compassQ.put("nw", 0);
-    compassQ.put("se", 0);
-    compassQ.put("sw", -1);
-    compassR.put("east", 0);
-    compassR.put("west", 0);
-    compassR.put("ne", -1);
-    compassR.put("nw", -1);
-    compassR.put("se", 1);
-    compassR.put("sw", 1);
+    compassX.put("left", -1);
+    compassX.put("right", 1);
+    compassX.put("up", 0);
+    compassX.put("down", 0);
+    compassX.put("ne", 1);
+    compassX.put("nw", -1);
+    compassX.put("se", 1);
+    compassX.put("sw", -1);
+
+
+    compassY.put("left", 0);
+    compassY.put("right", 0);
+    compassY.put("up", -1);
+    compassY.put("down", 1);
+    compassY.put("ne", -1);
+    compassY.put("nw", -1);
+    compassY.put("se", 1);
+    compassY.put("sw", 1);
+    log = new StringBuilder();
     playGame();
     for (Position coord : grid1.keySet()) {
       Cell originalCell = grid1.get(coord);
@@ -80,33 +93,25 @@ public class BoardMock extends AbstractModel {
   }
 
   /**
-   * Sets up the game board, initializes the grid, and places the starting pieces for a hexagonal.
-   * Game of reversi.
+   * Sets up the game board, initializes the grid, and places the starting pieces for a square.
+   * Game of reversi - primarily differs in the way the board is setup + where the starting pieces.
+   * are placed.
    */
   private void playGame() {
     if (gameState == GameState.PRE) {
       gameState = GameState.INPROGRESS;
 
-      // this first loop sets up the first half of rows not including the middle row
-      for (int upperRow = 0; upperRow < size - 1; upperRow++) {
-        for (int index = -upperRow; index < size; index++) {
-          grid.put(new Coordinate(index, -(size - 1 - upperRow)), new Cell(Disc.EMPTY));
-        }
-      }
-      // this second loop sets up the rest of the rows INCLUDING the middle row - intializes every
-      // cell to be empty at first
-      for (int lowerRow = 0; lowerRow < size; lowerRow++) {
-        for (int index = -(size - 1); index < size - lowerRow; index++) {
-          grid.put(new Coordinate(index, lowerRow), new Cell(Disc.EMPTY));
+      for (int row = 0; row < size ; row++){
+        for (int column = 0; column < size; column++){
+          grid.put(new CartesianCoordinate(column, row), new Cell(Disc.EMPTY));
         }
       }
 
-      grid.put(new Coordinate(1, 0), new Cell(Disc.BLACK));
-      grid.put(new Coordinate(1, -1), new Cell(Disc.WHITE));
-      grid.put(new Coordinate(0, -1), new Cell(Disc.BLACK));
-      grid.put(new Coordinate(-1, 0), new Cell(Disc.WHITE));
-      grid.put(new Coordinate(-1, 1), new Cell(Disc.BLACK));
-      grid.put(new Coordinate(0, 1), new Cell(Disc.WHITE));
+
+      grid.put(new CartesianCoordinate(size/2 - 1, size/2 - 1), new Cell(Disc.BLACK)); // top left
+      grid.put(new CartesianCoordinate(size/2, size/2 - 1), new Cell(Disc.WHITE)); // top right
+      grid.put(new CartesianCoordinate(size/2, size/2), new Cell(Disc.BLACK)); // bottom right
+      grid.put(new CartesianCoordinate(size/2 - 1, size/2), new Cell(Disc.WHITE)); // bottom left
     } else {
       throw new IllegalStateException("A game has already been started");
     }
@@ -114,22 +119,24 @@ public class BoardMock extends AbstractModel {
     notifyObservers();
   }
 
+
   /**
    * Helper method to determine the captured pieces in a specific direction from the given.
-   * destination.
+   * destination. Kept seperate to use CartesianCoordinates as those are what are used in a.
+   * Square game - allows for proper .equals() and contains calls.
    *
    * @param dest The destination position to start capturing pieces from.
    * @param dir  The direction in which to capture pieces (e.g., "NE", "SW", etc.).
-   * @return An ArrayList containing the coordinates of the captured pieces, or an empty list if.
-   * no pieces are captured.
+   * @return An ArrayList containing the coordinates of the captured pieces, or an empty list.
+   * if no pieces are captured.
    */
   private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
-    Coordinate nextPiece = new Coordinate((dest.getFirstCoordinate() + compassQ.get(dir)),
-            (dest.getSecondCoordinate()
-            + compassR.get(dir)));
+    CartesianCoordinate nextPiece = new CartesianCoordinate((dest.getFirstCoordinate() +
+            compassX.get(dir)), (dest.getSecondCoordinate()
+            + compassY.get(dir)));
 
     if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor()) {
       while (grid.containsKey(nextPiece) && !endFound) {
@@ -138,9 +145,9 @@ public class BoardMock extends AbstractModel {
         } else {
           captured.add(nextPiece.getFirstCoordinate());
           captured.add(nextPiece.getSecondCoordinate());
-          nextPiece = new Coordinate((nextPiece.getFirstCoordinate() + compassQ.get(dir)),
+          nextPiece = new CartesianCoordinate((nextPiece.getFirstCoordinate() + compassX.get(dir)),
                   (nextPiece.getSecondCoordinate()
-                  + compassR.get(dir)));
+                          + compassY.get(dir)));
         }
       }
 
@@ -148,6 +155,7 @@ public class BoardMock extends AbstractModel {
         captured.clear();
         return captured;
       }
+
       ArrayList<Integer> capturedCopy = new ArrayList<>();
 
       for (Integer element : captured) {
@@ -156,9 +164,9 @@ public class BoardMock extends AbstractModel {
 
 
       while (!capturedCopy.isEmpty()) {
-        int q = capturedCopy.get(0);
-        int r = capturedCopy.get(1);
-        if (!grid.get(new Coordinate(q, r)).getContent().equals(this.oppositeColor())) {
+        int x = capturedCopy.get(0);
+        int y = capturedCopy.get(1);
+        if (!grid.get(new CartesianCoordinate(x, y)).getContent().equals(this.oppositeColor())) {
           validMove = false;
         }
         capturedCopy.remove(0);
@@ -179,25 +187,16 @@ public class BoardMock extends AbstractModel {
     }
   }
 
-  /**
-   * Attempts to make a move on the board by placing the current
-   * player's disc at the specified coordinate.
-   * The method validates the move, flips any captured opponent discs,
-   * and switches the turn to the next player.
-   *
-   * @param dest The target coordinate where the current player's disc should be placed.
-   * @throws IllegalArgumentException If the move is invalid, such as when the target
-   *                                  cell is already occupied or doesn't result in any opponent
-   *                                  disc captures.
-   */
+  @Override
+  // override as a square game the grid only holds CartesianCoordinates, so it must be
+  // specified when doing the contains and working with the game's map/grid.
   public void makeMove(Position dest) {
+    CartesianCoordinate dest1 = new CartesianCoordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate());
     if (gameState != GameState.PRE) {
-      if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(),
-              dest.getSecondCoordinate()))) {
+      if (!grid.keySet().contains(new CartesianCoordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
       }
-
-      if (grid.get(dest).getContent() != Disc.EMPTY) {
+      if (grid.get(dest1).getContent() != Disc.EMPTY) {
         throw new IllegalArgumentException("This space is already occupied");
       }
 
@@ -209,7 +208,7 @@ public class BoardMock extends AbstractModel {
       ArrayList<String> errors = new ArrayList<>();
       ArrayList<Integer> allcaptured = new ArrayList<>();
 
-      for (String direction : compassQ.keySet()) {
+      for (String direction : compassX.keySet()) {
         try {
           ArrayList<Integer> caught = this.moveHelper(dest, direction);
           allcaptured.addAll(caught);
@@ -235,6 +234,7 @@ public class BoardMock extends AbstractModel {
       }
       this.passTurn();
       this.consecPasses = 0;
+      log.append("Successful move at ").append(dest).append("\n");
     } else {
       throw new IllegalStateException("The game has not been started yet no move can be made");
     }
@@ -243,33 +243,151 @@ public class BoardMock extends AbstractModel {
     notifyTurnChange();
   }
 
-  /**
-   * Calculates the score change for a player after making a move on a Reversi game model.
-   * Doesn't account for current turn of the game - useful for the hints.
-   *
-   * @param model  The Reversi game model representing the current state of the game.
-   * @param move   The position where the player intends to make a move.
-   * @param player The player for whom the score change is calculated (Disc.BLACK or Disc.WHITE).
-   * @return The change in score for the specified player after making the move, or 0 if the move.
-   * is invalid.
-   */
-  public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player) {
+  @Override
+  // override as a square game the grid only holds CartesianCoordinates, so it must be
+  // specified when doing the contains
+
+  public void placeDisc(int q, int r, Disc disc) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      grid.get(new CartesianCoordinate(q, r)).setContent(disc);
+      log.append("Placed ").append(disc.toString()).append(" disc").append("\n");
+    } else {
+      throw new IllegalStateException("The game has not been started yet this cannot be done");
+    }
+  }
+
+  @Override
+  // override as a square game the grid only holds CartesianCoordinates, so it must be
+  // specified when doing the contains and working with the game's map/grid.
+  public Disc getDiscAt(int q, int r) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      log.append("Retrieved disc ");
+      return grid.get(new CartesianCoordinate(q, r)).getContent();
+    } else {
+      throw new IllegalStateException("The game has not been started yet this cannot be done");
+    }
+  }
+
+  @Override
+  // override as a square game the grid only holds CartesianCoordinates, so the possible moves must.
+  // maintain this same format for the AI strategies to implement effectively.
+  public ArrayList<Position> getPossibleMoves() {
+    ArrayList<Position> possibleMoves = new ArrayList<>();
+    for (int row = 0; row < size; row++) {
+      for (int column = 0; column < size; column++) {
+        if (isCellEmpty(column, row) && validMove(new CartesianCoordinate(column, row),
+                currentColor())) {
+          possibleMoves.add(new CartesianCoordinate(column, row));
+          log.append("Found possible move at " + column + " " + row).append("\n");
+        }
+      }
+    }
+    return possibleMoves;
+  }
+
+  @Override
+  // override as a square game the grid only holds CartesianCoordinates, and when creating deep.
+  // copies to test moves you need to do so on a Square copy.
+  public boolean validMove(Position coor, Disc currentTurn) {
+    boolean flag = true;
     Turn turn = null;
-    if (player.equals(Disc.BLACK)) {
+
+    if (currentColor().equals(Disc.BLACK)) {
       turn = Turn.BLACK;
     } else {
       turn = Turn.WHITE;
     }
-    Board copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
+    SquareBoard copy = new SquareBoard(getSize(), createCopyOfBoard(), turn);
+
+    try {
+      copy.makeMove(coor);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
+  }
+
+  @Override
+  // override as a square game the grid only holds CartesianCoordinates, so it must be
+  // specified when doing the contains and working with the game's map/grid.
+  public boolean isCellEmpty(int q, int r) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      return grid.get(new CartesianCoordinate(q, r)).getContent() == Disc.EMPTY;
+    } else {
+      throw new IllegalStateException("The game has not been started this cannot be checked");
+    }
+  }
+
+  /**
+   * Calculates the score change for a player after making a move on a Reversi game model.
+   * Note: This method is not used with a square board as there is no hint functionality,
+   * so this method isn't used in that context.
+   *
+   * @param model  The Reversi game model representing the current state of the game.
+   * @param move   The position where the player intends to make a move.
+   * @param player The player for whom the score change is calculated (Disc.BLACK or Disc.WHITE).
+   * @return The change in score for the specified player after making the move, or 0 if the move is invalid.
+   */
+  public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player){
+    return 0;
+  }
+
+  @Override
+  // override as a square game the grid only holds CartesianCoordinates, and when creating deep.
+  // copies to test moves you need to do so on a Square copy.
+  public int checkMove(ReversiReadOnly model, Position move) {
+    Turn turn = null;
+    if (model.currentColor().equals(Disc.BLACK)) {
+      turn = Turn.BLACK;
+    } else {
+      turn = Turn.WHITE;
+    }
+    SquareBoard copy = new SquareBoard(model.getSize(), model.createCopyOfBoard(), turn);
     int score = 0;
-    int oldScore = copy.getScore(player);
+    int oldScore = copy.getScore(model.currentColor());
     try {
       copy.makeMove(move);
-      score = copy.getScore(player) - oldScore - 1;
+      score = copy.getScore(model.currentColor()) - oldScore - 1;
       return score;
     } catch (IllegalArgumentException e) {
-      return 0;
+      throw new IllegalArgumentException(e);
     }
+  }
+
+  @Override
+  // override as a square game the grid only holds CartesianCoordinates, and when creating deep.
+  // copies to test moves you need to do so on a Square copy.
+  protected boolean hasValidMoves(Disc playerDisc) {
+    log.append("Checking for valid moves for " + playerDisc.toString() + "\n");
+    Turn current;
+    if (playerDisc.equals(Disc.BLACK)) {
+      current = Turn.BLACK;
+    } else {
+      current = Turn.WHITE;
+    }
+    for (Position coord : grid.keySet()) {
+      SquareBoard dupe = new SquareBoard(size, this.createCopyOfBoard(), current);
+      if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
+        try {
+          dupe.makeMove(coord);
+          log.append("Valid moves were found "+ "\n");
+          return true;
+        } catch (IllegalArgumentException e) {
+          // Ignore and continue checking other moves
+        }
+      }
+    }
+    log.append("No Valid moves were found "+ "\n");
+    return false;
   }
 
   /**
@@ -280,6 +398,7 @@ public class BoardMock extends AbstractModel {
    */
   @Override
   public Map<Position, Cell> getMap() {
+    log.append("Grid was retrived \n");
     return grid;
   }
 
@@ -310,6 +429,7 @@ public class BoardMock extends AbstractModel {
    */
   @Override
   public void addObserver(ControllerFeatures controller) {
+    log.append("Controller added to observer catalog \n");
     observers.add(controller);
   }
 
@@ -323,6 +443,8 @@ public class BoardMock extends AbstractModel {
   public void notifyObservers() {
     for (ControllerFeatures controller : observers) {
       controller.updateView();
+      log.append("A controller was notified \n");
+
     }
   }
 
@@ -337,6 +459,7 @@ public class BoardMock extends AbstractModel {
   public void notifyTurnChange() {
     for (ControllerFeatures controller : observers) {
       controller.handleTurnChange(currentColor());
+      log.append("A controller was notified of a turn change \n");
     }
   }
 
@@ -350,8 +473,10 @@ public class BoardMock extends AbstractModel {
     if (gameState != GameState.PRE) {
       if (whoseTurn == Turn.BLACK) {
         whoseTurn = Turn.WHITE;
+        log.append("Turn was passed to White \n");
       } else {
         whoseTurn = Turn.BLACK;
+        log.append("Turn was passed to Black \n");
       }
       consecPasses += 1;
     } else {
@@ -372,36 +497,6 @@ public class BoardMock extends AbstractModel {
   @Override
   public int getSize() {
     return size;
-  }
-
-  /**
-   * Checks if the specified player has any valid moves available on the board.
-   * This method creates a copy of the current game board and iterates through
-   * all possible moves to determine if at least one valid move exists for the player.
-   *
-   * @param playerDisc The {@link Disc} representing the player to check for valid moves.
-   * @return True if there are valid moves available for the player, false otherwise.
-   */
-  @Override
-  protected boolean hasValidMoves(Disc playerDisc) {
-    Turn current;
-    if (playerDisc.equals(Disc.BLACK)) {
-      current = Turn.BLACK;
-    } else {
-      current = Turn.WHITE;
-    }
-    for (Position coord : grid.keySet()) {
-      Board dupe = new Board(size, this.createCopyOfBoard(), current);
-      if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
-        try {
-          dupe.makeMove(coord);
-          return true;
-        } catch (IllegalArgumentException e) {
-          // Ignore and continue checking other moves
-        }
-      }
-    }
-    return false;
   }
 
   /**
@@ -430,12 +525,14 @@ public class BoardMock extends AbstractModel {
    */
   @Override
   public boolean isGameOver() {
+    log.append("Game over being checked \n");
     if (gameState == GameState.PRE) {
       throw new IllegalStateException("The game has not been started this cannot be checked");
     }
     // Check for consecutive passes
     if (consecPasses == 2) {
       whoWins();
+      log.append("Game is over \n");
       return true;
     }
 
@@ -448,11 +545,13 @@ public class BoardMock extends AbstractModel {
     }
     if (allCellsFilled) {
       whoWins();
+      log.append("Game is over \n");
       return true;
     }
 
     if (getScore(Disc.BLACK) == 0 || getScore(Disc.WHITE) == 0){
       whoWins();
+      log.append("Game is over \n");
       return true;
     }
 
@@ -462,9 +561,11 @@ public class BoardMock extends AbstractModel {
 
     if (!player1 && !player2) {
       whoWins();
+      log.append("Game is over \n");
       return true;
     }
 
+    log.append("Game was not over \n");
     return false;
   }
 
@@ -485,60 +586,6 @@ public class BoardMock extends AbstractModel {
   }
 
   /**
-   * Returns a list of all possible moves for the current player.
-   *
-   * @return A list of all possible moves for the current player.
-   */
-  @Override
-  public ArrayList<Position> getPossibleMoves() {
-    ArrayList<Position> possibleMoves = new ArrayList<>();
-    Board og = new Board(size, createCopyOfBoard(), whoseTurn);
-    for (Position coord : grid.keySet()) {
-      if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
-        try {
-          Board og1 = new Board(size, og.createCopyOfBoard(), whoseTurn);
-          og1.makeMove(coord);
-          possibleMoves.add(coord);
-        } catch (IllegalArgumentException e) {
-          // Ignore and continue checking other moves
-        }
-      }
-    }
-    return possibleMoves;
-  }
-
-  /**
-   * Evaluates and returns the change in score after a hypothetical move.
-   * This method simulates making a move on a copy of the current game board
-   * and calculates the change in resulting score from before the move is made.
-   * It's useful for strategy and AI decision-making as well as for hint feature.
-   * If the move is invalid, it returns 0.
-   *
-   * @param model The {@link ReversiReadOnly} game model representing the current state.
-   * @param move  The {@link Coordinate} representing the move to be evaluated.
-   * @return The change in score after making the move.
-   */
-  @Override
-  public int checkMove(ReversiReadOnly model, Position move) {
-    Turn turn = null;
-    if (model.currentColor().equals(Disc.BLACK)) {
-      turn = Turn.BLACK;
-    } else {
-      turn = Turn.WHITE;
-    }
-    Board copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
-    int score = 0;
-    int oldScore = copy.getScore(model.currentColor());
-    try {
-      copy.makeMove(move);
-      score = copy.getScore(model.currentColor()) - oldScore - 1;
-      return score;
-    } catch (IllegalArgumentException e) {
-      return 0;
-    }
-  }
-
-  /**
    * Creates a deep copy of the board's map which contains all board positions.
    *
    * @return A deep copy of the board.
@@ -551,6 +598,7 @@ public class BoardMock extends AbstractModel {
       Cell newCell = new Cell(originalCell.getContent());
       copy.put(coord, newCell);
     }
+    log.append("Deep copy of board was made \n");
     return copy;
   }
 
@@ -564,33 +612,6 @@ public class BoardMock extends AbstractModel {
     return this.gameState;
   }
 
-  /**
-   * Determines if a move is valid in the current game state.
-   * This method creates a copy of the current game board and attempts
-   * to make the specified move. If the move is successfully made without
-   * throwing an exception, the move is considered valid.
-   *
-   * @param coor        The {@link Position} where the move is to be made.
-   * @param currentTurn The {@link Disc} representing the player making the move.
-   * @return True if the move is valid, false otherwise.
-   */
-  @Override
-  public boolean validMove(Position coor, Disc currentTurn) {
-    Turn turn = null;
-
-    if (currentColor().equals(Disc.BLACK)) {
-      turn = Turn.BLACK;
-    } else {
-      turn = Turn.WHITE;
-    }
-    Board copy = new Board(getSize(), createCopyOfBoard(), turn);
-    try {
-      copy.makeMove(coor);
-      return true;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
-  }
 
   /**
    * Returns the color of the disc of the opponent player.
@@ -611,68 +632,6 @@ public class BoardMock extends AbstractModel {
   }
 
   /**
-   * Places a disc at the specified cell coordinates.
-   *
-   * @param q    The first coordinate of the cell.
-   * @param r    The second coordinate of the cell.
-   * @param disc The disc to be placed.
-   * @throws IllegalArgumentException If the cell doesn't exist in the grid.
-   */
-  @Override
-  public void placeDisc(int q, int r, Disc disc) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      grid.get(new Coordinate(q, r)).setContent(disc);
-    } else {
-      throw new IllegalStateException("The game has not been started yet this cannot be done");
-    }
-  }
-
-  /**
-   * Retrieves the Disc at the specified coordinates on the Reversi game board.
-   *
-   * @param q The first coordinate (column) of the cell.
-   * @param r The second coordinate (row) of the cell.
-   * @return The Disc (Disc.BLACK, Disc.WHITE, or Disc.EMPTY) at the specified coordinates.
-   * @throws IllegalArgumentException if the provided coordinates are invalid.
-   * @throws IllegalStateException    if the game has not been started yet.
-   */
-  @Override
-  public Disc getDiscAt(int q, int r) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      return grid.get(new Coordinate(q, r)).getContent();
-    } else {
-      throw new IllegalStateException("The game has not been started yet this cannot be done");
-    }
-  }
-
-  /**
-   * Checks if the cell at the specified coordinates on the Reversi game board is empty.
-   *
-   * @param q The first coordinate (column) of the cell.
-   * @param r The second coordinate (row) of the cell.
-   * @return True if the cell at the specified coordinates is empty (Disc.EMPTY), false otherwise.
-   * @throws IllegalArgumentException if the provided coordinates are invalid.
-   * @throws IllegalStateException    if the game has not been started yet.
-   */
-  @Override
-  public boolean isCellEmpty(int q, int r) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
-    } else {
-      throw new IllegalStateException("The game has not been started this cannot be checked");
-    }
-  }
-
-  /**
    * Helps in the creation of an output log to ensure code runs as expected, and we can see the.
    * finer details of the AI decisions
    * @return the string output of the log of actions
@@ -680,6 +639,4 @@ public class BoardMock extends AbstractModel {
   public String getLog(){
     return log.toString();
   }
-
 }
-

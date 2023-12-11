@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -5,9 +6,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import controller.aistrat.CaptureMost;
+import model.BoardMock;
 import model.Coordinate;
+import model.Disc;
+import model.Position;
 import model.Reversi;
 import model.SquareBoard;
+import model.SquareBoardMock;
 import view.SquareBoardRenderer;
 
 public class SquareReversiTests {
@@ -89,5 +95,189 @@ public class SquareReversiTests {
     assertFalse(newBoard.isGameOver());
   }
 
+  @Test
+  public void testCaptureMostOnSquare(){
+    SquareBoardMock board = new SquareBoardMock(4);
+    CaptureMost cm = new CaptureMost();
+
+    Position c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.BLACK);
+    board.makeMove(c);
+
+    c = cm.chooseMove(board, Disc.WHITE);
+    board.makeMove(c);
+
+    assertEquals(board.getLog().toString(),
+            "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 2 0\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 1\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 2\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 1 3\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Placed BLACK disc\n" +
+                    "Placed BLACK disc\n" +
+                    "Turn was passed to White \n" +
+                    "Successful move at X2Y0\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 1 0\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 0\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 2\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Placed WHITE disc\n" +
+                    "Placed WHITE disc\n" +
+                    "Turn was passed to Black \n" +
+                    "Successful move at X1Y0\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 0\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 1\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 2\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 3\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Placed BLACK disc\n" +
+                    "Placed BLACK disc\n" +
+                    "Placed BLACK disc\n" +
+                    "Placed BLACK disc\n" +
+                    "Turn was passed to White \n" +
+                    "Successful move at X0Y0\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 0\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 2\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Placed WHITE disc\n" +
+                    "Placed WHITE disc\n" +
+                    "Turn was passed to Black \n" +
+                    "Successful move at X3Y0\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 1\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 2\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 2\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 1 3\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Placed BLACK disc\n" +
+                    "Placed BLACK disc\n" +
+                    "Turn was passed to White \n" +
+                    "Successful move at X3Y1\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 2\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Placed WHITE disc\n" +
+                    "Placed WHITE disc\n" +
+                    "Placed WHITE disc\n" +
+                    "Placed WHITE disc\n" +
+                    "Turn was passed to Black \n" +
+                    "Successful move at X3Y2\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 3\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 1 3\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 2 3\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 3 3\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Placed BLACK disc\n" +
+                    "Placed BLACK disc\n" +
+                    "Turn was passed to White \n" +
+                    "Successful move at X0Y3\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 1\n" +
+                    "Deep copy of board was made \n" +
+                    "Found possible move at 0 2\n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Deep copy of board was made \n" +
+                    "Placed WHITE disc\n" +
+                    "Placed WHITE disc\n" +
+                    "Placed WHITE disc\n" +
+                    "Turn was passed to Black \n" +
+                    "Successful move at X0Y1\n");
+  }
 
 }
