@@ -199,7 +199,7 @@ public final class ReversiMain {
   private static ReversiStratagy getStrat(ArrayList<String> strats) {
     ArrayList<String> listOfStrats = strats;
     int numOfStrats = strats.size();
-    ReversiStratagy finalStrat = new CaptureMost();
+    ReversiStratagy finalStrat = null;
     ReversiStratagy captureCorners = new CaptureCorners();
     ReversiStratagy captureMost = new CaptureMost();
     ReversiStratagy avoidCorners = new AvoidCorners();
@@ -235,6 +235,12 @@ public final class ReversiMain {
       }
     }
     while (listOfStrats.size() > 0) {
+      if (finalStrat == null) {
+        ArrayList<String> first = new ArrayList<>();
+        first.add(strats.get(0));
+        finalStrat = getStrat(first);
+        strats.remove(0);
+      }
       if (strats.get(0).equals("capturecorners")) {
         finalStrat = new TryTwo(finalStrat, captureCorners);
       } else if (strats.get(0).equals("capturemost")) {
@@ -255,33 +261,6 @@ public final class ReversiMain {
       }
       listOfStrats.remove(0);
     }
-
     return finalStrat;
   }
 }
-
-
-/*
-Reversi newBoard = new SquareBoard(6);
-
-    Player player1 = new HumanPlayer(Disc.BLACK);
-    SquareReversiFrame frame = new SquareReversiFrame(newBoard);
-    IBoardPanel viewPanel = frame.getBoardPanel();
-    ControllerFeatures controller1 = new ReversiController(newBoard, viewPanel, player1);
-    newBoard.addObserver(controller1);
-    viewPanel.setController(controller1);
-
-    Player player2 = new AIPlayer(Disc.WHITE, new TryTwo(new AvoidCorners(), new CaptureMost()));
-    SquareReversiFrame frame2 = new SquareReversiFrame(newBoard);
-    IBoardPanel viewPanel2 = frame2.getBoardPanel();
-    ControllerFeatures controller2 = new ReversiController(newBoard, viewPanel2, player2);
-    newBoard.addObserver(controller2);
-    viewPanel2.setController(controller2);
-
-    frame.makeVisible(true);
-    System.out.println("View turned on");
-    frame2.makeVisible(true);
-    System.out.println("View turned on");
-
-    controller2.updateView();
- */
