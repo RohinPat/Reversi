@@ -52,7 +52,8 @@ public class HumanPlayer implements Player {
   }
 
   @Override
-  public void passTurn() {
+  public void passTurn(Reversi model) {
+    model.passTurn();
     // unused but needs to be overwritten
   }
 }

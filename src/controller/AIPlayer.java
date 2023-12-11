@@ -72,7 +72,8 @@ public class AIPlayer implements Player {
   }
 
   @Override
-  public void passTurn() {
+  public void passTurn(Reversi model) {
+    model.passTurn();
     // we left it blank as our makeAMove method handles the passing as well by returning a
     // special output that is read and understood as a pass (it is because our AI's only return
     // coordinates)

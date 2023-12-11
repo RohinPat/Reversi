@@ -39,6 +39,6 @@ public interface Player {
    * Passes the player's turn in the Reversi game. This method is called when a player chooses
    * to pass their turn instead of making a move.
    */
-  void passTurn();
+  void passTurn(Reversi model);
 
 }
