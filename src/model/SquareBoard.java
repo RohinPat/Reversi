@@ -42,6 +42,38 @@ public class SquareBoard extends AbstractModel{
     playGame();
   }
 
+  public SquareBoard(int size, HashMap<Position, Cell> grid1, Turn whoseTuren) {
+    super(size);
+    if (size <= 0 || size % 2 != 0){
+      throw new IllegalArgumentException("Board size must be positive and even");
+    }
+    this.whoseTurn = whoseTuren;
+    compassX.put("left", -1);
+    compassX.put("right", 1);
+    compassX.put("up", 0);
+    compassX.put("down", 0);
+    compassX.put("ne", 1);
+    compassX.put("nw", -1);
+    compassX.put("se", 1);
+    compassX.put("sw", -1);
+
+
+    compassY.put("left", 0);
+    compassY.put("right", 0);
+    compassY.put("up", -1);
+    compassY.put("down", 1);
+    compassY.put("ne", -1);
+    compassY.put("nw", -1);
+    compassY.put("se", 1);
+    compassY.put("sw", 1);
+    playGame();
+    for (Position coord : grid1.keySet()) {
+      Cell originalCell = grid1.get(coord);
+      Cell newCell = new Cell(originalCell.getContent());
+      this.grid.put(coord, newCell);
+    }
+  }
+
   private void playGame() {
     if (gameState == GameState.PRE) {
       gameState = GameState.INPROGRESS;
@@ -63,6 +95,7 @@ public class SquareBoard extends AbstractModel{
 
     notifyObservers();
   }
+
 
   private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
@@ -126,8 +159,6 @@ public class SquareBoard extends AbstractModel{
       if (!grid.keySet().contains(new CartesianCoordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
       }
-
-      System.out.println(dest1);
       if (grid.get(dest1).getContent() != Disc.EMPTY) {
         throw new IllegalArgumentException("This space is already occupied");
       }
@@ -174,6 +205,7 @@ public class SquareBoard extends AbstractModel{
     notifyTurnChange();
   }
 
+  @Override
   public void placeDisc(int q, int r, Disc disc) {
     if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
@@ -185,6 +217,7 @@ public class SquareBoard extends AbstractModel{
     }
   }
 
+  @Override
   public Disc getDiscAt(int q, int r) {
     if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
@@ -196,6 +229,40 @@ public class SquareBoard extends AbstractModel{
     }
   }
 
+  @Override
+  public ArrayList<Position> getPossibleMoves() {
+    ArrayList<Position> possibleMoves = new ArrayList<>();
+    for (int row = 0; row < size; row++) {
+      for (int column = 0; column < size; column++) {
+        if (isCellEmpty(column, row) && validMove(new CartesianCoordinate(column, row), currentColor())) {
+          possibleMoves.add(new CartesianCoordinate(column, row));
+        }
+      }
+    }
+    return possibleMoves;
+  }
+
+  @Override
+  public boolean validMove(Position coor, Disc currentTurn) {
+    boolean flag = true;
+    Turn turn = null;
+
+    if (currentColor().equals(Disc.BLACK)) {
+      turn = Turn.BLACK;
+    } else {
+      turn = Turn.WHITE;
+    }
+    SquareBoard copy = new SquareBoard(getSize(), createCopyOfBoard(), turn);
+
+    try {
+      copy.makeMove(coor);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
+  }
+
+  @Override
   public boolean isCellEmpty(int q, int r) {
     if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
@@ -207,8 +274,39 @@ public class SquareBoard extends AbstractModel{
     }
   }
 
+  @Override
+  public HashMap<Position, Cell> createCopyOfBoard() {
+    HashMap<Position, Cell> copy = new HashMap<Position, Cell>();
+    for (Position coord : grid.keySet()) {
+      Cell originalCell = grid.get(coord);
+      Cell newCell = new Cell(originalCell.getContent());
+      copy.put(coord, newCell);
+    }
+    return copy;
+  }
+
   public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player){
     return 0;
+  }
+
+  @Override
+  public int checkMove(ReversiReadOnly model, Position move) {
+    Turn turn = null;
+    if (model.currentColor().equals(Disc.BLACK)) {
+      turn = Turn.BLACK;
+    } else {
+      turn = Turn.WHITE;
+    }
+    SquareBoard copy = new SquareBoard(model.getSize(), model.createCopyOfBoard(), turn);
+    int score = 0;
+    int oldScore = copy.getScore(model.currentColor());
+    try {
+      copy.makeMove(move);
+      score = copy.getScore(model.currentColor()) - oldScore - 1;
+      return score;
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(e);
+    }
   }
 
 }

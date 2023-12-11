@@ -42,6 +42,7 @@ public class CaptureMost implements ReversiStratagy {
    */
   protected Position chooseMoveHelper(ReversiReadOnly model, Disc turn,
                                         ArrayList<Position> possibleMoves) {
+
     int max = 0;
     Position maxMove = null;
     Turn t = null;
@@ -51,6 +52,7 @@ public class CaptureMost implements ReversiStratagy {
       t = Turn.WHITE;
     }
     for (Position move : possibleMoves) {
+      // SAFE TILL HERE
       int score = model.checkMove(model, move);
       if (score > max) {
         max = score;
