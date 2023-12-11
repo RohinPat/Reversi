@@ -87,7 +87,7 @@ public class Board extends AbstractModel {
    * @param grid1      The hashmap of discs to be overwritten onto the old grid.
    * @param whoseTuren The turn that's to be instantiated in the new game.
    */
-  public Board(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
+  public Board(int size, HashMap<Position, Cell> grid1, Turn whoseTuren) {
     super(size);
     if (size <= 0) {
       throw new IllegalArgumentException("Size must be positive");
@@ -106,7 +106,7 @@ public class Board extends AbstractModel {
     compassR.put("se", 1);
     compassR.put("sw", 1);
     playGame();
-    for (Coordinate coord : grid1.keySet()) {
+    for (Position coord : grid1.keySet()) {
       Cell originalCell = grid1.get(coord);
       Cell newCell = new Cell(originalCell.getContent());
       this.grid.put(coord, newCell);
@@ -147,7 +147,7 @@ public class Board extends AbstractModel {
     notifyObservers();
   }
 
-  private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
+  private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
@@ -212,7 +212,7 @@ public class Board extends AbstractModel {
    *                                  cell is already occupied or doesn't result in any opponent
    *                                  disc captures.
    */
-  public void makeMove(Coordinate dest) {
+  public void makeMove(Position dest) {
     if (gameState != GameState.PRE) {
       if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
@@ -264,7 +264,7 @@ public class Board extends AbstractModel {
     notifyTurnChange();
   }
 
-  public int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player){
+  public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player){
     Turn turn = null;
     if (player.equals(Disc.BLACK)) {
       turn = Turn.BLACK;
@@ -280,6 +280,39 @@ public class Board extends AbstractModel {
       return score;
     } catch (IllegalArgumentException e) {
       return 0;
+    }
+  }
+
+  public void placeDisc(int q, int r, Disc disc) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      grid.get(new Coordinate(q, r)).setContent(disc);
+    } else {
+      throw new IllegalStateException("The game has not been started yet this cannot be done");
+    }
+  }
+
+  public Disc getDiscAt(int q, int r) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      return grid.get(new Coordinate(q, r)).getContent();
+    } else {
+      throw new IllegalStateException("The game has not been started yet this cannot be done");
+    }
+  }
+
+  public boolean isCellEmpty(int q, int r) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
+    } else {
+      throw new IllegalStateException("The game has not been started this cannot be checked");
     }
   }
 

@@ -39,7 +39,6 @@ public final class ReversiMain {
    * Used to initialize the frame based on the given board.
    */
   public static void main(String[] args) {
-/*
     Reversi newBoard = new SquareBoard(10);
 
     Player player1 = new HumanPlayer(Disc.BLACK);
@@ -49,7 +48,7 @@ public final class ReversiMain {
     newBoard.addObserver(controller1);
     viewPanel.setController(controller1);
 
-    Player player2 = new AIPlayer(Disc.WHITE, new MostPointsGainedStrategy());
+    Player player2 = new HumanPlayer(Disc.WHITE);
     IFrame frame2 = new SquareReversiFrame(newBoard);
     IBoardPanel viewPanel2 = frame2.getBoardPanel();
     ControllerFeatures controller2 = new ReversiController(newBoard, viewPanel2, player2);
@@ -62,10 +61,11 @@ public final class ReversiMain {
     controller2.updateView();
   }
 }
- */
 
 
 
+
+/*
 
 
     Board b1 = null;
@@ -154,14 +154,16 @@ public final class ReversiMain {
 
 
 
-      /*
+      */
+/*
       ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
       ViewAdapter v2 = new ViewAdapter(rev2);
       controller2 = new ReversiController(b1, v2, p2);
       b1.addObserver(controller2);
       v2.setController(controller2);
       v2.setVisible(true);
-      */
+      *//*
+
 
 
 
@@ -178,7 +180,8 @@ public final class ReversiMain {
   }
 
 
-  /**
+  */
+/**
    * Parses command-line arguments to set up the game strategy for a Reversi game.
    * This method maps strings representing strategy names to their corresponding strategy objects.
    * It supports both single and multiple strategies. In the case of multiple strategies,
@@ -189,7 +192,8 @@ public final class ReversiMain {
    * @param strats An ArrayList of strings representing the names of strategies.
    * @return ReversiStrategy The final composed strategy based on the input list,
    * or null if an invalid strategy name is encountered.
-   **/
+   **//*
+
 
   // 5 capturemost fallibleinfalliblepair(new Capture Corners, new Most)
   private static ReversiStratagy getStrat(ArrayList<String> strats) {
@@ -253,4 +257,4 @@ public final class ReversiMain {
     }
     return finalStrat;
   }
-}
+}*/

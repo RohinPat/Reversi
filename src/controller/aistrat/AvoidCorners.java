@@ -27,12 +27,12 @@ public class AvoidCorners implements ReversiStratagy {
    * @return The selected for the next move, avoiding corners.
    */
   @Override
-  public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
+  public Position chooseMove(ReversiReadOnly model, Disc turn) {
     CaptureMost cm = new CaptureMost();
     int size = model.getSize();
-    ArrayList<Coordinate> possibleMoves = model.getPossibleMoves();
-    ArrayList<Coordinate> returnCopy = model.getPossibleMoves();
-    for (Coordinate c : possibleMoves) {
+    ArrayList<Position> possibleMoves = model.getPossibleMoves();
+    ArrayList<Position> returnCopy = model.getPossibleMoves();
+    for (Position c : possibleMoves) {
       System.out.println("tism");
       if (this.isSpotToAvoid(c, size)) {
         System.out.println("Remooved");

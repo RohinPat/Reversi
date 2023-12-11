@@ -10,6 +10,7 @@ import model.Cell;
 import model.Coordinate;
 import model.Disc;
 import model.Coordinate;
+import model.Position;
 import model.Reversi;
 import model.Turn;
 import provider.model.HexCoord;
@@ -46,9 +47,9 @@ public class BoardAdapter implements IBoard {
 
   @Override
   public Map<HexCoord, HexagonTile> getMap() {
-    Map<Coordinate, Cell> map = currentBoard.getMap();
+    Map<Position, Cell> map = currentBoard.getMap();
     Map<HexCoord, HexagonTile> outputMap = new HashMap<>();
-    for (Coordinate coord : map.keySet()) {
+    for (Position coord : map.keySet()) {
       PlayerOwnership ownership = null;
       if (map.get(coord).getContent().equals(Disc.BLACK)) {
         ownership = PlayerOwnership.PLAYER_1;
@@ -59,7 +60,8 @@ public class BoardAdapter implements IBoard {
       } else {
         throw new IllegalArgumentException("Invalid disc");
       }
-      outputMap.put(new HexCoord(coord.getFirstCoordinate(), coord.getSecondCoordinate(), coord.getS()),
+      Coordinate tempCoor = (Coordinate)coord;
+      outputMap.put(new HexCoord(coord.getFirstCoordinate(), coord.getSecondCoordinate(), tempCoor.getS()),
               new HexagonTile(ownership));
     }
 
@@ -102,8 +104,8 @@ public class BoardAdapter implements IBoard {
   @Override
   public IBoard clone() {
     // Create a deep copy of the Reversi board
-    HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
-    for (Coordinate coor : currentBoard.getMap().keySet()) {
+    HashMap<Position, Cell> boardCopy = new HashMap<>();
+    for (Position coor : currentBoard.getMap().keySet()) {
       boardCopy.put(new Coordinate(coor.getFirstCoordinate(), coor.getSecondCoordinate()),
               new Cell(currentBoard.getMap().get(coor).getContent()));
     }

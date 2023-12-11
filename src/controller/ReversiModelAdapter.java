@@ -7,6 +7,7 @@ import model.Cell;
 import model.Coordinate;
 import model.Disc;
 import model.Coordinate;
+import model.Position;
 import model.Reversi;
 import model.Turn;
 import provider.model.HexCoord;
@@ -98,8 +99,8 @@ public class ReversiModelAdapter implements ReversiReadOnlyModel {
   @Override
   public ReversiMutableModel cloneModel() {
     // Create a deep copy of the Reversi board
-    HashMap<Coordinate, Cell> boardCopy = new HashMap<>();
-    for (Coordinate coor : currentModel.getMap().keySet()) {
+    HashMap<Position, Cell> boardCopy = new HashMap<>();
+    for (Position coor : currentModel.getMap().keySet()) {
       boardCopy.put(new Coordinate(coor.getFirstCoordinate(), coor.getSecondCoordinate()),
               new Cell(currentModel.getMap().get(coor).getContent()));
     }

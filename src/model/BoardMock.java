@@ -12,22 +12,11 @@ import controller.ReversiController;
 /**
  * Represents the game board for a hexagonal grid-based game.
  */
-public class BoardMock implements Reversi {
+public class BoardMock extends AbstractModel {
+  protected final HashMap<String, Integer> compassQ = new HashMap<>();
+  protected final HashMap<String, Integer> compassR = new HashMap<>();
 
-  private StringBuilder log = new StringBuilder();
-  private final Map<Coordinate, Cell> grid;
-
-  //INVARIANT: should always be positive
-  private final int size;
-  private Turn whoseTurn;
-  private final HashMap<String, Integer> compassQ = new HashMap<>();
-  private final HashMap<String, Integer> compassR = new HashMap<>();
-
-  //INVARIANT: should always be positive (never subtracted from, initialized at 0)
-  private int consecPasses;
-  private GameState gameState;
-
-  private List<ControllerFeatures> observers = new ArrayList<>();
+  protected List<ControllerFeatures> observers = new ArrayList<>();
 
   /**
    * Adds a {@link ReversiController} observer to the list of observers.
@@ -65,25 +54,16 @@ public class BoardMock implements Reversi {
     }
   }
 
-  @Override
-  public int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player) {
-    return 0;
-  }
-
-
   /**
    * Initializes a new game board of the specified size.
    *
    * @param size The size of the board.
    */
   public BoardMock(int size) {
-    this.consecPasses = 0;
+    super(size);
     if (size <= 0) {
       throw new IllegalArgumentException("Size must be positive");
     }
-    this.size = size;
-    this.grid = new HashMap<>();
-    this.whoseTurn = Turn.BLACK;
     compassQ.put("east", 1);
     compassQ.put("west", -1);
     compassQ.put("ne", 1);
@@ -96,7 +76,6 @@ public class BoardMock implements Reversi {
     compassR.put("nw", -1);
     compassR.put("se", 1);
     compassR.put("sw", 1);
-    this.gameState = GameState.PRE;
     playGame();
   }
 
@@ -108,13 +87,11 @@ public class BoardMock implements Reversi {
    * @param grid1      The hashmap of discs to be overwritten onto the old grid.
    * @param whoseTuren The turn that's to be instantiated in the new game.
    */
-  public BoardMock(int size, HashMap<Coordinate, Cell> grid1, Turn whoseTuren) {
-    this.consecPasses = 0;
+  public BoardMock(int size, HashMap<Position, Cell> grid1, Turn whoseTuren) {
+    super(size);
     if (size <= 0) {
       throw new IllegalArgumentException("Size must be positive");
     }
-    this.size = size;
-    this.grid = new HashMap<>();
     this.whoseTurn = whoseTuren;
     compassQ.put("east", 1);
     compassQ.put("west", -1);
@@ -128,9 +105,8 @@ public class BoardMock implements Reversi {
     compassR.put("nw", -1);
     compassR.put("se", 1);
     compassR.put("sw", 1);
-    this.gameState = GameState.PRE;
     playGame();
-    for (Coordinate coord : grid1.keySet()) {
+    for (Position coord : grid1.keySet()) {
       Cell originalCell = grid1.get(coord);
       Cell newCell = new Cell(originalCell.getContent());
       this.grid.put(coord, newCell);
@@ -171,61 +147,7 @@ public class BoardMock implements Reversi {
     notifyObservers();
   }
 
-  /**
-   * Returns the color of the disc of the current player.
-   *
-   * @return The disc color of the current player.
-   */
-  public Disc currentColor() {
-    if (gameState != GameState.PRE) {
-      if (this.whoseTurn == Turn.BLACK) {
-        return Disc.BLACK;
-      } else {
-        return Disc.WHITE;
-      }
-    } else {
-      throw new IllegalStateException("This cannot be checked yet");
-    }
-  }
-
-  /**
-   * Returns the color of the disc of the opponent player.
-   *
-   * @return The disc color of the opponent.
-   */
-  private Disc oppositeColor() {
-    if (gameState == GameState.INPROGRESS) {
-      if (this.whoseTurn == Turn.BLACK) {
-        return Disc.WHITE;
-      } else {
-        return Disc.BLACK;
-      }
-    } else {
-      throw new IllegalStateException("This cannot be checked yet");
-    }
-  }
-
-  /**
-   * Passes the turn to the next player.
-   * used to swap turns either when a player passes their turn or at the end of their move
-   */
-  public void passTurn() {
-    if (gameState != GameState.PRE) {
-      if (this.whoseTurn == Turn.BLACK) {
-        this.whoseTurn = Turn.WHITE;
-      } else {
-        this.whoseTurn = Turn.BLACK;
-      }
-      consecPasses += 1;
-    } else {
-      throw new IllegalStateException("The game has not been started yet no move can be made");
-    }
-
-    notifyObservers();
-    notifyTurnChange();
-  }
-
-  private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
+  private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
@@ -290,7 +212,7 @@ public class BoardMock implements Reversi {
    *                                  cell is already occupied or doesn't result in any opponent
    *                                  disc captures.
    */
-  public void makeMove(Coordinate dest) {
+  public void makeMove(Position dest) {
     if (gameState != GameState.PRE) {
       if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
@@ -332,7 +254,7 @@ public class BoardMock implements Reversi {
         int r = allcaptured.remove(0);
         this.placeDisc(q, r, this.currentColor());
       }
-      this.changeTurn();
+      this.passTurn();
       this.consecPasses = 0;
     } else {
       throw new IllegalStateException("The game has not been started yet no move can be made");
@@ -342,74 +264,27 @@ public class BoardMock implements Reversi {
     notifyTurnChange();
   }
 
-  /**
-   * Determines if a move is valid in the current game state.
-   * This method creates a copy of the current game board and attempts
-   * to make the specified move. If the move is successfully made without
-   * throwing an exception, the move is considered valid.
-   *
-   * @param coor        The {@link Coordinate} where the move is to be made.
-   * @param currentTurn The {@link Disc} representing the player making the move.
-   * @return True if the move is valid, false otherwise.
-   */
-  public boolean validMove(Coordinate coor, Disc currentTurn) {
-    boolean flag = true;
+  public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player){
     Turn turn = null;
-
-    if (this.currentColor().equals(Disc.BLACK)) {
-      turn = Turn.BLACK;
-    } else {
-      turn = Turn.WHITE;
-    }
-    Board copy = new Board(this.getSize(), this.createCopyOfBoard(), turn);
-    try {
-      copy.makeMove(coor);
-      return true;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
-  }
-
-
-  /**
-   * Evaluates and returns the score after a hypothetical move.
-   * This method simulates making a move on a copy of the current game board
-   * and calculates the resulting score. It's useful for strategy and AI decision-making.
-   * If the move is invalid, an {@link IllegalArgumentException} is thrown.
-   *
-   * @param model The {@link ReversiReadOnly} game model representing the current state.
-   * @param move  The {@link Coordinate} representing the move to be evaluated.
-   * @return The score after making the move.
-   * @throws IllegalArgumentException If the move is invalid.
-   */
-  public int checkMove(ReversiReadOnly model, Coordinate move) {
-    Turn turn = null;
-    if (model.currentColor().equals(Disc.BLACK)) {
+    if (player.equals(Disc.BLACK)) {
       turn = Turn.BLACK;
     } else {
       turn = Turn.WHITE;
     }
     Board copy = new Board(model.getSize(), model.createCopyOfBoard(), turn);
     int score = 0;
+    int oldScore = copy.getScore(player);
     try {
       copy.makeMove(move);
-      score = copy.getScore(model.currentColor());
+      score = copy.getScore(player) - oldScore - 1;
       return score;
     } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException(e);
+      return 0;
     }
   }
 
-  /**
-   * Places a disc at the specified cell coordinates.
-   *
-   * @param q    The q-coordinate of the cell.
-   * @param r    The r-coordinate of the cell.
-   * @param disc The disc to be placed.
-   * @throws IllegalArgumentException If the cell doesn't exist in the grid.
-   */
   public void placeDisc(int q, int r, Disc disc) {
-    if (gameState == GameState.INPROGRESS) {
+    if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new Coordinate(q, r)))) {
         throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
@@ -419,14 +294,6 @@ public class BoardMock implements Reversi {
     }
   }
 
-  /**
-   * Retrieves the disc at the specified cell coordinates.
-   *
-   * @param q The q-coordinate of the cell.
-   * @param r The r-coordinate of the cell.
-   * @return The disc present at the specified coordinates.
-   * @throws IllegalArgumentException If the cell doesn't exist in the grid.
-   */
   public Disc getDiscAt(int q, int r) {
     if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new Coordinate(q, r)))) {
@@ -436,19 +303,10 @@ public class BoardMock implements Reversi {
     } else {
       throw new IllegalStateException("The game has not been started yet this cannot be done");
     }
-
   }
 
-  /**
-   * Checks if the cell at the specified coordinates is empty.
-   *
-   * @param q The q-coordinate of the cell.
-   * @param r The r-coordinate of the cell.
-   * @return True if the cell is empty, otherwise false.
-   * @throws IllegalArgumentException If the cell doesn't exist in the grid.
-   */
   public boolean isCellEmpty(int q, int r) {
-    if (gameState == GameState.INPROGRESS) {
+    if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new Coordinate(q, r)))) {
         throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
       }
@@ -458,198 +316,5 @@ public class BoardMock implements Reversi {
     }
   }
 
-  /**
-   * Retrieves the size of the game board.
-   *
-   * @return The size of the board.
-   */
-  public int getSize() {
-    return size;
-  }
-
-  /**
-   * Retrieves the state of the game.
-   *
-   * @return The state of the board.
-   */
-  public GameState getState() {
-    return this.gameState;
-  }
-
-
-  /**
-   * Retrieves the score for the inputted player by checking through how many pieces are placed.
-   *
-   * @return The number of pieces (score) of a certain player.
-   */
-  public int getScore(Disc player) {
-    int scoreCounter = 0;
-    for (Cell cell : grid.values()) {
-      if (cell.getContent().equals(player)) {
-        scoreCounter += 1;
-      }
-    }
-    log.append("Got score: " + scoreCounter + "\n");
-    return scoreCounter;
-  }
-
-  /**
-   * A helper method to check who wins based on who has more pieces on the board at the end of game.
-   * Changes the state of the game to reflect and is only called in a situation where.
-   * IsGameOver would indicate the game is over (returns true).
-   */
-  private void whoWins() {
-    int blackScore = this.getScore(Disc.BLACK);
-    int whiteScore = this.getScore(Disc.WHITE);
-
-    if (blackScore > whiteScore) {
-      gameState = GameState.BLACKWIN;
-    } else if (blackScore == whiteScore) {
-      gameState = GameState.TIE;
-    } else {
-      gameState = GameState.WHITEWIN;
-    }
-  }
-
-  /**
-   * Checks if the game is over. Adjusts the gameState enum to reflect who wins.
-   *
-   * @return True if the game is over, otherwise false.
-   */
-  public boolean isGameOver() {
-    if (gameState == GameState.PRE) {
-      throw new IllegalStateException("The game has not been started this cannot be checked");
-    }
-    // Check for consecutive passes
-    if (consecPasses == 2) {
-
-      this.whoWins();
-      return true;
-    }
-
-    // Check if all cells are filled
-    boolean allCellsFilled = true;
-    for (Cell cell : grid.values()) {
-      if (cell.getContent() == Disc.EMPTY) {
-        allCellsFilled = false;
-        break;
-      }
-    }
-    if (allCellsFilled) {
-      this.whoWins();
-      return true;
-    }
-
-    // Check for available moves for each player
-    boolean player1 = hasValidMoves(Disc.BLACK);
-    boolean player2 = hasValidMoves(Disc.WHITE);
-
-    if (!player1 && !player2) {
-      this.whoWins();
-      return true;
-    }
-
-    return false;
-  }
-
-  private boolean hasValidMoves(Disc playerDisc) {
-    Turn current;
-    if (playerDisc.equals(Disc.BLACK)) {
-      current = Turn.BLACK;
-    } else {
-      current = Turn.WHITE;
-    }
-    Board dupe = new Board(size, this.createCopyOfBoard(), current);
-
-    for (Coordinate coord : grid.keySet()) {
-      if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
-        try {
-          dupe.makeMove(coord);
-          return true;
-        } catch (IllegalArgumentException e) {
-          // Ignore and continue checking other moves
-        }
-      }
-    }
-    return false;
-  }
-
-
-  /**
-   * Creates a copy of the board.
-   *
-   * @return A copy of the board.
-   */
-  public HashMap<Coordinate, Cell> createCopyOfBoard() {
-    HashMap<Coordinate, Cell> copy = new HashMap<Coordinate, Cell>();
-    for (Coordinate coord : this.grid.keySet()) {
-      Cell originalCell = this.grid.get(coord);
-      Cell newCell = new Cell(originalCell.getContent());
-      copy.put(coord, newCell);
-    }
-    return copy;
-  }
-
-  /**
-   * Returns a list of all possible moves for the current player.
-   *
-   * @return A list of all possible moves for the current player.
-   */
-  public ArrayList<Coordinate> getPossibleMoves() {
-    log.append("getting possible moves and found:");
-    ArrayList<Coordinate> possibleMoves = new ArrayList<>();
-    Board og = new Board(size, this.createCopyOfBoard(), this.whoseTurn);
-    for (Coordinate coord : grid.keySet()) {
-      if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
-        try {
-          Board og1 = new Board(size, og.createCopyOfBoard(), this.whoseTurn);
-          og1.makeMove(coord);
-          possibleMoves.add(coord);
-        } catch (IllegalArgumentException e) {
-          // will move to the next move
-        }
-      }
-    }
-    for (Coordinate c : possibleMoves) {
-      log.append("q: " + c.getFirstCoordinate() + " r: " + c.getSecondCoordinate() + " s: " + c.getS() + "\n");
-    }
-    return possibleMoves;
-  }
-
-  /**
-   * Changes the current turn to the next player's turn in the Reversi game.
-   * If the game is in progress, this method toggles the turn between black and white players.
-   * Additionally, it increments the count of consecutive passes.
-   *
-   * @throws IllegalStateException if the game has not been started yet, indicating that
-   *                               no move can be made until the game begins.
-   */
-  public void changeTurn() {
-    if (gameState == GameState.INPROGRESS) {
-      if (this.whoseTurn == Turn.BLACK) {
-        this.whoseTurn = Turn.WHITE;
-      } else {
-        this.whoseTurn = Turn.BLACK;
-      }
-      consecPasses += 1;
-    } else {
-      throw new IllegalStateException("The game has not been started yet no move can be made");
-    }
-  }
-
-  public Map<Coordinate, Cell> getMap() {
-    return grid;
-  }
-
-  /**
-   * Retrieves the log of events and messages generated during the Reversi game.
-   *
-   * @return A {@link StringBuilder} containing the log of events and messages recorded
-   *     during the course of the game.
-   */
-  public StringBuilder getLog() {
-    return log;
-  }
 }
-
 

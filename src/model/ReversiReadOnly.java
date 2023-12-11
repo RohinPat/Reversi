@@ -11,20 +11,20 @@ import java.util.Map;
 public interface ReversiReadOnly {
 
   /**
-   * Retrieves the disc at the specified cell coordinates.
+   * Retrieves the disc at the specified cell Positions.
    *
-   * @param q The q-coordinate of the cell.
-   * @param r The r-coordinate of the cell.
-   * @return The disc present at the specified coordinates.
+   * @param q The q-Position of the cell.
+   * @param r The r-Position of the cell.
+   * @return The disc present at the specified Positions.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
   model.Disc getDiscAt(int q, int r);
 
   /**
-   * Checks if the cell at the specified coordinates is empty.
+   * Checks if the cell at the specified Positions is empty.
    *
-   * @param q The q-coordinate of the cell.
-   * @param r The r-coordinate of the cell.
+   * @param q The q-Position of the cell.
+   * @param r The r-Position of the cell.
    * @return True if the cell is empty, otherwise false.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
@@ -55,9 +55,9 @@ public interface ReversiReadOnly {
   /**
    * Generates a list of all possible moves for the current player.
    *
-   * @return An ArrayList of Coordinates representing all possible moves.
+   * @return An ArrayList of Positions representing all possible moves.
    */
-  ArrayList<Coordinate> getPossibleMoves();
+  ArrayList<Position> getPossibleMoves();
 
   /**
    * Checks the validity and potential score of a specific move on a read-only board model.
@@ -66,7 +66,7 @@ public interface ReversiReadOnly {
    * @param move  The move to check.
    * @return The score resulting from the move if it's valid.
    */
-  int checkMove(ReversiReadOnly model, Coordinate move);
+  int checkMove(ReversiReadOnly model, Position move);
 
   /**
    * Retrieves the disc color of the player whose turn is currently active.
@@ -80,23 +80,23 @@ public interface ReversiReadOnly {
    *
    * @return A HashMap representing a copy of the board's current state.
    */
-  HashMap<Coordinate, Cell> createCopyOfBoard();
+  HashMap<Position, Cell> createCopyOfBoard();
 
   /**
    * Validates a potential move on the board from a read-only perspective.
    *
-   * @param coor        The coordinates of the move to validate.
+   * @param coor        The Positions of the move to validate.
    * @param currentTurn The disc color of the player making the move.
    * @return True if the move is valid, false otherwise.
    */
-  boolean validMove(Coordinate coor, Disc currentTurn);
+  boolean validMove(Position coor, Disc currentTurn);
 
   /**
    * Retrieves a map representation of the current game board in a read-only manner.
    *
-   * @return A Map where each key is a Coordinate and each value is the corresponding Cell.
+   * @return A Map where each key is a Position and each value is the corresponding Cell.
    */
-  Map<Coordinate, Cell> getMap();
+  Map<Position, Cell> getMap();
 
   /**
    * Returns the current state of the game, such as in-progress, ended, etc.
@@ -105,5 +105,5 @@ public interface ReversiReadOnly {
    */
   GameState getState();
 
-  int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player);
+  int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player);
 }

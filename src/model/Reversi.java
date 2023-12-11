@@ -23,42 +23,42 @@ public interface Reversi extends ReversiReadOnly {
 
   /**
    * Attempts to make a move on the board by placing the current
-   * player's disc at the specified coordinate.
+   * player's disc at the specified Position.
    * The method validates the move, flips any captured opponent discs,
    * and switches the turn to the next player.
    *
-   * @param dest The target coordinate where the current player's disc should be placed.
+   * @param dest The target Position where the current player's disc should be placed.
    * @throws IllegalArgumentException If the move is invalid, such as when the target
    *                                  cell is already occupied or doesn't result in any opponent
    *                                  disc captures.
    */
-  void makeMove(Coordinate dest);
+  void makeMove(Position dest);
 
   /**
-   * Places a disc at the specified cell coordinates.
+   * Places a disc at the specified cell Positions.
    *
-   * @param q The q-coordinate of the cell.
-   * @param r The r-coordinate of the cell.
+   * @param q The q-Position of the cell.
+   * @param r The r-Position of the cell.
    * @param d The disc to be placed.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
   void placeDisc(int q, int r, Disc d);
 
   /**
-   * Retrieves the disc at the specified cell coordinates.
+   * Retrieves the disc at the specified cell Positions.
    *
-   * @param q The q-coordinate of the cell.
-   * @param r The r-coordinate of the cell.
-   * @return The disc present at the specified coordinates.
+   * @param q The q-Position of the cell.
+   * @param r The r-Position of the cell.
+   * @return The disc present at the specified Positions.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
   Disc getDiscAt(int q, int r);
 
   /**
-   * Checks if the cell at the specified coordinates is empty.
+   * Checks if the cell at the specified Positions is empty.
    *
-   * @param q The q-coordinate of the cell.
-   * @param r The r-coordinate of the cell.
+   * @param q The q-Position of the cell.
+   * @param r The r-Position of the cell.
    * @return True if the cell is empty, otherwise false.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
@@ -81,18 +81,18 @@ public interface Reversi extends ReversiReadOnly {
   /**
    * Creates a deep copy of the current game board.
    *
-   * @return A {@link HashMap} representing a copy of the board. Each {@link Coordinate}.
+   * @return A {@link HashMap} representing a copy of the board. Each {@link Position}.
    *     key is mapped to a {@link Cell} value.
    */
-  HashMap<Coordinate, Cell> createCopyOfBoard();
+  HashMap<Position, Cell> createCopyOfBoard();
 
   /**
    * Calculates and returns a list of all possible moves for the current player.
    *
-   * @return An {@link ArrayList} of {@link Coordinate} objects representing all possible moves.
+   * @return An {@link ArrayList} of {@link Position} objects representing all possible moves.
    *     that the current player can make.
    */
-  ArrayList<Coordinate> getPossibleMoves();
+  ArrayList<Position> getPossibleMoves();
 
   /**
    * Checks if a given move is valid on the current game board.
@@ -100,30 +100,30 @@ public interface Reversi extends ReversiReadOnly {
    * possible.
    *
    * @param model The read-only view of the game board to check the move against.
-   * @param move  The coordinate of the move to be evaluated.
+   * @param move  The Position of the move to be evaluated.
    * @return The score resulting from the move, if valid.
    * @throws IllegalArgumentException If the move is invalid.
    */
-  int checkMove(ReversiReadOnly model, Coordinate move);
+  int checkMove(ReversiReadOnly model, Position move);
 
   /**
-   * Determines if a move is valid for the given player at the specified coordinates.
+   * Determines if a move is valid for the given player at the specified Positions.
    * It evaluates the legality of the move without actually making the move on the board.
    *
-   * @param coor        The coordinates where the move is being considered.
+   * @param coor        The Positions where the move is being considered.
    * @param currentTurn The current turn's disc to evaluate the move for.
    * @return True if the move is valid, false otherwise.
    */
-  boolean validMove(Coordinate coor, Disc currentTurn);
+  boolean validMove(Position coor, Disc currentTurn);
 
   /**
    * Retrieves a map representation of the current game board.
-   * Each coordinate in the grid is associated with a cell, which may contain a disc or be empty.
+   * Each Position in the grid is associated with a cell, which may contain a disc or be empty.
    *
-   * @return A map where each key is a {@link Coordinate} and each value is the.
+   * @return A map where each key is a {@link Position} and each value is the.
    *     corresponding {@link Cell}.
    */
-  Map<Coordinate, Cell> getMap();
+  Map<Position, Cell> getMap();
 
   /**
    * Adds an observer, typically a controller, to be notified of changes in the game state.
@@ -136,5 +136,5 @@ public interface Reversi extends ReversiReadOnly {
 
   void notifyTurnChange();
 
-  int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player);
+  int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player);
 }

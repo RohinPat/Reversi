@@ -1,6 +1,7 @@
 package controller;
 
 import model.Coordinate;
+import model.Position;
 import model.Reversi;
 import model.Disc;
 import model.Coordinate;
@@ -48,7 +49,7 @@ public class AIPlayer implements Player {
 
   @Override
   public void makeAMove(Reversi model, Coordinate coordinate) {
-    Coordinate c1 = strategy.chooseMove(model, playerDisc);
+    Position c1 = strategy.chooseMove(model, playerDisc);
     if (!model.isGameOver()
             && (c1.equals(new Coordinate(model.getSize(), model.getSize())) || c1 == null)) {
       model.passTurn();

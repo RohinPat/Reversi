@@ -26,19 +26,19 @@ public class CaptureCorners implements ReversiStratagy {
    * @return The selected for the next move, prioritizing corners.
    */
   @Override
-  public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
+  public Position chooseMove(ReversiReadOnly model, Disc turn) {
     Turn t = null;
     if (turn == Disc.BLACK) {
       t = Turn.BLACK;
     } else {
       t = Turn.WHITE;
     }
-    ArrayList<Coordinate> moves = model.getPossibleMoves();
-    for (Coordinate move: moves) {
+    ArrayList<Position> moves = model.getPossibleMoves();
+    for (Position move: moves) {
       System.out.println(move.getFirstCoordinate() + " " + move.getSecondCoordinate());
     }
     int size = model.getSize();
-    for (Coordinate move : moves) {
+    for (Position move : moves) {
       System.out.println("checked a move");
       if (this.getCorners(move, size)) {
         return move;

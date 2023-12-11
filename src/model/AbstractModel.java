@@ -8,7 +8,7 @@ import java.util.Map;
 import controller.ControllerFeatures;
 
 public abstract class AbstractModel implements Reversi {
-  protected Map<Coordinate, Cell> grid;
+  protected Map<Position, Cell> grid;
   protected int consecPasses;
   protected GameState gameState;
   protected Turn whoseTurn;
@@ -25,7 +25,7 @@ public abstract class AbstractModel implements Reversi {
   }
 
 
-  public Map<Coordinate, Cell> getMap() {
+  public Map<Position, Cell> getMap() {
     return grid;
   }
 
@@ -73,39 +73,6 @@ public abstract class AbstractModel implements Reversi {
     notifyTurnChange();
   }
 
-  public void placeDisc(int q, int r, Disc disc) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      grid.get(new Coordinate(q, r)).setContent(disc);
-    } else {
-      throw new IllegalStateException("The game has not been started yet this cannot be done");
-    }
-  }
-
-  public Disc getDiscAt(int q, int r) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      return grid.get(new Coordinate(q, r)).getContent();
-    } else {
-      throw new IllegalStateException("The game has not been started yet this cannot be done");
-    }
-  }
-
-  public boolean isCellEmpty(int q, int r) {
-    if (gameState != GameState.PRE) {
-      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
-        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
-      }
-      return grid.get(new Coordinate(q, r)).getContent() == Disc.EMPTY;
-    } else {
-      throw new IllegalStateException("The game has not been started this cannot be checked");
-    }
-  }
-
   public int getSize() {
     return size;
   }
@@ -117,7 +84,7 @@ public abstract class AbstractModel implements Reversi {
     } else {
       current = Turn.WHITE;
     }
-    for (Coordinate coord : grid.keySet()) {
+    for (Position coord : grid.keySet()) {
       Board dupe = new Board(size, this.createCopyOfBoard(), current);
       if (this.createCopyOfBoard().get(coord).getContent().equals(Disc.EMPTY)) {
         try {
@@ -199,10 +166,10 @@ public abstract class AbstractModel implements Reversi {
     return scoreCounter;
   }
 
-  public ArrayList<Coordinate> getPossibleMoves() {
-    ArrayList<Coordinate> possibleMoves = new ArrayList<>();
+  public ArrayList<Position> getPossibleMoves() {
+    ArrayList<Position> possibleMoves = new ArrayList<>();
     Board og = new Board(size, createCopyOfBoard(), whoseTurn);
-    for (Coordinate coord : grid.keySet()) {
+    for (Position coord : grid.keySet()) {
       if (grid.get(coord).getContent().equals(Disc.EMPTY)) {
         try {
           Board og1 = new Board(size, og.createCopyOfBoard(), whoseTurn);
@@ -216,7 +183,7 @@ public abstract class AbstractModel implements Reversi {
     return possibleMoves;
   }
 
-  public int checkMove(ReversiReadOnly model, Coordinate move) {
+  public int checkMove(ReversiReadOnly model, Position move) {
     Turn turn = null;
     if (model.currentColor().equals(Disc.BLACK)) {
       turn = Turn.BLACK;
@@ -235,9 +202,9 @@ public abstract class AbstractModel implements Reversi {
     }
   }
 
-  public HashMap<Coordinate, Cell> createCopyOfBoard() {
-    HashMap<Coordinate, Cell> copy = new HashMap<Coordinate, Cell>();
-    for (Coordinate coord : grid.keySet()) {
+  public HashMap<Position, Cell> createCopyOfBoard() {
+    HashMap<Position, Cell> copy = new HashMap<Position, Cell>();
+    for (Position coord : grid.keySet()) {
       Cell originalCell = grid.get(coord);
       Cell newCell = new Cell(originalCell.getContent());
       copy.put(coord, newCell);
@@ -249,7 +216,7 @@ public abstract class AbstractModel implements Reversi {
     return this.gameState;
   }
 
-  public boolean validMove(Coordinate coor, Disc currentTurn) {
+  public boolean validMove(Position coor, Disc currentTurn) {
     boolean flag = true;
     Turn turn = null;
 

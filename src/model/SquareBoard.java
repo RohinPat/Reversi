@@ -64,11 +64,11 @@ public class SquareBoard extends AbstractModel{
     notifyObservers();
   }
 
-  private ArrayList<Integer> moveHelper(Coordinate dest, String dir) {
+  private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
-    Coordinate nextPiece = new Coordinate((dest.getFirstCoordinate() + compassX.get(dir)), (dest.getSecondCoordinate()
+    CartesianCoordinate nextPiece = new CartesianCoordinate((dest.getFirstCoordinate() + compassX.get(dir)), (dest.getSecondCoordinate()
             + compassY.get(dir)));
 
     if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor()) {
@@ -78,7 +78,7 @@ public class SquareBoard extends AbstractModel{
         } else {
           captured.add(nextPiece.getFirstCoordinate());
           captured.add(nextPiece.getSecondCoordinate());
-          nextPiece = new Coordinate((nextPiece.getFirstCoordinate() + compassX.get(dir)), (nextPiece.getSecondCoordinate()
+          nextPiece = new CartesianCoordinate((nextPiece.getFirstCoordinate() + compassX.get(dir)), (nextPiece.getSecondCoordinate()
                   + compassY.get(dir)));
         }
       }
@@ -120,9 +120,9 @@ public class SquareBoard extends AbstractModel{
   }
 
   @Override
-  public void makeMove(Coordinate dest) {
+  public void makeMove(Position dest) {
     if (gameState != GameState.PRE) {
-      if (!grid.keySet().contains(new Coordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
+      if (!grid.keySet().contains(new CartesianCoordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate()))) {
         throw new IllegalArgumentException("This space does not exist on the board");
       }
 
@@ -172,8 +172,40 @@ public class SquareBoard extends AbstractModel{
     notifyTurnChange();
   }
 
-  @Override
-  public int getScoreForPlayer(ReversiReadOnly model, Coordinate move, Disc player) {
+  public void placeDisc(int q, int r, Disc disc) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      grid.get(new CartesianCoordinate(q, r)).setContent(disc);
+    } else {
+      throw new IllegalStateException("The game has not been started yet this cannot be done");
+    }
+  }
+
+  public Disc getDiscAt(int q, int r) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      return grid.get(new CartesianCoordinate(q, r)).getContent();
+    } else {
+      throw new IllegalStateException("The game has not been started yet this cannot be done");
+    }
+  }
+
+  public boolean isCellEmpty(int q, int r) {
+    if (gameState != GameState.PRE) {
+      if (!(grid.keySet().contains(new Coordinate(q, r)))) {
+        throw new IllegalArgumentException("This cell doesn't exist in the above grid ");
+      }
+      return grid.get(new CartesianCoordinate(q, r)).getContent() == Disc.EMPTY;
+    } else {
+      throw new IllegalStateException("The game has not been started this cannot be checked");
+    }
+  }
+
+  public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player){
     return 0;
   }
 
