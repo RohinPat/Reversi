@@ -37,8 +37,8 @@ public interface Reversi extends ReversiReadOnly {
   /**
    * Places a disc at the specified cell Positions.
    *
-   * @param q The q-Position of the cell.
-   * @param r The r-Position of the cell.
+   * @param q The first coordinate of the Position of the cell.
+   * @param r The second coordinate of the Position of the cell.
    * @param d The disc to be placed.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
@@ -47,8 +47,8 @@ public interface Reversi extends ReversiReadOnly {
   /**
    * Retrieves the disc at the specified cell Positions.
    *
-   * @param q The q-Position of the cell.
-   * @param r The r-Position of the cell.
+   * @param q The first coordinate of the Position of the cell.
+   * @param r The second coordinate of the Position of the cell.
    * @return The disc present at the specified Positions.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
@@ -57,8 +57,8 @@ public interface Reversi extends ReversiReadOnly {
   /**
    * Checks if the cell at the specified Positions is empty.
    *
-   * @param q The q-Position of the cell.
-   * @param r The r-Position of the cell.
+   * @param q The first coordinate of the Position of the cell.
+   * @param r The second coordinate of the Position of the cell.
    * @return True if the cell is empty, otherwise false.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
@@ -110,7 +110,7 @@ public interface Reversi extends ReversiReadOnly {
    * Determines if a move is valid for the given player at the specified Positions.
    * It evaluates the legality of the move without actually making the move on the board.
    *
-   * @param coor        The Positions where the move is being considered.
+   * @param coor        The Position where the move is being considered.
    * @param currentTurn The current turn's disc to evaluate the move for.
    * @return True if the move is valid, false otherwise.
    */
@@ -134,7 +134,20 @@ public interface Reversi extends ReversiReadOnly {
    */
   void addObserver(ControllerFeatures controller);
 
+  /**
+   * Notifies observers that the turn in the Reversi game has changed.
+   * This method is typically called when it's the next player's turn.
+   */
   void notifyTurnChange();
 
+  /**
+   * Calculates the score change for a player after making a move on a Reversi game model.
+   *
+   * @param model  The Reversi game model representing the current state of the game.
+   * @param move   The position where the player intends to make a move.
+   * @param player The player for whom the score change is calculated (Disc.BLACK or Disc.WHITE).
+   * @return The change in score for the specified player after making the move, or 0 if the move.
+   * is invalid.
+   */
   int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player);
 }

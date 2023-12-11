@@ -13,8 +13,8 @@ public interface ReversiReadOnly {
   /**
    * Retrieves the disc at the specified cell Positions.
    *
-   * @param q The q-Position of the cell.
-   * @param r The r-Position of the cell.
+   * @param q The first coordinate of the Position of the cell.
+   * @param r The second coordinate of the Position of the cell.
    * @return The disc present at the specified Positions.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
@@ -23,8 +23,8 @@ public interface ReversiReadOnly {
   /**
    * Checks if the cell at the specified Positions is empty.
    *
-   * @param q The q-Position of the cell.
-   * @param r The r-Position of the cell.
+   * @param q The first coordinate of the Position of the cell.
+   * @param r The second coordinate of the Position of the cell.
    * @return True if the cell is empty, otherwise false.
    * @throws IllegalArgumentException If the cell doesn't exist in the grid.
    */
@@ -105,5 +105,15 @@ public interface ReversiReadOnly {
    */
   GameState getState();
 
+  /**
+   * Calculates the score change for a player after making a move on a Reversi game model from.
+   * an observer perspective only - doesn't modify the board.
+   *
+   * @param model  The Reversi game model representing the current state of the game.
+   * @param move   The position where the player intends to make a move.
+   * @param player The player for whom the score change is calculated (Disc.BLACK or Disc.WHITE).
+   * @return The change in score for the specified player after making the move, or 0 if the move.
+   * is invalid.
+   */
   int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player);
 }

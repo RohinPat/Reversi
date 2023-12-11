@@ -110,17 +110,20 @@ public class Board extends AbstractModel {
   }
 
   /**
-   * Helper method to determine the captured pieces in a specific direction from the given destination.
+   * Helper method to determine the captured pieces in a specific direction from the given.
+   * destination.
    *
    * @param dest The destination position to start capturing pieces from.
    * @param dir  The direction in which to capture pieces (e.g., "NE", "SW", etc.).
-   * @return An ArrayList containing the coordinates of the captured pieces, or an empty list if no pieces are captured.
+   * @return An ArrayList containing the coordinates of the captured pieces, or an empty list.
+   * if no pieces are captured.
    */
   private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
-    Coordinate nextPiece = new Coordinate((dest.getFirstCoordinate() + compassQ.get(dir)), (dest.getSecondCoordinate()
+    Coordinate nextPiece = new Coordinate((dest.getFirstCoordinate() + compassQ.get(dir)),
+            (dest.getSecondCoordinate()
             + compassR.get(dir)));
 
     if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor()) {
@@ -130,7 +133,8 @@ public class Board extends AbstractModel {
         } else {
           captured.add(nextPiece.getFirstCoordinate());
           captured.add(nextPiece.getSecondCoordinate());
-          nextPiece = new Coordinate((nextPiece.getFirstCoordinate() + compassQ.get(dir)), (nextPiece.getSecondCoordinate()
+          nextPiece = new Coordinate((nextPiece.getFirstCoordinate() + compassQ.get(dir)),
+                  (nextPiece.getSecondCoordinate()
                   + compassR.get(dir)));
         }
       }

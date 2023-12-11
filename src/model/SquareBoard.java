@@ -2,20 +2,22 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import controller.ControllerFeatures;
-import controller.ReversiController;
-import controller.aistrat.CaptureCorners;
-
 
 public class SquareBoard extends AbstractModel{
 
   protected final HashMap<String, Integer> compassX = new HashMap<>();
+  // used to represent all the changes in the X coordinate to check capture
+  // outcomes in the different capturing directions
   protected final HashMap<String, Integer> compassY = new HashMap<>();
+  // used to represent all the changes in the Y coordinate to check capture
+  // outcomes in the different capturing directions
 
 
+  /**
+   * Initializes a new square game board of the specified size.
+   *
+   * @param size The size of the board.
+   */
   public SquareBoard(int size){
     super(size);
     if (size <= 0 || size % 2 != 0){
@@ -42,6 +44,15 @@ public class SquareBoard extends AbstractModel{
     playGame();
   }
 
+  /**
+   * Initializes a new square game board of the specified size, and overwrites the board using a.
+   * Given map of disc placements. Useful for creating deep copies for trying moves on the.
+   * current gamestate without actually mutuating the main model.
+   *
+   * @param size       The size of the board.
+   * @param grid1      The hashmap of discs to be overwritten onto the old grid.
+   * @param whoseTuren The turn that's to be instantiated in the new game.
+   */
   public SquareBoard(int size, HashMap<Position, Cell> grid1, Turn whoseTuren) {
     super(size);
     if (size <= 0 || size % 2 != 0){
@@ -74,6 +85,11 @@ public class SquareBoard extends AbstractModel{
     }
   }
 
+  /**
+   * Sets up the game board, initializes the grid, and places the starting pieces for a square.
+   * Game of reversi - primarily differs in the way the board is setup + where the starting pieces.
+   * are placed.
+   */
   private void playGame() {
     if (gameState == GameState.PRE) {
       gameState = GameState.INPROGRESS;
@@ -97,11 +113,22 @@ public class SquareBoard extends AbstractModel{
   }
 
 
+  /**
+   * Helper method to determine the captured pieces in a specific direction from the given.
+   * destination. Kept seperate to use CartesianCoordinates as those are what are used in a.
+   * Square game - allows for proper .equals() and contains calls.
+   *
+   * @param dest The destination position to start capturing pieces from.
+   * @param dir  The direction in which to capture pieces (e.g., "NE", "SW", etc.).
+   * @return An ArrayList containing the coordinates of the captured pieces, or an empty list.
+   * if no pieces are captured.
+   */
   private ArrayList<Integer> moveHelper(Position dest, String dir) {
     ArrayList<Integer> captured = new ArrayList<>();
     boolean validMove = true;
     boolean endFound = false;
-    CartesianCoordinate nextPiece = new CartesianCoordinate((dest.getFirstCoordinate() + compassX.get(dir)), (dest.getSecondCoordinate()
+    CartesianCoordinate nextPiece = new CartesianCoordinate((dest.getFirstCoordinate() +
+            compassX.get(dir)), (dest.getSecondCoordinate()
             + compassY.get(dir)));
 
     if (grid.containsKey(nextPiece) && grid.get(nextPiece).getContent() == this.oppositeColor()) {
@@ -111,7 +138,8 @@ public class SquareBoard extends AbstractModel{
         } else {
           captured.add(nextPiece.getFirstCoordinate());
           captured.add(nextPiece.getSecondCoordinate());
-          nextPiece = new CartesianCoordinate((nextPiece.getFirstCoordinate() + compassX.get(dir)), (nextPiece.getSecondCoordinate()
+          nextPiece = new CartesianCoordinate((nextPiece.getFirstCoordinate() + compassX.get(dir)),
+                  (nextPiece.getSecondCoordinate()
                   + compassY.get(dir)));
         }
       }
@@ -153,6 +181,8 @@ public class SquareBoard extends AbstractModel{
   }
 
   @Override
+  // override as a square game the grid only holds CartesianCoordinates, so it must be
+  // specified when doing the contains and working with the game's map/grid.
   public void makeMove(Position dest) {
     CartesianCoordinate dest1 = new CartesianCoordinate(dest.getFirstCoordinate(), dest.getSecondCoordinate());
     if (gameState != GameState.PRE) {
@@ -221,6 +251,8 @@ public class SquareBoard extends AbstractModel{
   }
 
   @Override
+  // override as a square game the grid only holds CartesianCoordinates, so it must be
+  // specified when doing the contains and working with the game's map/grid.
   public Disc getDiscAt(int q, int r) {
     if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
@@ -233,11 +265,14 @@ public class SquareBoard extends AbstractModel{
   }
 
   @Override
+  // override as a square game the grid only holds CartesianCoordinates, so the possible moves must.
+  // maintain this same format for the AI strategies to implement effectively.
   public ArrayList<Position> getPossibleMoves() {
     ArrayList<Position> possibleMoves = new ArrayList<>();
     for (int row = 0; row < size; row++) {
       for (int column = 0; column < size; column++) {
-        if (isCellEmpty(column, row) && validMove(new CartesianCoordinate(column, row), currentColor())) {
+        if (isCellEmpty(column, row) && validMove(new CartesianCoordinate(column, row),
+                currentColor())) {
           possibleMoves.add(new CartesianCoordinate(column, row));
         }
       }
@@ -246,6 +281,8 @@ public class SquareBoard extends AbstractModel{
   }
 
   @Override
+  // override as a square game the grid only holds CartesianCoordinates, and when creating deep.
+  // copies to test moves you need to do so on a Square copy.
   public boolean validMove(Position coor, Disc currentTurn) {
     boolean flag = true;
     Turn turn = null;
@@ -266,6 +303,8 @@ public class SquareBoard extends AbstractModel{
   }
 
   @Override
+  // override as a square game the grid only holds CartesianCoordinates, so it must be
+  // specified when doing the contains and working with the game's map/grid.
   public boolean isCellEmpty(int q, int r) {
     if (gameState != GameState.PRE) {
       if (!(grid.keySet().contains(new CartesianCoordinate(q, r)))) {
@@ -277,22 +316,23 @@ public class SquareBoard extends AbstractModel{
     }
   }
 
-  @Override
-  public HashMap<Position, Cell> createCopyOfBoard() {
-    HashMap<Position, Cell> copy = new HashMap<Position, Cell>();
-    for (Position coord : grid.keySet()) {
-      Cell originalCell = grid.get(coord);
-      Cell newCell = new Cell(originalCell.getContent());
-      copy.put(coord, newCell);
-    }
-    return copy;
-  }
-
+  /**
+   * Calculates the score change for a player after making a move on a Reversi game model.
+   * Note: This method is not used with a square board as there is no hint functionality,
+   * so this method isn't used in that context.
+   *
+   * @param model  The Reversi game model representing the current state of the game.
+   * @param move   The position where the player intends to make a move.
+   * @param player The player for whom the score change is calculated (Disc.BLACK or Disc.WHITE).
+   * @return The change in score for the specified player after making the move, or 0 if the move is invalid.
+   */
   public int getScoreForPlayer(ReversiReadOnly model, Position move, Disc player){
     return 0;
   }
 
   @Override
+  // override as a square game the grid only holds CartesianCoordinates, and when creating deep.
+  // copies to test moves you need to do so on a Square copy.
   public int checkMove(ReversiReadOnly model, Position move) {
     Turn turn = null;
     if (model.currentColor().equals(Disc.BLACK)) {
@@ -313,6 +353,8 @@ public class SquareBoard extends AbstractModel{
   }
 
   @Override
+  // override as a square game the grid only holds CartesianCoordinates, and when creating deep.
+  // copies to test moves you need to do so on a Square copy.
   protected boolean hasValidMoves(Disc playerDisc) {
     Turn current;
     if (playerDisc.equals(Disc.BLACK)) {
