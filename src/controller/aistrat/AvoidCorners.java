@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.Coordinate;
 import model.Disc;
 import model.Coordinate;
+import model.Position;
 import model.ReversiReadOnly;
 
 
@@ -29,14 +30,16 @@ public class AvoidCorners implements ReversiStratagy {
   public Coordinate chooseMove(ReversiReadOnly model, Disc turn) {
     CaptureMost cm = new CaptureMost();
     int size = model.getSize();
-    ArrayList<Coordinate> notCorners = getSpotsToAvoid(size);
     ArrayList<Coordinate> possibleMoves = model.getPossibleMoves();
-    for (Coordinate c : notCorners) {
-      if (possibleMoves.contains(c)) {
-        possibleMoves.remove(c);
+    ArrayList<Coordinate> returnCopy = model.getPossibleMoves();
+    for (Coordinate c : possibleMoves) {
+      System.out.println("tism");
+      if (this.isSpotToAvoid(c, size)) {
+        System.out.println("Remooved");
+        returnCopy.remove(c);
       }
     }
-    return cm.chooseMoveHelper(model, turn, possibleMoves);
+    return cm.chooseMoveHelper(model, turn, returnCopy);
   }
 
   /**
@@ -46,32 +49,7 @@ public class AvoidCorners implements ReversiStratagy {
    * @param size The size of the Reversi board.
    * @return An ArrayList of objects representing spots to avoid.
    */
-  private ArrayList<Coordinate> getSpotsToAvoid(int size) {
-    ArrayList<Coordinate> notCorners = new ArrayList<Coordinate>();
-    notCorners.add(new Coordinate(1, 1 - size));
-    notCorners.add(new Coordinate(0, 2 - size));
-    notCorners.add(new Coordinate(-1, 2 - size));
-
-    notCorners.add(new Coordinate(2 - size, -1));
-    notCorners.add(new Coordinate(2 - size, 0));
-    notCorners.add(new Coordinate(1 - size, 1));
-
-    notCorners.add(new Coordinate(1 - size, size - 2));
-    notCorners.add(new Coordinate(2 - size, size - 2));
-    notCorners.add(new Coordinate(2 - size, size - 1));
-
-    notCorners.add(new Coordinate(-1, size - 1));
-    notCorners.add(new Coordinate(0, size - 2));
-    notCorners.add(new Coordinate(1, size - 2));
-
-    notCorners.add(new Coordinate(size - 2, 1));
-    notCorners.add(new Coordinate(size - 2, 0));
-    notCorners.add(new Coordinate(size - 1, -1));
-
-    notCorners.add(new Coordinate(size - 1, 2 - size));
-    notCorners.add(new Coordinate(size - 2, 2 - size));
-    notCorners.add(new Coordinate(size - 2, 1 - size));
-
-    return notCorners;
+  private boolean isSpotToAvoid(Position p, int size) {
+    return p.isNextToCorner(size);
   }
 }

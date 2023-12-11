@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.Coordinate;
 import model.Disc;
 import model.Coordinate;
+import model.Position;
 import model.ReversiReadOnly;
 import model.Turn;
 
@@ -33,12 +34,17 @@ public class CaptureCorners implements ReversiStratagy {
       t = Turn.WHITE;
     }
     ArrayList<Coordinate> moves = model.getPossibleMoves();
+    for (Coordinate move: moves) {
+      System.out.println(move.getFirstCoordinate() + " " + move.getSecondCoordinate());
+    }
     int size = model.getSize();
     for (Coordinate move : moves) {
-      if (this.getCorners(size).contains(move)) {
+      System.out.println("checked a move");
+      if (this.getCorners(move, size)) {
         return move;
       }
     }
+    System.out.println("this shit autistic");
     return new Coordinate(model.getSize(), model.getSize());
   }
 
@@ -49,15 +55,8 @@ public class CaptureCorners implements ReversiStratagy {
    * @param size The size of the Reversi board.
    * @return An ArrayList of objects representing the corners of the board.
    */
-  private ArrayList<Coordinate> getCorners(int size) {
-    ArrayList<Coordinate> corners = new ArrayList<Coordinate>();
-    corners.add(new Coordinate(0, 1 - size));
-    corners.add(new Coordinate(1 - size, 0));
-    corners.add(new Coordinate(1 - size, size - 1));
-    corners.add(new Coordinate(size - 1, 1 - size));
-    corners.add(new Coordinate(size - 1, 0));
-    corners.add(new Coordinate(0, size - 1));
-    return corners;
+  private boolean getCorners(Position p, int size) {
+    return p.isCorner(size);
   }
 }
 

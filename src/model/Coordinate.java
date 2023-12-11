@@ -78,6 +78,37 @@ public class Coordinate implements Position{
     return corners.contains(new Coordinate(this.getFirstCoordinate(), this.getSecondCoordinate()));
   }
 
+  @Override
+  public boolean isNextToCorner(int size) {
+    ArrayList<Coordinate> notCorners = new ArrayList<Coordinate>();
+    notCorners.add(new Coordinate(1, 1 - size));
+    notCorners.add(new Coordinate(0, 2 - size));
+    notCorners.add(new Coordinate(-1, 2 - size));
+
+    notCorners.add(new Coordinate(2 - size, -1));
+    notCorners.add(new Coordinate(2 - size, 0));
+    notCorners.add(new Coordinate(1 - size, 1));
+
+    notCorners.add(new Coordinate(1 - size, size - 2));
+    notCorners.add(new Coordinate(2 - size, size - 2));
+    notCorners.add(new Coordinate(2 - size, size - 1));
+
+    notCorners.add(new Coordinate(-1, size - 1));
+    notCorners.add(new Coordinate(0, size - 2));
+    notCorners.add(new Coordinate(1, size - 2));
+
+    notCorners.add(new Coordinate(size - 2, 1));
+    notCorners.add(new Coordinate(size - 2, 0));
+    notCorners.add(new Coordinate(size - 1, -1));
+
+    notCorners.add(new Coordinate(size - 1, 2 - size));
+    notCorners.add(new Coordinate(size - 2, 2 - size));
+    notCorners.add(new Coordinate(size - 2, 1 - size));
+
+    return notCorners.contains(new Coordinate(this.getFirstCoordinate(), this.getSecondCoordinate()));
+  }
+
+
   /**
    * Retrieves the s-axis value of this coordinate.
    *

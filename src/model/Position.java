@@ -11,4 +11,6 @@ public interface Position {
   int getSecondCoordinate();
 
   boolean isCorner(int size);
+
+  boolean isNextToCorner(int size);
 }
