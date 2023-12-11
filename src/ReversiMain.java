@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
 import controller.AIPlayer;
-import controller.BoardAdapter2;
-import controller.ControllerFeatures;
 import controller.Player;
 import controller.ReversiController;
 import controller.StratagyAdapter;
@@ -20,23 +18,18 @@ import provider.strategies.FallableInfallablePairStrategy;
 import provider.strategies.MinimaxStrategy;
 import provider.strategies.MostPointsGainedStrategy;
 import provider.strategies.PlayCornersStrategy;
-import provider.view.ReversiGUIView;
-import view.BoardPanel;
-import view.HintDecorator;
 import view.IBoardPanel;
 import view.IFrame;
 import view.ReversiFrame;
 import controller.HumanPlayer;
-import view.SquareBoardPanel;
 import view.SquareReversiFrame;
-import view.ViewAdapter;
 
 /**
  * Main class used to run our GUI - passes through a ReadOnly version of Reversi to display.
  */
 public final class ReversiMain {
   /**
-   * Used to initialize the frame based on the given board.
+   * Used to initialize the frame based on the given arguments.
    */
   public static void main(String[] args) {
 
@@ -178,9 +171,6 @@ public final class ReversiMain {
    * @return ReversiStrategy The final composed strategy based on the input list,
    * or null if an invalid strategy name is encountered.
    **/
-
-
-  // 5 capturemost fallibleinfalliblepair(new Capture Corners, new Most)
   private static ReversiStratagy getStrat(ArrayList<String> strats) {
     ArrayList<String> listOfStrats = strats;
     int numOfStrats = strats.size();

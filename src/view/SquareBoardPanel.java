@@ -7,35 +7,45 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
 import controller.ControllerFeatures;
-import model.Board; // Assuming you have a Board model representing the game's board.
 import model.CartesianCoordinate;
-import model.Coordinate;
-import model.Disc; // Your Disc enum (BLACK, WHITE, EMPTY).
+import model.Disc;
 import model.Position;
 import model.Reversi;
 import model.ReversiReadOnly;
 
+/**
+ * The {@code SquareBoardPanel} class extends {@link JPanel} and is used to display
+ * the Reversi game board as a grid of squares. It handles user interaction, including
+ * mouse clicks and keyboard input for gameplay.
+ */
 public class SquareBoardPanel extends JPanel implements IBoardPanel {
-  private ReversiReadOnly board; // The game board.
-  private double squareSize; // The size of each square.
+  private final ReversiReadOnly board;
+  private double squareSize;
   private int boardWidth;
   private int boardHeight;
-  private ConcurrentMap<Square, Position> squares;
+  private final ConcurrentMap<Square, Position> squares;
   private Square selected;
   private ControllerFeatures controller;
-  private JLabel helloLabel1;
-  private JLabel scoreLabel1;
-  private JLabel turnLabel1;
+  private final JLabel helloLabel1;
+  private final JLabel scoreLabel1;
+  private final JLabel turnLabel1;
 
 
+  /**
+   * Constructs a new {@code SquareBoardPanel} with the specified ReversiReadOnly board
+   * and dimensions.
+   *
+   * @param board  The {@link ReversiReadOnly} board representing the current state of
+   *               the Reversi game.
+   * @param width  The width of the game board panel.
+   * @param height The height of the game board panel.
+   */
   public SquareBoardPanel(ReversiReadOnly board, int width, int height) {
     this.board = board;
     this.squareSize = 30;
@@ -354,9 +364,9 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
     }
 
     /**
-     * Invoked when the component (frame) is resized. This method recalculates hexagon
+     * Invoked when the component (frame) is resized. This method recalculates square
      * sizes and positions, updates board dimensions, and adjusts label sizes/fonts
-     * accordingly. It also ensures that the previously selected hexagon remains
+     * accordingly. It also ensures that the previously selected square remains
      * selected if it still exists after the resize.
      *
      * @param e The {@link ComponentEvent} representing the component resize event.
@@ -437,7 +447,5 @@ public class SquareBoardPanel extends JPanel implements IBoardPanel {
         g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter);
       }
     }
-
-
   }
 }

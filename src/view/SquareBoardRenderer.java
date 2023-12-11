@@ -2,12 +2,22 @@ package view;
 
 import model.Disc;
 import model.Reversi;
-import model.SquareBoard;
 
+/**
+ * The {@code SquareBoardRenderer} class is responsible for converting a Reversi game board
+ * into a string representation. It uses 'X' for black discs, 'O' for white discs, and '_'
+ * for empty cells in the generated string.
+ */
 public class SquareBoardRenderer {
 
   private final Reversi model;
 
+  /**
+   * Constructs a new {@code SquareBoardRenderer} with the specified Reversi model.
+   *
+   * @param model The Reversi model representing the current state of the game board.
+   * @throws IllegalArgumentException If the provided model is null.
+   */
   public SquareBoardRenderer(Reversi model) {
     if (model == null) {
       throw new IllegalArgumentException("Model must not be null");

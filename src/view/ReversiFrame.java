@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.*;
-
 import javax.swing.JFrame;
 
 import model.ReversiReadOnly;
@@ -16,32 +14,31 @@ public class ReversiFrame extends JFrame implements IFrame{
   BoardPanel bp;
 
   /**
-   * Constructs a {@code ReversiFrame} with the specified {@link ReversiReadOnly} board.
-   * Initializes the game board and sets up the frame properties including size,
-   * close operation, and default layout.
+   * Constructs a new {@code ReversiFrame} with a game board panel.
    *
-   * @param board The {@link ReversiReadOnly} board to be displayed inside this frame.
-   *              This object represents the current state of the Reversi game,
-   *              including the positions of all pieces on the board.
+   * @param board The ReversiReadOnly object representing the game board.
+   * @param hint  A boolean indicating whether to enable hints in the game.
+   *              If true, a HintDecorator is applied to the board panel to display hints.
    */
-
   public ReversiFrame(ReversiReadOnly board, boolean hint) {
     if (hint) {
       bp = new HintDecorator(new BoardPanel(board, 600, 600));
-      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      this.add(bp);
-      this.pack();
-      this.setLocationRelativeTo(null); // Center the frame on the screen
     }
     else{
       bp = new BoardPanel(board, 600, 600);
-      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      this.add(bp);
-      this.pack();
-      this.setLocationRelativeTo(null); // Center the frame on the screen
     }
+
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.add(bp);
+    this.pack();
+    this.setLocationRelativeTo(null); // Center the frame on the screen
   }
 
+  /**
+   * Constructs a new {@code ReversiFrame} with a provided board panel.
+   *
+   * @param panel The BoardPanel to be displayed within the frame.
+   */
   public ReversiFrame(BoardPanel panel) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.add(panel);
@@ -60,7 +57,12 @@ public class ReversiFrame extends JFrame implements IFrame{
     return bp;
   }
 
-  public void makeVisible(boolean bool){
+  /**
+   * Sets the visibility of the frame.
+   *
+   * @param isVisible True to make the frame visible, false to hide it.
+   */
+  public void makeVisible(boolean isVisible){
     setVisible(true);
   }
 }

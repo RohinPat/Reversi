@@ -6,8 +6,8 @@ import java.awt.geom.Path2D;
 import model.Disc;
 
 /**
- * The {@code Hexagon} class extends {@link Path2D.Double} and represents a hexagonal shape.
- * It is used to render a hexagon for a grid-based board game, such as Reversi.
+ * The {@code Square} class extends {@link Path2D.Double} and represents a square shape.
+ * It is used to render a square for a grid-based board game, such as Reversi.
  */
 public class Square extends Path2D.Double {
   Color color;
@@ -16,15 +16,14 @@ public class Square extends Path2D.Double {
   double size;
 
   /**
-   * A constructor to create a hexagon shape using the Path2D class.
+   * A constructor to create a square shape using the Path2D class.
    *
-   * @param x     x coordinate of the hexagon.
-   * @param y     y coordinate of the hexagon.
-   * @param size  the size of the hexagon.
-   * @param color the color of the disc to be placed in the hexagon.
+   * @param x     x coordinate of the square.
+   * @param y     y coordinate of the square.
+   * @param size  the size of the square.
+   * @param color the color of the disc to be placed in the square.
    */
   public Square(double x, double y, double size, Disc color) {
-    // Start with an angle that points upwards
     if (color == Disc.BLACK) {
       this.color = Color.BLACK;
     } else if (color == Disc.WHITE) {

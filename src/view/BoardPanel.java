@@ -43,11 +43,12 @@ public class BoardPanel extends JPanel implements IBoardPanel {
   protected boolean hintsEnabled;
   protected Disc player;
 
+  @Override
   public void setController(ControllerFeatures cont) {
     this.controller = cont;
     player = cont.getPlayer();
-
   }
+
 
   public ControllerFeatures getController(){
     return controller;
@@ -55,8 +56,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
 
 
   /**
-   * Instantiates the panel and also opens listeners to ensure functionality for mouse input.
-   * And also for resizing of the board.
+   * Instantiates the panel, the labels, and also opens listeners to ensure functionality for
+   * mouse input. And also for resizing of the board.
    *
    * @param board1 the board to be displayed.
    * @param width  the width of the current window.
@@ -101,10 +102,13 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     hintsEnabled = false;
 
     initializeBoard(board);
-
-    System.out.println(player);
   }
 
+  /**
+   * Toggles the visibility of hints in the game interface.
+   * If hints are currently enabled, this method will disable them, and vice versa.
+   * After toggling, the interface is repainted to reflect the updated hint visibility.
+   */
   public void toggleHints() {
     hintsEnabled = !hintsEnabled;
     repaint();
@@ -151,14 +155,29 @@ public class BoardPanel extends JPanel implements IBoardPanel {
     }
   }
 
+  /**
+   * Retrieves a read-only representation of the Reversi game board.
+   *
+   * @return A ReversiReadOnly object representing the current state of the game board.
+   */
   public ReversiReadOnly getReadReversi() {
     return board;
   }
 
+  /**
+   * Gets the width (number of columns) of the Reversi game board.
+   *
+   * @return The width of the game board.
+   */
   public int getBWidth() {
     return boardWidth;
   }
 
+  /**
+   * Gets the height (number of rows) of the Reversi game board.
+   *
+   * @return The height of the game board.
+   */
   public int getBHeight() {
     return boardHeight;
   }
@@ -297,7 +316,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
 
       if (selectedQ != -1 && selectedR != -1) {
         for (Hexagon hex : hexagons.keySet()) {
-          if (hexagons.get(hex).getFirstCoordinate() == selectedQ && hexagons.get(hex).getSecondCoordinate() == selectedR) {
+          if (hexagons.get(hex).getFirstCoordinate() == selectedQ &&
+                  hexagons.get(hex).getSecondCoordinate() == selectedR) {
             selected = hex;
             break;
           }
@@ -305,7 +325,6 @@ public class BoardPanel extends JPanel implements IBoardPanel {
       }
 
       adjustLabelSizeAndFont();
-
       repaint();
     }
 
@@ -339,8 +358,8 @@ public class BoardPanel extends JPanel implements IBoardPanel {
 
     /**
      * Invoked when a key is pressed. This method checks for specific key presses,
-     * such as "M" for confirming a move and "Space" for passing the turn, and
-     * triggers the corresponding actions.
+     * such as "M" for confirming a move, "Space" for passing the turn, and "E" to toggle
+     * visibility of hints, and triggers the corresponding actions.
      *
      * @param e The {@link KeyEvent} representing a key press event.
      */
@@ -399,6 +418,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
    * @param mouseX The x-coordinate of the mouse click.
    * @param mouseY The y-coordinate of the mouse click.
    */
+  @Override
   public void handleMouseClick(int mouseX, int mouseY) {
     boolean inBounds = false;
     for (Hexagon hex : hexagons.keySet()) {
@@ -428,6 +448,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
    *              the Reversi game. The hexagonal grid is initialized based on the board's
    *              size and the disc values it contains.
    */
+  @Override
   public void initializeBoard(ReversiReadOnly board) {
     selected = null;
     hexagons.clear();
@@ -475,6 +496,7 @@ public class BoardPanel extends JPanel implements IBoardPanel {
    * @param message The message to be displayed in the dialog box, providing information
    *                about the reason for the move being invalid.
    */
+  @Override
   public void showInvalidMoveDialog(String message) {
     JOptionPane.showMessageDialog(this, message, "Invalid Move",
             JOptionPane.ERROR_MESSAGE);
