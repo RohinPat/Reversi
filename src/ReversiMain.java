@@ -153,20 +153,6 @@ public final class ReversiMain {
       viewPanel2.setController(controller12);
       viewPlayer2.makeVisible(true);
 
-
-
-      /*
-      ReversiGUIView rev2 = new ReversiGUIView(new BoardAdapter2(b1));
-      ViewAdapter v2 = new ViewAdapter(rev2);
-      controller2 = new ReversiController(b1, v2, p2);
-      b1.addObserver(controller2);
-      v2.setController(controller2);
-      v2.setVisible(true);
-      */
-
-
-
-
       viewPlayer1.makeVisible(true);
 
     } catch (IllegalArgumentException e) {
