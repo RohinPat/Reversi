@@ -474,45 +474,17 @@ public class ReversiTests {
     board.makeMove(c);
 
     Assert.assertEquals(board.getLog().toString(),
-            "getting possible moves and found:q: -1 r: -1 s: 2\n" +
-                    "q: 1 r: 1 s: -2\n" +
-                    "q: -1 r: 2 s: -1\n" +
-                    "q: 1 r: -2 s: 1\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "getting possible moves and found:q: 1 r: 1 s: -2\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "q: -2 r: -1 s: 3\n" +
-                    "getting possible moves and found:q: 1 r: 1 s: -2\n" +
-                    "q: -1 r: -2 s: 3\n" +
-                    "q: -1 r: 2 s: -1\n" +
-                    "q: 1 r: -2 s: 1\n" +
-                    "getting possible moves and found:q: -1 r: 2 s: -1\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "getting possible moves and found:q: 1 r: 1 s: -2\n" +
-                    "q: -1 r: -2 s: 3\n" +
-                    "getting possible moves and found:q: -1 r: 2 s: -1\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:q: 3 r: -1 s: -2\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "getting possible moves and found:q: 3 r: -2 s: -1\n" +
-                    "q: -1 r: 3 s: -2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: -1 r: -2 s: 3\n" +
-                    "q: -2 r: 3 s: -1\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
-                    "q: -3 r: 1 s: 2\n" +
-                    "q: -1 r: -2 s: 3\n" +
-                    "q: -2 r: 3 s: -1\n");
+            "makeMove called for position: -1, -1\n" +
+                    "makeMove called for position: -2, -1\n" +
+                    "makeMove called for position: 1, -2\n" +
+                    "makeMove called for position: 2, -1\n" +
+                    "makeMove called for position: 1, 1\n" +
+                    "makeMove called for position: -1, 2\n" +
+                    "makeMove called for position: -2, 1\n" +
+                    "makeMove called for position: 1, -3\n" +
+                    "makeMove called for position: 3, -2\n" +
+                    "makeMove called for position: -3, 2\n" +
+                    "makeMove called for position: -1, -2\n");
   }
 
   @Test
@@ -551,31 +523,12 @@ public class ReversiTests {
     System.out.println(c.getFirstCoordinate() + " " + c.getSecondCoordinate());
     Assert.assertEquals(c, new Coordinate(1, -3));
     Assert.assertEquals(board.getLog().toString(),
-            "getting possible moves and found:q: -1 r: -1 s: 2\n" +
-                    "q: 1 r: 1 s: -2\n" + //
-                    "q: -1 r: 2 s: -1\n" + //
-                    "q: 1 r: -2 s: 1\n" + //
-                    "q: -2 r: 1 s: 1\n" + //
-                    "q: 2 r: -1 s: -1\n" + //
-                    "getting possible moves and found:q: 1 r: 1 s: -2\n" + //
-                    "q: -2 r: 1 s: 1\n" + //
-                    "q: 2 r: -1 s: -1\n" + //
-                    "q: -2 r: -1 s: 3\n" + //
-                    "getting possible moves and found:q: 2 r: -1 s: -1\n" + //
-                    "q: 2 r: 1 s: -3\n" + //
-                    "getting possible moves and found:q: 3 r: -2 s: -1\n" + //
-                    "q: 1 r: -2 s: 1\n" + //
-                    "q: -2 r: 1 s: 1\n" + //
-                    "getting possible moves and found:q: -1 r: 2 s: -1\n" + //
-                    "q: 2 r: -3 s: 1\n" + //
-                    "q: 2 r: 1 s: -3\n" + //
-                    "getting possible moves and found:q: 3 r: -1 s: -2\n" + //
-                    "q: -2 r: 1 s: 1\n" + //
-                    "q: -2 r: -1 s: 3\n" + //
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" + //
-                    "q: 1 r: 2 s: -3\n" + "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "");
+            "makeMove called for position: -1, -1\n" +
+                    "makeMove called for position: 1, 1\n" +
+                    "makeMove called for position: 2, -1\n" +
+                    "makeMove called for position: 1, -2\n" +
+                    "makeMove called for position: -1, 2\n" +
+                    "makeMove called for position: -2, 1\n");
   }
 
   @Test
@@ -657,101 +610,24 @@ public class ReversiTests {
     c = tt1.chooseMove(board, Disc.BLACK);
     Assert.assertEquals(c, new Coordinate(4, 4));
     Assert.assertEquals(board.getLog().toString(),
-            "getting possible moves and found:q: -1 r: -1 s: 2\n" +
-                    "q: 1 r: 1 s: -2\n" +
-                    "q: -1 r: 2 s: -1\n" +
-                    "q: 1 r: -2 s: 1\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "getting possible moves and found:q: -1 r: -1 s: 2\n" +
-                    "q: 1 r: 1 s: -2\n" +
-                    "q: -1 r: 2 s: -1\n" +
-                    "q: 1 r: -2 s: 1\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "getting possible moves and found:q: 1 r: 1 s: -2\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "q: -2 r: -1 s: 3\n" +
-                    "getting possible moves and found:q: 2 r: -1 s: -1\n" +
-                    "q: 2 r: 1 s: -3\n" +
-                    "getting possible moves and found:q: 2 r: -1 s: -1\n" +
-                    "q: 2 r: 1 s: -3\n" +
-                    "getting possible moves and found:q: -1 r: 2 s: -1\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "q: -2 r: -1 s: 3\n" +
-                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
-                    "q: 1 r: -2 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
-                    "q: 1 r: -2 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-                    "q: -2 r: 1 s: 1\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-                    "q: -1 r: 3 s: -2\n" +
-                    "q: -3 r: 1 s: 2\n" +
-                    "q: -2 r: 3 s: -1\n" +
-                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-                    "q: -1 r: 3 s: -2\n" +
-                    "q: -3 r: 1 s: 2\n" +
-                    "q: -2 r: 3 s: -1\n" +
-                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-                    "q: 2 r: -1 s: -1\n" +
-                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "getting possible moves and found:q: -1 r: 3 s: -2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "q: -2 r: -1 s: 3\n" +
-                    "q: -2 r: 3 s: -1\n" +
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "q: -2 r: -1 s: 3\n" +
-                    "q: -2 r: 3 s: -1\n" +
-                    "getting possible moves and found:q: 3 r: -2 s: -1\n" +
-                    "q: -1 r: -2 s: 3\n" +
-                    "getting possible moves and found:q: 3 r: -2 s: -1\n" +
-                    "q: -1 r: -2 s: 3\n" +
-                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-                    "q: 1 r: -3 s: 2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:q: -3 r: 2 s: 1\n" +
-                    "q: 1 r: -3 s: 2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-                    "q: -3 r: 3 s: 0\n" +
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: 1 r: 2 s: -3\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-                    "q: 0 r: 3 s: -3\n" +
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: -2 r: 3 s: -1\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: -2 r: 3 s: -1\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-                    "getting possible moves and found:q: -1 r: -2 s: 3\n" +
-                    "getting possible moves and found:q: 1 r: -3 s: 2\n" +
-                    "q: 3 r: -1 s: -2\n" +
-                    "q: 0 r: -3 s: 3\n" +
-                    "q: 2 r: -3 s: 1\n" +
-                    "getting possible moves and found:getting possible moves and found:");
+            "makeMove called for position: -1, -1\n" +
+                    "makeMove called for position: 1, 1\n" +
+                    "makeMove called for position: 2, 1\n" +
+                    "makeMove called for position: -1, 2\n" +
+                    "makeMove called for position: 1, -2\n" +
+                    "makeMove called for position: -2, 1\n" +
+                    "makeMove called for position: -3, 1\n" +
+                    "makeMove called for position: 2, -1\n" +
+                    "makeMove called for position: -1, 3\n" +
+                    "makeMove called for position: -2, -1\n" +
+                    "makeMove called for position: 3, -2\n" +
+                    "makeMove called for position: -3, 2\n" +
+                    "makeMove called for position: -3, 3\n" +
+                    "makeMove called for position: 1, 2\n" +
+                    "makeMove called for position: 0, 3\n" +
+                    "makeMove called for position: -2, 3\n" +
+                    "makeMove called for position: -1, -2\n" +
+                    "makeMove called for position: 0, -3\n");
   }
 
   @Test
